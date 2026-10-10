@@ -1,4 +1,12 @@
+import RelativeTimeFormat from 'relative-time-format';
+import ar from 'relative-time-format/locale/ar';
+import en from 'relative-time-format/locale/en';
+
 import { currentLanguage } from '@/shared/i18n';
+
+// Hermes has no Intl.RelativeTimeFormat. Add each language in LANGUAGES here (a test checks).
+RelativeTimeFormat.addLocale(en);
+RelativeTimeFormat.addLocale(ar);
 
 /** Locale-aware formatting via Intl (Hermes ships Intl). */
 export function formatDate(
@@ -15,7 +23,7 @@ export function formatNumber(value: number, options?: Intl.NumberFormatOptions) 
 /** "3 min ago", "2 days ago". */
 export function formatRelative(value: string | number | Date, now: number = Date.now()) {
   const seconds = Math.round((new Date(value).getTime() - now) / 1000);
-  const units: Array<[Intl.RelativeTimeFormatUnit, number]> = [
+  const units: Array<[Parameters<RelativeTimeFormat['format']>[1], number]> = [
     ['year', 31_536_000],
     ['month', 2_592_000],
     ['week', 604_800],
@@ -23,7 +31,7 @@ export function formatRelative(value: string | number | Date, now: number = Date
     ['hour', 3600],
     ['minute', 60],
   ];
-  const rtf = new Intl.RelativeTimeFormat(currentLanguage(), { numeric: 'auto' });
+  const rtf = new RelativeTimeFormat(currentLanguage(), { numeric: 'auto' });
   for (const [unit, size] of units) {
     if (Math.abs(seconds) >= size) return rtf.format(Math.round(seconds / size), unit);
   }

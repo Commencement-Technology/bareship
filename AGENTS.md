@@ -18,6 +18,41 @@ Never change a recorded decision silently: propose a new ADR.
 | Rename the app | `pnpm bootstrap --name Acme --bundle-id com.acme.app` |
 | Icons / splash | `pnpm icons`, `pnpm splash` |
 
+## Agent skills
+
+Callstack's React Native agent skills are vendored in `.claude/skills/` (pinned, see `skills-lock.json`;
+update with `pnpm skills:sync <ref>` and review the diff). Claude Code loads them automatically; other
+agents should open the `SKILL.md` named below before the matching work.
+
+| Work | Skill |
+| --- | --- |
+| Any React Native code: screens, lists, state, animations, native modules, bundle size, startup | `react-native-best-practices` |
+| Navigation: stacks, tabs, headers, sheets, safe areas | `react-navigation` |
+| Tests with React Native Testing Library | `react-native-testing` |
+| Upgrading React Native or native dependencies | `upgrading-react-native` |
+| CI build artifacts for simulators and emulators | `github-actions` |
+| A local native module or view | `create-react-native-library` |
+| User-facing docs (README usage, guides, release notes) | `writing-user-docs` |
+| Driving a device, exploratory QA (needs the `agent-device` CLI) | `agent-device`, `dogfood` |
+| TV apps, brownfield or migration work (not used by this template) | `react-native-tv-best-practices`, `react-native-brownfield-migration`, `assess-react-native-migration` |
+
+Apply `react-native-best-practices` to all code you write, not only when asked to optimize. Where a skill
+and this file disagree, this file wins; the known cases:
+
+- **Installs:** pnpm with exact versions (`pnpm add x@1.2.3`, `pnpm dlx x@1.2.3`). Never `npx …@latest`: it
+  skips the supply-chain policy in `pnpm-workspace.yaml`.
+- **Measure first** (the skill's own rule): no `useMemo`/`useCallback`/`memo` without a measured problem.
+  The React Compiler is on and memoizes for you.
+- **Imports:** import from the module that defines the thing (`@/shared/ui/primitives/Button`), never from a
+  barrel `index.ts`. A feature's `index.ts` is its public API for `app/` only. Lint enforces both.
+- **Accessibility props:** ARIA props (`role`, `aria-label`, `aria-disabled`, `aria-live`) over the legacy
+  `accessibility*` props. `accessibilityHint` has no ARIA equivalent and stays.
+- **Styling:** Unistyles dynamic functions, not `useVariants` (see Styling below).
+- **Intl polyfills:** `intl-pluralrules` and `relative-time-format`, not the FormatJS set the skill shows
+  (see Intl on Hermes below).
+- **Profiling:** the skill's `agent-device` commands need that CLI, which the template doesn't install. React
+  Native DevTools (Metro `j`) works everywhere.
+
 ## Architecture rules
 
 - `src/` layers, imports go downward only: `app → features → entities → data → shared` (ADR 0005).
@@ -102,10 +137,17 @@ bundles drop it). Demo account: `demo@example.com` / `password123`. Set `API_MOC
 
 ## Intl on Hermes
 
-Hermes ships only `Intl.Collator`, `DateTimeFormat` and `NumberFormat`. `src/shared/i18n/intl-polyfills.ts`
-adds `PluralRules` (i18next plurals) and `RelativeTimeFormat` (`formatRelative`). Adding a language means adding
-its locale data there too; a test fails if you forget. Jest runs Node's full Intl, so device-only Intl bugs
-don't show up in tests: check new Intl APIs on a device.
+Hermes ships only `Intl.Collator`, `DateTimeFormat` and `NumberFormat`.
+
+- `PluralRules` (i18next plurals): `intl-pluralrules`, loaded in `src/shared/i18n/intl-polyfills.ts`. It covers
+  every language.
+- Relative times (`formatRelative` in `src/shared/lib/format.ts`): `relative-time-format`. Adding a language
+  means adding its locale there; a test fails if you forget.
+- Not FormatJS, although the best-practices skill shows it: FormatJS needs `Intl.Locale` too, ~390 KB of
+  polyfills against ~50 KB for these two (docs/best-practices-audit.md).
+
+Jest runs Node's full Intl, so device-only Intl bugs don't show up in tests: test the polyfill itself (see
+`i18n.test.ts`) and check new Intl APIs on a device.
 
 ## Commits
 

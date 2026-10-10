@@ -1,0 +1,19 @@
+{
+  "source": "https://github.com/callstackincubator/agent-skills",
+  "commit": "59e9d17446a248b21d86f078fcd0bd2d36db1ca4",
+  "committedAt": "2026-10-08T21:06:38+02:00",
+  "skills": [
+    "react-native-best-practices",
+    "react-navigation",
+    "upgrading-react-native",
+    "github-actions",
+    "create-react-native-library",
+    "react-native-tv-best-practices",
+    "assess-react-native-migration",
+    "react-native-brownfield-migration",
+    "writing-user-docs",
+    "react-native-testing",
+    "agent-device",
+    "dogfood"
+  ]
+}

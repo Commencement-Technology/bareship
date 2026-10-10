@@ -1,4 +1,4 @@
-import { initI18n } from '@/shared/i18n';
+import { i18n, initI18n } from '@/shared/i18n';
 
 import { formatDate, formatNumber, formatRelative } from './format';
 
@@ -12,6 +12,16 @@ describe('format', () => {
     expect(formatRelative('2026-10-10T11:57:00Z', now)).toBe('3 minutes ago');
     expect(formatRelative('2026-10-08T12:00:00Z', now)).toBe('2 days ago');
     expect(formatRelative('2026-10-10T11:59:50Z', now)).toBe('10 seconds ago');
+  });
+
+  // formatRelative never touches the runtime's Intl.RelativeTimeFormat (Hermes has none), so this
+  // runs the same code as the device.
+  it('formats relative times in Arabic, including CLDR phrases like "the day before yesterday"', async () => {
+    const now = Date.parse('2026-10-10T12:00:00Z');
+    await i18n.changeLanguage('ar');
+    expect(formatRelative('2026-10-08T12:00:00Z', now)).toBe('أول أمس');
+    expect(formatRelative('2026-10-10T11:57:00Z', now)).toBe('قبل 3 دقائق');
+    await i18n.changeLanguage('en');
   });
 
   it('formats numbers and dates for the current language', () => {

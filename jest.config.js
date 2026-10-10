@@ -22,7 +22,7 @@ module.exports = {
   },
   // Many RN libraries ship untranspiled ESM/TS; let Babel handle them.
   transformIgnorePatterns: [
-    'node_modules/(?!((jest-)?react-native|@react-native(-community)?|@react-navigation|react-native-.*|@shopify|@gorhom|@d11|lucide-react-native|msw|@mswjs|until-async|rettime|@open-draft|zod|@hookform|@formatjs)/)',
+    'node_modules/(?!((jest-)?react-native|@react-native(-community)?|@react-navigation|react-native-.*|@shopify|@gorhom|@d11|lucide-react-native|msw|@mswjs|until-async|rettime|@open-draft|zod|@hookform|relative-time-format)/)',
   ],
   testPathIgnorePatterns: ['/node_modules/', '/android/', '/ios/'],
   collectCoverageFrom: [

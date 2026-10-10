@@ -5,3 +5,6 @@ coverage/
 pnpm-lock.yaml
 assets/bootsplash/
 *.md
+
+# Vendored agent skills: keep identical to upstream (pnpm skills:sync)
+.claude/skills/

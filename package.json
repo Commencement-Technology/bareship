@@ -31,14 +31,12 @@
     "check": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm depcruise && pnpm test",
     "bootstrap": "tsx scripts/bootstrap.ts",
     "icons": "tsx scripts/icons.ts",
+    "skills:sync": "tsx scripts/sync-agent-skills.ts",
     "splash": "react-native-bootsplash generate assets/brand/logo.svg --platforms=android,ios --background=FFFFFF --logo-width=120 --assets-output=assets/bootsplash",
     "prepare": "husky"
   },
   "dependencies": {
     "@d11/react-native-fast-image": "^8.13.0",
-    "@formatjs/intl-locale": "^5.3.12",
-    "@formatjs/intl-pluralrules": "^6.3.15",
-    "@formatjs/intl-relativetimeformat": "^12.3.15",
     "@gorhom/bottom-sheet": "^5.2.14",
     "@hookform/resolvers": "^5.9.1",
     "@react-native-community/netinfo": "^12.0.1",
@@ -53,6 +51,7 @@
     "@tanstack/react-query-persist-client": "^5.104.1",
     "axios": "^1.20.0",
     "i18next": "^26.4.2",
+    "intl-pluralrules": "2.0.1",
     "lottie-react-native": "^7.5.0",
     "lucide-react-native": "^1.52.0",
     "react": "19.2.3",
@@ -74,6 +73,7 @@
     "react-native-svg": "^15.15.5",
     "react-native-unistyles": "^3.5.1",
     "react-native-worklets": "^0.13.0",
+    "relative-time-format": "1.1.12",
     "zod": "^4.6.5",
     "zustand": "^5.0.15"
   },

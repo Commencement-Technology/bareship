@@ -69,9 +69,13 @@ needs a real `GoogleService-Info.plist` (made conditional in Phase 3). See docs/
   `BroadcastChannel`, streams via `web-streams-polyfill`, URL via `react-native-url-polyfill`).
 - **Babel**: `@babel/plugin-transform-export-namespace-from` (Zod uses `export * as`) and
   `@babel/plugin-transform-class-static-block` (MSW ships `static {}` blocks Hermes doesn't parse).
-- **@formatjs/intl-locale, intl-pluralrules, intl-relativetimeformat**: Hermes (RN 0.87) has no
-  `Intl.PluralRules` or `Intl.RelativeTimeFormat`. Without them i18next plurals fail silently and
-  `formatRelative` throws "undefined cannot be used as a constructor". Loaded from `src/shared/i18n`.
+- **intl-pluralrules 2.0.1, relative-time-format 1.1.12**: Hermes (RN 0.87) has no `Intl.PluralRules` or
+  `Intl.RelativeTimeFormat`. Without them i18next plurals fail silently and `formatRelative` throws
+  "undefined cannot be used as a constructor". Replaced the FormatJS polyfills, whose locale matcher also
+  needs `Intl.Locale` (~390 KB in total against ~50 KB). Checked in Hermes for English and Arabic.
+- **zod 4**: its `locales` barrel re-exports ~60 languages Metro can't tree-shake. `metro.config.js`
+  resolves it to `metro/zod-locales.js` (English only, −295 KB). The app's validation messages are its own
+  translation keys, so nothing user-visible changes.
 - **lucide-react-native**: import icons only through `src/shared/ui/icons.ts` (one module per icon). A root import
   bundles all ~1,500 icons: the release JS bundle went from 5.74 MB to 3.86 MB after switching. ESLint enforces it.
 - **React Native Testing Library 14**: `render`, `fireEvent` and `userEvent` are all async; always `await` them.

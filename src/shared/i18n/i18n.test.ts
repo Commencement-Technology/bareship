@@ -70,15 +70,23 @@ describe('translations', () => {
 });
 
 describe('Intl polyfills', () => {
-  // Hermes has no Intl.PluralRules / RelativeTimeFormat; without locale data a language
-  // silently loses its plural forms on device even though Jest (Node Intl) still passes.
-  it('load plural and relative-time data for every supported language', () => {
+  // Jest runs Node's native Intl; this checks the polyfill Hermes actually uses.
+  it('the PluralRules polyfill gives Arabic all six plural forms', () => {
+    type Module = typeof Intl.PluralRules & { default?: typeof Intl.PluralRules };
+    const module = jest.requireActual<Module>('intl-pluralrules/plural-rules');
+    const PluralRules = module.default ?? module;
+    const forms = [0, 1, 2, 3, 11, 100].map(n => new PluralRules('ar').select(n));
+    expect(forms).toEqual(['zero', 'one', 'two', 'few', 'many', 'other']);
+  });
+
+  // Hermes has no Intl.RelativeTimeFormat; without its data a language falls back to English
+  // relative times on device, even though Jest (Node's full Intl) still passes.
+  it('load relative-time data for every supported language', () => {
     const source = jest
       .requireActual<typeof import('fs')>('fs')
-      .readFileSync(require.resolve('./intl-polyfills'), 'utf8');
+      .readFileSync(require.resolve('@/shared/lib/format'), 'utf8');
     for (const language of Object.keys(LANGUAGES)) {
-      expect(source).toContain(`intl-pluralrules/locale-data/${language}.js`);
-      expect(source).toContain(`intl-relativetimeformat/locale-data/${language}.js`);
+      expect(source).toContain(`from 'relative-time-format/locale/${language}'`);
     }
   });
 });
