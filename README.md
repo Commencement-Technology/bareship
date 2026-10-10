@@ -73,7 +73,7 @@ Without them, release builds are signed with the debug key and the build prints 
 | 0 | Decisions (ADRs), version matrix, library build check | Done |
 | 1 | Foundation: tooling, environments, splash, icons, rename, CI | Done |
 | 2 | Core: ports and adapters, API client (axios), TanStack Query + MMKV, React Navigation 7, Unistyles design system, i18n, forms, example features with MSW mocks | Done |
-| 3 | Production: offline queue and UI, Firebase (Crashlytics, Analytics, Remote Config, FCM), force update, deep links, OTA port | |
+| 3 | Production: offline queue and UI, Firebase (Crashlytics, Analytics, Remote Config, FCM), force update, deep links, OTA port | In progress: offline done |
 | 4 | Quality: Maestro, Reassure, startup metrics, generators, Fastlane lanes | |
 | 5 | Package: GitHub template + npm `--template`, example stripping, then Track B (Expo) | |
 

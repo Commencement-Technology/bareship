@@ -3,10 +3,9 @@ import {
   infiniteQueryOptions,
   type QueryClient,
   queryOptions,
-  useMutation,
-  useQueryClient,
 } from '@tanstack/react-query';
 
+import { defineQueuedMutation, hasLaterWrite, queryClient, useWaitingWrites } from '@/data';
 import { type CursorPage, http, nextCursor } from '@/shared/api';
 import { i18n } from '@/shared/i18n';
 import { preloadImages, toast } from '@/shared/ui';
@@ -68,30 +67,45 @@ function updatePost(client: QueryClient, id: string, update: (post: Post) => Pos
   client.setQueryData<Post>(postKeys.detail(id), post => (post ? update(post) : post));
 }
 
+export type LikeVariables = { postId: string; like: boolean };
+
+const likeKey = ['posts', 'like'] as const;
+
+const applyLike = (like: boolean) => (post: Post) =>
+  post.likedByMe === like
+    ? post
+    : { ...post, likedByMe: like, likeCount: post.likeCount + (like ? 1 : -1) };
+
 /**
- * Like / unlike with an optimistic update (offline pattern B in Phase 3):
- * the UI changes instantly, rolls back with a toast on failure, and adopts the server's copy on success.
+ * Like / unlike: a queued write with an optimistic update (offline pattern B, ADR 0006).
+ * The UI changes at once and works offline: the write waits for a connection, survives a restart,
+ * and the card shows it as waiting (`useWaitingLikes`). On failure it rolls back with a toast.
  */
-export function useToggleLike() {
-  const client = useQueryClient();
-  return useMutation({
-    mutationFn: ({ post }: { post: Post }) =>
-      post.likedByMe
-        ? http.delete(`/posts/${post.id}/like`, PostSchema)
-        : http.post(`/posts/${post.id}/like`, PostSchema),
-    onMutate: async ({ post }) => {
-      await client.cancelQueries({ queryKey: postKeys.all });
-      updatePost(client, post.id, current => ({
-        ...current,
-        likedByMe: !post.likedByMe,
-        likeCount: current.likeCount + (post.likedByMe ? -1 : 1),
-      }));
-      return { previous: post };
-    },
-    onError: (_error, { post }) => {
-      updatePost(client, post.id, () => post);
-      toast.error(i18n.t('feed.likeFailed'));
-    },
-    onSuccess: updated => updatePost(client, updated.id, () => updated),
-  });
+export const useToggleLike = defineQueuedMutation<Post, LikeVariables>({
+  mutationKey: likeKey,
+  mutationFn: ({ postId, like, idempotencyKey }) => {
+    const url = `/posts/${encodeURIComponent(postId)}/like`;
+    return like
+      ? http.post(url, PostSchema, { idempotencyKey })
+      : http.delete(url, PostSchema, { idempotencyKey });
+  },
+  onMutate: async ({ postId, like }) => {
+    await queryClient.cancelQueries({ queryKey: postKeys.all });
+    updatePost(queryClient, postId, applyLike(like));
+  },
+  onError: (_error, { postId, like }) => {
+    updatePost(queryClient, postId, applyLike(!like));
+    toast.error(i18n.t('feed.likeFailed'));
+  },
+  onSuccess: (updated, { postId }) => {
+    // A like then an unlike queued offline: keep the optimistic state until the last one lands.
+    if (hasLaterWrite<LikeVariables>(likeKey, variables => variables.postId === postId)) return;
+    updatePost(queryClient, updated.id, () => updated);
+  },
+});
+
+/** Ids of posts whose like is waiting for a connection. */
+export function useWaitingLikes(): ReadonlySet<string> {
+  const waiting = useWaitingWrites<LikeVariables>(likeKey);
+  return new Set(waiting.map(variables => variables.postId));
 }

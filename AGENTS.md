@@ -37,6 +37,29 @@ See [docs/architecture.md](docs/architecture.md) for data flow and the reference
 ESLint (`eslint-plugin-boundaries`) and `dependency-cruiser` enforce the layer rules. Fix the import, never
 disable the rule.
 
+## Offline
+
+Every write picks one offline pattern (ADR 0006, after Expensify):
+
+| Pattern | Behaviour | Use for | How |
+| --- | --- | --- | --- |
+| A | Optimistic, queued, no feedback | Low-stakes toggles | `defineQueuedMutation` |
+| B | Optimistic, queued, shows "Waiting to sync" | Likes, comments, edits | `defineQueuedMutation` + `useWaitingWrites` (see `features/feed/api.ts`) |
+| C | Form disabled while offline | Sign-in, payment | `OfflineNotice` + `disabled={!useIsOnline()}` |
+| D | Content replaced while offline | Account deletion, checkout | `<OnlineOnly>` |
+
+- Plain `useMutation` writes fail fast offline (`networkMode: 'always'`). Only `defineQueuedMutation`
+  writes wait, survive a restart, and replay in order with one `Idempotency-Key` per write.
+- Define queued writes at module level and do cache updates in their callbacks: after a restart the
+  screen that started the write is gone. Keep variables small and JSON-safe (ids and flags).
+- Import every module that defines a queued write from `src/app/queued-writes.ts`. Metro loads
+  modules lazily (`inlineRequires`), so without it a write saved before a restart has no definition
+  when the cache comes back. A test fails if an import is missing; `resumeQueuedWrites` drops and
+  reports any write it can't run.
+- The banner under the header comes from `app/navigation/offline-layout.tsx` (`screenLayout`).
+- Mock mode can't simulate a dead network (requests never leave the app). To test offline, turn on
+  airplane mode: NetInfo drives the queue either way.
+
 ## Styling
 
 Unistyles 3 with the React Compiler on. For styles that depend on props or state, use a **dynamic function**

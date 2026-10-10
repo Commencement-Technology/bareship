@@ -8,7 +8,7 @@ import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 import { useTranslation } from '@/shared/i18n';
 import { EmptyState, ErrorState, Text } from '@/shared/ui';
 
-import { feedQueryOptions, useToggleLike } from '../api';
+import { feedQueryOptions, useToggleLike, useWaitingLikes } from '../api';
 import { PostCard } from '../components/PostCard';
 import { PostCardSkeleton } from '../components/PostCardSkeleton';
 
@@ -18,6 +18,7 @@ export function FeedScreen() {
   const navigation = useNavigation();
   const feed = useInfiniteQuery(feedQueryOptions());
   const toggleLike = useToggleLike();
+  const waitingLikes = useWaitingLikes();
   const posts = useMemo(() => feed.data?.pages.flatMap(page => page.items) ?? [], [feed.data]);
 
   if (feed.isPending) {
@@ -51,7 +52,8 @@ export function FeedScreen() {
           <PostCard
             post={item}
             onPress={() => navigation.navigate('Post', { id: item.id })}
-            onToggleLike={() => toggleLike.mutate({ post: item })}
+            onToggleLike={() => toggleLike.mutate({ postId: item.id, like: !item.likedByMe })}
+            likePending={waitingLikes.has(item.id)}
           />
         )}
         onEndReached={() => {

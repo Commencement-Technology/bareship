@@ -3,7 +3,17 @@ import { useNavigation } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
 
 import { useTranslation } from '@/shared/i18n';
-import { Button, Card, errorMessage, FormTextField, Screen, Stack, Text } from '@/shared/ui';
+import { useIsOnline } from '@/shared/lifecycle/network';
+import {
+  Button,
+  Card,
+  errorMessage,
+  FormTextField,
+  OfflineNotice,
+  Screen,
+  Stack,
+  Text,
+} from '@/shared/ui';
 
 import { useRequestPasswordReset } from '../hooks/useAuthMutations';
 import { type ForgotPasswordInput, ForgotPasswordInputSchema } from '../schema';
@@ -12,11 +22,13 @@ export function ForgotPasswordScreen() {
   const { t } = useTranslation();
   const navigation = useNavigation();
   const reset = useRequestPasswordReset();
+  const online = useIsOnline();
   const { control, handleSubmit, getValues } = useForm<ForgotPasswordInput>({
     resolver: zodResolver(ForgotPasswordInputSchema),
     defaultValues: { email: '' },
   });
   const submit = () => {
+    if (!online) return; // offline pattern C
     handleSubmit(values => reset.mutate(values))();
   };
 
@@ -46,10 +58,12 @@ export function ForgotPasswordScreen() {
             onSubmitEditing={submit}
           />
           {reset.error ? <Text tone="danger">{errorMessage(reset.error, t)}</Text> : null}
+          <OfflineNotice message={t('offline.resetBlocked')} />
           <Button
             title={t('auth.forgot.submit')}
             onPress={submit}
             loading={reset.isPending}
+            disabled={!online}
             fullWidth
           />
         </Stack>

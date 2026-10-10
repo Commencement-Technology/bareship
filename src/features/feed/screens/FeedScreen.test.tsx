@@ -1,4 +1,5 @@
-import { screen, userEvent, waitFor, within } from '@testing-library/react-native';
+import { onlineManager } from '@tanstack/react-query';
+import { act, screen, userEvent, waitFor, within } from '@testing-library/react-native';
 import { http as mock, HttpResponse } from 'msw';
 
 import { server } from '@/mocks/node';
@@ -32,6 +33,29 @@ describe('FeedScreen', () => {
 
     await waitFor(() => expect(screen.getByTestId('like-p_2')).toHaveAccessibleName('Unlike'));
     expect(within(screen.getByTestId('like-p_2')).getByText('8 likes')).toBeOnTheScreen();
+  });
+
+  it('likes while offline: shows it at once as waiting, then syncs on reconnect', async () => {
+    let requests = 0;
+    server.events.on('request:start', ({ request }) => {
+      if (request.url.includes('/like')) requests += 1;
+    });
+    const user = userEvent.setup();
+    await renderWithProviders(<FeedScreen />);
+    await screen.findByTestId('like-p_2');
+    await act(async () => onlineManager.setOnline(false));
+
+    await user.press(screen.getByTestId('like-p_2'));
+    expect(screen.getByTestId('like-p_2')).toHaveAccessibleName('Unlike');
+    expect(within(screen.getByTestId('like-p_2')).getByText('8 likes')).toBeOnTheScreen();
+    expect(await screen.findByTestId('like-pending-p_2')).toBeOnTheScreen();
+    expect(requests).toBe(0);
+
+    await act(async () => onlineManager.setOnline(true));
+    await waitFor(() => expect(screen.queryByTestId('like-pending-p_2')).not.toBeOnTheScreen());
+    expect(requests).toBe(1);
+    expect(within(screen.getByTestId('like-p_2')).getByText('8 likes')).toBeOnTheScreen();
+    server.events.removeAllListeners();
   });
 
   it('rolls back a failed like and tells the user', async () => {

@@ -1,4 +1,5 @@
-import { screen, userEvent, waitFor } from '@testing-library/react-native';
+import { onlineManager } from '@tanstack/react-query';
+import { act, screen, userEvent, waitFor } from '@testing-library/react-native';
 
 import { useSession } from '@/entities/session';
 import { renderWithProviders } from '@/test/render';
@@ -14,6 +15,20 @@ async function signIn(email: string, password: string) {
 }
 
 describe('LoginScreen', () => {
+  it("can't sign in while offline, and says why", async () => {
+    await renderWithProviders(<LoginScreen />);
+    await act(async () => onlineManager.setOnline(false));
+
+    expect(
+      screen.getByText("You're offline. Connect to the internet to sign in."),
+    ).toBeOnTheScreen();
+    expect(screen.getByRole('button', { name: 'Sign in' })).toBeDisabled();
+
+    await act(async () => onlineManager.setOnline(true));
+    expect(screen.queryByTestId('offline-notice')).not.toBeOnTheScreen();
+    expect(screen.getByRole('button', { name: 'Sign in' })).toBeEnabled();
+  });
+
   it('signs in with valid credentials (email is trimmed and lower-cased)', async () => {
     await signIn(' Demo@Example.com', 'password123');
     await waitFor(() => expect(useSession.getState().status).toBe('signedIn'));

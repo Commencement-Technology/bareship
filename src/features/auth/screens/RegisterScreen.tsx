@@ -4,10 +4,12 @@ import { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { useTranslation } from '@/shared/i18n';
+import { useIsOnline } from '@/shared/lifecycle/network';
 import {
   Button,
   errorMessage,
   FormTextField,
+  OfflineNotice,
   Screen,
   Stack,
   Text,
@@ -23,12 +25,14 @@ export function RegisterScreen() {
   const emailRef = useRef<TextInputRef>(null);
   const passwordRef = useRef<TextInputRef>(null);
   const register = useRegister();
+  const online = useIsOnline();
   const { control, handleSubmit } = useForm<RegisterInput>({
     resolver: zodResolver(RegisterInputSchema),
     defaultValues: { name: '', email: '', password: '' },
   });
 
   const submit = () => {
+    if (!online) return; // offline pattern C
     handleSubmit(values => register.mutate(values))();
   };
   const failure = register.error
@@ -86,10 +90,12 @@ export function RegisterScreen() {
             {failure}
           </Text>
         ) : null}
+        <OfflineNotice message={t('offline.registerBlocked')} />
         <Button
           title={t('auth.register.submit')}
           onPress={submit}
           loading={register.isPending}
+          disabled={!online}
           fullWidth
         />
       </Stack>

@@ -52,6 +52,23 @@ describe('layout direction', () => {
   });
 });
 
+describe('translations', () => {
+  const PLURAL = /_(zero|one|two|few|many|other)$/;
+  const keys = (tree: object, prefix = ''): string[] =>
+    Object.entries(tree).flatMap(([key, value]) =>
+      typeof value === 'object' && value !== null
+        ? keys(value, `${prefix}${key}.`)
+        : [`${prefix}${key}`.replace(PLURAL, '')],
+    );
+
+  it('Arabic has every English key (plural forms may differ)', () => {
+    const { resources } = jest.requireActual<typeof import('./index')>('./index');
+    const arabic = new Set(keys(resources.ar.translation));
+    const missing = [...new Set(keys(resources.en.translation))].filter(key => !arabic.has(key));
+    expect(missing).toEqual([]);
+  });
+});
+
 describe('Intl polyfills', () => {
   // Hermes has no Intl.PluralRules / RelativeTimeFormat; without locale data a language
   // silently loses its plural forms on device even though Jest (Node Intl) still passes.

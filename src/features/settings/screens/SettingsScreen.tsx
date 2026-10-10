@@ -19,6 +19,7 @@ import {
   errorMessage,
   getThemePreference,
   ListItem,
+  OnlineOnly,
   SegmentedControl,
   setThemePreference,
   Sheet,
@@ -122,12 +123,13 @@ export function SettingsScreen() {
       </Section>
 
       <Sheet ref={deleteSheet}>
-        <Text variant="heading">{t('settings.deleteTitle')}</Text>
-        <Text tone="muted">{t('settings.deleteBody')}</Text>
-        {deleteAccount.error ? (
-          <Text tone="danger">{errorMessage(deleteAccount.error, t)}</Text>
-        ) : null}
-        <Stack gap="sm">
+        {/* Offline pattern D: deleting an account can't be queued, so the sheet explains why. */}
+        <OnlineOnly>
+          <Text variant="heading">{t('settings.deleteTitle')}</Text>
+          <Text tone="muted">{t('settings.deleteBody')}</Text>
+          {deleteAccount.error ? (
+            <Text tone="danger">{errorMessage(deleteAccount.error, t)}</Text>
+          ) : null}
           <Button
             title={t('settings.deleteConfirm')}
             variant="danger"
@@ -135,6 +137,8 @@ export function SettingsScreen() {
             onPress={() => deleteAccount.mutate()}
             fullWidth
           />
+        </OnlineOnly>
+        <Stack gap="sm">
           <Button
             title={t('common.cancel')}
             variant="secondary"

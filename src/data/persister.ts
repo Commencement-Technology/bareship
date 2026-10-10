@@ -29,6 +29,10 @@ export function createPersistOptions(): Omit<PersistQueryClientOptions, 'queryCl
     dehydrateOptions: {
       shouldDehydrateQuery: query =>
         query.state.status === 'success' && query.meta?.persist !== false,
+      // Queued writes waiting for a connection (./offline.ts) survive the app being killed.
+      // A write already on the wire when the app dies is not saved; its idempotency key makes a
+      // manual retry safe.
+      shouldDehydrateMutation: mutation => mutation.state.isPaused,
     },
   };
 }

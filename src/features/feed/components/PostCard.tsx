@@ -13,9 +13,11 @@ export type PostCardProps = {
   onPress?: () => void;
   onToggleLike: () => void;
   expanded?: boolean;
+  /** The like is queued offline and not yet saved (offline pattern B). */
+  likePending?: boolean;
 };
 
-export function PostCard({ post, onPress, onToggleLike, expanded }: PostCardProps) {
+export function PostCard({ post, onPress, onToggleLike, expanded, likePending }: PostCardProps) {
   const { t } = useTranslation();
   const likes = t('feed.likes', { count: post.likeCount });
 
@@ -56,6 +58,7 @@ export function PostCard({ post, onPress, onToggleLike, expanded }: PostCardProp
         accessibilityLabel={post.likedByMe ? t('feed.unlike') : t('feed.like')}
         accessibilityState={{ selected: post.likedByMe }}
         accessibilityValue={{ text: likes }}
+        accessibilityHint={likePending ? t('offline.waiting') : undefined}
         onPress={onToggleLike}
         hitSlop={8}
         style={styles.like}
@@ -65,6 +68,11 @@ export function PostCard({ post, onPress, onToggleLike, expanded }: PostCardProp
         <Text variant="caption" tone="muted">
           {likes}
         </Text>
+        {likePending ? (
+          <Text variant="caption" tone="subtle" testID={`like-pending-${post.id}`}>
+            {t('offline.waiting')}
+          </Text>
+        ) : null}
       </Pressable>
     </View>
   );

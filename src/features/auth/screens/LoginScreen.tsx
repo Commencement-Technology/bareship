@@ -4,10 +4,12 @@ import { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { useTranslation } from '@/shared/i18n';
+import { useIsOnline } from '@/shared/lifecycle/network';
 import {
   Button,
   errorMessage,
   FormTextField,
+  OfflineNotice,
   Screen,
   Stack,
   Text,
@@ -22,12 +24,14 @@ export function LoginScreen() {
   const navigation = useNavigation();
   const passwordRef = useRef<TextInputRef>(null);
   const login = useLogin();
+  const online = useIsOnline();
   const { control, handleSubmit } = useForm<LoginInput>({
     resolver: zodResolver(LoginInputSchema),
     defaultValues: { email: '', password: '' },
   });
 
   const submit = () => {
+    if (!online) return; // offline pattern C: never queue a sign-in
     handleSubmit(values => login.mutate(values))();
   };
   const failure = login.error
@@ -75,10 +79,12 @@ export function LoginScreen() {
             {failure}
           </Text>
         ) : null}
+        <OfflineNotice message={t('offline.signInBlocked')} />
         <Button
           title={t('auth.login.submit')}
           onPress={submit}
           loading={login.isPending}
+          disabled={!online}
           fullWidth
           testID="login-submit"
         />

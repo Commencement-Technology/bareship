@@ -1,13 +1,15 @@
+import './queued-writes'; // before the saved cache is restored; see the file
+
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { StatusBar } from 'react-native';
 import BootSplash from 'react-native-bootsplash';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 
-import { createPersistOptions, queryClient } from '@/data';
+import { createPersistOptions, queryClient, resumeQueuedWrites } from '@/data';
 import { useSession } from '@/entities/session';
 import { services } from '@/shared/services/services';
 import { ErrorBoundary, ToastHost } from '@/shared/ui';
@@ -37,6 +39,21 @@ export function App() {
   useEffect(() => {
     if (ready) BootSplash.hide({ fade: true }).catch(() => {});
   }, [ready]);
+
+  // Replay writes queued before the app was closed. Wait for boot: the HTTP client and the session
+  // must be ready, or the replay fails and rolls back. Then revalidate what the writes touched.
+  // Offline, they stay queued and run when the connection returns.
+  const resumed = useRef(false);
+  useEffect(() => {
+    if (!ready || resumed.current) return;
+    resumed.current = true;
+    if (status === 'signedIn') {
+      resumeQueuedWrites().then(() => queryClient.invalidateQueries());
+    } else {
+      // The writes belong to a session that has ended (it expired while the app was closed).
+      queryClient.getMutationCache().clear();
+    }
+  }, [ready, status]);
 
   return (
     <GestureHandlerRootView style={styles.root}>

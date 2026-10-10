@@ -93,6 +93,8 @@ beforeEach(() => {
 
 afterEach(() => {
   server.resetHandlers();
+  // Tests that go offline must not leak it into the next test.
+  require('@tanstack/react-query').onlineManager.setOnline(true);
   // Query GC timers (gcTime is 24 h in the app) and toast timers would keep Jest alive.
   require('@/data/query-client').queryClient.clear();
   require('@/shared/ui/toast/toast-store').useToastStore.getState().dismiss();

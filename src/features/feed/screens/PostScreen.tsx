@@ -7,7 +7,7 @@ import { z } from 'zod';
 import { useTranslation } from '@/shared/i18n';
 import { ErrorState, LoadingState } from '@/shared/ui';
 
-import { postQueryOptions, useToggleLike } from '../api';
+import { postQueryOptions, useToggleLike, useWaitingLikes } from '../api';
 import { PostCard } from '../components/PostCard';
 
 // Params can arrive from a deep link, so validate them like any other input.
@@ -22,6 +22,7 @@ export function PostScreen({ route }: PostScreenProps) {
   const id = params.success ? params.data.id : '';
   const post = useQuery({ ...postQueryOptions(id, client), enabled: params.success });
   const toggleLike = useToggleLike();
+  const waitingLikes = useWaitingLikes();
 
   if (!params.success) return <ErrorState error={params.error} />;
   if (post.isPending) return <LoadingState />;
@@ -36,7 +37,8 @@ export function PostScreen({ route }: PostScreenProps) {
       <PostCard
         post={post.data}
         expanded
-        onToggleLike={() => toggleLike.mutate({ post: post.data })}
+        onToggleLike={() => toggleLike.mutate({ postId: post.data.id, like: !post.data.likedByMe })}
+        likePending={waitingLikes.has(post.data.id)}
       />
     </ScrollView>
   );

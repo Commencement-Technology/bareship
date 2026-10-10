@@ -109,5 +109,16 @@
     "deleteConfirm": "Delete my account",
     "deleteFailed": "Couldn't delete your account. Try again.",
     "showroom": "Component showroom"
+  },
+  "offline": {
+    "banner": "You're offline. Showing saved content.",
+    "pending_one": "You're offline. {{count}} change will sync when you reconnect.",
+    "pending_other": "You're offline. {{count}} changes will sync when you reconnect.",
+    "waiting": "Waiting to sync",
+    "signInBlocked": "You're offline. Connect to the internet to sign in.",
+    "registerBlocked": "You're offline. Connect to the internet to create an account.",
+    "resetBlocked": "You're offline. Connect to the internet to reset your password.",
+    "requiredTitle": "You're offline",
+    "requiredBody": "Connect to the internet to continue."
   }
 }

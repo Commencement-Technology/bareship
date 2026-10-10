@@ -12,9 +12,11 @@ import { i18n } from '@/shared/i18n';
 import { Home, Settings } from '@/shared/ui/icons';
 
 import { TabIcon, TranslatedText } from './labels';
+import { offlineLayout } from './offline-layout';
 
 const Tabs = createBottomTabNavigator({
   screenOptions: { headerShadowVisible: false },
+  screenLayout: offlineLayout,
   screens: {
     Feed: {
       screen: FeedScreen,
@@ -74,12 +76,14 @@ const RootStack = createNativeStackNavigator({
         Post: {
           screen: PostScreen,
           linking: 'post/:id',
+          layout: offlineLayout,
           options: { headerShown: true, title: '', headerBackButtonDisplayMode: 'minimal' },
         },
         ...(__DEV__
           ? {
               Showroom: {
                 screen: ShowroomScreen,
+                layout: offlineLayout,
                 options: { headerShown: true, title: i18n.t('settings.showroom') },
               },
             }
