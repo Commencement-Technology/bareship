@@ -1,0 +1,5 @@
+// Debug-Dev: CocoaPods settings first, then the environment.
+#include? "../Pods/Target Support Files/Pods-RnTemplate/Pods-RnTemplate.debug-dev.xcconfig"
+#include "Dev.xcconfig"
+SWIFT_ACTIVE_COMPILATION_CONDITIONS = $(inherited) DEBUG
+

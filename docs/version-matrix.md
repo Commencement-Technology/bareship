@@ -1,0 +1,65 @@
+# Version matrix
+
+Checked on 2026-10-10. Update this file whenever a native dependency is added or upgraded.
+
+## Toolchain
+
+| Tool | Version | Source |
+| --- | --- | --- |
+| React Native | 0.87.1 | `react-native-community/template` 0.87-stable |
+| React | 19.2.3 (exact, must match RN's renderer) | template |
+| @react-native-community/cli | 20.2.0 | template |
+| Node | ≥ 22.11 (`.nvmrc`: 24) | template `engines` |
+| pnpm | 12.3.4 (`packageManager`), policy needs ≥ 11 | ADR 0003 |
+| TypeScript | 6.0 | template |
+| Gradle / AGP / Kotlin | 9.4.1 / 9 / 2.2.0 | template |
+| Android SDK | compile 37, target 36, min 24; build-tools 37.0.0 | template |
+| Android NDK | 27.1.12297006 | template (see note on Unistyles below) |
+| Java | 21 | Gradle 9 requirement |
+| Xcode | 27.0 | local; CI `macos-26`. **The iOS 27 SDK requires the UIScene life cycle**, which the RN 0.87 template lacks; see docs/native-changes.md#uiscene |
+| iOS deployment target | 15.1 (RN 0.87 `min_ios_version_supported`) | template |
+| CocoaPods | 1.15.2 via Bundler | `Gemfile` |
+
+## Libraries chosen in Phase 0
+
+"Android build" means all 32 libraries below (everything except the opt-in SQLite module) were compiled
+together into one Android debug APK (arm64) on the toolchain above: BUILD SUCCESSFUL, 962 tasks, 2026-10-10.
+"iOS build" with all libraries is verified in Phase 2, when the Firebase static-framework setup lands.
+"Peers" means the published peer ranges allow RN 0.87 / React 19.2.
+
+| Library | Version | Role (ADR) | Peers | Android build | Notes |
+| --- | --- | --- | --- | --- | --- |
+| @react-navigation/native, native-stack, bottom-tabs | 7.5 / 7.20 / 7.20 | Navigation (0007) | ✓ | ✓ | v8 still alpha |
+| react-native-screens | 4.28 | Navigation | ✓ | ✓ | 4.29 held back by the 3-day release age |
+| react-native-safe-area-context | 5.10 | Layout | ✓ | ✓ | |
+| react-native-gesture-handler | 3.3 | Gestures (0008) | ✓ | ✓ | Major 3: new API |
+| react-native-reanimated / worklets | 4.7.1 / 0.13.0 | Animation (0008) | RN 0.86–0.88 | ✓ | |
+| react-native-unistyles | 3.5.1 | Styling (0008) | ✓ | ✓ | Doesn't read `ndkVersion`; Phase 2 forces the app NDK on all subprojects |
+| react-native-nitro-modules | 0.37.1 | Unistyles, MMKV | ✓ | ✓ | |
+| react-native-edge-to-edge | 1.8.2 | Unistyles peer | ✓ | ✓ | |
+| react-native-mmkv | 4.3.2 | Storage (0006) | ✓ | ✓ | Nitro-based |
+| react-native-keychain | 10.0.0 | SecureStore (0010) | ✓ | ✓ | Last release 2025-03; behind a port |
+| @shopify/flash-list | 2.3.3 | Lists (0008) | ✓ | ✓ | |
+| @gorhom/bottom-sheet | 5.2.14 | Sheets (0008) | ✓ | ✓ | |
+| lucide-react-native + react-native-svg | 1.52 / 15.15.5 | Icons (0008) | ✓ | ✓ | |
+| @d11/react-native-fast-image | 8.13.0 | Image port (0008) | ✓ | ✓ | |
+| @shopify/react-native-skia | 2.14.0 | Graphics (0008) | ✓ | ✓ | Largest native dependency |
+| lottie-react-native | 7.5.0 | Animation (0008) | ✓ | ✓ | |
+| react-native-localize | 3.7.2 | i18n (0009) | ✓ | ✓ | |
+| react-native-config | 1.7.2 | Env (0004) | ✓ | ✓ | |
+| react-native-bootsplash | 7.3.4 | Splash | ✓ | ✓ | Pulls `@expo/config-plugins` (trust exception in pnpm policy) |
+| @react-native-firebase/app, messaging, crashlytics, analytics, remote-config | 26.4.0 | Observability, push (0010) | ✓ | ✓ | iOS needs static frameworks; plugins only when configured |
+| react-native-notify-kit | 10.8.0 | Push display (0010) | ✓ | ✓ | Maintained Notifee fork (Notifee archived 2026-04) |
+| @react-native-community/netinfo | 12.0.1 | Offline (0006) | ✓ | ✓ | |
+| react-native-permissions | 5.6.2 | Permissions | ✓ | ✓ | |
+| react-native-device-info | 15.0.2 | Force update | ✓ | ✓ | |
+| react-native-keyboard-controller | 1.22.6 | Forms (0009) | ✓ | ✓ | |
+| @op-engineering/op-sqlite + drizzle-orm | 18.2.5 / 0.45 | Offline DB module (0006, opt-in) | ✓ | not yet | Checked when the module is built |
+
+## Dev tooling notes
+
+- **ESLint 9.39** (maintenance line). ESLint 10 is out, but `@react-native/eslint-config`, `eslint-plugin-react`
+  and `eslint-plugin-react-native` don't declare support yet. `eslint-plugin-ft-flow` is overridden to 3.x for
+  ESLint 9.
+- **React Native Testing Library 14** uses `test-renderer` (not `react-test-renderer`). `test-renderer` is pinned to
+  `~1.2.0` because 1.3 needs React 19.3.

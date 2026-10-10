@@ -1,0 +1,7 @@
+android/
+ios/
+vendor/
+coverage/
+pnpm-lock.yaml
+assets/bootsplash/
+*.md

@@ -1,0 +1,199 @@
+apply plugin: "com.android.application"
+apply plugin: "org.jetbrains.kotlin.android"
+apply plugin: "com.facebook.react"
+
+/**
+ * This is the configuration block to customize your React Native Android app.
+ * By default you don't need to apply any configuration, just uncomment the lines you need.
+ */
+react {
+    /* Folders */
+    //   The root of your project, i.e. where "package.json" lives. Default is '../..'
+    // root = file("../../")
+    //   The folder where the react-native NPM package is. Default is ../../node_modules/react-native
+    // reactNativeDir = file("../../node_modules/react-native")
+    //   The folder where the react-native Codegen package is. Default is ../../node_modules/@react-native/codegen
+    // codegenDir = file("../../node_modules/@react-native/codegen")
+    //   The cli.js file which is the React Native CLI entrypoint. Default is ../../node_modules/react-native/cli.js
+    // cliFile = file("../../node_modules/react-native/cli.js")
+
+    /* Variants */
+    //   The list of variants to that are debuggable. For those we're going to
+    //   skip the bundling of the JS bundle and the assets. Default is "debug", "debugOptimized".
+    //   If you add flavors like lite, prod, etc. you'll have to list your debuggableVariants.
+    // debuggableVariants = ["liteDebug", "liteDebugOptimized", "prodDebug", "prodDebugOptimized"]
+    // [rn-template] One debuggable variant per environment flavor (see docs/native-changes.md#android-flavors).
+    debuggableVariants = ["devDebug", "devDebugOptimized", "stagingDebug", "stagingDebugOptimized", "prodDebug", "prodDebugOptimized"]
+
+    /* Bundling */
+    //   A list containing the node command and its flags. Default is just 'node'.
+    // nodeExecutableAndArgs = ["node"]
+    //
+    //   The command to run when bundling. By default is 'bundle'
+    // bundleCommand = "ram-bundle"
+    //
+    //   The path to the CLI configuration file. Default is empty.
+    // bundleConfig = file(../rn-cli.config.js)
+    //
+    //   The name of the generated asset file containing your JS bundle
+    // bundleAssetName = "MyApplication.android.bundle"
+    //
+    //   The entry file for bundle generation. Default is 'index.android.js' or 'index.js'
+    // entryFile = file("../js/MyApplication.android.js")
+    //
+    //   A list of extra flags to pass to the 'bundle' commands.
+    //   See https://github.com/react-native-community/cli/blob/main/docs/commands.md#bundle
+    // extraPackagerArgs = []
+
+    /* Hermes Commands */
+    //   The hermes compiler command to run. By default it is 'hermesc'
+    // hermesCommand = "$rootDir/my-custom-hermesc/bin/hermesc"
+    //
+    //   The list of flags to pass to the Hermes compiler. By default is "-O", "-output-source-map"
+    // hermesFlags = ["-O", "-output-source-map"]
+
+    /* Autolinking */
+    autolinkLibrariesWithApp()
+}
+
+/**
+ * [rn-template] Per-flavor values for react-native-config (docs/native-changes.md#android-env).
+ * The library's own dotenv.gradle picks ONE .env file per Gradle run, from the first task name, so a
+ * single `./gradlew assembleRelease` (all flavors) would ship the same environment in every app.
+ * Each flavor below reads its own file instead, so any build produces the right values.
+ * react-native-config reads these BuildConfig fields at runtime; keys are validated in src/shared/config/env.ts.
+ */
+def readEnvFile = { String fileName ->
+    def file = rootProject.file("../${fileName}")
+    if (!file.exists()) {
+        throw new GradleException("[rn-template] Missing ${fileName} at the project root. Copy .env.example.")
+    }
+    def values = [:]
+    file.eachLine { line ->
+        def match = (line =~ /^\s*(?:export\s+)?([A-Za-z_][\w.\-]*)\s*=\s*['"]?(.*?)['"]?\s*$/)
+        if (match.matches()) values[match.group(1)] = match.group(2)
+    }
+    return values
+}
+def applyEnvFile = { flavor, String fileName ->
+    readEnvFile(fileName).each { key, value ->
+        flavor.buildConfigField "String", key, "\"${value.replace('"', '\\"')}\""
+        flavor.resValue "string", key, "\"${value.replace('%', '\\u0025')}\""
+    }
+}
+
+/**
+ * Set this to true to Run Proguard on Release builds to minify the Java bytecode.
+ * [rn-template] On by default; keep rules in proguard-rules.pro.
+ */
+def enableProguardInReleaseBuilds = true
+
+/**
+ * [rn-template] Release signing comes from Gradle properties or environment variables, never from git.
+ * Set RN_UPLOAD_STORE_FILE, RN_UPLOAD_STORE_PASSWORD, RN_UPLOAD_KEY_ALIAS, RN_UPLOAD_KEY_PASSWORD in
+ * ~/.gradle/gradle.properties (local) or as CI secrets. Without them, release builds fall back to the
+ * debug key so they still run locally, and the build prints a warning.
+ */
+def signingValue = { String name -> project.findProperty(name) ?: System.getenv(name) }
+def hasUploadKey = signingValue("RN_UPLOAD_STORE_FILE") != null
+
+/**
+ * The preferred build flavor of JavaScriptCore (JSC)
+ *
+ * For example, to use the international variant, you can use:
+ * `def jscFlavor = io.github.react-native-community:jsc-android-intl:2026004.+`
+ *
+ * The international variant includes ICU i18n library and necessary data
+ * allowing to use e.g. `Date.toLocaleString` and `String.localeCompare` that
+ * give correct results when using with locales other than en-US. Note that
+ * this variant is about 6MiB larger per architecture than default.
+ */
+def jscFlavor = 'io.github.react-native-community:jsc-android:2026004.+'
+
+android {
+    ndkVersion rootProject.ext.ndkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdk rootProject.ext.compileSdkVersion
+
+    namespace "com.rntemplate"
+    buildFeatures {
+        // [rn-template] react-native-config reads environment values from BuildConfig.
+        buildConfig = true
+    }
+    defaultConfig {
+        applicationId "com.rntemplate"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        // [rn-template] react-native-config reads BuildConfig from the namespace, not the suffixed applicationId.
+        resValue "string", "build_config_package", "com.rntemplate"
+    }
+
+    // [rn-template] One flavor per environment. dev and staging install next to prod.
+    flavorDimensions = ["environment"]
+    productFlavors {
+        dev {
+            dimension "environment"
+            applicationIdSuffix ".dev"
+            versionNameSuffix "-dev"
+            resValue "string", "app_name", "RnTemplate Dev"
+            applyEnvFile(delegate, ".env.dev")
+        }
+        staging {
+            dimension "environment"
+            applicationIdSuffix ".staging"
+            versionNameSuffix "-staging"
+            resValue "string", "app_name", "RnTemplate Staging"
+            applyEnvFile(delegate, ".env.staging")
+        }
+        prod {
+            dimension "environment"
+            resValue "string", "app_name", "RnTemplate"
+            applyEnvFile(delegate, ".env.prod")
+        }
+    }
+    signingConfigs {
+        debug {
+            storeFile file('debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
+        if (hasUploadKey) {
+            release {
+                storeFile file(signingValue("RN_UPLOAD_STORE_FILE"))
+                storePassword signingValue("RN_UPLOAD_STORE_PASSWORD")
+                keyAlias signingValue("RN_UPLOAD_KEY_ALIAS")
+                keyPassword signingValue("RN_UPLOAD_KEY_PASSWORD")
+            }
+        }
+    }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+        release {
+            if (hasUploadKey) {
+                signingConfig signingConfigs.release
+            } else {
+                logger.warn("[rn-template] RN_UPLOAD_STORE_FILE not set: release builds are signed with the DEBUG key. Do not upload them.")
+                signingConfig signingConfigs.debug
+            }
+            minifyEnabled enableProguardInReleaseBuilds
+            shrinkResources enableProguardInReleaseBuilds
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+        }
+    }
+}
+
+dependencies {
+    // The version of react-native is set by the React Native Gradle Plugin
+    implementation("com.facebook.react:react-android")
+
+    if (hermesEnabled.toBoolean()) {
+        implementation("com.facebook.react:hermes-android")
+    } else {
+        implementation jscFlavor
+    }
+}

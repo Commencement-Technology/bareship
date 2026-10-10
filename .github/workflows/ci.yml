@@ -1,0 +1,101 @@
+# Every pull request and push to main. See docs/decisions/0012-testing-and-delivery.md.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    name: Types, lint, tests, boundaries
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+      - run: pnpm lint --max-warnings=0
+      - run: pnpm format:check
+      - run: pnpm depcruise
+      - run: pnpm test --coverage --ci
+
+  android:
+    name: Android build (${{ matrix.variant }})
+    needs: checks
+    # Native builds are slow: run on main, or on PRs labelled "native".
+    if: github.ref == 'refs/heads/main' || contains(github.event.pull_request.labels.*.name, 'native')
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        # Debug proves the flavor wiring; Release also bundles JS and runs R8.
+        variant: [assembleDevDebug, assembleProdRelease]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v6
+      - run: pnpm install --frozen-lockfile
+      - name: Build
+        working-directory: android
+        run: ./gradlew ${{ matrix.variant }} -PreactNativeArchitectures=arm64-v8a --no-daemon
+      - name: Check the build carries its own environment
+        run: |
+          case "${{ matrix.variant }}" in
+            assembleDevDebug) scripts/ci/check-env.sh dev debug ;;
+            assembleProdRelease) scripts/ci/check-env.sh prod release ;;
+          esac
+      - name: Check 16 KB page alignment (Play requirement)
+        if: matrix.variant == 'assembleProdRelease'
+        run: scripts/ci/check-16kb.sh android/app/build/outputs/apk/prod/release/*.apk
+
+  ios:
+    name: iOS build (Debug-Dev, simulator)
+    needs: checks
+    if: github.ref == 'refs/heads/main' || contains(github.event.pull_request.labels.*.name, 'native')
+    runs-on: macos-26
+    env:
+      LANG: en_US.UTF-8
+      USE_CCACHE: '1'
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - run: pnpm install --frozen-lockfile
+      - uses: actions/cache@v6
+        with:
+          path: ios/Pods
+          key: pods-${{ runner.os }}-${{ hashFiles('ios/Podfile.lock') }}
+      - run: pnpm pods
+      - name: Build
+        working-directory: ios
+        run: |
+          APP=$(node -p "require('../app.json').name")
+          xcodebuild -workspace "$APP.xcworkspace" -scheme "$APP-Dev" -configuration Debug-Dev \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath build CODE_SIGNING_ALLOWED=NO build | tail -50

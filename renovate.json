@@ -1,0 +1,47 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", ":semanticCommits"],
+  "schedule": ["before 6am on monday"],
+  "timezone": "UTC",
+  "minimumReleaseAge": "3 days",
+  "rangeStrategy": "pin",
+  "packageRules": [
+    {
+      "groupName": "React Native core",
+      "matchPackageNames": [
+        "react-native",
+        "react",
+        "react-test-renderer",
+        "@react-native/**",
+        "@react-native-community/cli**"
+      ]
+    },
+    {
+      "groupName": "React Navigation",
+      "matchPackageNames": [
+        "@react-navigation/**",
+        "react-native-screens",
+        "react-native-safe-area-context"
+      ]
+    },
+    {
+      "groupName": "Reanimated and worklets",
+      "matchPackageNames": [
+        "react-native-reanimated",
+        "react-native-worklets",
+        "react-native-gesture-handler"
+      ]
+    },
+    {
+      "groupName": "Firebase",
+      "matchPackageNames": ["@react-native-firebase/**"]
+    },
+    {
+      "groupName": "Dev tooling",
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "excludePackageNames": ["react-test-renderer"],
+      "automerge": true
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+# pnpm policy — see docs/decisions/0003-package-manager-and-supply-chain.md
+nodeLinker: hoisted
+
+# Don't install a version until it has been public for 3 days (minutes).
+minimumReleaseAge: 4320
+minimumReleaseAgeExclude: []
+
+# Fail if a package's trust level drops compared with earlier releases.
+trustPolicy: no-downgrade
+# Versions older than 30 days (minutes) predate provenance or have been vetted;
+# the check targets fresh takeovers.
+trustPolicyIgnoreAfter: 43200
+# Reviewed exceptions. Each needs a reason and a date.
+trustPolicyExclude:
+  # 2026-10-10: Expo's tooling packages (@expo/config-plugins and its deps) are
+  # published by the same maintainer account without provenance on every
+  # 56.x/57.x release. Pulled in only by react-native-bootsplash's config plugin.
+  - '@expo/*'
+
+# Install scripts are denied unless listed `true` here.
+allowBuilds:
+  '@firebase/util': false
+  protobufjs: false
+  # Platform binary arrives as an optional dependency; postinstall not needed.
+  esbuild: false
+  # Native binding arrives as an optional dependency (@unrs/resolver-binding-*).
+  unrs-resolver: false
+
+# @react-native/eslint-config 0.87 depends on eslint-plugin-ft-flow ^2 (ESLint 8
+# peer). 3.x is the same plugin with ESLint 9 support.
+overrides:
+  eslint-plugin-ft-flow: ^3.0.11
+
+fetchTimeout: 300000
+fetchRetries: 5
