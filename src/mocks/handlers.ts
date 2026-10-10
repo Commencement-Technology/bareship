@@ -1,0 +1,185 @@
+import { delay, http, HttpResponse } from 'msw';
+
+import { ACCESS_TOKEN_TTL_MS, db, type PostRecord, type UserRecord } from './db';
+
+/** Simulated network latency (0 in tests via MOCK_LATENCY). */
+const latency = { ms: 350 };
+export function setMockLatency(ms: number) {
+  latency.ms = ms;
+}
+const wait = () => (latency.ms > 0 ? delay(latency.ms) : Promise.resolve());
+
+/**
+ * Tokens are self-describing ("<kind>.<userId>.<expiresAt>.<nonce>") instead of rows in the mock db,
+ * which resets on every JS reload. So a saved session keeps working across reloads, as it would
+ * against a real backend. Only seeded users survive a reload; registered ones live in memory.
+ */
+function issueTokens(userId: string) {
+  const nonce = Math.random().toString(36).slice(2, 10);
+  return {
+    accessToken: `access.${userId}.${Date.now() + ACCESS_TOKEN_TTL_MS}.${nonce}`,
+    refreshToken: `refresh.${userId}.0.${nonce}`,
+  };
+}
+
+function readToken(token: string, kind: 'access' | 'refresh') {
+  const [prefix, userId, expiresAt] = token.split('.');
+  if (prefix !== kind || !userId || db.current.revokedTokens.has(token)) return undefined;
+  return { userId, expiresAt: Number(expiresAt) };
+}
+
+const userDto = (user: UserRecord) => ({
+  id: user.id,
+  email: user.email,
+  name: user.name,
+  avatarUrl: user.avatar_url,
+});
+
+function postDto(post: PostRecord, viewerId: string) {
+  const author = db.current.users.find(user => user.id === post.author_id);
+  const likedBy = db.current.likes.get(post.id) ?? new Set<string>();
+  return {
+    id: post.id,
+    author: {
+      id: post.author_id,
+      display_name: author?.name ?? 'Unknown',
+      avatar_url: author?.avatar_url ?? null,
+    },
+    body: post.body,
+    image_url: post.image_url,
+    like_count: post.like_count + likedBy.size,
+    liked_by_me: likedBy.has(viewerId),
+    created_at: post.created_at,
+  };
+}
+
+const error = (status: number, code: string, message: string) =>
+  HttpResponse.json({ code, message }, { status });
+
+/** Resolves the bearer token to a user, or returns the 401 response to send. */
+function authenticate(request: Request): UserRecord | Response {
+  const header = request.headers.get('Authorization') ?? '';
+  const token = header.replace(/^Bearer\s+/i, '');
+  const session = readToken(token, 'access');
+  if (!session) return error(401, 'unauthenticated', 'Sign in to continue.');
+  if (session.expiresAt < Date.now()) return error(401, 'token_expired', 'Access token expired.');
+  const user = db.current.users.find(candidate => candidate.id === session.userId);
+  return user ?? error(401, 'unauthenticated', 'Sign in to continue.');
+}
+
+type Credentials = { email?: string; password?: string; name?: string };
+
+export const handlers = [
+  http.post('*/auth/login', async ({ request }) => {
+    await wait();
+    const { email, password } = (await request.json()) as Credentials;
+    const user = db.current.users.find(candidate => candidate.email === email?.toLowerCase());
+    if (!user || user.password !== password) {
+      return error(401, 'invalid_credentials', 'Email or password is incorrect.');
+    }
+    return HttpResponse.json({ tokens: issueTokens(user.id), user: userDto(user) });
+  }),
+
+  http.post('*/auth/register', async ({ request }) => {
+    await wait();
+    const { email = '', password = '', name = '' } = (await request.json()) as Credentials;
+    if (db.current.users.some(user => user.email === email.toLowerCase())) {
+      return error(409, 'email_taken', 'An account with this email already exists.');
+    }
+    const user: UserRecord = {
+      id: `u_${db.current.users.length + 1}`,
+      email: email.toLowerCase(),
+      name,
+      password,
+      avatar_url: null,
+    };
+    db.current.users.push(user);
+    return HttpResponse.json(
+      { tokens: issueTokens(user.id), user: userDto(user) },
+      { status: 201 },
+    );
+  }),
+
+  http.post('*/auth/refresh', async ({ request }) => {
+    await wait();
+    const { refreshToken } = (await request.json()) as { refreshToken?: string };
+    const userId = refreshToken ? readToken(refreshToken, 'refresh')?.userId : undefined;
+    if (!userId || !db.current.users.some(user => user.id === userId)) {
+      return error(401, 'invalid_refresh_token', 'Sign in again.');
+    }
+    db.current.revokedTokens.add(refreshToken!); // rotate: each refresh token works once
+    return HttpResponse.json(issueTokens(userId));
+  }),
+
+  http.post('*/auth/forgot-password', async () => {
+    await wait();
+    return new HttpResponse(null, { status: 204 });
+  }),
+
+  http.post('*/auth/logout', async ({ request }) => {
+    await wait();
+    const token = (request.headers.get('Authorization') ?? '').replace(/^Bearer\s+/i, '');
+    if (token) db.current.revokedTokens.add(token);
+    return new HttpResponse(null, { status: 204 });
+  }),
+
+  http.get('*/me', async ({ request }) => {
+    await wait();
+    const user = authenticate(request);
+    return user instanceof Response ? user : HttpResponse.json(userDto(user));
+  }),
+
+  http.delete('*/me', async ({ request }) => {
+    await wait();
+    const user = authenticate(request);
+    if (user instanceof Response) return user;
+    db.current.users = db.current.users.filter(candidate => candidate.id !== user.id);
+    return new HttpResponse(null, { status: 204 });
+  }),
+
+  http.get('*/posts', async ({ request }) => {
+    await wait();
+    const user = authenticate(request);
+    if (user instanceof Response) return user;
+    const url = new URL(request.url);
+    const offset = Number(url.searchParams.get('cursor') ?? '0') || 0;
+    const limit = Math.min(Number(url.searchParams.get('limit') ?? '10') || 10, 50);
+    const slice = db.current.posts.slice(offset, offset + limit);
+    const next = offset + limit < db.current.posts.length ? String(offset + limit) : null;
+    return HttpResponse.json({
+      items: slice.map(post => postDto(post, user.id)),
+      nextCursor: next,
+    });
+  }),
+
+  http.get('*/posts/:id', async ({ request, params }) => {
+    await wait();
+    const user = authenticate(request);
+    if (user instanceof Response) return user;
+    const post = db.current.posts.find(candidate => candidate.id === params.id);
+    return post
+      ? HttpResponse.json(postDto(post, user.id))
+      : error(404, 'not_found', 'Post not found.');
+  }),
+
+  ...(['post', 'delete'] as const).map(method =>
+    http[method]('*/posts/:id/like', async ({ request, params }) => {
+      await wait();
+      const user = authenticate(request);
+      if (user instanceof Response) return user;
+      const key = request.headers.get('Idempotency-Key');
+      const replay = key ? db.current.idempotency.get(key) : undefined;
+      if (replay) return HttpResponse.json(replay);
+      const post = db.current.posts.find(candidate => candidate.id === params.id);
+      if (!post) return error(404, 'not_found', 'Post not found.');
+      const likedBy = db.current.likes.get(post.id) ?? new Set<string>();
+      if (method === 'post') likedBy.add(user.id);
+      else likedBy.delete(user.id);
+      db.current.likes.set(post.id, likedBy);
+      // Writes return the updated resource, so the client never needs a follow-up GET.
+      const body = postDto(post, user.id);
+      if (key) db.current.idempotency.set(key, body);
+      return HttpResponse.json(body);
+    }),
+  ),
+];

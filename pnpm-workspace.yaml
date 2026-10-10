@@ -25,6 +25,8 @@ allowBuilds:
   esbuild: false
   # Native binding arrives as an optional dependency (@unrs/resolver-binding-*).
   unrs-resolver: false
+  # Copies the browser service worker into public/; React Native doesn't use it.
+  msw: false
 
 # @react-native/eslint-config 0.87 depends on eslint-plugin-ft-flow ^2 (ESLint 8
 # peer). 3.x is the same plugin with ESLint 9 support.

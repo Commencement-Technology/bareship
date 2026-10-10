@@ -6,6 +6,7 @@ describe('parseEnv', () => {
       APP_ENV: 'staging',
       API_URL: 'https://api.staging.example.com',
       LOG_LEVEL: 'info',
+      API_MOCKS: false,
     });
   });
 

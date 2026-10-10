@@ -20,14 +20,26 @@ config plugin). Search the code for `[rn-template]` to find each change in place
 | iOS icons | `Images.xcassets/AppIcon{,-Dev,-Staging}.appiconset` | Single-size 1024 px icon per environment, chosen by `ASSETCATALOG_COMPILER_APPICON_NAME` | Badge per environment | `icon` per environment |
 | iOS Podfile | `ios/Podfile` | `project` maps the six configurations to debug/release; post_install sets `ENVFILE` on the `react-native-config` pod per configuration | CocoaPods and react-native-config understand the custom configurations | n/a (managed by prebuild) |
 
-## Planned (Phase 2)
+## Added in Phase 2
 
-- `android/build.gradle`: force every subproject onto the app's `ndkVersion`. react-native-unistyles does not read it
-  and would otherwise pull in AGP 9's default NDK (28.2) next to RN's 27.1.
-- `MainActivity.kt`: `supportFragmentManager.fragmentFactory = RNScreensFragmentFactory()` once react-native-screens
-  (≥ 4.16) is installed, as react-native-bootsplash requires.
-- Firebase: Google Services and Crashlytics Gradle plugins applied only when a flavor's `google-services.json`
-  exists; iOS build phase copying `ios/Config/Firebase/<Env>/GoogleService-Info.plist` when present; static frameworks for Firebase pods.
+| Area | File(s) | Change | Why | Expo (Track B) equivalent |
+| --- | --- | --- | --- | --- |
+| <a id="ndk"></a>Android NDK | `android/build.gradle` | `subprojects { … plugins.withId("com.android.library") { android.ndkVersion = rootProject.ext.ndkVersion } }` | react-native-unistyles doesn't read `ndkVersion`, so AGP 9 would install its default NDK (28.2) next to RN's 27.1 | Managed by prebuild |
+| Screens fragments | `MainActivity.kt` | `supportFragmentManager.fragmentFactory = RNScreensFragmentFactory()` before `RNBootSplash.init` | Required by react-native-screens ≥ 4.16 so restored fragments don't crash, in the order react-native-bootsplash documents | Handled by Expo |
+| <a id="ios-deployment-target"></a>iOS pod deployment targets | `ios/Podfile` (post_install) | Raises every pod's `IPHONEOS_DEPLOYMENT_TARGET` below `min_ios_version_supported` | Xcode 27 rejects targets below iOS 15; SDWebImage (FastImage), Lottie, react-native-svg and Firebase helper bundles still declare 9.0–13.0 | Handled by `expo-build-properties` |
+
+## Planned (Phase 3): Firebase
+
+Verified on 2026-10-10 by building all 32 libraries together for the iOS simulator (1,845 compile units):
+
+- **iOS:** react-native-firebase 26 resolves the Firebase SDK through Swift Package Manager by default, and refuses
+  SPM with static linkage. The working setup is `$RNFirebaseDisableSPM = true` + `$RNFirebaseAsStaticFramework = true`
+  + `USE_FRAMEWORKS=static` (CocoaPods Firebase), and `pod install --repo-update` once so the spec index knows
+  Firebase 12.18.
+- The `[RNFB] Crashlytics Configuration` build phase fails without a `GoogleService-Info.plist`. Phase 3 copies
+  `ios/Config/Firebase/<Env>/GoogleService-Info.plist` in a build phase only when present, so the template still
+  builds before Firebase is set up.
+- **Android:** Google Services and Crashlytics Gradle plugins applied only when a flavor's `google-services.json` exists.
 
 ## Known warnings
 

@@ -1,0 +1,113 @@
+{
+  "common": {
+    "retry": "Try again",
+    "cancel": "Cancel",
+    "continue": "Continue",
+    "back": "Back",
+    "done": "Done",
+    "next": "Next",
+    "skip": "Skip",
+    "loading": "Loading…",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password"
+  },
+  "errors": {
+    "network": "No connection. Check your network and try again.",
+    "timeout": "The server took too long to respond. Try again.",
+    "unauthorized": "Your session has expired. Sign in again.",
+    "validation": "We got an unexpected response. Try again later.",
+    "circuitOpen": "The service is having trouble. Try again in a moment.",
+    "generic": "Something went wrong. Try again."
+  },
+  "errorScreen": {
+    "title": "Something went wrong",
+    "body": "The app hit an unexpected problem. Try again, and if it keeps happening, restart the app.",
+    "action": "Try again"
+  },
+  "tabs": {
+    "feed": "Feed",
+    "settings": "Settings"
+  },
+  "onboarding": {
+    "slide1Title": "Everything in one place",
+    "slide1Body": "Follow the posts that matter to you, all in a single feed.",
+    "slide2Title": "Works when you're offline",
+    "slide2Body": "What you've already loaded stays available, even without a connection.",
+    "slide3Title": "Made for you",
+    "slide3Body": "Pick light or dark, and the language you read best.",
+    "start": "Get started"
+  },
+  "auth": {
+    "fields": {
+      "name": "Name",
+      "email": "Email",
+      "password": "Password"
+    },
+    "validation": {
+      "nameRequired": "Enter your name.",
+      "emailInvalid": "Enter a valid email address.",
+      "passwordShort": "Use at least 8 characters."
+    },
+    "login": {
+      "title": "Sign in",
+      "subtitle": "Welcome back.",
+      "submit": "Sign in",
+      "forgot": "Forgot password?",
+      "noAccount": "New here?",
+      "createAccount": "Create an account",
+      "invalidCredentials": "That email and password don't match. Try again.",
+      "demoHint": "Demo account: demo@example.com / password123"
+    },
+    "register": {
+      "title": "Create your account",
+      "subtitle": "It takes less than a minute.",
+      "submit": "Create account",
+      "haveAccount": "Already have an account?",
+      "signIn": "Sign in",
+      "emailTaken": "An account with this email already exists."
+    },
+    "forgot": {
+      "title": "Reset your password",
+      "subtitle": "Enter your account email and we'll send you a reset link.",
+      "submit": "Send reset link",
+      "sent": "If an account exists for {{email}}, a reset link is on its way.",
+      "backToSignIn": "Back to sign in"
+    }
+  },
+  "feed": {
+    "title": "Feed",
+    "emptyTitle": "Nothing here yet",
+    "emptyBody": "New posts will show up here.",
+    "errorTitle": "Couldn't load the feed",
+    "endOfFeed": "You're all caught up.",
+    "likes_one": "{{count}} like",
+    "likes_other": "{{count}} likes",
+    "like": "Like",
+    "unlike": "Unlike",
+    "likeFailed": "Couldn't save your like. Try again.",
+    "postTitle": "Post",
+    "byAuthor": "By {{name}}"
+  },
+  "settings": {
+    "title": "Settings",
+    "appearance": "Appearance",
+    "theme": "Theme",
+    "themeSystem": "System",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "language": "Language",
+    "restartTitle": "Restart to finish",
+    "restartBody": "The new reading direction applies after the app restarts.",
+    "about": "About",
+    "version": "Version",
+    "environment": "Environment",
+    "account": "Account",
+    "signOut": "Sign out",
+    "deleteAccount": "Delete account",
+    "deleteTitle": "Delete your account?",
+    "deleteBody": "This permanently deletes your account and everything in it. You can't undo this.",
+    "deleteConfirm": "Delete my account",
+    "deleteFailed": "Couldn't delete your account. Try again.",
+    "showroom": "Component showroom"
+  }
+}

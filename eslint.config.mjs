@@ -1,6 +1,8 @@
 // ESLint 9 flat config. See docs/decisions/0005 and 0011.
 import reactNative from '@react-native/eslint-config/flat';
+import typescriptPlugin from '@typescript-eslint/eslint-plugin';
 import boundaries from 'eslint-plugin-boundaries';
+import i18next from 'eslint-plugin-i18next';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 
 // Layers, top to bottom. A layer may import only from layers below it.
@@ -36,6 +38,25 @@ export default [
             {
               group: ['../../*'],
               message: 'Use the "@/" alias instead of deep relative imports.',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    files: ['**/*.{ts,tsx}'],
+    plugins: { '@typescript-eslint': typescriptPlugin },
+    rules: {
+      // Root imports bundle every icon (Metro can't tree-shake). Types are fine.
+      '@typescript-eslint/no-restricted-imports': [
+        'error',
+        {
+          paths: [
+            {
+              name: 'lucide-react-native',
+              message: 'Import icons from "@/shared/ui/icons" (one module per icon).',
+              allowTypeImports: true,
             },
           ],
         },
@@ -84,6 +105,25 @@ export default [
         },
       ],
     },
+  },
+  {
+    files: ['src/**/*.{ts,tsx}'],
+    rules: {
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: "CallExpression[callee.property.name='useVariants']",
+          message:
+            'useVariants goes stale under the React Compiler. Use a dynamic style function, e.g. styles.field(state) (AGENTS.md › Styling).',
+        },
+      ],
+    },
+  },
+  {
+    // No hard-coded user-visible text in screens: use t('…') (ADR 0009).
+    files: ['src/app/**/*.tsx', 'src/features/**/*.tsx', 'src/shared/ui/**/*.tsx'],
+    plugins: { i18next },
+    rules: { 'i18next/no-literal-string': ['error', { mode: 'jsx-text-only' }] },
   },
   {
     // Node scripts and config files.

@@ -24,7 +24,9 @@ Checked on 2026-10-10. Update this file whenever a native dependency is added or
 
 "Android build" means all 32 libraries below (everything except the opt-in SQLite module) were compiled
 together into one Android debug APK (arm64) on the toolchain above: BUILD SUCCESSFUL, 962 tasks, 2026-10-10.
-"iOS build" with all libraries is verified in Phase 2, when the Firebase static-framework setup lands.
+iOS: the same 32 libraries compiled together for the simulator (1,845 compile units) with
+`$RNFirebaseDisableSPM = true` and static frameworks; the only failing step was Crashlytics' build phase, which
+needs a real `GoogleService-Info.plist` (made conditional in Phase 3). See docs/native-changes.md.
 "Peers" means the published peer ranges allow RN 0.87 / React 19.2.
 
 | Library | Version | Role (ADR) | Peers | Android build | Notes |
@@ -57,6 +59,24 @@ together into one Android debug APK (arm64) on the toolchain above: BUILD SUCCES
 | @op-engineering/op-sqlite + drizzle-orm | 18.2.5 / 0.45 | Offline DB module (0006, opt-in) | ✓ | not yet | Checked when the module is built |
 
 ## Dev tooling notes
+
+- **MSW 2.15** (not 3). MSW 3 removed `msw/native`; its docs point to `@msw/react-native`, which isn't published
+  on npm yet (404 on 2026-10-10). Move to it when it ships. Jest maps `msw/node` explicitly because the RN preset
+  resolves the `react-native` export condition, under which `msw/node` is null.
+  In the app, mocks run through an axios adapter calling MSW's `getResponse()` (`src/mocks/native.ts`), not
+  `msw/native`'s `setupServer`: its XHR interceptor needs browser globals Hermes lacks and broke on RN's XHR.
+  `src/mocks/polyfills.ts` still adds the few globals MSW touches (`Event`, `EventTarget`, `MessageEvent`,
+  `BroadcastChannel`, streams via `web-streams-polyfill`, URL via `react-native-url-polyfill`).
+- **Babel**: `@babel/plugin-transform-export-namespace-from` (Zod uses `export * as`) and
+  `@babel/plugin-transform-class-static-block` (MSW ships `static {}` blocks Hermes doesn't parse).
+- **@formatjs/intl-locale, intl-pluralrules, intl-relativetimeformat**: Hermes (RN 0.87) has no
+  `Intl.PluralRules` or `Intl.RelativeTimeFormat`. Without them i18next plurals fail silently and
+  `formatRelative` throws "undefined cannot be used as a constructor". Loaded from `src/shared/i18n`.
+- **lucide-react-native**: import icons only through `src/shared/ui/icons.ts` (one module per icon). A root import
+  bundles all ~1,500 icons: the release JS bundle went from 5.74 MB to 3.86 MB after switching. ESLint enforces it.
+- **React Native Testing Library 14**: `render`, `fireEvent` and `userEvent` are all async; always `await` them.
+- **Gesture Handler 3 in Jest**: `src/test/pre-setup.ts` stubs worklets' `getUIRuntimeHolder`, which the Jest build
+  of react-native-worklets 0.13 throws on when Gesture Handler installs its UI-runtime bindings.
 
 - **ESLint 9.39** (maintenance line). ESLint 10 is out, but `@react-native/eslint-config`, `eslint-plugin-react`
   and `eslint-plugin-react-native` don't declare support yet. `eslint-plugin-ft-flow` is overridden to 3.x for

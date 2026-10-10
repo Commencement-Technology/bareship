@@ -1,0 +1,37 @@
+import { z } from 'zod';
+
+import { cursorPageSchema } from '@/shared/api';
+
+/** What the server sends (snake_case). Never leaves this feature's api/ layer. */
+export const PostDtoSchema = z.object({
+  id: z.string(),
+  author: z.object({ id: z.string(), display_name: z.string(), avatar_url: z.url().nullable() }),
+  body: z.string(),
+  image_url: z.url().nullable(),
+  like_count: z.number().int().nonnegative(),
+  liked_by_me: z.boolean(),
+  created_at: z.iso.datetime(),
+});
+
+/** What the app uses. */
+export type Post = {
+  id: string;
+  author: { id: string; name: string; avatarUrl: string | null };
+  body: string;
+  imageUrl: string | null;
+  likeCount: number;
+  likedByMe: boolean;
+  createdAt: string;
+};
+
+export const PostSchema = PostDtoSchema.transform((dto): Post => ({
+  id: dto.id,
+  author: { id: dto.author.id, name: dto.author.display_name, avatarUrl: dto.author.avatar_url },
+  body: dto.body,
+  imageUrl: dto.image_url,
+  likeCount: dto.like_count,
+  likedByMe: dto.liked_by_me,
+  createdAt: dto.created_at,
+}));
+
+export const FeedPageSchema = cursorPageSchema(PostSchema);

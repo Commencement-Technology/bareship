@@ -10,6 +10,11 @@ const EnvSchema = z.object({
   APP_ENV: z.enum(['dev', 'staging', 'prod']),
   API_URL: z.url(),
   LOG_LEVEL: z.enum(['debug', 'info', 'warn', 'error']).default('info'),
+  /** Serve API calls from the in-app mock server (src/mocks). Only honoured in __DEV__ builds. */
+  API_MOCKS: z
+    .enum(['true', 'false'])
+    .default('false')
+    .transform(value => value === 'true'),
 });
 
 export type Env = z.infer<typeof EnvSchema>;

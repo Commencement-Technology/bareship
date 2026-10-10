@@ -1,0 +1,129 @@
+/* eslint-disable i18next/no-literal-string -- developer tool, never shipped in release builds */
+import { useRef, useState } from 'react';
+import { ScrollView } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
+
+import {
+  Button,
+  Card,
+  Divider,
+  EmptyState,
+  Icon,
+  Input,
+  ListItem,
+  SegmentedControl,
+  Sheet,
+  type SheetRef,
+  Skeleton,
+  Stack,
+  Text,
+  toast,
+} from '@/shared/ui';
+import { Heart, Settings } from '@/shared/ui/icons';
+
+/** Every primitive in every state, on device. Registered only in __DEV__ builds. */
+export function ShowroomScreen() {
+  const [segment, setSegment] = useState<'one' | 'two' | 'three'>('one');
+  const sheet = useRef<SheetRef>(null);
+
+  return (
+    <ScrollView style={styles.root} contentContainerStyle={styles.content}>
+      <Group title="Text">
+        {(['display', 'title', 'heading', 'body', 'bodyStrong', 'label', 'caption'] as const).map(
+          variant => (
+            <Text key={variant} variant={variant}>
+              {variant}
+            </Text>
+          ),
+        )}
+        <Stack direction="row" gap="md" wrap>
+          {(['muted', 'subtle', 'primary', 'danger', 'success'] as const).map(tone => (
+            <Text key={tone} tone={tone}>
+              {tone}
+            </Text>
+          ))}
+        </Stack>
+      </Group>
+
+      <Group title="Button">
+        <Button title="Primary" onPress={() => toast.info('Primary pressed')} />
+        <Button title="Secondary" variant="secondary" icon={Settings} />
+        <Button title="Ghost" variant="ghost" />
+        <Button title="Danger" variant="danger" />
+        <Button title="Loading" loading />
+        <Button title="Disabled" disabled />
+      </Group>
+
+      <Group title="Input">
+        <Input label="Email" placeholder="you@example.com" />
+        <Input label="Password" secureTextEntry hint="At least 8 characters" />
+        <Input label="With error" error="Enter a valid email address." />
+      </Group>
+
+      <Group title="Controls">
+        <SegmentedControl
+          accessibilityLabel="Example"
+          value={segment}
+          onChange={setSegment}
+          segments={[
+            { value: 'one', label: 'One' },
+            { value: 'two', label: 'Two' },
+            { value: 'three', label: 'Three' },
+          ]}
+        />
+        <Stack direction="row" gap="md">
+          <Icon icon={Heart} tone="danger" />
+          <Icon icon={Heart} tone="primary" />
+          <Icon icon={Heart} tone="textMuted" />
+        </Stack>
+      </Group>
+
+      <Group title="List">
+        <Card style={styles.flush}>
+          <ListItem
+            title="Navigates"
+            subtitle="With chevron"
+            icon={Settings}
+            chevron
+            onPress={() => {}}
+          />
+          <Divider inset={16} />
+          <ListItem title="Danger" tone="danger" onPress={() => {}} />
+        </Card>
+      </Group>
+
+      <Group title="Feedback">
+        <Skeleton height={14} />
+        <Skeleton width="60%" height={14} />
+        <Button title="Show toast" variant="secondary" onPress={() => toast.success('Saved')} />
+        <Button title="Open sheet" variant="secondary" onPress={() => sheet.current?.present()} />
+        <EmptyState title="Empty state" body="Shown when a list has nothing to show." />
+      </Group>
+
+      <Sheet ref={sheet}>
+        <Text variant="heading">Bottom sheet</Text>
+        <Text tone="muted">Sized to its content, dismiss by dragging or tapping outside.</Text>
+        <Button title="Close" onPress={() => sheet.current?.dismiss()} />
+      </Sheet>
+    </ScrollView>
+  );
+}
+
+function Group({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <Stack gap="md">
+      <Text variant="heading">{title}</Text>
+      {children}
+    </Stack>
+  );
+}
+
+const styles = StyleSheet.create((theme, rt) => ({
+  root: { flex: 1, backgroundColor: theme.colors.background },
+  content: {
+    padding: theme.spacing.lg,
+    paddingBottom: rt.insets.bottom + theme.spacing.xxl,
+    gap: theme.spacing.xxl,
+  },
+  flush: { padding: 0, gap: 0, overflow: 'hidden' },
+}));

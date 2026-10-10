@@ -26,7 +26,9 @@ module.exports = {
     {
       name: 'not-to-dev-dep',
       severity: 'error',
-      from: { path: '^src/', pathNot: '\\.(test|spec)\\.tsx?$' },
+      comment:
+        'App code must not import devDependencies. Exempt: tests, test utils, and src/mocks (required only behind __DEV__; release bundles drop it).',
+      from: { path: '^src/', pathNot: ['\\.(test|spec)\\.tsx?$', '^src/test/', '^src/mocks/'] },
       to: { dependencyTypes: ['npm-dev'], pathNot: ['node_modules/@types/'] },
     },
   ],

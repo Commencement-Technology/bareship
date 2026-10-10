@@ -19,3 +19,12 @@ buildscript {
 }
 
 apply plugin: "com.facebook.react.rootproject"
+
+// [rn-template] Build every native module with the app's NDK. Libraries that don't read ndkVersion
+// (react-native-unistyles today) would otherwise pull in AGP's default NDK as a second download.
+// See docs/native-changes.md#ndk.
+subprojects { subproject ->
+    subproject.plugins.withId("com.android.library") {
+        subproject.android.ndkVersion = rootProject.ext.ndkVersion
+    }
+}
