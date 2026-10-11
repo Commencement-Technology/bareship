@@ -34,6 +34,7 @@ agents should open the `SKILL.md` named below before the matching work.
 | A local native module or view | `create-react-native-library` |
 | User-facing docs (README usage, guides, release notes) | `writing-user-docs` |
 | Driving a device, exploratory QA (needs the `agent-device` CLI) | `agent-device`, `dogfood` |
+| Profiling renders and CPU on a device (needs Argent, ADR 0013) | `argent-react-native-profiler`, `argent-native-profiler` |
 | TV apps, brownfield or migration work (not used by this template) | `react-native-tv-best-practices`, `react-native-brownfield-migration`, `assess-react-native-migration` |
 
 Apply `react-native-best-practices` to all code you write, not only when asked to optimize. Where a skill
@@ -50,8 +51,18 @@ and this file disagree, this file wins; the known cases:
 - **Styling:** Unistyles dynamic functions, not `useVariants` (see Styling below).
 - **Intl polyfills:** `intl-pluralrules` and `relative-time-format`, not the FormatJS set the skill shows
   (see Intl on Hermes below).
-- **Profiling:** the skill's `agent-device` commands need that CLI, which the template doesn't install. React
-  Native DevTools (Metro `j`) works everywhere.
+- **Profiling:** use Argent's profiler, not the skill's `agent-device` React profiling. Never run
+  `agent-react-devtools init` or any setup that edits `index.js`, `metro.config.js` or `package.json` to
+  profile (ADR 0013). React Native DevTools (Metro `j`) works everywhere.
+
+## Driving the app (ADR 0013)
+
+- **agent-device** for running the app, tapping through it and checking a change. Prefer its text snapshots;
+  take a screenshot only when the layout itself is in question.
+- **Argent** only for profiling. Don't use both in one task.
+- Both read the accessibility tree: give interactive elements `aria-label`, and toggles and tabs
+  `aria-checked` / `aria-selected`, so agents don't fall back to screenshots and coordinates.
+- Saved end-to-end tests are Maestro flows (ADR 0012), not agent sessions.
 
 ## Architecture rules
 

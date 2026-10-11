@@ -19,5 +19,6 @@ Question ids (A1, B2 …) refer to the Template Decision Sheet.
 | [0010](0010-production-modules-and-firebase.md) | Production modules and the Firebase suite | Accepted |
 | [0011](0011-developer-tooling.md) | Developer tooling, docs and agents | Accepted |
 | [0012](0012-testing-and-delivery.md) | Testing, CI and delivery | Accepted |
+| [0013](0013-agent-device-tools.md) | Agent device tools: agent-device by default, Argent for profiling | Accepted |
 
 New ADRs copy [template.md](template.md). Never edit an accepted ADR's decision; supersede it with a new one.
