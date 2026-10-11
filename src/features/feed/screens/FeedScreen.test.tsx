@@ -14,8 +14,15 @@ describe('FeedScreen', () => {
   });
 
   it('shows skeletons, then the first page of posts mapped from the API', async () => {
+    // Hold the first page until the skeleton is checked; on a fast machine the mock answers before the
+    // first assertion. Returning nothing falls through to the default handler.
+    let release!: () => void;
+    const held = new Promise<void>(resolve => (release = resolve));
+    server.use(mock.get('*/posts', () => held, { once: true }));
+
     await renderWithProviders(<FeedScreen />);
     expect(screen.getByTestId('feed-loading')).toBeOnTheScreen();
+    release();
 
     const first = await screen.findByTestId('post-p_1');
     // display_name (snake_case DTO) → author.name (model)
