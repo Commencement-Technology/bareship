@@ -1,11 +1,16 @@
 import type { AxiosAdapter } from 'axios';
+import { AppState } from 'react-native';
 
+import { useAppStatus } from '@/entities/app-status/app-status-store';
 import { refreshTokens, useSession } from '@/entities/session';
 import { configureHttp, sessionTokens } from '@/shared/api';
 import { env } from '@/shared/config/env';
 import { currentLanguage, initI18n } from '@/shared/i18n';
 import { setupQueryLifecycle } from '@/shared/lifecycle/query-lifecycle';
 import { services } from '@/shared/services/services';
+
+import { providedMockAdapter } from './mock-backend';
+import { setupPushRegistration } from './push-registration';
 
 let booted: Promise<void> | undefined;
 
@@ -20,8 +25,12 @@ export function boot(): Promise<void> {
     // First, so any screen (including the error screen) can render translated text.
     initI18n();
 
-    let adapter: AxiosAdapter | undefined;
-    if (__DEV__ && env.API_MOCKS) {
+    // Demo release builds bring their own mock adapter (index.demo.js); dev environment only.
+    let adapter: AxiosAdapter | undefined =
+      env.APP_ENV === 'dev' && env.API_MOCKS ? providedMockAdapter() : undefined;
+    // `__DEV__` must come first: it's a build-time constant, so release builds drop this branch and the
+    // mock code with it (scripts/ci/check-no-mocks-in-release.sh guards this).
+    if (__DEV__ && env.API_MOCKS && !adapter) {
       // Development-only mock backend (src/mocks). Required lazily so release code paths never run it.
       try {
         const { startMocks } = require('@/mocks/native') as typeof import('@/mocks/native');
@@ -46,6 +55,8 @@ export function boot(): Promise<void> {
     });
 
     setupQueryLifecycle();
+    // Before the first screen: flags activated on the last launch can already block this version.
+    useAppStatus.getState().evaluate();
     await useSession.getState().hydrate();
   })().catch(error => {
     // Never leave the app on the splash: a failed boot still decides the session (signed out).
@@ -58,8 +69,16 @@ export function boot(): Promise<void> {
 
 /** Background work after the first screen is ready. */
 export function afterBoot(): void {
-  const { flags, logger } = services();
-  flags
-    .refresh()
-    .catch(error => logger.warn('Feature flags refresh failed', { error: String(error) }));
+  const { logger } = services();
+  const refreshStatus = () =>
+    useAppStatus
+      .getState()
+      .refresh()
+      .catch(error => logger.warn('Feature flags refresh failed', { error: String(error) }));
+  refreshStatus();
+  setupPushRegistration();
+  // Re-check on return to the foreground, so a forced update or maintenance reaches running apps.
+  AppState.addEventListener('change', state => {
+    if (state === 'active') refreshStatus();
+  });
 }

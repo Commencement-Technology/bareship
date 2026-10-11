@@ -36,6 +36,7 @@ Production apps (Bluesky, Expensify) ship observability, remote config, push, fo
 - One vendor SDK family instead of three. It's free, but JS crash grouping is weaker than Sentry's. Source maps for Hermes must be uploaded in CI so Crashlytics can symbolicate JS stacks.
 - Firebase on iOS needs static frameworks (`use_frameworks! :linkage => :static` or `$RNFirebaseAsStaticFramework`). This is verified in the Phase 0 native build check (`docs/version-matrix.md`).
 - With no OTA provider, every fix ships through the stores until a provider recipe (hot-updater, Revopush) is applied.
+- Firebase stops publishing new iOS SDK versions to CocoaPods after October 2026 (found 2026-10-11 during `pod install`). React Native Firebase still recommends CocoaPods with static frameworks, because its SPM mode needs dynamic frameworks that each embed a private Firebase copy. The template pins RNFB 26.4.0 / Firebase 12.18.0, which stay installable; move with React Native Firebase when it changes its iOS distribution.
 
 ## Alternatives considered
 

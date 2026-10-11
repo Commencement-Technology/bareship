@@ -112,7 +112,12 @@
     "deleteBody": "سيؤدي هذا إلى حذف حسابك وكل ما فيه نهائيًا. لا يمكن التراجع عن ذلك.",
     "deleteConfirm": "احذف حسابي",
     "deleteFailed": "تعذر حذف حسابك. حاول مرة أخرى.",
-    "showroom": "معرض المكونات"
+    "showroom": "معرض المكونات",
+    "notifications": "الإشعارات",
+    "notificationsOn": "مفعّلة",
+    "notificationsOff": "متوقفة",
+    "notificationsBlocked": "محظورة",
+    "notificationsBlockedHint": "فعّلها من إعدادات هاتفك."
   },
   "offline": {
     "banner": "أنت غير متصل. يتم عرض المحتوى المحفوظ.",
@@ -128,5 +133,14 @@
     "resetBlocked": "أنت غير متصل. اتصل بالإنترنت لإعادة تعيين كلمة المرور.",
     "requiredTitle": "أنت غير متصل",
     "requiredBody": "اتصل بالإنترنت للمتابعة."
+  },
+  "appStatus": {
+    "updateTitle": "يلزم التحديث",
+    "updateBody": "لم يعد هذا الإصدار من التطبيق مدعومًا. حدّث التطبيق لمواصلة استخدامه.",
+    "updateBodyNoStore": "لم يعد هذا الإصدار من التطبيق مدعومًا. حدّثه من App Store لمواصلة استخدامه.",
+    "updateAction": "تحديث",
+    "maintenanceTitle": "سنعود قريبًا",
+    "maintenanceBody": "التطبيق متوقف للصيانة. حاول مرة أخرى بعد بضع دقائق.",
+    "retry": "حاول مرة أخرى"
   }
 }

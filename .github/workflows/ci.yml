@@ -30,6 +30,8 @@ jobs:
       - run: pnpm format:check
       - run: pnpm depcruise
       - run: pnpm test --coverage --ci
+      - name: Release bundles contain no mock backend
+        run: scripts/ci/check-no-mocks-in-release.sh
 
   android:
     name: Android build (${{ matrix.variant }})

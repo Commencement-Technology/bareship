@@ -123,6 +123,13 @@ export const handlers = [
     return new HttpResponse(null, { status: 204 });
   }),
 
+  // Push token registration (src/app/push-registration.ts).
+  http.post('*/devices', async ({ request }) => {
+    await wait();
+    const user = authenticate(request);
+    return user instanceof Response ? user : new HttpResponse(null, { status: 204 });
+  }),
+
   http.get('*/me', async ({ request }) => {
     await wait();
     const user = authenticate(request);

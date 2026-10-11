@@ -3,6 +3,8 @@ import { useRef, useState } from 'react';
 import { ScrollView } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
+import { env } from '@/shared/config/env';
+import { services } from '@/shared/services/services';
 import {
   Button,
   Card,
@@ -92,6 +94,18 @@ export function ShowroomScreen() {
         </Card>
       </Group>
 
+      <Group title="Notifications">
+        <Text tone="muted">
+          Shows a local notification that opens a post when tapped (works without Firebase).
+        </Text>
+        <Button
+          title="Send test notification"
+          variant="secondary"
+          onPress={() => sendTestNotification().catch(() => {})}
+          testID="send-test-notification"
+        />
+      </Group>
+
       <Group title="Feedback">
         <Skeleton height={14} />
         <Skeleton width="60%" height={14} />
@@ -107,6 +121,22 @@ export function ShowroomScreen() {
       </Sheet>
     </ScrollView>
   );
+}
+
+/** Asks for permission first if needed; the tap goes through linking.ts like a real push. */
+async function sendTestNotification() {
+  const { push } = services();
+  const allowed =
+    (await push.permission()) === 'granted' || (await push.requestPermission()) === 'granted';
+  if (!allowed) {
+    toast.error('Notifications are off for this app. Turn them on in Settings.');
+    return;
+  }
+  await push.showLocal({
+    title: 'Test notification',
+    body: 'Tap to open a post.',
+    data: { link: `${env.APP_SCHEME}://post/p_2` },
+  });
 }
 
 function Group({ title, children }: { title: string; children: React.ReactNode }) {

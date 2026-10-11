@@ -95,6 +95,25 @@ Every write picks one offline pattern (ADR 0006, after Expensify):
 - Mock mode can't simulate a dead network (requests never leave the app). To test offline, turn on
   airplane mode: NetInfo drives the queue either way.
 
+## Production services (Phase 3)
+
+Everything here runs without accounts; docs/going-live.md says what to add and what it switches on.
+
+- **Firebase** (crash, analytics, flags, push): `services()` picks Firebase adapters only when the native app
+  started Firebase (`src/shared/adapters/firebase-app.ts`); otherwise logging/static adapters. Never import
+  `@react-native-firebase/*` outside `src/shared/adapters` and `src/app/background.ts`.
+- **Flags:** every key and its default lives in `src/shared/config/flags.ts`. Read with
+  `services().flags.getBoolean('key', FLAG_DEFAULTS.key)`.
+- **App status:** `min_supported_version` / `maintenance_mode` swap the whole app for a blocking screen
+  (`src/entities/app-status`, checked at boot and on foreground).
+- **Push:** use `services().push` (port in `src/shared/ports`). A notification's `data.link` is a deep link;
+  taps go through `src/app/navigation/linking.ts`. Never prompt at first launch; the Settings row asks.
+- **Deep links:** add `linking: 'path/:param'` to the screen in `RootNavigator.tsx` and the path to
+  `LINK_PATHS` in `scripts/links-files.ts`. Links open on top of Home, and a link that arrives while signed
+  out opens after sign-in (`UNSTABLE_routeNamesChangeBehavior`, covered by `App.test.tsx`).
+- **Native config from `.env`:** `APP_SCHEME`, `APP_LINK_DOMAIN`, `IOS_APS_ENVIRONMENT` feed Gradle and
+  `scripts/ios/configure-environments.rb`. Re-run that script after changing them.
+
 ## Styling
 
 Unistyles 3 with the React Compiler on. For styles that depend on props or state, use a **dynamic function**
@@ -133,6 +152,10 @@ bundles drop it). Demo account: `demo@example.com` / `password123`. Set `API_MOC
 - In the app, `src/mocks/native.ts` is an axios adapter that runs the MSW handlers with `getResponse()`. It
   doesn't patch XHR/fetch, so other traffic (images, Metro) is untouched. Unmatched requests go to the network.
 - The mock DB resets on every JS reload. Tokens are self-describing, so a signed-in session survives reloads.
+- Demo release builds (`pnpm build:android:demo`) bundle `index.demo.js`, which starts the mocks and hands the
+  adapter to `boot()` via `src/app/mock-backend.ts`. Never import `src/mocks` from `index.js` or app code
+  outside a `__DEV__`-first condition: `scripts/ci/check-no-mocks-in-release.sh` fails if mock code reaches a
+  normal release bundle.
 - Add an endpoint: a handler in `src/mocks/handlers.ts`, snake_case DTOs, and a test against it.
 
 ## Intl on Hermes

@@ -1,6 +1,7 @@
 import RelativeTimeFormat from 'relative-time-format';
-import ar from 'relative-time-format/locale/ar';
-import en from 'relative-time-format/locale/en';
+// The .json paths skip the locale folders, whose package.json Metro warns about.
+import ar from 'relative-time-format/locale/ar.json';
+import en from 'relative-time-format/locale/en.json';
 
 import { currentLanguage } from '@/shared/i18n';
 

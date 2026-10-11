@@ -21,11 +21,14 @@ ENVFILES = {
   'Debug-Prod' => '.env.prod', 'Release-Prod' => '.env.prod',
 }.freeze
 
-linkage = ENV['USE_FRAMEWORKS']
-if linkage != nil
-  Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
-  use_frameworks! :linkage => linkage.to_sym
-end
+# [rn-template] React Native Firebase needs static frameworks, and refuses Swift Package Manager with them,
+# so the Firebase iOS SDK comes from CocoaPods. Verified with every native library in Phase 0
+# (docs/native-changes.md#firebase). USE_FRAMEWORKS can still override the linkage.
+$RNFirebaseAsStaticFramework = true
+$RNFirebaseDisableSPM = true
+linkage = ENV['USE_FRAMEWORKS'] || 'static'
+Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
+use_frameworks! :linkage => linkage.to_sym
 
 target 'RnTemplate' do
   config = use_native_modules!

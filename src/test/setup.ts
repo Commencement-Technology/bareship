@@ -2,6 +2,15 @@
 // (src/mocks) answers HTTP. Each test starts with a fresh database, services and session.
 import 'react-native-unistyles/mocks';
 
+// Firebase isn't set up in tests: services() picks the logging adapters (src/shared/adapters/firebase-app.ts).
+jest.mock('@react-native-firebase/app', () => ({ getApps: () => [] }));
+
+jest.mock('react-native-device-info', () =>
+  require('react-native-device-info/jest/react-native-device-info-mock'),
+);
+
+jest.mock('react-native-notify-kit', () => require('react-native-notify-kit/jest-mock'));
+
 jest.mock('react-native-config', () => ({
   __esModule: true,
   default: {
@@ -9,6 +18,8 @@ jest.mock('react-native-config', () => ({
     API_URL: 'https://api.test',
     LOG_LEVEL: 'error',
     API_MOCKS: 'false',
+    APP_SCHEME: 'rntemplate-dev',
+    APP_LINK_DOMAIN: '',
   },
 }));
 

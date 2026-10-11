@@ -1,4 +1,6 @@
 import { createConsoleLogger } from '@/shared/adapters/console-logger';
+import { createDeviceAppInfo } from '@/shared/adapters/device-info-app-info';
+import { isFirebaseConfigured } from '@/shared/adapters/firebase-app';
 import { createKeychainSecureStore } from '@/shared/adapters/keychain-secure-store';
 import { createMmkvKeyValueStore } from '@/shared/adapters/mmkv-key-value-store';
 import {
@@ -7,13 +9,17 @@ import {
   createNoopUpdates,
   createStaticFlags,
 } from '@/shared/adapters/noop-adapters';
+import { createNotifyKitPush } from '@/shared/adapters/notify-kit-push';
 import { env } from '@/shared/config/env';
+import { FLAG_DEFAULTS } from '@/shared/config/flags';
 import type {
   Analytics,
+  AppInfo,
   CrashReporter,
   FeatureFlags,
   KeyValueStore,
   Logger,
+  Push,
   SecureStore,
   Updates,
 } from '@/shared/ports';
@@ -21,7 +27,8 @@ import type {
 /**
  * Service registry: one place that picks an adapter for every port.
  * App code calls `services()`; tests call `setServices()` with fakes.
- * Phase 3 swaps the logging/no-op adapters for Firebase ones without touching callers.
+ * When the native app started Firebase (ADR 0010), crash, analytics and flags use Firebase; otherwise
+ * they log and return defaults, so the template runs before any Firebase project exists.
  */
 export type Services = {
   kv: KeyValueStore;
@@ -31,6 +38,8 @@ export type Services = {
   analytics: Analytics;
   flags: FeatureFlags;
   updates: Updates;
+  appInfo: AppInfo;
+  push: Push;
 };
 
 function createDefaultServices(): Services {
@@ -39,10 +48,36 @@ function createDefaultServices(): Services {
     kv: createMmkvKeyValueStore(),
     secure: createKeychainSecureStore(`app.${env.APP_ENV}`),
     logger,
+    ...createVendorServices(logger),
+    updates: createNoopUpdates(),
+    appInfo: createDeviceAppInfo(),
+  };
+}
+
+/** Firebase when it's set up for this build; logging and static defaults otherwise. */
+function createVendorServices(
+  logger: Logger,
+): Pick<Services, 'crash' | 'analytics' | 'flags' | 'push'> {
+  if (isFirebaseConfigured()) {
+    // Loaded lazily: builds without Firebase never evaluate the Crashlytics, Analytics or Remote
+    // Config modules.
+    const firebase =
+      require('@/shared/adapters/firebase') as typeof import('@/shared/adapters/firebase');
+    return {
+      crash: firebase.createFirebaseCrashReporter(logger),
+      analytics: firebase.createFirebaseAnalytics(),
+      flags: firebase.createRemoteConfigFlags(FLAG_DEFAULTS, logger),
+      push: (
+        require('@/shared/adapters/firebase-push') as typeof import('@/shared/adapters/firebase-push')
+      ).createFirebasePush(logger),
+    };
+  }
+  logger.info('Firebase is not set up for this build: crash, analytics and flags only log.');
+  return {
     crash: createLoggingCrashReporter(logger),
     analytics: createLoggingAnalytics(logger),
-    flags: createStaticFlags(),
-    updates: createNoopUpdates(),
+    flags: createStaticFlags(FLAG_DEFAULTS),
+    push: createNotifyKitPush(logger),
   };
 }
 

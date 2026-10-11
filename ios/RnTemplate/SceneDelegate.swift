@@ -21,6 +21,8 @@ class SceneDelegate: RCTDefaultReactNativeFactoryDelegate, UIWindowSceneDelegate
     dependencyProvider = RCTAppDependencyProvider()
     reactNativeFactory = RCTReactNativeFactory(delegate: self)
     window = UIWindow(windowScene: windowScene)
+    // [rn-template] For libraries that read the app delegate's window (see AppDelegate.swift).
+    (UIApplication.shared.delegate as? AppDelegate)?.window = window
 
     reactNativeFactory?.startReactNative(
       withModuleName: "RnTemplate",

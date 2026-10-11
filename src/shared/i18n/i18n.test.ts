@@ -86,7 +86,7 @@ describe('Intl polyfills', () => {
       .requireActual<typeof import('fs')>('fs')
       .readFileSync(require.resolve('@/shared/lib/format'), 'utf8');
     for (const language of Object.keys(LANGUAGES)) {
-      expect(source).toContain(`from 'relative-time-format/locale/${language}'`);
+      expect(source).toContain(`from 'relative-time-format/locale/${language}.json'`);
     }
   });
 });

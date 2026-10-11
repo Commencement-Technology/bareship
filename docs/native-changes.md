@@ -28,18 +28,23 @@ config plugin). Search the code for `[rn-template]` to find each change in place
 | Screens fragments | `MainActivity.kt` | `supportFragmentManager.fragmentFactory = RNScreensFragmentFactory()` before `RNBootSplash.init` | Required by react-native-screens ≥ 4.16 so restored fragments don't crash, in the order react-native-bootsplash documents | Handled by Expo |
 | <a id="ios-deployment-target"></a>iOS pod deployment targets | `ios/Podfile` (post_install) | Raises every pod's `IPHONEOS_DEPLOYMENT_TARGET` below `min_ios_version_supported` | Xcode 27 rejects targets below iOS 15; SDWebImage (FastImage), Lottie, react-native-svg and Firebase helper bundles still declare 9.0–13.0 | Handled by `expo-build-properties` |
 
-## Planned (Phase 3): Firebase
+## Added in Phase 3
 
-Verified on 2026-10-10 by building all 32 libraries together for the iOS simulator (1,845 compile units):
+Firebase, push and deep links are all optional at build time: each switches on when its config exists
+(ADR 0010, docs/going-live.md).
 
-- **iOS:** react-native-firebase 26 resolves the Firebase SDK through Swift Package Manager by default, and refuses
-  SPM with static linkage. The working setup is `$RNFirebaseDisableSPM = true` + `$RNFirebaseAsStaticFramework = true`
-  + `USE_FRAMEWORKS=static` (CocoaPods Firebase), and `pod install --repo-update` once so the spec index knows
-  Firebase 12.18.
-- The `[RNFB] Crashlytics Configuration` build phase fails without a `GoogleService-Info.plist`. Phase 3 copies
-  `ios/Config/Firebase/<Env>/GoogleService-Info.plist` in a build phase only when present, so the template still
-  builds before Firebase is set up.
-- **Android:** Google Services and Crashlytics Gradle plugins applied only when a flavor's `google-services.json` exists.
+| Area | File(s) | Change | Why | Expo (Track B) equivalent |
+| --- | --- | --- | --- | --- |
+| <a id="firebase"></a>Firebase (Android) | `android/build.gradle`, `android/app/build.gradle` | Classpath `google-services` 4.5.0 + `firebase-crashlytics-gradle` 3.0.8 (the versions in `@react-native-firebase/app`'s `sdkVersions`). Both plugins apply only when some flavor has `app/src/<flavor>/google-services.json`; `missingGoogleServicesStrategy = WARN` lets other flavors build; their `uploadCrashlyticsMappingFile*` tasks are disabled | The template must build before a Firebase project exists. Checked on AGP 9 with a placeholder config | `@react-native-firebase/app` config plugin + `googleServicesFile` |
+| Firebase (iOS) | `ios/Podfile` | `use_frameworks! :linkage => :static` (overridable with `USE_FRAMEWORKS`), `$RNFirebaseAsStaticFramework = true`, `$RNFirebaseDisableSPM = true` | React Native Firebase refuses SPM with static frameworks, and its SPM mode needs dynamic frameworks that each embed a private Firebase copy; CocoaPods is its recommended setup. **Firebase stops publishing to CocoaPods after October 2026**: 12.18 stays installable; follow React Native Firebase's migration when it moves | `expo-build-properties` `useFrameworks: "static"` |
+| Firebase config + Crashlytics (iOS) | `scripts/ios/configure-environments.rb` → `project.pbxproj`; `react-native.config.js` | Build phase "[rn-template] Copy Firebase config" bundles `ios/Config/Firebase/<env>/GoogleService-Info.plist` when present. "[rn-template] Crashlytics symbols" uploads dSYMs for Release builds with that plist. React Native Firebase's own "[RNFB] Crashlytics Configuration" phase is turned off (`scriptPhases: []`) | RNFB's phase fails every build without a plist (found in Phase 0) | Config plugin |
+| Firebase start (iOS) | `AppDelegate.swift` | `FirebaseApp.configure()` only when the plist is bundled | `configure()` crashes without it | Config plugin |
+| App delegate window (iOS) | `AppDelegate.swift`, `SceneDelegate.swift` | `var window: UIWindow?` on the app delegate, set by SceneDelegate to the scene's window | React Native Firebase Messaging reads `appDelegate.window` at launch: the app crashed with an unrecognized selector under the UIScene life cycle (found on the simulator 2026-10-11) | Handled by Expo's app delegate |
+| Firebase defaults | `firebase.json` | No Crashlytics reports from debug builds; FCM's default Android channel is `default` | Read by RNFB at build time | Same file |
+| <a id="deep-links"></a>Deep links (Android) | `AndroidManifest.xml`, `android/app/build.gradle`, `android/app/src/appLinks/AndroidManifest.xml` | `VIEW` intent filter for `${appScheme}` (from `APP_SCHEME` in `.env.<flavor>`). Flavors whose `.env` sets `APP_LINK_DOMAIN` also merge an `autoVerify` https filter | Per-environment schemes; verified links only for domains you control | `scheme` + `intentFilters` in app config |
+| Deep links + push (iOS) | `scripts/ios/configure-environments.rb` → `ios/Config/<Env>.xcconfig`, `Info.plist`, `ios/RnTemplate/RnTemplate-<Env>.entitlements` | `APP_URL_SCHEME` per environment; `CFBundleURLTypes`; `UIBackgroundModes: remote-notification`. An entitlements file (associated domains, `aps-environment`) only when `APP_LINK_DOMAIN` / `IOS_APS_ENVIRONMENT` is set | Both entitlements need a paid Apple team; adding them unconditionally breaks signing with a free account | `scheme`, `ios.associatedDomains`, `ios.entitlements` |
+| Notifications permission (Android) | `AndroidManifest.xml` | `POST_NOTIFICATIONS` | Android 13+ asks at runtime | Config plugin |
+| Encoding | `scripts/ios/configure-environments.rb` | `Encoding.default_external = UTF_8` | Ruby read `build.gradle` as ASCII in shells without a UTF-8 locale and crashed | n/a |
 
 ## Known warnings
 

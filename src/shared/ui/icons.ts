@@ -5,8 +5,10 @@
  * Browse names at https://lucide.dev/icons (file names are kebab-case).
  */
 export type { LucideIcon } from 'lucide-react-native';
+export { default as Bell } from 'lucide-react-native/icons/bell';
 export { default as ChevronRight } from 'lucide-react-native/icons/chevron-right';
 export { default as CloudOff } from 'lucide-react-native/icons/cloud-off';
+export { default as Download } from 'lucide-react-native/icons/download';
 export { default as Eye } from 'lucide-react-native/icons/eye';
 export { default as EyeOff } from 'lucide-react-native/icons/eye-off';
 export { default as Heart } from 'lucide-react-native/icons/heart';
@@ -19,3 +21,4 @@ export { default as Palette } from 'lucide-react-native/icons/palette';
 export { default as Settings } from 'lucide-react-native/icons/settings';
 export { default as Trash2 } from 'lucide-react-native/icons/trash';
 export { default as WifiOff } from 'lucide-react-native/icons/wifi-off';
+export { default as Wrench } from 'lucide-react-native/icons/wrench';

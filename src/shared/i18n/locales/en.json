@@ -108,7 +108,12 @@
     "deleteBody": "This permanently deletes your account and everything in it. You can't undo this.",
     "deleteConfirm": "Delete my account",
     "deleteFailed": "Couldn't delete your account. Try again.",
-    "showroom": "Component showroom"
+    "showroom": "Component showroom",
+    "notifications": "Notifications",
+    "notificationsOn": "On",
+    "notificationsOff": "Off",
+    "notificationsBlocked": "Blocked",
+    "notificationsBlockedHint": "Turn them on in your phone's settings."
   },
   "offline": {
     "banner": "You're offline. Showing saved content.",
@@ -120,5 +125,14 @@
     "resetBlocked": "You're offline. Connect to the internet to reset your password.",
     "requiredTitle": "You're offline",
     "requiredBody": "Connect to the internet to continue."
+  },
+  "appStatus": {
+    "updateTitle": "Update required",
+    "updateBody": "This version of the app is no longer supported. Update to keep using it.",
+    "updateBodyNoStore": "This version of the app is no longer supported. Update it from the App Store to keep using it.",
+    "updateAction": "Update",
+    "maintenanceTitle": "We'll be back soon",
+    "maintenanceBody": "The app is down for maintenance. Try again in a few minutes.",
+    "retry": "Try again"
   }
 }

@@ -11,7 +11,9 @@ export type ListItemProps = {
   title: string;
   subtitle?: string;
   icon?: LucideIcon;
-  /** Value or control shown at the end of the row. */
+  /** A short status shown at the end of the row ("On", "dev"); screen readers announce it too. */
+  value?: string;
+  /** Control shown at the end of the row (for text, use `value`). */
   trailing?: ReactNode;
   onPress?: () => void;
   /** Show a chevron for rows that navigate. */
@@ -24,6 +26,7 @@ export function ListItem({
   title,
   subtitle,
   icon,
+  value,
   trailing,
   onPress,
   chevron,
@@ -43,6 +46,7 @@ export function ListItem({
           </Text>
         ) : null}
       </View>
+      {value ? <Text tone="muted">{value}</Text> : null}
       {trailing}
       {chevron ? <Icon icon={ChevronRight} tone="textSubtle" directional /> : null}
     </>
@@ -60,6 +64,7 @@ export function ListItem({
       testID={testID}
       accessibilityRole="button"
       accessibilityLabel={subtitle ? `${title}, ${subtitle}` : title}
+      accessibilityValue={value ? { text: value } : undefined}
       onPress={onPress}
       style={({ pressed }) => [styles.row, pressed && styles.pressed]}
     >

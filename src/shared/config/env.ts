@@ -15,6 +15,16 @@ const EnvSchema = z.object({
     .enum(['true', 'false'])
     .default('false')
     .transform(value => value === 'true'),
+  /** URL scheme for deep links, e.g. myapp-dev://post/1. Native projects read the same value. */
+  APP_SCHEME: z.string().regex(/^[a-z][a-z0-9+.-]*$/, 'lowercase letters, digits, + . - only'),
+  /** Web domain for universal links / App Links (https://<domain>/post/1). Empty: links off. */
+  APP_LINK_DOMAIN: z
+    .string()
+    .regex(
+      /^$|^(?=.{1,253}$)([a-z0-9-]{1,63}\.)+[a-z]{2,63}$/,
+      'a bare domain, e.g. links.example.com',
+    )
+    .default(''),
 });
 
 export type Env = z.infer<typeof EnvSchema>;

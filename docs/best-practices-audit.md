@@ -14,6 +14,7 @@ bundles: `pnpm exec react-native bundle --platform android --dev false --minify 
 | zod's locale barrel shipped ~60 languages the app never shows | `bundle-barrel-exports`, `bundle-library-size` | Metro resolves it to `metro/zod-locales.js` (English only): −295 KB |
 | FormatJS Intl polyfills needed `Intl.Locale` (~390 KB) | `native-sdks-over-polyfills` ("remove Intl polyfills only after checking Hermes coverage") | `intl-pluralrules` + `relative-time-format`: −333 KB. Checked in Hermes: Arabic plurals and relative times correct |
 | **Total** | | Android bundle 4,176 KB → 3,548 KB (−15%) |
+| Phase 3 libraries measured (2026-10-11) | `bundle-library-size` | +174 KB: React Native Firebase JS ~82 KB, device-info 33 KB, new app code. The Firebase web SDK it depends on is not in the bundle |
 
 ## Pending: lint-enforced (one sweep, then lint keeps them fixed)
 

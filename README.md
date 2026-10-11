@@ -47,11 +47,46 @@ in one step, then runs `pod install`. Run it once on a fresh copy.
 | `pnpm android`, `pnpm android:staging`, `pnpm android:prod` | Run a debug build of that environment |
 | `pnpm ios`, `pnpm ios:staging`, `pnpm ios:prod` | Same on iOS |
 | `pnpm pods` | `pod install` through Bundler |
+| `pnpm build:android:dev`, `pnpm build:android:staging` | Release APK of that environment |
 | `pnpm build:android:prod` | Release App Bundle for Play |
+| `pnpm build:android:demo` | Release APK with sample data, for trying the app on a phone (see below) |
+| `pnpm links:files` | Files your website serves so its links open the app ([going live](docs/going-live.md)) |
+| `pnpm skills:sync` | Update the vendored agent skills to another upstream commit |
 | `pnpm check` | Typecheck, lint, format check, boundaries, tests |
 | `pnpm icons` | Regenerate app icons from `assets/brand/icon.svg` |
 | `pnpm splash` | Regenerate the splash screen from `assets/brand/logo.svg` |
 | `pnpm bootstrap` | Rename the app (see above) |
+
+## Try the app on your Android phone
+
+`pnpm build:android:demo` makes a release build that runs on its own, with sample data built in, so you
+can try sign-in, the feed, likes and offline mode before you have a backend.
+
+Before you start:
+
+- The build is for 64-bit ARM phones (almost every Android phone from the last few years).
+- It's signed with the debug key unless you set up release signing (below), so it can't go to Play.
+- It installs as the dev app ("RnTemplate Dev"), next to any staging or prod build.
+
+1. Build it. The first build takes a while because the native code compiles in release mode:
+
+   ```bash
+   pnpm build:android:demo
+   ```
+
+2. Install `android/app/build/outputs/apk/dev/release/app-dev-release.apk`: with the phone connected over
+   USB, run `adb install -r android/app/build/outputs/apk/dev/release/app-dev-release.apk`, or copy the file
+   to the phone and open it (allow installs from that app when Android asks).
+3. Sign in with `demo@example.com` / `password123`.
+
+The sample data resets every time the app starts; your sign-in and settings stay.
+
+If something goes wrong:
+
+- **"App not installed" or a signature error:** a dev build signed with a different key is already on the
+  phone. Uninstall it, then install again.
+- **The build stops with "-PdemoBuild only builds the dev flavor":** the demo build only exists for the dev
+  environment. Use `pnpm build:android:staging` or `pnpm build:android:prod` for those.
 
 ## Release signing (Android)
 
@@ -73,7 +108,7 @@ Without them, release builds are signed with the debug key and the build prints 
 | 0 | Decisions (ADRs), version matrix, library build check | Done |
 | 1 | Foundation: tooling, environments, splash, icons, rename, CI | Done |
 | 2 | Core: ports and adapters, API client (axios), TanStack Query + MMKV, React Navigation 7, Unistyles design system, i18n, forms, example features with MSW mocks | Done |
-| 3 | Production: offline queue and UI, Firebase (Crashlytics, Analytics, Remote Config, FCM), force update, deep links, OTA port | In progress: offline done |
+| 3 | Production: offline queue and UI, Firebase (Crashlytics, Analytics, Remote Config, FCM), force update, deep links, OTA port | Done ([what to add before release](docs/going-live.md)) |
 | 4 | Quality: Maestro, Reassure, startup metrics, generators, Fastlane lanes | |
 | 5 | Package: GitHub template + npm `--template`, example stripping, then Track B (Expo) | |
 

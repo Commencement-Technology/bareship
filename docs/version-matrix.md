@@ -50,7 +50,7 @@ needs a real `GoogleService-Info.plist` (made conditional in Phase 3). See docs/
 | react-native-localize | 3.7.2 | i18n (0009) | ✓ | ✓ | |
 | react-native-config | 1.7.2 | Env (0004) | ✓ | ✓ | |
 | react-native-bootsplash | 7.3.4 | Splash | ✓ | ✓ | Pulls `@expo/config-plugins` (trust exception in pnpm policy) |
-| @react-native-firebase/app, messaging, crashlytics, analytics, remote-config | 26.4.0 | Observability, push (0010) | ✓ | ✓ | iOS needs static frameworks; plugins only when configured |
+| @react-native-firebase/app, messaging, crashlytics, analytics, remote-config | 26.4.0 | Observability, push (0010) | ✓ | ✓ | iOS needs static frameworks; plugins only when configured. Firebase iOS SDK 12.18 via CocoaPods: **Firebase publishes no new CocoaPods versions after October 2026**; recheck at every RNFB upgrade |
 | react-native-notify-kit | 10.8.0 | Push display (0010) | ✓ | ✓ | Maintained Notifee fork (Notifee archived 2026-04) |
 | @react-native-community/netinfo | 12.0.1 | Offline (0006) | ✓ | ✓ | |
 | react-native-permissions | 5.6.2 | Permissions | ✓ | ✓ | |

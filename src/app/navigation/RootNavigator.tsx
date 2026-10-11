@@ -56,6 +56,10 @@ function useShowSignedIn() {
 
 const RootStack = createNativeStackNavigator({
   screenOptions: { headerShown: false },
+  // A deep link that arrives while signed out (or during onboarding) opens once its screen exists,
+  // i.e. right after sign-in, instead of being dropped. "UNSTABLE" in React Navigation 7; covered by
+  // App.test.tsx so an upgrade that changes it fails loudly.
+  UNSTABLE_routeNamesChangeBehavior: 'lastUnhandled',
   groups: {
     Onboarding: {
       if: useNeedsOnboarding,

@@ -4,6 +4,7 @@
 
 // Unistyles must be configured before any StyleSheet.create runs.
 import './src/shared/ui/theme/unistyles';
+import './src/app/background'; // push handlers the OS can call before any screen mounts
 
 import { AppRegistry } from 'react-native';
 

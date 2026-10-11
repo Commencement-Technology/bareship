@@ -24,3 +24,9 @@ Most templates bake one `.env` into the JS bundle. Real apps need dev, staging a
 ## Alternatives considered
 
 - JS-only env file: cannot change bundle ids, names or Firebase projects per environment.
+
+## Addendum (2026-10-10): demo builds
+
+`pnpm build:android:demo` builds the dev flavor in release mode from `index.demo.js`, which adds the in-app
+mock backend, so the app can be tried on a phone before a backend exists. Gradle refuses `-PdemoBuild` for
+the staging and prod flavors, and CI checks that release bundles from `index.js` contain no mock code.

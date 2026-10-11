@@ -30,27 +30,62 @@ export interface Logger {
   error(message: string, context?: LogContext): void;
 }
 
-/** Crash and error reporting (Crashlytics in Phase 3). */
+/** Crash and error reporting (Crashlytics when Firebase is set up). */
 export interface CrashReporter {
   recordError(error: unknown, context?: LogContext): void;
   log(message: string): void;
   setUser(userId: string | null): void;
 }
 
-/** Product analytics (Firebase Analytics in Phase 3). */
+/** Product analytics (Firebase Analytics when Firebase is set up). */
 export interface Analytics {
   track(event: string, properties?: Record<string, string | number | boolean>): void;
   screen(name: string): void;
   identify(userId: string | null): void;
 }
 
-/** Feature flags and remote config (Firebase Remote Config in Phase 3). */
+/** Feature flags and remote config (Firebase Remote Config when Firebase is set up). */
 export interface FeatureFlags {
   getBoolean(key: string, fallback: boolean): boolean;
   getString(key: string, fallback: string): string;
   getNumber(key: string, fallback: number): number;
   /** Fetches and activates the latest values. Resolves even when offline. */
   refresh(): Promise<void>;
+}
+
+export type PushPermission = 'granted' | 'denied' | 'not-determined';
+
+/** A notification as the app sees it. `data.link` is a deep link opened on tap (ADR 0010). */
+export type PushMessage = { title?: string; body?: string; data: Record<string, string> };
+
+/**
+ * Notifications: local display everywhere; remote delivery (FCM) when Firebase is set up
+ * (notify-kit + @react-native-firebase/messaging; expo-notifications in Track B).
+ */
+export interface Push {
+  /** Current permission, without prompting. */
+  permission(): Promise<PushPermission>;
+  /** Shows the system prompt where the OS still allows it (iOS, Android 13+). */
+  requestPermission(): Promise<PushPermission>;
+  /** This device's push token for your backend. Null without Firebase or permission. */
+  getToken(): Promise<string | null>;
+  onTokenChange(listener: (token: string) => void): () => void;
+  /** The notification whose tap launched the app, once per launch. */
+  initialOpen(): Promise<PushMessage | null>;
+  /** A tap on a notification while the app is running or in the background. */
+  onOpen(listener: (message: PushMessage) => void): () => void;
+  /** Shows a notification now (incoming messages in the foreground, the showroom test button). */
+  showLocal(message: PushMessage): Promise<void>;
+}
+
+/** The installed app's identity (react-native-device-info; expo-application in Track B). */
+export interface AppInfo {
+  /** Marketing version, e.g. "1.4.0" (Android dev and staging builds add "-dev" / "-staging"). */
+  version(): string;
+  /** Store build number, e.g. "42". */
+  buildNumber(): string;
+  /** Bundle id / application id, including the environment suffix. */
+  bundleId(): string;
 }
 
 export type UpdateStatus = 'up-to-date' | 'update-ready' | 'unsupported';

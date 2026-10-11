@@ -1,7 +1,8 @@
 import { screen, userEvent, waitFor } from '@testing-library/react-native';
 
 import { useSession } from '@/entities/session';
-import { services } from '@/shared/services/services';
+import type { Push } from '@/shared/ports';
+import { services, setServices } from '@/shared/services/services';
 import { signInDemoUser } from '@/test/app';
 import { renderWithProviders } from '@/test/render';
 
@@ -20,6 +21,27 @@ describe('SettingsScreen', () => {
     await user.press(screen.getByRole('radio', { name: 'Dark' }));
     expect(services().kv.getString('settings.theme')).toBe('dark');
     expect(screen.getByRole('radio', { name: 'Dark' })).toBeSelected();
+  });
+
+  it('turns notifications on from the row, which announces its status', async () => {
+    let permission: 'not-determined' | 'granted' = 'not-determined';
+    const push = {
+      ...services().push,
+      permission: async () => permission,
+      requestPermission: jest.fn(async () => {
+        permission = 'granted';
+        return permission;
+      }),
+    } satisfies Push;
+    setServices({ push });
+    const user = userEvent.setup();
+    await renderWithProviders(<SettingsScreen />);
+
+    const row = await screen.findByRole('button', { name: 'Notifications' });
+    expect(row).toHaveAccessibilityValue({ text: 'Off' });
+    await user.press(row);
+    expect(push.requestPermission).toHaveBeenCalled();
+    expect(await screen.findByText('On')).toBeOnTheScreen();
   });
 
   it('signs out', async () => {

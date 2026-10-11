@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 import { ScrollView, View } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
+import { usePushPermission } from '@/entities/push/use-push-permission';
 import { useDeleteAccount, useSession, useSignOut } from '@/entities/session';
 import { env } from '@/shared/config/env';
 import {
@@ -28,13 +29,14 @@ import {
   Text,
   type ThemePreference,
 } from '@/shared/ui';
-import { LayoutGrid, LogOut, Trash2 } from '@/shared/ui/icons';
+import { Bell, LayoutGrid, LogOut, Trash2 } from '@/shared/ui/icons';
 
 export function SettingsScreen() {
   const { t } = useTranslation();
   const navigation = useNavigation();
   const user = useSession(state => state.user);
   const signOut = useSignOut();
+  const { permission, enable } = usePushPermission();
   const deleteAccount = useDeleteAccount();
   const [theme, setTheme] = useState<ThemePreference>(getThemePreference);
   const [language, setLanguage] = useState<Language>(currentLanguage);
@@ -86,6 +88,23 @@ export function SettingsScreen() {
             }))}
           />
         </View>
+      </Section>
+
+      <Section title={t('settings.notifications')}>
+        <ListItem
+          title={t('settings.notifications')}
+          subtitle={permission === 'denied' ? t('settings.notificationsBlockedHint') : undefined}
+          icon={Bell}
+          value={
+            permission === 'granted'
+              ? t('settings.notificationsOn')
+              : permission === 'denied'
+                ? t('settings.notificationsBlocked')
+                : t('settings.notificationsOff')
+          }
+          onPress={permission === 'granted' ? undefined : () => enable().catch(() => {})}
+          testID="settings-notifications"
+        />
       </Section>
 
       <Section title={t('settings.about')}>

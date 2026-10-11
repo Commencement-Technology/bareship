@@ -10,7 +10,9 @@ import { KeyboardProvider } from 'react-native-keyboard-controller';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 
 import { createPersistOptions, queryClient, resumeQueuedWrites } from '@/data';
+import { useAppStatus } from '@/entities/app-status/app-status-store';
 import { useSession } from '@/entities/session';
+import { MaintenanceScreen, UpdateRequiredScreen } from '@/features/app-status';
 import { services } from '@/shared/services/services';
 import { ErrorBoundary, ToastHost } from '@/shared/ui';
 
@@ -26,6 +28,7 @@ export function App() {
   const [booted, setBooted] = useState(false);
   const [restored, setRestored] = useState(false);
   const status = useSession(state => state.status);
+  const appStatus = useAppStatus(state => state.status);
 
   useEffect(() => {
     boot().finally(() => {
@@ -67,7 +70,10 @@ export function App() {
           <BottomSheetModalProvider>
             <StatusBar barStyle={theme.scheme === 'dark' ? 'light-content' : 'dark-content'} />
             <ErrorBoundary>
-              {booted ? (
+              {/* Remote Config can block this version (update) or the whole app (maintenance). */}
+              {booted && appStatus === 'update-required' ? <UpdateRequiredScreen /> : null}
+              {booted && appStatus === 'maintenance' ? <MaintenanceScreen /> : null}
+              {booted && appStatus === 'ok' ? (
                 <Navigation
                   theme={navigationTheme(theme)}
                   linking={linking}

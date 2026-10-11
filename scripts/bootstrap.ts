@@ -96,6 +96,8 @@ const replacements: Array<[RegExp, string]> = [
     `resValue "string", "app_name", "${newDisplay}"`,
   ],
   [new RegExp(oldBundleId.replace(/\./g, '\\.'), 'g'), newBundleId],
+  // Deep-link scheme (APP_SCHEME in .env.*, and links in tests): rntemplate-dev:// → acme-shop-dev://.
+  [new RegExp(`\\b${oldName.toLowerCase()}(?=-(?:dev|staging)\\b|://|$)`, 'gm'), kebab],
   [new RegExp(`\\b${oldName}\\b`, 'g'), newName],
   [new RegExp(`\\b${oldName}(?=-|\\.|_)`, 'g'), newName],
 ];
