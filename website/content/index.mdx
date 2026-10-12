@@ -1,13 +1,13 @@
 ---
 title: rn-template
-description: A bare React Native template with offline writes, Keychain tokens, an enforced architecture and rules your AI agent follows. Runs with no accounts.
+description: 'A bare React Native template with offline writes, Keychain tokens, an enforced architecture and rules your AI agent follows. Runs with no accounts.'
 template: splash
 hero:
   title: A React Native template with the hard parts done
   tagline: Bare React Native 0.87 with offline writes that survive a restart, tokens in the Keychain, an architecture the linter enforces, and rules your AI agent follows. It runs with no accounts.
   actions:
     - text: Get started
-      link: /start-here/introduction/
+      link: /start-here/quick-start/
       icon: right-arrow
     - text: View on GitHub
       link: https://github.com/psingh2907/rn-template-bare
@@ -71,7 +71,7 @@ When you're ready, [Going live](/production/going-live/) lists what to add and w
 <CardGrid>
   <Card title="Offline writes that wait" icon="cloud-download">
     A write made offline is saved, survives a restart, and is sent in order when the connection
-    returns, each with its own idempotency key. [How it works](/build/architecture/#writing-data)
+    returns, each with its own idempotency key. [Offline](/build/offline/)
   </Card>
   <Card title="Tokens in the Keychain" icon="padlock">
     Access and refresh tokens live in the iOS Keychain and Android Keystore, never in plain storage.
@@ -124,7 +124,7 @@ Every write in the app picks one of four behaviours, so users always know what h
 | D       | The screen is replaced by an offline message                         | Account deletion, checkout |
 
 Writes queued with A or B survive closing the app and are sent in order when the connection returns. An offline
-banner sits under the header while the phone is offline. [Offline rules](/build/project-rules/#offline)
+banner sits under the header while the phone is offline. [How to choose and use a pattern](/build/offline/)
 
 ## Built for AI agents
 
@@ -136,6 +136,8 @@ The rules your team follows are written down where coding agents read them, and 
   fields, offline behaviour, strings and tests. Callstack's React Native skills are included and pinned.
 - **Accessible by default:** screens use ARIA roles and labels, so agents that drive the app on a simulator
   read the screen as text instead of guessing from screenshots.
+
+[How agents work with the template](/build/ai-agents/)
 
 ## Is this for you?
 

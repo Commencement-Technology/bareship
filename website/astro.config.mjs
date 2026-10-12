@@ -15,13 +15,20 @@ export default defineConfig({
       sidebar: [
         {
           label: 'Start here',
-          items: ['start-here/introduction', 'start-here/environments'],
+          items: [
+            'start-here/introduction',
+            'start-here/quick-start',
+            'start-here/environments',
+            'start-here/faq',
+          ],
         },
         {
           label: 'Build your app',
           items: [
             'build/architecture',
+            'build/offline',
             'build/generators',
+            'build/ai-agents',
             'build/styling',
             'build/testing',
             'build/project-rules',
