@@ -9,6 +9,7 @@ assets/bootsplash/
 # Vendored agent skills: keep identical to upstream (pnpm skills:sync)
 .claude/skills/
 
-# Website build output and generated types (website/.gitignore)
+# Website build output, generated types and synced pages (website/.gitignore)
 website/.astro/
 website/dist/
+website/src/content/docs/

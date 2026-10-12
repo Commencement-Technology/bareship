@@ -2,3 +2,6 @@
 dist/
 .astro/
 node_modules/
+
+# Generated from ../docs, ../AGENTS.md and content/ by scripts/sync-docs.mjs. Edit the sources.
+src/content/docs/

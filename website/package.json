@@ -6,10 +6,11 @@
   "type": "module",
   "packageManager": "pnpm@12.3.4",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
+    "sync": "node scripts/sync-docs.mjs",
+    "dev": "node scripts/sync-docs.mjs --dev",
+    "build": "node scripts/sync-docs.mjs && astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "node scripts/sync-docs.mjs && astro check"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "7.3.2",
