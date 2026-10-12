@@ -1,0 +1,15 @@
+# The website is its own pnpm project (not part of the app or the npm template), with the same
+# supply-chain policy as the app: see ../pnpm-workspace.yaml and docs/decisions/0003.
+
+# Don't install a version until it has been public for 3 days (minutes).
+minimumReleaseAge: 4320
+minimumReleaseAgeExclude: []
+
+trustPolicy: no-downgrade
+trustPolicyIgnoreAfter: 43200
+
+# Install scripts are denied unless listed `true` here.
+allowBuilds:
+  # Platform binaries arrive as optional dependencies; no postinstall needed.
+  esbuild: false
+  sharp: false

@@ -75,6 +75,7 @@ export default [
       '.bundle/**',
       'assets/bootsplash/**',
       'dist/**',
+      'website/**', // its own project (Astro); see website/package.json
     ],
   },
   ...reactNative,

@@ -9,7 +9,7 @@ copy="$(mktemp -d)"
 trap 'rm -f "$copy/node_modules"; rm -rf "$copy"' EXIT
 
 rsync -a --exclude node_modules --exclude .git --exclude ios --exclude android --exclude vendor \
-  --exclude coverage --exclude build --exclude dist ./ "$copy/"
+  --exclude coverage --exclude build --exclude dist --exclude website ./ "$copy/"
 ln -s "$root/node_modules" "$copy/node_modules"
 cd "$copy"
 bin=node_modules/.bin

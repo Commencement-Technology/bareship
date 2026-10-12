@@ -31,20 +31,6 @@ add each service when you need it ([going live](docs/going-live.md)).
 - **Built for AI agents too.** `AGENTS.md`, ADRs and Callstack's React Native agent skills give Claude
   Code, Copilot and other agents the same rules as your team.
 
-### Compared with other templates
-
-From each template's code as of 10 October 2026 ([research](docs/research.md)). They change, so check
-before relying on a row.
-
-| | Ignite | Obytes | TheCodingMachine | This template |
-| --- | --- | --- | --- | --- |
-| Bare CLI (no Expo prebuild) | – | – | ✓ | ✓ |
-| Server-cache library (TanStack Query) | – | ✓ | ✓ | ✓ |
-| Tokens in Keychain / Keystore | – | – | – | ✓ |
-| Persisted offline write queue | – | – | – | ✓ |
-| Crash reporting and feature flags | – | – | – | ✓ (optional) |
-| Supply-chain install policy | – | – | – | ✓ |
-
 ## Quick start
 
 Requirements:
