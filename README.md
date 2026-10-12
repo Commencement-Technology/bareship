@@ -121,8 +121,10 @@ add your own features, screens and API calls with `pnpm gen` ([generators](docs/
 - Jest and React Native Testing Library, with an 80% coverage gate on `shared/` and `data/`.
 - pnpm refuses packages younger than 3 days and install scripts unless allowlisted. Renovate groups
   updates.
-- GitHub Actions: types, lint, format, boundaries and tests on every PR. Android and iOS builds run on
-  `main` and on PRs labelled `native` (paused for now, see [known limitations](#known-limitations)).
+- GitHub Actions: types, lint, format, boundaries and tests on every PR. Android and iOS builds are opt-in:
+  label a PR `native`, run the workflow by hand, or set the repository variable `NATIVE_BUILDS=true` to build
+  on every push to `main` ([ADR 0014](docs/decisions/0014-opt-in-native-ci.md)). Paused in this repository
+  for now, see [known limitations](#known-limitations).
 
 **For AI agents**
 

@@ -17,6 +17,7 @@
 
 ## Status of the decision (2026-10-12)
 
+- CI (F5): native builds on `main` are now opt-in; see [0014](0014-opt-in-native-ci.md).
 - Release (F6): built. `fastlane/Fastfile` has `bump`, `android build|beta`, `ios build|certs|beta`; see
   docs/releasing.md. Checked 2026-10-12: `bump` on both platforms, the missing-credential messages, and a
   dry run of the build lanes' Gradle tasks and Xcode schemes. A full release build through fastlane and the

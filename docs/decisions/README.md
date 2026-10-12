@@ -21,5 +21,6 @@ this bare template and "Track B" a later Expo version sharing its `src/` ([0001]
 | [0011](0011-developer-tooling.md) | Developer tooling, docs and agents | Accepted |
 | [0012](0012-testing-and-delivery.md) | Testing, CI and delivery | Accepted |
 | [0013](0013-agent-device-tools.md) | Agent device tools: agent-device by default, Argent for profiling | Accepted |
+| [0014](0014-opt-in-native-ci.md) | Native CI builds are opt-in | Accepted |
 
 New ADRs copy [template.md](template.md). Never edit an accepted ADR's decision; supersede it with a new one.

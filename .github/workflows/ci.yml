@@ -1,13 +1,20 @@
-# Every pull request and push to main. See docs/decisions/0012-testing-and-delivery.md.
+# Checks run on every pull request and push to main. The slow native builds are opt-in (ADR 0014): a pull
+# request labelled "native", a manual run (Actions → CI → Run workflow), or every push to main once the
+# repository variable NATIVE_BUILDS is "true" (Settings → Secrets and variables → Actions → Variables).
 name: CI
 
 on:
   pull_request:
+    # `labeled` so adding the "native" label to an open pull request starts the native builds.
+    types: [opened, synchronize, reopened, labeled]
   push:
     branches: [main]
+  workflow_dispatch:
 
 concurrency:
-  group: ci-${{ github.ref }}
+  # A newer run on the same branch cancels the older one. A run started by an unrelated label gets its
+  # own group, so it can't cancel a real one (it does nothing: the checks job skips it).
+  group: ci-${{ github.ref }}${{ github.event.action == 'labeled' && github.event.label.name != 'native' && format('-{0}', github.run_id) || '' }}
   cancel-in-progress: true
 
 permissions:
@@ -16,6 +23,8 @@ permissions:
 jobs:
   checks:
     name: Types, lint, tests, boundaries
+    # Adding any other label to a pull request doesn't need a new run.
+    if: github.event.action != 'labeled' || github.event.label.name == 'native'
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
@@ -37,8 +46,11 @@ jobs:
   android:
     name: Android build (${{ matrix.variant }})
     needs: checks
-    # Native builds are slow: run on main, or on PRs labelled "native".
-    if: github.ref == 'refs/heads/main' || contains(github.event.pull_request.labels.*.name, 'native')
+    # Opt-in: see the top of this file.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'push' && vars.NATIVE_BUILDS == 'true') ||
+      contains(github.event.pull_request.labels.*.name, 'native')
     runs-on: ubuntu-24.04
     # A cold build takes 30-50 minutes. Without a limit, a stuck build holds the runner for 6 hours.
     timeout-minutes: 90
@@ -92,7 +104,10 @@ jobs:
   ios:
     name: iOS build (Debug-Dev, simulator)
     needs: checks
-    if: github.ref == 'refs/heads/main' || contains(github.event.pull_request.labels.*.name, 'native')
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'push' && vars.NATIVE_BUILDS == 'true') ||
+      contains(github.event.pull_request.labels.*.name, 'native')
     runs-on: macos-26
     timeout-minutes: 75
     env:
