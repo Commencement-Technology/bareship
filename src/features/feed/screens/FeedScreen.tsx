@@ -6,7 +6,8 @@ import { ActivityIndicator, RefreshControl, View } from 'react-native';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 
 import { useTranslation } from '@/shared/i18n';
-import { EmptyState, ErrorState, Text } from '@/shared/ui';
+import { EmptyState, ErrorState } from '@/shared/ui/primitives/States';
+import { Text } from '@/shared/ui/primitives/Text';
 
 import { feedQueryOptions, useToggleLike, useWaitingLikes } from '../api';
 import { PostCard } from '../components/PostCard';

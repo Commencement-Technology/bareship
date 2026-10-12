@@ -4,16 +4,14 @@ import { useForm } from 'react-hook-form';
 
 import { useTranslation } from '@/shared/i18n';
 import { useIsOnline } from '@/shared/lifecycle/network';
-import {
-  Button,
-  Card,
-  errorMessage,
-  FormTextField,
-  OfflineNotice,
-  Screen,
-  Stack,
-  Text,
-} from '@/shared/ui';
+import { FormTextField } from '@/shared/ui/form/FormTextField';
+import { OfflineNotice } from '@/shared/ui/offline/Offline';
+import { Button } from '@/shared/ui/primitives/Button';
+import { Card } from '@/shared/ui/primitives/Card';
+import { Screen } from '@/shared/ui/primitives/Screen';
+import { Stack } from '@/shared/ui/primitives/Stack';
+import { errorMessage } from '@/shared/ui/primitives/States';
+import { Text } from '@/shared/ui/primitives/Text';
 
 import { useRequestPasswordReset } from '../hooks/useAuthMutations';
 import { type ForgotPasswordInput, ForgotPasswordInputSchema } from '../schema';
@@ -40,9 +38,7 @@ export function ForgotPasswordScreen() {
       </Stack>
       {reset.isSuccess ? (
         <Card>
-          <Text accessibilityLiveRegion="polite">
-            {t('auth.forgot.sent', { email: getValues('email') })}
-          </Text>
+          <Text aria-live="polite">{t('auth.forgot.sent', { email: getValues('email') })}</Text>
         </Card>
       ) : (
         <Stack gap="lg">

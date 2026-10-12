@@ -12,7 +12,7 @@ describe('ShowroomScreen', () => {
     }
     expect(screen.getByRole('button', { name: 'Disabled' })).toBeDisabled();
     expect(screen.getByRole('button', { name: 'Loading' })).toBeBusy();
-    expect(screen.getAllByRole('header', { name: 'display' })).toHaveLength(1);
+    expect(screen.getAllByRole('heading', { name: 'display' })).toHaveLength(1);
     expect(screen.getByText('Enter a valid email address.')).toBeOnTheScreen();
     expect(screen.getByText('Empty state')).toBeOnTheScreen();
   });

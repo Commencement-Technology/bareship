@@ -37,6 +37,9 @@ them, release builds are signed with the debug key and Play rejects them.
 **iOS:** open `ios/<App>.xcworkspace` in Xcode, select the app target, and set your team under Signing &
 Capabilities. A free Apple account can run the app on your own phone, but can't use push or web links.
 
+To build and upload from the command line or CI, use the fastlane lanes in [releasing](releasing.md):
+they sign iOS builds with match and upload to TestFlight and Play internal testing.
+
 ## Set up Firebase
 
 1. In the [Firebase console](https://console.firebase.google.com), create a project. Use one project per

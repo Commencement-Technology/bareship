@@ -15,6 +15,15 @@
 - **Release (F6):** Fastlane (`match` for iOS signing; lanes for build, version bump and upload).
 - **Beta distribution (F7):** TestFlight and the Google Play internal testing track.
 
+## Status of the decision (2026-10-12)
+
+- Release (F6): built. `fastlane/Fastfile` has `bump`, `android build|beta`, `ios build|certs|beta`; see
+  docs/releasing.md. Checked 2026-10-12: `bump` on both platforms, the missing-credential messages, and a
+  dry run of the build lanes' Gradle tasks and Xcode schemes. A full release build through fastlane and the
+  uploads haven't run yet (no store accounts).
+- Performance (F3) and E2E (F1): postponed by the maintainer; Reassure, startup metrics and Maestro come
+  after Phase 4.
+
 ## Consequences
 
 - Fastlane needs Ruby and Bundler on CI, as CocoaPods already does.

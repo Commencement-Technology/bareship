@@ -8,6 +8,62 @@ import simpleImportSort from 'eslint-plugin-simple-import-sort';
 // Layers, top to bottom. A layer may import only from layers below it.
 const LAYERS = ['app', 'features', 'entities', 'data', 'shared'];
 
+// A later config block replaces a rule's options instead of merging them, so blocks that add
+// restrictions repeat these.
+const IMPORT_PATTERNS = [
+  {
+    group: ['react-native/Libraries/*'],
+    message:
+      'Deep imports are not part of the public API (RN 0.87 strict types). Import from "react-native".',
+  },
+  {
+    group: ['../../*'],
+    message: 'Use the "@/" alias instead of deep relative imports.',
+  },
+];
+
+// Barrel files re-export other modules: they create require cycles, slow HMR and load more than a
+// screen needs. `@/shared/i18n` and `@/shared/ports` define their contents, so they are allowed.
+const NO_BARRELS = {
+  regex: '^@/(data|entities/[^/]+|shared/(?!i18n$|ports$)[^/]+)$',
+  message:
+    'Import from the module that defines it (e.g. "@/shared/ui/primitives/Button"), not a folder index (AGENTS.md).',
+};
+
+const SYNTAX_RULES = [
+  {
+    selector: "CallExpression[callee.property.name='useVariants']",
+    message:
+      'useVariants goes stale under the React Compiler. Use a dynamic style function, e.g. styles.field(state) (AGENTS.md › Styling).',
+  },
+  {
+    selector:
+      'JSXAttribute[name.name=/^(accessibility(?!Hint$)[A-Z][A-Za-z]*|importantForAccessibility)$/]',
+    message:
+      'Use ARIA props: role, aria-label, aria-selected, aria-checked, aria-disabled, aria-busy, aria-live, aria-hidden, aria-valuetext (AGENTS.md › Agent skills). accessibilityHint stays.',
+  },
+];
+
+// The React Compiler rules from eslint-plugin-react-hooks 7 ("recommended-latest"). The plugin is
+// registered by @react-native/eslint-config.
+const REACT_COMPILER_RULES = {
+  'react-hooks/static-components': 'error',
+  'react-hooks/use-memo': 'error',
+  'react-hooks/void-use-memo': 'error',
+  'react-hooks/preserve-manual-memoization': 'error',
+  'react-hooks/incompatible-library': 'error',
+  'react-hooks/immutability': 'error',
+  'react-hooks/globals': 'error',
+  'react-hooks/refs': 'error',
+  'react-hooks/set-state-in-effect': 'error',
+  'react-hooks/error-boundaries': 'error',
+  'react-hooks/purity': 'error',
+  'react-hooks/set-state-in-render': 'error',
+  'react-hooks/unsupported-syntax': 'error',
+  'react-hooks/config': 'error',
+  'react-hooks/gating': 'error',
+};
+
 export default [
   {
     ignores: [
@@ -26,22 +82,7 @@ export default [
     rules: {
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',
-      'no-restricted-imports': [
-        'error',
-        {
-          patterns: [
-            {
-              group: ['react-native/Libraries/*'],
-              message:
-                'Deep imports are not part of the public API (RN 0.87 strict types). Import from "react-native".',
-            },
-            {
-              group: ['../../*'],
-              message: 'Use the "@/" alias instead of deep relative imports.',
-            },
-          ],
-        },
-      ],
+      'no-restricted-imports': ['error', { patterns: IMPORT_PATTERNS }],
     },
   },
   {
@@ -109,12 +150,27 @@ export default [
   {
     files: ['src/**/*.{ts,tsx}'],
     rules: {
-      'no-restricted-syntax': [
+      ...REACT_COMPILER_RULES,
+      'no-restricted-syntax': ['error', ...SYNTAX_RULES],
+      'no-restricted-imports': ['error', { patterns: [...IMPORT_PATTERNS, NO_BARRELS] }],
+    },
+  },
+  {
+    // A feature's index.ts is its public API, and app/ is the only layer allowed to use it.
+    files: ['src/app/**/*.{ts,tsx}'],
+    rules: {
+      'no-restricted-imports': [
         'error',
         {
-          selector: "CallExpression[callee.property.name='useVariants']",
-          message:
-            'useVariants goes stale under the React Compiler. Use a dynamic style function, e.g. styles.field(state) (AGENTS.md › Styling).',
+          patterns: [
+            ...IMPORT_PATTERNS,
+            NO_BARRELS,
+            {
+              regex: '^@/features/[^/]+/',
+              message:
+                'Import a feature through its public API ("@/features/feed"), not its files.',
+            },
+          ],
         },
       ],
     },

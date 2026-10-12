@@ -6,4 +6,5 @@ alwaysApply: true
 Follow AGENTS.md: commands, architecture rules and conventions. Before writing React Native code, read
 `.claude/skills/react-native-best-practices/SKILL.md` and the reference it points to for the task. For
 navigation use `.claude/skills/react-navigation/SKILL.md`; for tests `.claude/skills/react-native-testing/SKILL.md`.
-Where a skill and AGENTS.md disagree, AGENTS.md wins.
+Where a skill and AGENTS.md disagree, AGENTS.md wins. To add a feature, screen or endpoint, follow
+`.claude/skills/add-feature`, `add-screen` or `add-endpoint` (`SKILL.md`): they start from `pnpm gen`.

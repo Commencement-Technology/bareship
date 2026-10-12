@@ -19,6 +19,8 @@ Checked on 2026-10-10. Update this file whenever a native dependency is added or
 | Xcode | 27.0 | local; CI `macos-26`. **The iOS 27 SDK requires the UIScene life cycle**, which the RN 0.87 template lacks; see docs/native-changes.md#uiscene |
 | iOS deployment target | 15.1 (RN 0.87 `min_ios_version_supported`) | template |
 | CocoaPods | 1.15.2 via Bundler | `Gemfile` |
+| Ruby | 3.2.2 (`.ruby-version`) | `Gemfile.lock`; fastlane warns it will need 3.3 |
+| fastlane | 2.240.1 via Bundler | `Gemfile` (2.241.0 was 2 days old); needs `json` < 3, so json is 2.21 |
 
 ## Libraries chosen in Phase 0
 

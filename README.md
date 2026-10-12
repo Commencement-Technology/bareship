@@ -13,8 +13,10 @@ write queue, Keychain token storage, enforced architecture, optional Firebase an
 run it, or install it on a phone: the dev build serves sample data from a mock backend inside the app. You
 add each service when you need it ([going live](docs/going-live.md)).
 
-> **Status:** Phases 0–3 are done (foundation, app layer, offline and production services). Phase 4
-> (quality tooling) is next. See the [roadmap](#roadmap) and [known limitations](#known-limitations).
+> **Status:** Phases 0–4 are done (foundation, app layer, offline and production services, quality
+> tooling). Postponed for later: Maestro end-to-end tests, performance tooling, and the Android CI fix (CI
+> stays paused). Phase 5 (packaging) is next. See the [roadmap](#roadmap) and
+> [known limitations](#known-limitations).
 
 ## Why this template
 
@@ -49,7 +51,7 @@ Requirements:
 
 - Node ≥ 22.11 (`.nvmrc` pins 24)
 - pnpm 12 (`corepack enable` picks up the pinned version)
-- Ruby with Bundler, Java 21
+- Ruby 3.2.2 (`.ruby-version`) with Bundler, Java 21
 - iOS: macOS with Xcode 27
 - Android: Android Studio with SDK 37 and NDK 27.1
 
@@ -100,15 +102,19 @@ attached, build the [demo APK](docs/demo-build.md).
 - Force update and maintenance mode from Remote Config.
 - Native splash, icon generation from one SVG, and release-ready Android (R8, signing from properties or CI
   secrets, a 16 KB page-alignment check).
+- fastlane lanes for release builds, version bumps, match signing, TestFlight and Play internal testing.
+  Building needs no account; the upload lanes say what to add ([releasing](docs/releasing.md)).
 
 **Quality**
 
 - Strict TypeScript 6, React Compiler on, ESLint 9 flat config, Prettier, Conventional Commits.
+- Lint enforces the React Compiler rules, imports from the defining module (no barrel files) and ARIA
+  accessibility props (`role`, `aria-label`) over the legacy `accessibility*` ones.
 - Jest and React Native Testing Library, with an 80% coverage gate on `shared/` and `data/`.
 - pnpm refuses packages younger than 3 days and install scripts unless allowlisted. Renovate groups
   updates.
 - GitHub Actions: types, lint, format, boundaries and tests on every PR. Android and iOS builds run on
-  `main` and on PRs labelled `native`.
+  `main` and on PRs labelled `native` (paused for now, see [known limitations](#known-limitations)).
 
 **For AI agents**
 
@@ -116,6 +122,10 @@ attached, build the [demo APK](docs/demo-build.md).
   `.github/copilot-instructions.md` point to it.
 - [Callstack's agent skills](https://github.com/callstackincubator/agent-skills) are vendored in
   `.claude/skills/` and pinned to a commit. Update them with `pnpm skills:sync`.
+- The template's own skills, `add-feature`, `add-screen` and `add-endpoint`, run the generators and walk
+  an agent through the rest: fields, offline pattern, strings, tests.
+- Agents drive the app with agent-device and profile it with Argent
+  ([ADR 0013](docs/decisions/0013-agent-device-tools.md)).
 
 ## Project structure
 
@@ -143,10 +153,13 @@ adapter. See [architecture](docs/architecture.md).
 | `pnpm build:android:dev`, `pnpm build:android:staging` | Release APK of that environment |
 | `pnpm build:android:prod` | Release App Bundle for Play |
 | `pnpm build:android:demo` | Release APK with sample data, for trying the app on a phone ([guide](docs/demo-build.md)) |
+| `bundle exec fastlane bump version:1.2.0` | Set the version on both platforms and raise the build number |
+| `bundle exec fastlane android build`, `… ios build` | Release builds; `beta` lanes upload ([releasing](docs/releasing.md)) |
 | `pnpm check` | Typecheck, lint, format check, boundaries, tests |
 | `pnpm bootstrap` | Rename the app (see [quick start](#quick-start)) |
 | `pnpm icons` | Regenerate app icons from `assets/brand/icon.svg` |
 | `pnpm splash` | Regenerate the splash screen from `assets/brand/logo.svg` |
+| `pnpm gen feature\|screen\|endpoint` | Scaffold a feature, screen or endpoint that follows the rules ([AGENTS.md](AGENTS.md)) |
 | `pnpm links:files` | Files your website serves so its links open the app ([going live](docs/going-live.md)) |
 | `pnpm skills:sync` | Update the vendored agent skills to another upstream commit |
 
@@ -164,6 +177,7 @@ independent; the rest of the app keeps working without it.
 | [Architecture](docs/architecture.md) | Layers, data flow, session, ports and adapters, boot |
 | [Environments](docs/environments.md) | dev, staging and prod: ids, `.env` files, flavors and schemes |
 | [Going live](docs/going-live.md) | API, signing, Firebase, push, links, force update |
+| [Releasing](docs/releasing.md) | fastlane lanes: release builds, version bump, TestFlight and Play uploads |
 | [Demo build](docs/demo-build.md) | Installing the sample-data APK on an Android phone |
 | [Decisions (ADRs)](docs/decisions/README.md) | Why each library and pattern was chosen |
 | [Native changes](docs/native-changes.md) | Every edit to `ios/` and `android/`, with its Expo equivalent |
@@ -173,7 +187,11 @@ independent; the rest of the app keeps working without it.
 
 ## Known limitations
 
-- **No end-to-end tests or release automation yet.** Maestro, Reassure and Fastlane arrive in Phase 4.
+- **No end-to-end or performance tests yet.** Maestro flows, Reassure render baselines, startup metrics
+  and a bundle report are postponed until after Phase 4.
+- **CI is paused while the template is being built.** The checks job passes; the iOS job needs a
+  `.ruby-version`, and the Android jobs ran out of memory on hosted runners. Both are fixed before CI is
+  turned back on (Phase 4). Run `pnpm check` locally.
 - **Over-the-air updates have a port but no adapter.** Pick a provider (for example hot-updater) and add
   one.
 - **The demo build is Android-only.** iOS needs a signed build, so use the simulator.
@@ -191,8 +209,8 @@ independent; the rest of the app keeps working without it.
 | 1 | Foundation: tooling, environments, splash, icons, rename, CI | Done |
 | 2 | App layer: API client, TanStack Query + MMKV, navigation, design system, i18n, forms, auth, feed, mocks | Done |
 | 3 | Production: offline queue and UI, Firebase, push, force update, deep links, OTA port | Done |
-| 4 | Quality: Maestro, Reassure, startup metrics, bundle report, generators, Fastlane | Next |
-| 5 | Packaging: GitHub template and `--template`, example stripping | |
+| 4 | Quality: lint sweep, generators with agent skills, fastlane, `.ruby-version` for CI. Postponed: Maestro, performance tooling (Reassure, startup metrics, bundle report), Android CI memory fix | Done |
+| 5 | Packaging: GitHub template and `--template`, example stripping, MIT license, go public | Next |
 | Track B | Expo (CNG) version sharing the same `src/` | After Track A |
 
 ## Contributing

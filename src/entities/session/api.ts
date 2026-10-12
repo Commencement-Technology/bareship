@@ -1,7 +1,9 @@
 import { z } from 'zod';
 
-import { UserSchema } from '@/entities/user';
-import { http, NoContent, TokensSchema } from '@/shared/api';
+import { UserSchema } from '@/entities/user/schema';
+import { NoContent } from '@/shared/api/client';
+import { http } from '@/shared/api/http';
+import { TokensSchema } from '@/shared/api/token-store';
 
 export const AuthResponseSchema = z.object({ tokens: TokensSchema, user: UserSchema });
 export type AuthResponse = z.infer<typeof AuthResponseSchema>;

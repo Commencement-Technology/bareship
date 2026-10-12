@@ -5,16 +5,14 @@ import { useForm } from 'react-hook-form';
 
 import { useTranslation } from '@/shared/i18n';
 import { useIsOnline } from '@/shared/lifecycle/network';
-import {
-  Button,
-  errorMessage,
-  FormTextField,
-  OfflineNotice,
-  Screen,
-  Stack,
-  Text,
-  type TextInputRef,
-} from '@/shared/ui';
+import { FormTextField } from '@/shared/ui/form/FormTextField';
+import { OfflineNotice } from '@/shared/ui/offline/Offline';
+import { Button } from '@/shared/ui/primitives/Button';
+import { type TextInputRef } from '@/shared/ui/primitives/Input';
+import { Screen } from '@/shared/ui/primitives/Screen';
+import { Stack } from '@/shared/ui/primitives/Stack';
+import { errorMessage } from '@/shared/ui/primitives/States';
+import { Text } from '@/shared/ui/primitives/Text';
 
 import { hasErrorCode, useLogin } from '../hooks/useAuthMutations';
 import { type LoginInput, LoginInputSchema } from '../schema';
@@ -75,7 +73,7 @@ export function LoginScreen() {
           testID="login-password"
         />
         {failure ? (
-          <Text tone="danger" accessibilityLiveRegion="polite" testID="login-error">
+          <Text tone="danger" aria-live="polite" testID="login-error">
             {failure}
           </Text>
         ) : null}

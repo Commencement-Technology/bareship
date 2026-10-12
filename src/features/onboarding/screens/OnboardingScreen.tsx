@@ -4,8 +4,12 @@ import Animated, { FadeIn } from 'react-native-reanimated';
 import { StyleSheet } from 'react-native-unistyles';
 
 import { useTranslation } from '@/shared/i18n';
-import { Button, Icon, Screen, Stack, Text } from '@/shared/ui';
 import { Layers, Palette, WifiOff } from '@/shared/ui/icons';
+import { Button } from '@/shared/ui/primitives/Button';
+import { Icon } from '@/shared/ui/primitives/Icon';
+import { Screen } from '@/shared/ui/primitives/Screen';
+import { Stack } from '@/shared/ui/primitives/Stack';
+import { Text } from '@/shared/ui/primitives/Text';
 
 import { useOnboarding } from '../onboarding-store';
 
@@ -46,7 +50,7 @@ export function OnboardingScreen() {
           direction="row"
           gap="sm"
           justify="center"
-          accessibilityLabel={`${index + 1} / ${SLIDES.length}`}
+          aria-label={`${index + 1} / ${SLIDES.length}`}
           accessible
         >
           {SLIDES.map((item, dot) => (

@@ -1,7 +1,7 @@
 import { View } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
-import { Skeleton } from '@/shared/ui';
+import { Skeleton } from '@/shared/ui/primitives/Skeleton';
 
 export function PostCardSkeleton() {
   return (

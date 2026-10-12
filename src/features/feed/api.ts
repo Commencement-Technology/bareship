@@ -5,10 +5,13 @@ import {
   queryOptions,
 } from '@tanstack/react-query';
 
-import { defineQueuedMutation, hasLaterWrite, queryClient, useWaitingWrites } from '@/data';
-import { type CursorPage, http, nextCursor } from '@/shared/api';
+import { defineQueuedMutation, hasLaterWrite, useWaitingWrites } from '@/data/offline';
+import { queryClient } from '@/data/query-client';
+import { http } from '@/shared/api/http';
+import { type CursorPage, nextCursor } from '@/shared/api/pagination';
 import { i18n } from '@/shared/i18n';
-import { preloadImages, toast } from '@/shared/ui';
+import { preloadImages } from '@/shared/ui/primitives/Image';
+import { toast } from '@/shared/ui/toast/toast-store';
 
 import { FeedPageSchema, type Post, PostSchema } from './schema';
 

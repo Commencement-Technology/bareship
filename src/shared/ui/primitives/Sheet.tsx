@@ -37,6 +37,8 @@ export function Sheet({ ref, children, onDismiss }: SheetProps) {
       backdropComponent={backdrop}
       backgroundStyle={{ backgroundColor: theme.colors.surface }}
       handleIndicatorStyle={{ backgroundColor: theme.colors.border }}
+      // A bottom-sheet library prop, not React Native's: drops its untranslated "Bottom Sheet" label.
+      // eslint-disable-next-line no-restricted-syntax
       accessibilityLabel={undefined}
     >
       <BottomSheetView

@@ -1,5 +1,6 @@
-import { AuthResponseSchema } from '@/entities/session';
-import { http, NoContent } from '@/shared/api';
+import { AuthResponseSchema } from '@/entities/session/api';
+import { NoContent } from '@/shared/api/client';
+import { http } from '@/shared/api/http';
 
 import type { ForgotPasswordInput, LoginInput, RegisterInput } from './schema';
 

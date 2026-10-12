@@ -25,19 +25,19 @@ const TONE_COLOR: Record<TextTone, keyof AppTheme['colors']> = {
   success: 'success',
 };
 
-/** All text in the app. Headings get the accessibility "header" role; scaling is capped at 2×. */
+/** All text in the app. Headings get the "heading" role; scaling is capped at 2×. */
 export function Text({
   variant = 'body',
   tone = 'default',
   align,
   style,
-  accessibilityRole,
+  role,
   maxFontSizeMultiplier = 2,
   ...rest
 }: TextProps) {
   return (
     <RNText
-      accessibilityRole={accessibilityRole ?? (HEADINGS.has(variant) ? 'header' : undefined)}
+      role={role ?? (HEADINGS.has(variant) ? 'heading' : undefined)}
       maxFontSizeMultiplier={maxFontSizeMultiplier}
       style={[styles.text(variant, tone), align ? { textAlign: align } : null, style]}
       {...rest}

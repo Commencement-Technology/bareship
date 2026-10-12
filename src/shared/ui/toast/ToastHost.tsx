@@ -19,8 +19,8 @@ export function ToastHost() {
       pointerEvents="box-none"
     >
       <Pressable
-        accessibilityRole="alert"
-        accessibilityLiveRegion="assertive"
+        role="alert"
+        aria-live="assertive"
         onPress={dismiss}
         style={styles.toast(current.tone)}
         testID="toast"

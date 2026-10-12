@@ -10,7 +10,7 @@ export type SegmentedControlProps<T extends string> = {
   segments: ReadonlyArray<Segment<T>>;
   value: T;
   onChange: (value: T) => void;
-  accessibilityLabel: string;
+  'aria-label': string;
 };
 
 /** Pick one of a few options. Announced as a radio group. */
@@ -18,22 +18,18 @@ export function SegmentedControl<T extends string>({
   segments,
   value,
   onChange,
-  accessibilityLabel,
+  'aria-label': ariaLabel,
 }: SegmentedControlProps<T>) {
   return (
-    <View
-      accessibilityRole="radiogroup"
-      accessibilityLabel={accessibilityLabel}
-      style={styles.track}
-    >
+    <View role="radiogroup" aria-label={ariaLabel} style={styles.track}>
       {segments.map(segment => {
         const selected = segment.value === value;
         return (
           <Pressable
             key={segment.value}
-            accessibilityRole="radio"
-            accessibilityState={{ selected }}
-            accessibilityLabel={segment.label}
+            role="radio"
+            aria-selected={selected}
+            aria-label={segment.label}
             onPress={() => onChange(segment.value)}
             style={[styles.segment, selected && styles.selected]}
           >

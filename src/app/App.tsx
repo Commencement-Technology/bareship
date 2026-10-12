@@ -9,12 +9,15 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 
-import { createPersistOptions, queryClient, resumeQueuedWrites } from '@/data';
+import { resumeQueuedWrites } from '@/data/offline';
+import { createPersistOptions } from '@/data/persister';
+import { queryClient } from '@/data/query-client';
 import { useAppStatus } from '@/entities/app-status/app-status-store';
-import { useSession } from '@/entities/session';
+import { useSession } from '@/entities/session/session-store';
 import { MaintenanceScreen, UpdateRequiredScreen } from '@/features/app-status';
 import { services } from '@/shared/services/services';
-import { ErrorBoundary, ToastHost } from '@/shared/ui';
+import { ErrorBoundary } from '@/shared/ui/ErrorBoundary';
+import { ToastHost } from '@/shared/ui/toast/ToastHost';
 
 import { afterBoot, boot } from './boot';
 import { linking } from './navigation/linking';

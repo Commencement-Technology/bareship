@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { useSession } from '@/entities/session';
-import { isApiError } from '@/shared/api';
+import { useSession } from '@/entities/session/session-store';
+import { isApiError } from '@/shared/api/errors';
 import { services } from '@/shared/services/services';
 
 import { login, register, requestPasswordReset } from '../api';

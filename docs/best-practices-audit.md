@@ -15,16 +15,9 @@ bundles: `pnpm exec react-native bundle --platform android --dev false --minify 
 | FormatJS Intl polyfills needed `Intl.Locale` (~390 KB) | `native-sdks-over-polyfills` ("remove Intl polyfills only after checking Hermes coverage") | `intl-pluralrules` + `relative-time-format`: −333 KB. Checked in Hermes: Arabic plurals and relative times correct |
 | **Total** | | Android bundle 4,176 KB → 3,548 KB (−15%) |
 | Phase 3 libraries measured (2026-10-11) | `bundle-library-size` | +174 KB: React Native Firebase JS ~82 KB, device-info 33 KB, new app code. The Firebase web SDK it depends on is not in the bundle |
-
-## Pending: lint-enforced (one sweep, then lint keeps them fixed)
-
-Deferred on 2026-10-10 (do as one sweep later). Until then, follow these rules by hand in new code.
-
-| Item | Skill reference | Notes |
-| --- | --- | --- |
-| Barrel `index.ts` files in `shared/ui`, `shared/api`, `data`, `entities/*` | `bundle-barrel-exports` | Import from the defining module; keep feature `index.ts` as the public API for `app/`. Size gain is small (all of `src/` is 86 KB); the reasons are require cycles, HMR, and the pattern template users copy. Add a `no-restricted-imports` rule |
-| React Compiler lint rules aren't enabled | `js-react-compiler` | ADR 0011 says react-hooks 7 compiler rules are on; `eslint.config.mjs` doesn't enable them. Also run `react-compiler-healthcheck` (pinned version) |
-| Legacy `accessibility*` props | `react-native-testing` (rule 10) | Use `role`, `aria-label`, `aria-disabled`, `aria-live`, `aria-hidden`; `accessibilityHint` stays (no ARIA equivalent). 15 files |
+| Barrel `index.ts` files in `shared/ui`, `shared/api`, `data`, `entities/*` (2026-10-11) | `bundle-barrel-exports` | Removed; 29 files import from the defining module. Android release bundle 3,831 → 3,824 KB. `no-restricted-imports` rejects folder imports (`@/shared/i18n` and `@/shared/ports` define their contents and stay), and `app/` may import a feature only through its `index.ts` |
+| React Compiler lint rules weren't enabled (2026-10-11) | `js-react-compiler` | The eslint-plugin-react-hooks 7 compiler rules are on as errors; no violations. `react-compiler-healthcheck@1.0.0`: 55 of 55 components compile, no incompatible libraries |
+| Legacy `accessibility*` props (2026-10-11) | `react-native-testing` (rule 10) | ARIA props on React Native's components and on our own (`Icon`, `Image` and `SegmentedControl` take `aria-label`). Headings use `role="heading"`. `no-restricted-syntax` rejects the old props; the wrappers around react-native-svg, FastImage and the bottom sheet keep them, because those libraries don't translate `aria-*` |
 
 ## Pending: fix when touching the area
 

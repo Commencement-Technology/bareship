@@ -15,7 +15,7 @@ export type IconProps = {
   /** Mirror in right-to-left layouts (arrows, chevrons). */
   directional?: boolean;
   /** Icons are decorative by default; give a label only when the icon is the only content. */
-  accessibilityLabel?: string;
+  'aria-label'?: string;
 };
 
 /** Lucide icon in a theme color. */
@@ -24,7 +24,7 @@ export function Icon({
   size = 20,
   tone = 'text',
   directional,
-  accessibilityLabel,
+  'aria-label': label,
 }: IconProps) {
   const { theme, rt } = useUnistyles();
   return (
@@ -33,10 +33,13 @@ export function Icon({
       color={theme.colors[tone]}
       strokeWidth={2}
       style={directional && rt.rtl ? { transform: [{ scaleX: -1 }] } : undefined}
-      accessible={Boolean(accessibilityLabel)}
-      accessibilityLabel={accessibilityLabel}
-      accessibilityElementsHidden={!accessibilityLabel}
-      importantForAccessibility={accessibilityLabel ? 'yes' : 'no-hide-descendants'}
+      // react-native-svg doesn't translate aria-* props; only React Native's own components do.
+      /* eslint-disable no-restricted-syntax */
+      accessible={Boolean(label)}
+      accessibilityLabel={label}
+      accessibilityElementsHidden={!label}
+      importantForAccessibility={label ? 'yes' : 'no-hide-descendants'}
+      /* eslint-enable no-restricted-syntax */
     />
   );
 }

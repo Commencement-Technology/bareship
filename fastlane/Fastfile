@@ -1,0 +1,201 @@
+# Release automation (ADR 0012). Usage and setup: docs/releasing.md.
+#
+#   bundle exec fastlane bump [version:1.2.0] [build:42]     version on both platforms
+#   bundle exec fastlane android build [env:prod]             AAB for prod, APK for dev/staging
+#   bundle exec fastlane android beta                         prod AAB → Play internal testing
+#   bundle exec fastlane ios build [env:prod]                 signed IPA, or an unsigned archive with no team
+#   bundle exec fastlane ios certs                            certificates and profiles from match
+#   bundle exec fastlane ios beta                             prod IPA → TestFlight
+#
+# Nothing here needs an account until you upload. Credentials come from environment variables (or
+# fastlane/.env, which is git-ignored); a lane that needs one stops with what to set.
+# [rn-template] App name and ids are read from the project, so `pnpm bootstrap` needs no edits here.
+
+# Project files contain UTF-8 (display names); don't depend on the shell's locale.
+Encoding.default_external = Encoding::UTF_8
+
+opt_out_usage
+skip_docs
+default_platform(:android)
+
+ROOT = File.expand_path('..', __dir__)
+APP = JSON.parse(File.read(File.join(ROOT, 'app.json')))['name']
+GRADLE_FILE = File.join(ROOT, 'android/app/build.gradle')
+PBXPROJ = File.join(ROOT, "ios/#{APP}.xcodeproj/project.pbxproj")
+ENVIRONMENTS = {
+  'dev' => { flavor: 'Dev', scheme: 'Dev', suffix: '.dev' },
+  'staging' => { flavor: 'Staging', scheme: 'Staging', suffix: '.staging' },
+  'prod' => { flavor: 'Prod', scheme: 'Prod', suffix: '' },
+}.freeze
+
+def environment(options)
+  name = (options[:env] || 'prod').to_s
+  ENVIRONMENTS.fetch(name) { UI.user_error!("env must be one of #{ENVIRONMENTS.keys.join(', ')}, not #{name}") }
+    .merge(name: name)
+end
+
+def require_env(*keys, why:)
+  missing = keys.reject { |key| ENV[key].to_s.strip != '' }
+  return if missing.empty?
+
+  UI.user_error!("#{why} needs #{missing.join(', ')}. See docs/releasing.md.")
+end
+
+# Same lookup as android/app/build.gradle: a Gradle property (~/.gradle/gradle.properties) or the environment.
+def upload_key?
+  return true if ENV['RN_UPLOAD_STORE_FILE'].to_s != ''
+
+  properties = File.join(Dir.home, '.gradle', 'gradle.properties')
+  File.exist?(properties) && File.read(properties).match?(/^\s*RN_UPLOAD_STORE_FILE\s*=/)
+end
+
+def android_application_id
+  File.read(GRADLE_FILE)[/applicationId\s+"([^"]+)"/, 1]
+end
+
+def ios_bundle_id(env)
+  prefix = File.read(PBXPROJ)[/PRODUCT_BUNDLE_IDENTIFIER = "([^"$]+)\$\(BUNDLE_ID_SUFFIX\)"/, 1]
+  "#{prefix}#{env[:suffix]}"
+end
+
+def current_versions
+  gradle = File.read(GRADLE_FILE)
+  pbxproj = File.read(PBXPROJ)
+  {
+    android_name: gradle[/versionName\s+"([^"]+)"/, 1],
+    android_code: gradle[/versionCode\s+(\d+)/, 1].to_i,
+    ios_name: pbxproj[/MARKETING_VERSION = ([^;]+);/, 1],
+    ios_build: pbxproj[/CURRENT_PROJECT_VERSION = (\d+);/, 1].to_i,
+  }
+end
+
+# App Store Connect API key from ASC_KEY_ID, ASC_ISSUER_ID and ASC_KEY_PATH (.p8 file), or nil.
+def app_store_connect_key
+  return nil if %w[ASC_KEY_ID ASC_ISSUER_ID ASC_KEY_PATH].any? { |key| ENV[key].to_s.empty? }
+
+  @app_store_connect_key ||= app_store_connect_api_key(
+    key_id: ENV['ASC_KEY_ID'],
+    issuer_id: ENV['ASC_ISSUER_ID'],
+    key_filepath: ENV['ASC_KEY_PATH'],
+  )
+end
+
+desc 'Set the version and build number on Android and iOS. Without build:, the build number goes up by one'
+lane :bump do |options|
+  current = current_versions
+  version = options[:version]&.to_s
+  if version && version !~ /\A\d+\.\d+\.\d+\z/
+    UI.user_error!("version must look like 1.2.3, not #{version}")
+  end
+  build = (options[:build] || [current[:android_code], current[:ios_build]].max + 1).to_i
+
+  gradle = File.read(GRADLE_FILE)
+  gradle.sub!(/versionCode\s+\d+/, "versionCode #{build}")
+  gradle.sub!(/versionName\s+"[^"]+"/, %(versionName "#{version}")) if version
+  File.write(GRADLE_FILE, gradle)
+
+  pbxproj = File.read(PBXPROJ)
+  pbxproj.gsub!(/CURRENT_PROJECT_VERSION = \d+;/, "CURRENT_PROJECT_VERSION = #{build};")
+  pbxproj.gsub!(/MARKETING_VERSION = [^;]+;/, "MARKETING_VERSION = #{version};") if version
+  File.write(PBXPROJ, pbxproj)
+
+  after = current_versions
+  UI.success("Android #{after[:android_name]} (#{after[:android_code]}), iOS #{after[:ios_name]} (#{after[:ios_build]})")
+end
+
+platform :android do
+  desc 'Release build: AAB for prod (Play), APK for dev and staging. format:apk or format:aab overrides'
+  lane :build do |options|
+    env = environment(options)
+    format = (options[:format] || (env[:name] == 'prod' ? 'aab' : 'apk')).to_s
+    unless upload_key?
+      UI.important('No upload key (RN_UPLOAD_STORE_FILE): this build is signed with the debug key. Fine to test, not to upload.')
+    end
+    gradle(
+      project_dir: File.join(ROOT, 'android'),
+      task: format == 'aab' ? 'bundle' : 'assemble',
+      flavor: env[:flavor],
+      build_type: 'Release',
+      properties: options[:abi] ? { 'reactNativeArchitectures' => options[:abi] } : {},
+    )
+    artifact = lane_context[format == 'aab' ? SharedValues::GRADLE_AAB_OUTPUT_PATH : SharedValues::GRADLE_APK_OUTPUT_PATH]
+    UI.success("Built #{artifact}")
+  end
+
+  desc 'Upload a prod AAB to Play internal testing (needs a Play service account)'
+  lane :beta do |options|
+    require_env('PLAY_JSON_KEY_PATH', why: 'Uploading to Google Play')
+    upload_key? || UI.user_error!('A Play upload must be signed with your upload key: set RN_UPLOAD_* (docs/releasing.md).')
+    build(env: 'prod', format: 'aab')
+    upload_to_play_store(
+      json_key: ENV['PLAY_JSON_KEY_PATH'],
+      package_name: android_application_id,
+      aab: lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH],
+      track: options[:track] || 'internal',
+      release_status: 'draft',
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+    )
+  end
+end
+
+platform :ios do
+  desc 'Certificates and provisioning profiles from match (read-only on CI)'
+  lane :certs do |options|
+    require_env('MATCH_GIT_URL', 'MATCH_PASSWORD', 'APPLE_TEAM_ID', why: 'Code signing with match')
+    env = environment(options)
+    match(
+      type: options[:type] || 'appstore',
+      app_identifier: [ios_bundle_id(env)],
+      team_id: ENV['APPLE_TEAM_ID'],
+      readonly: is_ci,
+      api_key: app_store_connect_key,
+    )
+  end
+
+  desc 'Release build. Signed IPA when APPLE_TEAM_ID is set, otherwise an unsigned archive (proves it compiles)'
+  lane :build do |options|
+    env = environment(options)
+    common = {
+      workspace: File.join(ROOT, "ios/#{APP}.xcworkspace"),
+      scheme: "#{APP}-#{env[:scheme]}",
+      configuration: "Release-#{env[:scheme]}",
+      output_directory: File.join(ROOT, 'build/ios'),
+      clean: true,
+    }
+    if ENV['APPLE_TEAM_ID'].to_s.empty?
+      UI.important('No APPLE_TEAM_ID: building an unsigned archive. Set it (and match) to get an IPA.')
+      build_app(**common, skip_codesigning: true, skip_package_ipa: true,
+                         xcargs: 'CODE_SIGNING_ALLOWED=NO')
+      UI.success("Archived #{lane_context[SharedValues::XCODEBUILD_ARCHIVE]}")
+    else
+      type = options[:type] || 'appstore'
+      profile = "match #{type == 'adhoc' ? 'AdHoc' : 'AppStore'} #{ios_bundle_id(env)}"
+      certs(env: env[:name], type: type)
+      # Manual signing for the app target only (Pods stay unsigned). This edits the Xcode project for the
+      # build; on CI the checkout is thrown away, locally discard the change.
+      update_code_signing_settings(
+        path: File.join(ROOT, "ios/#{APP}.xcodeproj"),
+        targets: [APP],
+        build_configurations: ["Release-#{env[:scheme]}"],
+        use_automatic_signing: false,
+        team_id: ENV['APPLE_TEAM_ID'],
+        code_sign_identity: 'Apple Distribution',
+        profile_name: profile,
+      )
+      build_app(**common,
+                export_method: type == 'adhoc' ? 'ad-hoc' : 'app-store',
+                export_options: { provisioningProfiles: { ios_bundle_id(env) => profile } })
+      UI.success("Built #{lane_context[SharedValues::IPA_OUTPUT_PATH]}")
+    end
+  end
+
+  desc 'Upload a prod build to TestFlight (needs an App Store Connect API key)'
+  lane :beta do
+    require_env('APPLE_TEAM_ID', why: 'A signed build')
+    app_store_connect_key || UI.user_error!('Uploading to TestFlight needs ASC_KEY_ID, ASC_ISSUER_ID and ASC_KEY_PATH. See docs/releasing.md.')
+    build(env: 'prod')
+    upload_to_testflight(api_key: app_store_connect_key, skip_waiting_for_build_processing: true)
+  end
+end

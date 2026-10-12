@@ -2,8 +2,8 @@ import type { ReactElement } from 'react';
 import { View } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
-import { useWaitingWriteCount } from '@/data';
-import { OfflineBanner } from '@/shared/ui';
+import { useWaitingWriteCount } from '@/data/offline';
+import { OfflineBanner } from '@/shared/ui/offline/Offline';
 
 function OfflineLayout({ children }: { children: ReactElement }) {
   const waiting = useWaitingWriteCount();

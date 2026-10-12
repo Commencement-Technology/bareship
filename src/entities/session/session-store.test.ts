@@ -1,5 +1,5 @@
 import { queryClient } from '@/data/query-client';
-import { sessionTokens } from '@/shared/api';
+import { sessionTokens } from '@/shared/api/session-tokens';
 import { services } from '@/shared/services/services';
 import { signInDemoUser } from '@/test/app';
 

@@ -1,13 +1,7 @@
-import { delay, http, HttpResponse } from 'msw';
+import { http, HttpResponse } from 'msw';
 
 import { ACCESS_TOKEN_TTL_MS, db, type PostRecord, type UserRecord } from './db';
-
-/** Simulated network latency (0 in tests via MOCK_LATENCY). */
-const latency = { ms: 350 };
-export function setMockLatency(ms: number) {
-  latency.ms = ms;
-}
-const wait = () => (latency.ms > 0 ? delay(latency.ms) : Promise.resolve());
+import { authenticate, error, readToken, wait } from './helpers';
 
 /**
  * Tokens are self-describing ("<kind>.<userId>.<expiresAt>.<nonce>") instead of rows in the mock db,
@@ -20,12 +14,6 @@ function issueTokens(userId: string) {
     accessToken: `access.${userId}.${Date.now() + ACCESS_TOKEN_TTL_MS}.${nonce}`,
     refreshToken: `refresh.${userId}.0.${nonce}`,
   };
-}
-
-function readToken(token: string, kind: 'access' | 'refresh') {
-  const [prefix, userId, expiresAt] = token.split('.');
-  if (prefix !== kind || !userId || db.current.revokedTokens.has(token)) return undefined;
-  return { userId, expiresAt: Number(expiresAt) };
 }
 
 const userDto = (user: UserRecord) => ({
@@ -51,20 +39,6 @@ function postDto(post: PostRecord, viewerId: string) {
     liked_by_me: likedBy.has(viewerId),
     created_at: post.created_at,
   };
-}
-
-const error = (status: number, code: string, message: string) =>
-  HttpResponse.json({ code, message }, { status });
-
-/** Resolves the bearer token to a user, or returns the 401 response to send. */
-function authenticate(request: Request): UserRecord | Response {
-  const header = request.headers.get('Authorization') ?? '';
-  const token = header.replace(/^Bearer\s+/i, '');
-  const session = readToken(token, 'access');
-  if (!session) return error(401, 'unauthenticated', 'Sign in to continue.');
-  if (session.expiresAt < Date.now()) return error(401, 'token_expired', 'Access token expired.');
-  const user = db.current.users.find(candidate => candidate.id === session.userId);
-  return user ?? error(401, 'unauthenticated', 'Sign in to continue.');
 }
 
 type Credentials = { email?: string; password?: string; name?: string };
@@ -189,4 +163,5 @@ export const handlers = [
       return HttpResponse.json(body);
     }),
   ),
+  // gen:handlers (`pnpm gen` adds feature handlers above this line)
 ];

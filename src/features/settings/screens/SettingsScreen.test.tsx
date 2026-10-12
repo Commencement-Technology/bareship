@@ -1,6 +1,6 @@
 import { screen, userEvent, waitFor } from '@testing-library/react-native';
 
-import { useSession } from '@/entities/session';
+import { useSession } from '@/entities/session/session-store';
 import type { Push } from '@/shared/ports';
 import { services, setServices } from '@/shared/services/services';
 import { signInDemoUser } from '@/test/app';

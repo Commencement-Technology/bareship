@@ -33,6 +33,7 @@
     "bootstrap": "tsx scripts/bootstrap.ts",
     "icons": "tsx scripts/icons.ts",
     "links:files": "tsx scripts/links-files.ts",
+    "gen": "tsx scripts/generate.ts",
     "skills:sync": "tsx scripts/sync-agent-skills.ts",
     "splash": "react-native-bootsplash generate assets/brand/logo.svg --platforms=android,ios --background=FFFFFF --logo-width=120 --assets-output=assets/bootsplash",
     "prepare": "husky"

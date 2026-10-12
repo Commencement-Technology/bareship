@@ -1,6 +1,6 @@
 import { DarkTheme, DefaultTheme, type Theme } from '@react-navigation/native';
 
-import type { AppTheme } from '@/shared/ui';
+import type { AppTheme } from '@/shared/ui/theme/themes';
 
 /** React Navigation theme derived from the app theme, so headers and tab bars match. */
 export function navigationTheme(theme: AppTheme): Theme {

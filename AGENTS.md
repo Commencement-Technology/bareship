@@ -17,15 +17,19 @@ Never change a recorded decision silently: propose a new ADR.
 | All checks | `pnpm check` (typecheck, lint, format, depcruise, tests) |
 | Rename the app | `pnpm bootstrap --name Acme --bundle-id com.acme.app` |
 | Icons / splash | `pnpm icons`, `pnpm splash` |
+| Release builds, version bump, uploads | `bundle exec fastlane lanes` ([docs/releasing.md](docs/releasing.md)) |
+| Scaffold code | `pnpm gen feature <name>`, `pnpm gen screen <feature> <name>`, `pnpm gen endpoint <feature> <name>` |
 
 ## Agent skills
 
 Callstack's React Native agent skills are vendored in `.claude/skills/` (pinned, see `skills-lock.json`;
-update with `pnpm skills:sync <ref>` and review the diff). Claude Code loads them automatically; other
+update with `pnpm skills:sync <ref>` and review the diff). The template's own skills (`add-feature`,
+`add-screen`, `add-endpoint`) live there too; `skills:sync` leaves them alone. Claude Code loads them automatically; other
 agents should open the `SKILL.md` named below before the matching work.
 
 | Work | Skill |
 | --- | --- |
+| Adding a feature, a screen or an endpoint (this template's own skills) | `add-feature`, `add-screen`, `add-endpoint` |
 | Any React Native code: screens, lists, state, animations, native modules, bundle size, startup | `react-native-best-practices` |
 | Navigation: stacks, tabs, headers, sheets, safe areas | `react-navigation` |
 | Tests with React Native Testing Library | `react-native-testing` |
@@ -46,8 +50,10 @@ and this file disagree, this file wins; the known cases:
   The React Compiler is on and memoizes for you.
 - **Imports:** import from the module that defines the thing (`@/shared/ui/primitives/Button`), never from a
   barrel `index.ts`. A feature's `index.ts` is its public API for `app/` only. Lint enforces both.
-- **Accessibility props:** ARIA props (`role`, `aria-label`, `aria-disabled`, `aria-live`) over the legacy
-  `accessibility*` props. `accessibilityHint` has no ARIA equivalent and stays.
+- **Accessibility props:** ARIA props (`role`, `aria-label`, `aria-selected`, `aria-disabled`, `aria-live`,
+  `aria-hidden`, `aria-valuetext`) over the legacy `accessibility*` props; lint rejects the old ones.
+  `accessibilityHint` has no ARIA equivalent and stays. Third-party native views (react-native-svg,
+  FastImage) don't translate `aria-*`, so their wrappers in `shared/ui` keep the old props.
 - **Styling:** Unistyles dynamic functions, not `useVariants` (see Styling below).
 - **Intl polyfills:** `intl-pluralrules` and `relative-time-format`, not the FormatJS set the skill shows
   (see Intl on Hermes below).
@@ -167,7 +173,9 @@ bundles drop it). Demo account: `demo@example.com` / `password123`. Set `API_MOC
   adapter to `boot()` via `src/app/mock-backend.ts`. Never import `src/mocks` from `index.js` or app code
   outside a `__DEV__`-first condition: `scripts/ci/check-no-mocks-in-release.sh` fails if mock code reaches a
   normal release bundle.
-- Add an endpoint: a handler in `src/mocks/handlers.ts`, snake_case DTOs, and a test against it.
+- Add an endpoint with `pnpm gen endpoint`: it puts the handler in `src/mocks/<feature>.ts` (registered in
+  `handlers.ts`), with snake_case DTOs and a test against it. Shared helpers (`wait`, `authenticate`,
+  `error`) are in `src/mocks/helpers.ts`.
 
 ## Intl on Hermes
 

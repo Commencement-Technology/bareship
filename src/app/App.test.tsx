@@ -8,7 +8,7 @@ import { App } from './App';
 jest.mock('./boot', () => ({
   // The test harness (src/test/app.ts) already configured HTTP and services; just hydrate.
   boot: async () => {
-    const { useSession } = require('@/entities/session');
+    const { useSession } = require('@/entities/session/session-store');
     require('@/shared/i18n').initI18n('en');
     await useSession.getState().hydrate();
   },

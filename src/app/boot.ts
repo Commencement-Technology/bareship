@@ -2,8 +2,10 @@ import type { AxiosAdapter } from 'axios';
 import { AppState } from 'react-native';
 
 import { useAppStatus } from '@/entities/app-status/app-status-store';
-import { refreshTokens, useSession } from '@/entities/session';
-import { configureHttp, sessionTokens } from '@/shared/api';
+import { refreshTokens } from '@/entities/session/api';
+import { useSession } from '@/entities/session/session-store';
+import { configureHttp } from '@/shared/api/http';
+import { sessionTokens } from '@/shared/api/session-tokens';
 import { env } from '@/shared/config/env';
 import { currentLanguage, initI18n } from '@/shared/i18n';
 import { setupQueryLifecycle } from '@/shared/lifecycle/query-lifecycle';

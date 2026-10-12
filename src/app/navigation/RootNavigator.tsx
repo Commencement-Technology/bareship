@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStaticNavigation, type StaticParamList } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { useIsSignedIn, useIsSignedOut } from '@/entities/session';
+import { useIsSignedIn, useIsSignedOut } from '@/entities/session/session-store';
 import { ForgotPasswordScreen, LoginScreen, RegisterScreen } from '@/features/auth';
 import { FeedScreen, PostScreen } from '@/features/feed';
 import { OnboardingScreen, useNeedsOnboarding, useOnboardingDone } from '@/features/onboarding';
@@ -83,6 +83,7 @@ const RootStack = createNativeStackNavigator({
           layout: offlineLayout,
           options: { headerShown: true, title: '', headerBackButtonDisplayMode: 'minimal' },
         },
+        // gen:screens (`pnpm gen` adds screens above this line)
         ...(__DEV__
           ? {
               Showroom: {

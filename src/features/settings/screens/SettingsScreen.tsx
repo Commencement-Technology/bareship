@@ -4,7 +4,8 @@ import { ScrollView, View } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
 import { usePushPermission } from '@/entities/push/use-push-permission';
-import { useDeleteAccount, useSession, useSignOut } from '@/entities/session';
+import { useDeleteAccount, useSignOut } from '@/entities/session/hooks';
+import { useSession } from '@/entities/session/session-store';
 import { env } from '@/shared/config/env';
 import {
   changeLanguage,
@@ -14,22 +15,21 @@ import {
   reloadForDirectionChange,
   useTranslation,
 } from '@/shared/i18n';
-import {
-  Button,
-  Divider,
-  errorMessage,
-  getThemePreference,
-  ListItem,
-  OnlineOnly,
-  SegmentedControl,
-  setThemePreference,
-  Sheet,
-  type SheetRef,
-  Stack,
-  Text,
-  type ThemePreference,
-} from '@/shared/ui';
 import { Bell, LayoutGrid, LogOut, Trash2 } from '@/shared/ui/icons';
+import { OnlineOnly } from '@/shared/ui/offline/Offline';
+import { Button } from '@/shared/ui/primitives/Button';
+import { Divider } from '@/shared/ui/primitives/Divider';
+import { ListItem } from '@/shared/ui/primitives/ListItem';
+import { SegmentedControl } from '@/shared/ui/primitives/SegmentedControl';
+import { Sheet, type SheetRef } from '@/shared/ui/primitives/Sheet';
+import { Stack } from '@/shared/ui/primitives/Stack';
+import { errorMessage } from '@/shared/ui/primitives/States';
+import { Text } from '@/shared/ui/primitives/Text';
+import {
+  getThemePreference,
+  setThemePreference,
+  type ThemePreference,
+} from '@/shared/ui/theme/preference';
 
 export function SettingsScreen() {
   const { t } = useTranslation();
@@ -62,7 +62,7 @@ export function SettingsScreen() {
         <View style={styles.control}>
           <Text variant="label">{t('settings.theme')}</Text>
           <SegmentedControl
-            accessibilityLabel={t('settings.theme')}
+            aria-label={t('settings.theme')}
             value={theme}
             onChange={value => {
               setTheme(value);
@@ -79,7 +79,7 @@ export function SettingsScreen() {
         <View style={styles.control}>
           <Text variant="label">{t('settings.language')}</Text>
           <SegmentedControl
-            accessibilityLabel={t('settings.language')}
+            aria-label={t('settings.language')}
             value={language}
             onChange={onLanguage}
             segments={(Object.keys(LANGUAGES) as Language[]).map(code => ({

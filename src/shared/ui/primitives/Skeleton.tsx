@@ -26,8 +26,7 @@ export function Skeleton({ width = '100%', height = 16, radius = 6 }: SkeletonPr
   const animated = useAnimatedStyle(() => ({ opacity: opacity.value }));
   return (
     <Animated.View
-      accessibilityElementsHidden
-      importantForAccessibility="no-hide-descendants"
+      aria-hidden
       style={[styles.block, { width, height, borderRadius: radius }, animated]}
     />
   );

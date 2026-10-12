@@ -1,7 +1,7 @@
 import { onlineManager } from '@tanstack/react-query';
 import { act, screen, userEvent, waitFor } from '@testing-library/react-native';
 
-import { useSession } from '@/entities/session';
+import { useSession } from '@/entities/session/session-store';
 import { renderWithProviders } from '@/test/render';
 
 import { LoginScreen } from './LoginScreen';

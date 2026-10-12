@@ -1,7 +1,7 @@
 import { ActivityIndicator, View } from 'react-native';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 
-import { isApiError } from '@/shared/api';
+import { isApiError } from '@/shared/api/errors';
 import { useTranslation } from '@/shared/i18n';
 
 import { CloudOff, Inbox, type LucideIcon } from '../icons';
@@ -18,7 +18,7 @@ type StateProps = {
 
 function StateView({ title, body, icon, action }: StateProps) {
   return (
-    <View style={styles.container} accessibilityLiveRegion="polite">
+    <View style={styles.container} aria-live="polite">
       {icon ? <Icon icon={icon} size={32} tone="textSubtle" /> : null}
       <Text variant="heading" align="center">
         {title}
@@ -62,7 +62,7 @@ export function LoadingState() {
   const { theme } = useUnistyles();
   const { t } = useTranslation();
   return (
-    <View style={styles.container} accessibilityLabel={t('common.loading')} accessible>
+    <View style={styles.container} aria-label={t('common.loading')} accessible>
       <ActivityIndicator color={theme.colors.primary} />
     </View>
   );

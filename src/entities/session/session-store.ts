@@ -2,8 +2,9 @@ import { create } from 'zustand';
 
 import { clearPersistedQueries } from '@/data/persister';
 import { queryClient } from '@/data/query-client';
-import { type User, UserSchema } from '@/entities/user';
-import { sessionTokens, type Tokens } from '@/shared/api';
+import { type User, UserSchema } from '@/entities/user/schema';
+import { sessionTokens } from '@/shared/api/session-tokens';
+import { type Tokens } from '@/shared/api/token-store';
 import { services } from '@/shared/services/services';
 
 import { fetchCurrentUser } from './api';

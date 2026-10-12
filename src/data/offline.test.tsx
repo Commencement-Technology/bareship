@@ -5,7 +5,7 @@ import type { ReactNode } from 'react';
 import { z } from 'zod';
 
 import { server } from '@/mocks/node';
-import { http } from '@/shared/api';
+import { http } from '@/shared/api/http';
 import { services } from '@/shared/services/services';
 
 import { defineQueuedMutation, resumeQueuedWrites, useWaitingWriteCount } from './offline';

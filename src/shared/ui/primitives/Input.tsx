@@ -47,8 +47,8 @@ export function Input({
       <View style={styles.field(state)}>
         <TextInput
           ref={ref}
-          accessibilityLabel={label}
-          accessibilityLabelledBy={`${id}-label`}
+          aria-label={label}
+          aria-labelledby={`${id}-label`}
           accessibilityHint={error ?? hint}
           aria-invalid={Boolean(error)}
           placeholderTextColor={theme.colors.textSubtle}
@@ -68,8 +68,8 @@ export function Input({
         />
         {secureTextEntry ? (
           <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={revealed ? t('common.hidePassword') : t('common.showPassword')}
+            role="button"
+            aria-label={revealed ? t('common.hidePassword') : t('common.showPassword')}
             onPress={() => setRevealed(value => !value)}
             style={styles.reveal}
             hitSlop={8}
@@ -79,7 +79,7 @@ export function Input({
         ) : null}
       </View>
       {error ? (
-        <Text variant="caption" tone="danger" accessibilityLiveRegion="polite">
+        <Text variant="caption" tone="danger" aria-live="polite">
           {error}
         </Text>
       ) : hint ? (

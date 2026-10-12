@@ -89,7 +89,7 @@ require('@/shared/ui/theme/unistyles');
 
 const { server } = require('@/mocks/node');
 const { resetDb } = require('@/mocks/db');
-const { setMockLatency } = require('@/mocks/handlers');
+const { setMockLatency } = require('@/mocks/helpers');
 const { resetTestApp } = require('./app');
 
 beforeAll(() => {

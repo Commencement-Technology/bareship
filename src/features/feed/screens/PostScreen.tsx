@@ -5,7 +5,7 @@ import { StyleSheet } from 'react-native-unistyles';
 import { z } from 'zod';
 
 import { useTranslation } from '@/shared/i18n';
-import { ErrorState, LoadingState } from '@/shared/ui';
+import { ErrorState, LoadingState } from '@/shared/ui/primitives/States';
 
 import { postQueryOptions, useToggleLike, useWaitingLikes } from '../api';
 import { PostCard } from '../components/PostCard';
@@ -32,7 +32,7 @@ export function PostScreen({ route }: PostScreenProps) {
     <ScrollView
       style={styles.root}
       contentInsetAdjustmentBehavior="automatic"
-      accessibilityLabel={t('feed.postTitle')}
+      aria-label={t('feed.postTitle')}
     >
       <PostCard
         post={post.data}

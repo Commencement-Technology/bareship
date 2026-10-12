@@ -1,6 +1,8 @@
 import { queryClient } from '@/data/query-client';
-import { refreshTokens, useSession } from '@/entities/session';
-import { configureHttp, resetSessionTokens, sessionTokens } from '@/shared/api';
+import { refreshTokens } from '@/entities/session/api';
+import { useSession } from '@/entities/session/session-store';
+import { configureHttp } from '@/shared/api/http';
+import { resetSessionTokens, sessionTokens } from '@/shared/api/session-tokens';
 import type { SecureStore } from '@/shared/ports';
 import { resetServices, setServices } from '@/shared/services/services';
 

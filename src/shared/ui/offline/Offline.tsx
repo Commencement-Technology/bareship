@@ -26,7 +26,7 @@ export function OfflineBanner({ waiting = 0 }: { waiting?: number }) {
 
   if (online) return null;
   return (
-    <View style={styles.banner} accessibilityLiveRegion="polite" testID="offline-banner">
+    <View style={styles.banner} aria-live="polite" testID="offline-banner">
       <Icon icon={WifiOff} size={16} tone="textMuted" />
       <Text variant="caption" tone="muted" style={styles.text}>
         {message}
@@ -43,7 +43,7 @@ export function OfflineNotice({ message }: { message: string }) {
   const online = useIsOnline();
   if (online) return null;
   return (
-    <View style={styles.notice} accessibilityLiveRegion="polite" testID="offline-notice">
+    <View style={styles.notice} aria-live="polite" testID="offline-notice">
       <Icon icon={WifiOff} size={16} tone="textMuted" />
       <Text variant="caption" tone="muted" style={styles.text}>
         {message}

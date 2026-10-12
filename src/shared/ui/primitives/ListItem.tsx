@@ -62,9 +62,9 @@ export function ListItem({
   return (
     <Pressable
       testID={testID}
-      accessibilityRole="button"
-      accessibilityLabel={subtitle ? `${title}, ${subtitle}` : title}
-      accessibilityValue={value ? { text: value } : undefined}
+      role="button"
+      aria-label={subtitle ? `${title}, ${subtitle}` : title}
+      aria-valuetext={value || undefined}
       onPress={onPress}
       style={({ pressed }) => [styles.row, pressed && styles.pressed]}
     >

@@ -3,8 +3,11 @@ import { StyleSheet } from 'react-native-unistyles';
 
 import { useTranslation } from '@/shared/i18n';
 import { formatRelative } from '@/shared/lib/format';
-import { Icon, Image, MIN_TOUCH, Text } from '@/shared/ui';
 import { Heart } from '@/shared/ui/icons';
+import { Icon } from '@/shared/ui/primitives/Icon';
+import { Image } from '@/shared/ui/primitives/Image';
+import { Text } from '@/shared/ui/primitives/Text';
+import { MIN_TOUCH } from '@/shared/ui/theme/tokens';
 
 import type { Post } from '../schema';
 
@@ -24,8 +27,8 @@ export function PostCard({ post, onPress, onToggleLike, expanded, likePending }:
   return (
     <View style={styles.card}>
       <Pressable
-        accessibilityRole={onPress ? 'button' : undefined}
-        accessibilityLabel={`${post.author.name}. ${post.body}`}
+        role={onPress ? 'button' : undefined}
+        aria-label={`${post.author.name}. ${post.body}`}
         disabled={!onPress}
         onPress={onPress}
         style={styles.content}
@@ -54,10 +57,10 @@ export function PostCard({ post, onPress, onToggleLike, expanded, likePending }:
         ) : null}
       </Pressable>
       <Pressable
-        accessibilityRole="button"
-        accessibilityLabel={post.likedByMe ? t('feed.unlike') : t('feed.like')}
-        accessibilityState={{ selected: post.likedByMe }}
-        accessibilityValue={{ text: likes }}
+        role="button"
+        aria-label={post.likedByMe ? t('feed.unlike') : t('feed.like')}
+        aria-selected={post.likedByMe}
+        aria-valuetext={likes}
         accessibilityHint={likePending ? t('offline.waiting') : undefined}
         onPress={onToggleLike}
         hitSlop={8}

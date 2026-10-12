@@ -15,3 +15,6 @@ gem 'logger'
 gem 'benchmark'
 gem 'mutex_m'
 gem 'nkf'
+
+# Release automation: build, version bump, store uploads (ADR 0012, docs/releasing.md).
+gem 'fastlane', '2.240.1'

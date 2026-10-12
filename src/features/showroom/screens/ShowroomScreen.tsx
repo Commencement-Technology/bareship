@@ -5,23 +5,20 @@ import { StyleSheet } from 'react-native-unistyles';
 
 import { env } from '@/shared/config/env';
 import { services } from '@/shared/services/services';
-import {
-  Button,
-  Card,
-  Divider,
-  EmptyState,
-  Icon,
-  Input,
-  ListItem,
-  SegmentedControl,
-  Sheet,
-  type SheetRef,
-  Skeleton,
-  Stack,
-  Text,
-  toast,
-} from '@/shared/ui';
 import { Heart, Settings } from '@/shared/ui/icons';
+import { Button } from '@/shared/ui/primitives/Button';
+import { Card } from '@/shared/ui/primitives/Card';
+import { Divider } from '@/shared/ui/primitives/Divider';
+import { Icon } from '@/shared/ui/primitives/Icon';
+import { Input } from '@/shared/ui/primitives/Input';
+import { ListItem } from '@/shared/ui/primitives/ListItem';
+import { SegmentedControl } from '@/shared/ui/primitives/SegmentedControl';
+import { Sheet, type SheetRef } from '@/shared/ui/primitives/Sheet';
+import { Skeleton } from '@/shared/ui/primitives/Skeleton';
+import { Stack } from '@/shared/ui/primitives/Stack';
+import { EmptyState } from '@/shared/ui/primitives/States';
+import { Text } from '@/shared/ui/primitives/Text';
+import { toast } from '@/shared/ui/toast/toast-store';
 
 /** Every primitive in every state, on device. Registered only in __DEV__ builds. */
 export function ShowroomScreen() {
@@ -64,7 +61,7 @@ export function ShowroomScreen() {
 
       <Group title="Controls">
         <SegmentedControl
-          accessibilityLabel="Example"
+          aria-label="Example"
           value={segment}
           onChange={setSegment}
           segments={[

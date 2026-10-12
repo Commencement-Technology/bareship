@@ -9,7 +9,7 @@ import { StyleSheet, withUnistyles } from 'react-native-unistyles';
 export type ImageProps = Omit<FastImageProps, 'source'> & {
   uri: string;
   priority?: 'low' | 'normal' | 'high';
-  accessibilityLabel?: string;
+  'aria-label'?: string;
 };
 
 const ThemedFastImage = withUnistyles(FastImage);
@@ -18,7 +18,7 @@ export function Image({
   uri,
   priority = 'normal',
   style,
-  accessibilityLabel,
+  'aria-label': label,
   ...rest
 }: ImageProps) {
   return (
@@ -28,8 +28,10 @@ export function Image({
         priority: FastImage.priority[priority],
         cache: FastImage.cacheControl.immutable,
       }}
-      accessible={Boolean(accessibilityLabel)}
-      accessibilityLabel={accessibilityLabel}
+      accessible={Boolean(label)}
+      // FastImage's native view doesn't translate aria-* props; only React Native's own components do.
+      // eslint-disable-next-line no-restricted-syntax
+      accessibilityLabel={label}
       style={[styles.image, style]}
       {...rest}
     />

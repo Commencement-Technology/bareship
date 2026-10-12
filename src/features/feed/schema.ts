@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { cursorPageSchema } from '@/shared/api';
+import { cursorPageSchema } from '@/shared/api/pagination';
 
 /** What the server sends (snake_case). Never leaves this feature's api/ layer. */
 export const PostDtoSchema = z.object({
