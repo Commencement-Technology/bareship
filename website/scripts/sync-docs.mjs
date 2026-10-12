@@ -1,7 +1,7 @@
 /**
  * Builds the site's pages (src/content/docs/, git-ignored) from two sources, so every page is written once:
  *
- *   - the repo's own docs (docs/*.md, ADRs, AGENTS.md sections, CONTRIBUTING, CHANGELOG), listed in PAGES
+ *   - the repo's own docs (docs/*.md, ADRs, AGENTS.md sections, CONTRIBUTING, CHANGELOG), listed in pages()
  *   - pages written only for the site, in website/content/ (copied as they are)
  *
  * For repo docs it takes the `# Title` as the page title, writes a description from the first paragraph,
@@ -35,7 +35,8 @@ const GITHUB = 'https://github.com/psingh2907/rn-template-bare';
  * Repo docs that become pages. `sections` takes only those `##` sections of the file (one section: its
  * heading becomes the title). `title` overrides the file's `# Title`; `label` is a shorter sidebar label.
  */
-const PAGES = [
+// A function, so docs added while `pnpm dev` runs (a new ADR) are picked up by the next sync.
+const pages = () => [
   { from: 'docs/environments.md', to: 'start-here/environments' },
   { from: 'docs/architecture.md', to: 'build/architecture' },
   { from: 'docs/generators.md', to: 'build/generators', label: 'Generators' },
@@ -154,6 +155,7 @@ function frontmatter(fields) {
 // --------------------------------------------------------------------------------------------- build
 
 function build() {
+  const PAGES = pages();
   const slugs = new Map(PAGES.filter(page => !page.sections).map(page => [page.from, page.to]));
   const resolve = (repoPath, hash) => {
     const slug = slugs.get(repoPath);
@@ -234,7 +236,7 @@ console.log(`sync-docs: ${count} pages in src/content/docs`);
 
 const devIndex = process.argv.indexOf('--dev');
 if (devIndex !== -1) {
-  const sources = [...new Set(PAGES.map(page => join(REPO, page.from)))];
+  const sources = [...new Set(pages().map(page => join(REPO, page.from)))];
   let timer;
   const rebuild = () => {
     clearTimeout(timer);
