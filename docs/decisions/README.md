@@ -1,8 +1,9 @@
 # Architecture Decision Records
 
 Each file records one decision: the context, what we chose, what it costs, and what we rejected.
-The first set (0001–0012) comes from the Phase 0 questionnaire answered on 2026-10-10.
-Question ids (A1, B2 …) refer to the Template Decision Sheet.
+The first set (0001–0012) comes from a questionnaire answered on 2026-10-10, before any code was written.
+The question ids in each record (A1, B2 …) refer to that questionnaire, which isn't published. "Track A" is
+this bare template and "Track B" a later Expo version sharing its `src/` ([0001](0001-scope-and-two-tracks.md)).
 
 | ADR | Title | Status |
 | --- | --- | --- |

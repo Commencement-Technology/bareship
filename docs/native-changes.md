@@ -1,8 +1,8 @@
 # Native changes
 
 Every edit to `android/` or `ios/` beyond the React Native community template (0.87-stable) is listed here.
-Two reasons: upgrades (re-apply these after the Upgrade Helper diff) and Track B (each row becomes an Expo
-config plugin). Search the code for `[rn-template]` to find each change in place.
+Two reasons: upgrades (re-apply these after the Upgrade Helper diff) and an Expo version of the template
+("Track B", [ADR 0001](decisions/0001-scope-and-two-tracks.md)), where each row becomes an Expo config plugin. Search the code for `[rn-template]` to find each change in place.
 
 | Area | File(s) | Change | Why | Expo (Track B) equivalent |
 | --- | --- | --- | --- | --- |

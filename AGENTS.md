@@ -4,7 +4,7 @@ Guide for AI agents and new contributors. Read this before changing code.
 
 ## What this is
 
-A bare React Native 0.87 template (Track A). Decisions and their reasons are in `docs/decisions/` (ADRs).
+A bare React Native 0.87 template. Decisions and their reasons are in `docs/decisions/` (ADRs).
 Never change a recorded decision silently: propose a new ADR.
 
 ## Commands
