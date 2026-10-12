@@ -18,7 +18,7 @@ export const linking = {
     ...(env.APP_LINK_DOMAIN ? [`https://${env.APP_LINK_DOMAIN}`] : []),
   ],
   // A link to a deeper screen (post/:id) opens on top of Home, so Back works after a cold start.
-  config: { initialRouteName: 'Home' as const },
+  config: { initialRouteName: 'Main' as const },
   async getInitialURL(): Promise<string | null> {
     const url = await Linking.getInitialURL();
     if (url) return url;

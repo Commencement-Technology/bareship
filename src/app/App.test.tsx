@@ -16,7 +16,7 @@ jest.mock('./boot', () => ({
 }));
 
 describe('App', () => {
-  it('goes from onboarding to sign-in to the feed', async () => {
+  it('goes from onboarding to sign-in to the home tab', async () => {
     const user = userEvent.setup();
     useOnboarding.getState().reset();
     await render(<App />);
@@ -29,11 +29,13 @@ describe('App', () => {
     await user.type(screen.getByLabelText('Password'), 'password123');
     await user.press(screen.getByRole('button', { name: 'Sign in' }));
 
+    // @example-start:app-test-home
     expect(await screen.findByTestId('post-p_1', {}, { timeout: 5000 })).toBeOnTheScreen();
+    // @example-end
   });
 
   it('opens a deep link that arrived while signed out right after sign-in', async () => {
-    jest.spyOn(Linking, 'getInitialURL').mockResolvedValue('rntemplate-dev://post/p_2');
+    jest.spyOn(Linking, 'getInitialURL').mockResolvedValue('rntemplate-dev://settings');
     useOnboarding.getState().complete();
     const user = userEvent.setup();
     await render(<App />);
@@ -42,8 +44,8 @@ describe('App', () => {
     await user.type(screen.getByLabelText('Password'), 'password123');
     await user.press(screen.getByRole('button', { name: 'Sign in' }));
 
-    // The post screen for p_2 (pending link), not the feed.
-    expect(await screen.findByTestId('like-p_2', {}, { timeout: 5000 })).toBeOnTheScreen();
-    expect(screen.queryByTestId('post-p_1')).not.toBeOnTheScreen();
+    // The Settings tab (pending link), not the first tab. Tabs render lazily, so it's there only if the
+    // link was applied.
+    expect(await screen.findByTestId('settings-screen', {}, { timeout: 5000 })).toBeOnTheScreen();
   });
 });

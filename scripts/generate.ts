@@ -157,13 +157,16 @@ function registerScreen(options: {
   // Universal / App Links for the new path (scripts/links-files.ts).
   const links = read(LINKS);
   const path = `/${options.linking.replace(/:[^/]+/g, '*')}`;
-  const updated = links.replace(/const LINK_PATHS = \[([^\]]*)\];/, (_, list: string) => {
-    const paths = list
-      .split(',')
-      .map(entry => entry.trim())
-      .filter(Boolean);
-    return `const LINK_PATHS = [${[...paths, `'${path}'`].join(', ')}];`;
-  });
+  const updated = links.replace(
+    /const LINK_PATHS: string\[\] = \[([^\]]*)\];/,
+    (_, list: string) => {
+      const paths = list
+        .split(',')
+        .map(entry => entry.trim())
+        .filter(Boolean);
+      return `const LINK_PATHS: string[] = [${[...paths, `'${path}'`].join(', ')}];`;
+    },
+  );
   if (updated !== links) write(LINKS, updated);
 }
 

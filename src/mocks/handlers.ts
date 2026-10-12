@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw';
 
-import { ACCESS_TOKEN_TTL_MS, db, type PostRecord, type UserRecord } from './db';
+import { ACCESS_TOKEN_TTL_MS, db, type PostRecord, type UserRecord } from './db'; // @example:mock-db-import
 import { authenticate, error, readToken, wait } from './helpers';
 
 /**
@@ -23,6 +23,7 @@ const userDto = (user: UserRecord) => ({
   avatarUrl: user.avatar_url,
 });
 
+// @example-start
 function postDto(post: PostRecord, viewerId: string) {
   const author = db.current.users.find(user => user.id === post.author_id);
   const likedBy = db.current.likes.get(post.id) ?? new Set<string>();
@@ -40,6 +41,7 @@ function postDto(post: PostRecord, viewerId: string) {
     created_at: post.created_at,
   };
 }
+// @example-end
 
 type Credentials = { email?: string; password?: string; name?: string };
 
@@ -118,6 +120,7 @@ export const handlers = [
     return new HttpResponse(null, { status: 204 });
   }),
 
+  // @example-start
   http.get('*/posts', async ({ request }) => {
     await wait();
     const user = authenticate(request);
@@ -163,5 +166,6 @@ export const handlers = [
       return HttpResponse.json(body);
     }),
   ),
+  // @example-end
   // gen:handlers (`pnpm gen` adds feature handlers above this line)
 ];

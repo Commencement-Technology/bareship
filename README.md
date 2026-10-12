@@ -13,10 +13,10 @@ write queue, Keychain token storage, enforced architecture, optional Firebase an
 run it, or install it on a phone: the dev build serves sample data from a mock backend inside the app. You
 add each service when you need it ([going live](docs/going-live.md)).
 
-> **Status:** Phases 0–4 are done (foundation, app layer, offline and production services, quality
-> tooling). Postponed for later: Maestro end-to-end tests, performance tooling, and the Android CI fix (CI
-> stays paused). Phase 5 (packaging) is next. See the [roadmap](#roadmap) and
-> [known limitations](#known-limitations).
+> **Status:** Phases 0–4 are done, and Phase 5 (packaging) is nearly done: demo stripping, the npm template
+> and the license are ready. Still to come: the final name, then making the repository public and publishing
+> to npm. Postponed: Maestro end-to-end tests, performance tooling, and the Android CI fix (CI stays paused).
+> See the [roadmap](#roadmap) and [known limitations](#known-limitations).
 
 ## Why this template
 
@@ -55,11 +55,25 @@ Requirements:
 - iOS: macOS with Xcode 27
 - Android: Android Studio with SDK 37 and NDK 27.1
 
+Start from your own copy of this repository (GitHub's **Use this template**, or a clone), then:
+
 ```bash
 pnpm install
 bundle install
 pnpm bootstrap --name Acme --bundle-id com.acme.app --display-name "Acme"
 pnpm android          # or: pnpm ios
+```
+
+Once the template is on npm, the React Native CLI can create the copy instead. Its `init` can't use pnpm,
+so skip its install, and leave out `--package-name` (it breaks the per-environment iOS bundle ids; set the id
+with `bootstrap`):
+
+```bash
+npx @react-native-community/cli@20.2.0 init Acme --template rn-template --skip-install --install-pods false
+cd Acme
+pnpm install
+bundle install
+pnpm bootstrap --name Acme --bundle-id com.acme.app --display-name "Acme"
 ```
 
 `bootstrap` renames the Xcode project, schemes, Android package, bundle ids, display names and URL schemes
@@ -68,6 +82,9 @@ run `pnpm pods` instead.
 
 Sign in with **`demo@example.com` / `password123`**. To try it on an Android phone without a computer
 attached, build the [demo APK](docs/demo-build.md).
+
+When you're ready to build your own app, run `pnpm strip-examples` once. It removes the demo feed and
+component showroom and leaves a blank Home tab, with sign-in, onboarding and settings still working.
 
 ## What's inside
 
@@ -157,6 +174,8 @@ adapter. See [architecture](docs/architecture.md).
 | `bundle exec fastlane android build`, `… ios build` | Release builds; `beta` lanes upload ([releasing](docs/releasing.md)) |
 | `pnpm check` | Typecheck, lint, format check, boundaries, tests |
 | `pnpm bootstrap` | Rename the app (see [quick start](#quick-start)) |
+| `pnpm pack-template` | Build the npm template package into `dist/npm/` ([packaging](docs/packaging.md)) |
+| `pnpm strip-examples` | Remove the demo (feed, posts, showroom) and leave a blank Home tab; sign-in, onboarding and settings stay |
 | `pnpm icons` | Regenerate app icons from `assets/brand/icon.svg` |
 | `pnpm splash` | Regenerate the splash screen from `assets/brand/logo.svg` |
 | `pnpm gen feature\|screen\|endpoint` | Scaffold a feature, screen or endpoint that follows the rules ([AGENTS.md](AGENTS.md)) |
@@ -177,6 +196,7 @@ independent; the rest of the app keeps working without it.
 | [Architecture](docs/architecture.md) | Layers, data flow, session, ports and adapters, boot |
 | [Environments](docs/environments.md) | dev, staging and prod: ids, `.env` files, flavors and schemes |
 | [Going live](docs/going-live.md) | API, signing, Firebase, push, links, force update |
+| [Packaging](docs/packaging.md) | How the npm template and the GitHub template are built and checked (maintainers) |
 | [Releasing](docs/releasing.md) | fastlane lanes: release builds, version bump, TestFlight and Play uploads |
 | [Demo build](docs/demo-build.md) | Installing the sample-data APK on an Android phone |
 | [Decisions (ADRs)](docs/decisions/README.md) | Why each library and pattern was chosen |
@@ -210,14 +230,15 @@ independent; the rest of the app keeps working without it.
 | 2 | App layer: API client, TanStack Query + MMKV, navigation, design system, i18n, forms, auth, feed, mocks | Done |
 | 3 | Production: offline queue and UI, Firebase, push, force update, deep links, OTA port | Done |
 | 4 | Quality: lint sweep, generators with agent skills, fastlane, `.ruby-version` for CI. Postponed: Maestro, performance tooling (Reassure, startup metrics, bundle report), Android CI memory fix | Done |
-| 5 | Packaging: GitHub template and `--template`, example stripping, MIT license, go public | Next |
+| 5 | Packaging: example stripping, npm `--template` package, MIT license and community files (done). Final name, GitHub template setting, going public and npm publish wait for the go-ahead | In progress |
 | Track B | Expo (CNG) version sharing the same `src/` | After Track A |
 
 ## Contributing
 
-Read [AGENTS.md](AGENTS.md) first. Run `pnpm check` before you open a PR, and use Conventional Commits
-(`feat:`, `fix:`…); commitlint enforces them. Propose a new ADR rather than changing a recorded decision.
+See [CONTRIBUTING.md](CONTRIBUTING.md). In short: read [AGENTS.md](AGENTS.md), run `pnpm check`, use
+Conventional Commits, and propose a new ADR rather than changing a recorded decision. Report security issues
+privately ([SECURITY.md](SECURITY.md)).
 
 ## License
 
-Not chosen yet. A license file is added before the template is made public.
+[MIT](LICENSE) © 2026 Praveen Singh.

@@ -21,7 +21,10 @@ Existing templates each solve part of the problem (see `docs/research.md`). We w
 
 ## Consequences
 
-- The demo features must stay removable: `scripts/strip-examples.ts` is part of the deliverable.
+- The demo features must stay removable: `scripts/strip-examples.ts` is part of the deliverable. Built
+  2026-10-12: it removes the feed, posts mocks and showroom (marked `// @example` in the code) and keeps
+  sign-in, onboarding and settings, which most apps need. `scripts/ci/check-strip-examples.sh` checks the
+  stripped app.
 - Ports add a small indirection everywhere a native library is used. In exchange, Track B and vendor swaps stay cheap.
 
 ## Alternatives considered

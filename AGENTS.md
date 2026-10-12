@@ -16,6 +16,7 @@ Never change a recorded decision silently: propose a new ADR.
 | Run | `pnpm android` / `pnpm ios` (dev); `:staging`, `:prod` variants |
 | All checks | `pnpm check` (typecheck, lint, format, depcruise, tests) |
 | Rename the app | `pnpm bootstrap --name Acme --bundle-id com.acme.app` |
+| Remove the demo (feed, showroom) | `pnpm strip-examples` (once, on a fresh copy) |
 | Icons / splash | `pnpm icons`, `pnpm splash` |
 | Release builds, version bump, uploads | `bundle exec fastlane lanes` ([docs/releasing.md](docs/releasing.md)) |
 | Scaffold code | `pnpm gen feature <name>`, `pnpm gen screen <feature> <name>`, `pnpm gen endpoint <feature> <name>` |
@@ -96,7 +97,7 @@ Every write picks one offline pattern (ADR 0006, after Expensify):
 | Pattern | Behaviour | Use for | How |
 | --- | --- | --- | --- |
 | A | Optimistic, queued, no feedback | Low-stakes toggles | `defineQueuedMutation` |
-| B | Optimistic, queued, shows "Waiting to sync" | Likes, comments, edits | `defineQueuedMutation` + `useWaitingWrites` (see `features/feed/api.ts`) |
+| B | Optimistic, queued, shows "Waiting to sync" | Likes, comments, edits | `defineQueuedMutation` + `useWaitingWrites` (see [Writing data](docs/architecture.md#writing-data)) |
 | C | Form disabled while offline | Sign-in, payment | `OfflineNotice` + `disabled={!useIsOnline()}` |
 | D | Content replaced while offline | Account deletion, checkout | `<OnlineOnly>` |
 
@@ -126,7 +127,7 @@ Everything here runs without accounts; docs/going-live.md says what to add and w
 - **Push:** use `services().push` (port in `src/shared/ports`). A notification's `data.link` is a deep link;
   taps go through `src/app/navigation/linking.ts`. Never prompt at first launch; the Settings row asks.
 - **Deep links:** add `linking: 'path/:param'` to the screen in `RootNavigator.tsx` and the path to
-  `LINK_PATHS` in `scripts/links-files.ts`. Links open on top of Home, and a link that arrives while signed
+  `LINK_PATHS` in `scripts/links-files.ts`. Links open on top of the tabs, and a link that arrives while signed
   out opens after sign-in (`UNSTABLE_routeNamesChangeBehavior`, covered by `App.test.tsx`).
 - **Native config from `.env`:** `APP_SCHEME`, `APP_LINK_DOMAIN`, `IOS_APS_ENVIRONMENT` feed Gradle and
   `scripts/ios/configure-environments.rb`. Re-run that script after changing them.
@@ -139,6 +140,13 @@ Unistyles 3 with the React Compiler on. For styles that depend on props or state
 changed `styles.x`, so the old variant stays on screen (a focus border that never clears, a stale selected
 tab). A dynamic function's arguments are ordinary dependencies, so it stays correct and memoized. ESLint
 rejects `useVariants`. Theme switches don't re-render either way: Unistyles updates native views directly.
+
+## Demo code
+
+The feed, posts mocks and showroom are demo content that `pnpm strip-examples` removes. Mark any new demo-only
+code: `// @example` deletes a line, `// @example:<id>` replaces it, and `// @example-start[:<id>]` …
+`// @example-end` covers a block (ids are defined in `scripts/strip-examples.ts`).
+`scripts/ci/check-strip-examples.sh` strips a scratch copy and runs every check on it.
 
 ## Native changes
 
@@ -156,7 +164,7 @@ Jest + React Native Testing Library 14. `render`, `fireEvent` and `userEvent` ar
 Prefer `userEvent.setup()` and `getByRole` / `getByLabelText` queries.
 
 - HTTP is answered by the MSW mock backend in `src/mocks` (the same handlers power `API_MOCKS=true` in dev).
-  Override a response in one test with `server.use(http.get('*/posts', () => …))`.
+  Override a response in one test with `server.use(http.get('*/me', () => …))`.
 - `src/test/setup.ts` mocks native modules and resets services, session, DB and query cache before each test.
 - `src/test/app.ts`: `signInDemoUser()`, in-memory SecureStore. `src/test/render.tsx`: `renderWithProviders()`.
 - Coverage gate: 80% lines/functions on `src/shared/` and `src/data/`.

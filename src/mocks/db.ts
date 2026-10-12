@@ -7,6 +7,7 @@ export type UserRecord = {
   password: string;
   avatar_url: string | null;
 };
+// @example-start
 export type PostRecord = {
   id: string;
   author_id: string;
@@ -15,7 +16,9 @@ export type PostRecord = {
   like_count: number;
   created_at: string;
 };
+// @example-end
 
+// @example-start
 const BODIES = [
   'Shipped the new onboarding flow today. Three screens, zero config.',
   'Offline-first is a product decision before it is an engineering one.',
@@ -26,6 +29,7 @@ const BODIES = [
   'Wrote the ADR before the code. Review took five minutes.',
   'Right-to-left layouts: use start and end, never left and right.',
 ];
+// @example-end
 
 const AUTHORS: UserRecord[] = [
   {
@@ -58,6 +62,7 @@ const AUTHORS: UserRecord[] = [
   },
 ];
 
+// @example-start
 const START = Date.parse('2026-10-10T09:00:00Z');
 
 function seedPosts(): PostRecord[] {
@@ -71,15 +76,18 @@ function seedPosts(): PostRecord[] {
     created_at: new Date(START - index * 47 * 60_000).toISOString(),
   }));
 }
+// @example-end
 
 export const ACCESS_TOKEN_TTL_MS = 2 * 60_000;
 
 export function createDb() {
   return {
     users: AUTHORS.map(user => ({ ...user })),
+    // @example-start
     posts: seedPosts(),
     /** postId → userIds who liked it */
     likes: new Map<string, Set<string>>(),
+    // @example-end
     /**
      * Refresh tokens already used or signed out. Tokens themselves carry the user id and expiry
      * (see handlers.ts), so a session saved in the Keychain survives a JS reload or relaunch.

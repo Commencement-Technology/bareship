@@ -32,12 +32,47 @@ FeedScreen ─ useInfiniteQuery(feedQueryOptions()) ─▶ http.get('/posts', Fe
 
 ## Writing data
 
-`useToggleLike` (features/feed/api.ts) is the reference pattern:
+Every write picks an offline pattern (AGENTS.md › Offline). The reference is a queued, optimistic write
+(pattern B), as in the demo's like button (`useToggleLike` in `features/feed/api.ts`):
 
 1. `onMutate`: cancel in-flight queries, patch every cached copy optimistically.
 2. Request goes out with an `Idempotency-Key` (safe to retry).
 3. `onError`: restore the previous copy and show a toast.
 4. `onSuccess`: adopt the server's copy (write endpoints return the updated resource; no follow-up GET).
+
+```ts
+// features/tasks/api.ts — defined at module level, and imported from src/app/queued-writes.ts.
+const doneKey = ['tasks', 'done'] as const;
+
+export const useSetDone = defineQueuedMutation<Task, { taskId: string; done: boolean }>({
+  mutationKey: doneKey,
+  mutationFn: ({ taskId, done, idempotencyKey }) =>
+    http.put(`/tasks/${encodeURIComponent(taskId)}/done`, TaskSchema, {
+      body: { done },
+      idempotencyKey,
+    }),
+  onMutate: async ({ taskId, done }) => {
+    await queryClient.cancelQueries({ queryKey: taskKeys.all });
+    updateTask(queryClient, taskId, task => ({ ...task, done }));
+  },
+  onError: (_error, { taskId, done }) => {
+    updateTask(queryClient, taskId, task => ({ ...task, done: !done }));
+    toast.error(i18n.t('tasks.saveFailed'));
+  },
+  onSuccess: (task, { taskId }) => {
+    // Two writes queued offline for one task: keep the optimistic state until the last one lands.
+    if (hasLaterWrite<{ taskId: string }>(doneKey, variables => variables.taskId === taskId)) return;
+    updateTask(queryClient, task.id, () => task);
+  },
+});
+
+/** Ids of tasks whose write is waiting for a connection, to show "Waiting to sync". */
+export function useWaitingTasks(): ReadonlySet<string> {
+  return new Set(useWaitingWrites<{ taskId: string }>(doneKey).map(variables => variables.taskId));
+}
+```
+
+`updateTask` applies a change to every cached copy (list pages and detail), like `updatePost` in the demo.
 
 ## Session
 

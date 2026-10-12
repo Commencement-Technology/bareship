@@ -74,6 +74,7 @@ export default [
       'vendor/**',
       '.bundle/**',
       'assets/bootsplash/**',
+      'dist/**',
     ],
   },
   ...reactNative,

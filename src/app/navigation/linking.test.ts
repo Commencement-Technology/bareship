@@ -23,7 +23,7 @@ function pushWith(initial: PushMessage | null) {
 describe('linking', () => {
   it('uses the scheme from the environment, with Home under deeper screens', () => {
     expect(linking.prefixes).toEqual(['rntemplate-dev://']);
-    expect(linking.config.initialRouteName).toBe('Home');
+    expect(linking.config.initialRouteName).toBe('Main');
   });
 
   it('opens the link of the notification that launched the app', async () => {

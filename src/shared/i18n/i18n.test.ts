@@ -23,8 +23,8 @@ describe('i18n', () => {
   });
 
   it('translates with interpolation and English plurals', () => {
-    expect(i18n.t('feed.likes', { count: 1 })).toBe('1 like');
-    expect(i18n.t('feed.likes', { count: 3 })).toBe('3 likes');
+    expect(i18n.t('offline.pending', { count: 1 })).toContain('1 change will sync');
+    expect(i18n.t('offline.pending', { count: 3 })).toContain('3 changes will sync');
     expect(i18n.t('auth.forgot.sent', { email: 'a@b.co' })).toContain('a@b.co');
   });
 
@@ -34,8 +34,8 @@ describe('i18n', () => {
     expect(currentLanguage()).toBe('ar');
     expect(services().kv.getString('settings.language')).toBe('ar');
     expect(forceRTL).toHaveBeenCalledWith(true);
-    expect(i18n.t('feed.likes', { count: 2 })).toBe('إعجابان');
-    expect(i18n.t('feed.likes', { count: 5 })).toBe('5 إعجابات');
+    expect(i18n.t('offline.pending', { count: 2 })).toContain('تغييرين');
+    expect(i18n.t('offline.pending', { count: 5 })).toContain('5 تغييرات');
     await changeLanguage('en');
     forceRTL.mockRestore();
   });

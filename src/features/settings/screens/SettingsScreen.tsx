@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native'; // @example
 import { useRef, useState } from 'react';
 import { ScrollView, View } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
@@ -15,7 +15,7 @@ import {
   reloadForDirectionChange,
   useTranslation,
 } from '@/shared/i18n';
-import { Bell, LayoutGrid, LogOut, Trash2 } from '@/shared/ui/icons';
+import { Bell, LayoutGrid, LogOut, Trash2 } from '@/shared/ui/icons'; // @example:settings-icons
 import { OnlineOnly } from '@/shared/ui/offline/Offline';
 import { Button } from '@/shared/ui/primitives/Button';
 import { Divider } from '@/shared/ui/primitives/Divider';
@@ -33,7 +33,7 @@ import {
 
 export function SettingsScreen() {
   const { t } = useTranslation();
-  const navigation = useNavigation();
+  const navigation = useNavigation(); // @example
   const user = useSession(state => state.user);
   const signOut = useSignOut();
   const { permission, enable } = usePushPermission();
@@ -112,6 +112,7 @@ export function SettingsScreen() {
           title={t('settings.environment')}
           trailing={<Text tone="muted">{env.APP_ENV}</Text>}
         />
+        {/* @example-start */}
         {__DEV__ ? (
           <>
             <Divider inset={16} />
@@ -123,6 +124,7 @@ export function SettingsScreen() {
             />
           </>
         ) : null}
+        {/* @example-end */}
       </Section>
 
       <Section title={t('settings.account')}>

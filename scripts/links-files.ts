@@ -23,7 +23,7 @@ import { parseArgs } from 'node:util';
 const root = resolve(__dirname, '..');
 
 /** Paths the app handles. Keep in sync with the `linking` paths in src/app/navigation/RootNavigator.tsx. */
-const LINK_PATHS = ['/post/*'];
+const LINK_PATHS: string[] = ['/post/*']; // @example:link-paths
 
 const ENVIRONMENTS = [
   { name: 'dev', suffix: '.dev' },

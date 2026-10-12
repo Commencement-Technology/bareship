@@ -74,7 +74,7 @@ export interface Push {
   initialOpen(): Promise<PushMessage | null>;
   /** A tap on a notification while the app is running or in the background. */
   onOpen(listener: (message: PushMessage) => void): () => void;
-  /** Shows a notification now (incoming messages in the foreground, the showroom test button). */
+  /** Shows a notification now (e.g. an incoming message while the app is in the foreground). */
   showLocal(message: PushMessage): Promise<void>;
 }
 

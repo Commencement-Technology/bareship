@@ -25,7 +25,8 @@ describe('queued-writes.ts', () => {
             .replace(/\\/g, '/')}`,
       );
 
-    expect(definers.length).toBeGreaterThan(0);
+    // The scan must see feature code; an app with no queued writes yet passes trivially.
+    expect(sourceFiles(path.join(SRC, 'features')).length).toBeGreaterThan(0);
     for (const module of definers) expect(registry).toContain(`import '${module}';`);
   });
 });

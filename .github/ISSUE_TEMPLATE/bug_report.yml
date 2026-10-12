@@ -1,0 +1,42 @@
+name: Bug report
+description: Something in the template doesn't work as documented.
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you did, what you expected, and what happened instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. pnpm install && bundle install
+        2. pnpm ios
+        3. …
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      multiple: true
+      options: [iOS, Android, Both, Not platform-specific]
+    validations:
+      required: true
+  - type: textarea
+    id: info
+    attributes:
+      label: Environment
+      description: Output of `npx react-native info`, and the template version or commit.
+      render: text
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I searched the existing issues.
+        - label: It happens on a fresh copy of the template, not only in my app.

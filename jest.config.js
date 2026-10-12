@@ -24,7 +24,9 @@ module.exports = {
   transformIgnorePatterns: [
     'node_modules/(?!((jest-)?react-native|@react-native(-community)?|@react-navigation|react-native-.*|@shopify|@gorhom|@d11|lucide-react-native|msw|@mswjs|until-async|rettime|@open-draft|zod|@hookform|relative-time-format)/)',
   ],
-  testPathIgnorePatterns: ['/node_modules/', '/android/', '/ios/'],
+  testPathIgnorePatterns: ['/node_modules/', '/android/', '/ios/', '<rootDir>/dist/'],
+  // dist/npm/template is a packed copy of the app (pnpm pack-template).
+  modulePathIgnorePatterns: ['<rootDir>/dist/'],
   collectCoverageFrom: [
     'src/shared/**/*.{ts,tsx}',
     'src/data/**/*.{ts,tsx}',

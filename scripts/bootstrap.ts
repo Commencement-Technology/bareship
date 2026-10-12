@@ -64,6 +64,14 @@ if (oldName === newName && oldBundleId === newBundleId && oldDisplay === newDisp
   process.exit(0);
 }
 
+// Step 4 needs the Ruby gems. Check before renaming anything, so a missing `bundle install` can't leave
+// the project half renamed.
+try {
+  execFileSync('bundle', ['check'], { cwd: root, stdio: 'ignore' });
+} catch {
+  fail('Run `bundle install` first: bootstrap regenerates the iOS configs with the Gemfile tools.');
+}
+
 const kebab = newName.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
 const SKIP_DIRS = new Set([
   'node_modules',

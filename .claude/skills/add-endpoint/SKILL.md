@@ -36,15 +36,15 @@ The name can't clash with a schema already in `schema.ts` (a GET `/orders/:id` i
 3. **Offline pattern** (AGENTS.md › Offline). The generated hook is pattern C (fails fast offline). For
    likes, edits and other low-stakes writes use `defineQueuedMutation` (A, or B with
    `useWaitingWrites`), define it at module level, keep variables JSON-safe and import its module from
-   `src/app/queued-writes.ts`. Use `<OnlineOnly>` (D) for destructive or payment flows. Follow
-   `useToggleLike` in `src/features/feed/api.ts`.
+   `src/app/queued-writes.ts`. Use `<OnlineOnly>` (D) for destructive or payment flows. Follow the
+   sample in `docs/architecture.md` › Writing data (`useToggleLike` in the demo's `features/feed/api.ts`).
 4. **Cache.** Prefer updating the cache from the response (`setQueryData`) over invalidating when the
    server returns the updated record. Optimistic updates go in `onMutate` with a rollback in `onError`.
 5. **Mock.** Make the handler behave like the server: read and write the feature's table in
    `src/mocks/<feature>.ts`, return the server's error shape via `error(status, code, message)` from
    `src/mocks/helpers.ts`, and honour `Idempotency-Key` for writes that may be retried.
 6. **Pagination.** Cursor lists use `cursorPageSchema` and `nextCursor` from `@/shared/api/pagination`
-   with `infiniteQueryOptions` (see `feedQueryOptions`).
+   with `infiniteQueryOptions` (the demo's `feedQueryOptions` does this).
 
 ## 3. Check
 
@@ -53,4 +53,5 @@ pnpm check
 ```
 
 Add test cases for the error paths (`server.use(http.post('*/path', () => HttpResponse.json({…},
-{ status: 409 })))`) and, for queued writes, the offline case (see `FeedScreen.test.tsx`).
+{ status: 409 })))`) and, for queued writes, the offline case: `act(() => onlineManager.setOnline(false))`, write, check it
+shows as waiting, then go back online and check it synced.

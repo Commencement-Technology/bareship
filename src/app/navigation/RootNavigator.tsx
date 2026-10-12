@@ -4,11 +4,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { useIsSignedIn, useIsSignedOut } from '@/entities/session/session-store';
 import { ForgotPasswordScreen, LoginScreen, RegisterScreen } from '@/features/auth';
-import { FeedScreen, PostScreen } from '@/features/feed';
+import { FeedScreen, PostScreen } from '@/features/feed'; // @example:home-import
 import { OnboardingScreen, useNeedsOnboarding, useOnboardingDone } from '@/features/onboarding';
 import { SettingsScreen } from '@/features/settings';
-import { ShowroomScreen } from '@/features/showroom';
-import { i18n } from '@/shared/i18n';
+import { ShowroomScreen } from '@/features/showroom'; // @example
+import { i18n } from '@/shared/i18n'; // @example
 import { Home, Settings } from '@/shared/ui/icons';
 
 import { TabIcon, TranslatedText } from './labels';
@@ -18,6 +18,7 @@ const Tabs = createBottomTabNavigator({
   screenOptions: { headerShadowVisible: false },
   screenLayout: offlineLayout,
   screens: {
+    // @example-start:home-tab (pnpm strip-examples replaces the demo with a blank Home tab)
     Feed: {
       screen: FeedScreen,
       linking: 'feed',
@@ -28,6 +29,7 @@ const Tabs = createBottomTabNavigator({
         tabBarButtonTestID: 'tab-feed',
       },
     },
+    // @example-end
     Settings: {
       screen: SettingsScreen,
       linking: 'settings',
@@ -76,14 +78,17 @@ const RootStack = createNativeStackNavigator({
     SignedIn: {
       if: useShowSignedIn,
       screens: {
-        Home: { screen: Tabs, linking: '' },
+        Main: { screen: Tabs, linking: '' },
+        // @example-start
         Post: {
           screen: PostScreen,
           linking: 'post/:id',
           layout: offlineLayout,
           options: { headerShown: true, title: '', headerBackButtonDisplayMode: 'minimal' },
         },
+        // @example-end
         // gen:screens (`pnpm gen` adds screens above this line)
+        // @example-start
         ...(__DEV__
           ? {
               Showroom: {
@@ -93,6 +98,7 @@ const RootStack = createNativeStackNavigator({
               },
             }
           : {}),
+        // @example-end
       },
     },
   },
@@ -102,7 +108,7 @@ export const Navigation = createStaticNavigation(RootStack);
 
 type RootStackParamList = StaticParamList<typeof RootStack>;
 
-// Makes useNavigation().navigate('Post', { id }) type-checked anywhere, without imports.
+// Makes useNavigation().navigate(route, params) type-checked anywhere, without imports.
 declare global {
   namespace ReactNavigation {
     interface RootParamList extends RootStackParamList {}

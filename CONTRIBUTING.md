@@ -1,0 +1,35 @@
+# Contributing
+
+Thanks for helping. This file covers contributing to the template itself; [AGENTS.md](AGENTS.md) holds the
+rules for code written in it, and applies here too.
+
+## Before you start
+
+- **Bugs:** open an issue with the steps to reproduce, the platform and the versions (`npx react-native info`).
+- **Changes to a decision** (a library, a pattern, a convention): open an issue first. Decisions are recorded
+  in [docs/decisions/](docs/decisions/README.md); a change gets a new ADR rather than an edit to the old one.
+- **Security issues:** don't open an issue; see [SECURITY.md](SECURITY.md).
+
+## Making a change
+
+```bash
+pnpm install
+bundle install
+pnpm check            # types, lint, format, boundaries, tests
+```
+
+- Use Conventional Commits (`feat:`, `fix:`, `docs:`…); commitlint checks them on commit.
+- Mark demo-only code with `// @example` (AGENTS.md › Demo code) and run
+  `scripts/ci/check-strip-examples.sh`, so `pnpm strip-examples` keeps working.
+- Changed something the generators produce (a convention, a primitive, the folder layout)? Update
+  `scripts/generate.ts` and the `add-*` skills in `.claude/skills/` to match.
+- Native change: mark it `[rn-template]` and add a row to [docs/native-changes.md](docs/native-changes.md).
+- New dependency: check it against [docs/version-matrix.md](docs/version-matrix.md) and record it there.
+- Touched packaging (`template.config`, dotfiles, the name placeholder)? Run
+  `scripts/ci/check-template-init.sh` ([docs/packaging.md](docs/packaging.md)).
+
+Fill in the pull request template: what changed, and how you tested it (which platforms, which devices).
+
+## License
+
+By contributing you agree that your contribution is licensed under the [MIT License](LICENSE).
