@@ -65,6 +65,9 @@ function main() {
   // the user's own, so it carries no license.
   const scripts = { ...pkg.scripts };
   delete scripts['pack-template'];
+  // The website stays in the template's repo, so its scripts don't go to apps.
+  delete scripts['site:dev'];
+  delete scripts['site:build'];
   const app = {
     ...pkg,
     name: PLACEHOLDER.toLowerCase(),

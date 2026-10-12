@@ -36,6 +36,8 @@
     "gen": "tsx scripts/generate.ts",
     "strip-examples": "tsx scripts/strip-examples.ts",
     "pack-template": "tsx scripts/pack-template.ts",
+    "site:dev": "pnpm --dir website dev",
+    "site:build": "pnpm --dir website build",
     "skills:sync": "tsx scripts/sync-agent-skills.ts",
     "splash": "react-native-bootsplash generate assets/brand/logo.svg --platforms=android,ios --background=FFFFFF --logo-width=120 --assets-output=assets/bootsplash",
     "prepare": "husky"
