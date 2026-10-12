@@ -76,6 +76,10 @@ bundle install
 pnpm bootstrap --name Acme --bundle-id com.acme.app --display-name "Acme"
 ```
 
+Start the emulator (or plug in a phone) before `pnpm android`: debug builds compile native code only for the
+connected device's CPU. With no device connected they build all four Android CPU types, which takes about
+four times as long.
+
 `bootstrap` renames the Xcode project, schemes, Android package, bundle ids, display names and URL schemes
 in one step, then runs `pod install`. Run it once on a fresh copy. To try the template without renaming,
 run `pnpm pods` instead.
@@ -84,7 +88,8 @@ Sign in with **`demo@example.com` / `password123`**. To try it on an Android pho
 attached, build the [demo APK](docs/demo-build.md).
 
 When you're ready to build your own app, run `pnpm strip-examples` once. It removes the demo feed and
-component showroom and leaves a blank Home tab, with sign-in, onboarding and settings still working.
+component showroom and leaves a blank Home tab, with sign-in, onboarding and settings still working. Then
+add your own features, screens and API calls with `pnpm gen` ([generators](docs/generators.md)).
 
 ## What's inside
 
@@ -197,6 +202,7 @@ independent; the rest of the app keeps working without it.
 | [Environments](docs/environments.md) | dev, staging and prod: ids, `.env` files, flavors and schemes |
 | [Going live](docs/going-live.md) | API, signing, Firebase, push, links, force update |
 | [Packaging](docs/packaging.md) | How the npm template and the GitHub template are built and checked (maintainers) |
+| [Generators](docs/generators.md) | Add features, screens and API calls with `pnpm gen` |
 | [Releasing](docs/releasing.md) | fastlane lanes: release builds, version bump, TestFlight and Play uploads |
 | [Demo build](docs/demo-build.md) | Installing the sample-data APK on an Android phone |
 | [Decisions (ADRs)](docs/decisions/README.md) | Why each library and pattern was chosen |

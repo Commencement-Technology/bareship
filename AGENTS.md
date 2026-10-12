@@ -19,7 +19,7 @@ Never change a recorded decision silently: propose a new ADR.
 | Remove the demo (feed, showroom) | `pnpm strip-examples` (once, on a fresh copy) |
 | Icons / splash | `pnpm icons`, `pnpm splash` |
 | Release builds, version bump, uploads | `bundle exec fastlane lanes` ([docs/releasing.md](docs/releasing.md)) |
-| Scaffold code | `pnpm gen feature <name>`, `pnpm gen screen <feature> <name>`, `pnpm gen endpoint <feature> <name>` |
+| Scaffold code | `pnpm gen feature <name>`, `pnpm gen screen <feature> <name>`, `pnpm gen endpoint <feature> <name>` ([docs/generators.md](docs/generators.md)) |
 
 ## Agent skills
 
