@@ -1,17 +1,241 @@
 ---
 title: rn-template
-description: A production-ready bare React Native template, offline-first, secure, and built for AI agents.
+description: A bare React Native template with offline writes, Keychain tokens, an enforced architecture and rules your AI agent follows. Runs with no accounts.
 template: splash
 hero:
-  tagline: A production-ready bare React Native template. Offline-first, secure, and built for AI agents.
+  title: A React Native template with the hard parts done
+  tagline: Bare React Native 0.87 with offline writes that survive a restart, tokens in the Keychain, an architecture the linter enforces, and rules your AI agent follows. It runs with no accounts.
   actions:
     - text: Get started
       link: /start-here/introduction/
       icon: right-arrow
-    - text: GitHub
+    - text: View on GitHub
       link: https://github.com/psingh2907/rn-template-bare
-      icon: external
+      icon: github
       variant: minimal
 ---
 
-The home page is built in step 3.
+import { Card, CardGrid, LinkButton, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+
+## Create an app
+
+<Tabs>
+<TabItem label="GitHub template">
+
+Click **Use this template** on the [GitHub repository](https://github.com/psingh2907/rn-template-bare), clone your
+copy, then:
+
+```bash
+pnpm install
+bundle install
+pnpm bootstrap --name Acme --bundle-id com.acme.app --display-name "Acme"
+```
+
+</TabItem>
+<TabItem label="React Native CLI">
+
+```bash
+npx @react-native-community/cli@20.2.0 init Acme --template rn-template --skip-install --install-pods false
+cd Acme
+pnpm install
+bundle install
+pnpm bootstrap --name Acme --bundle-id com.acme.app --display-name "Acme"
+```
+
+The CLI can't install with pnpm, so it skips the install. Leave out `--package-name`: `bootstrap` sets the
+bundle id and keeps dev, staging and prod apart.
+
+</TabItem>
+</Tabs>
+
+`bootstrap` renames the Xcode project, schemes, Android package, bundle ids, display names and URL schemes, then
+runs `pod install`. Start an emulator or simulator, run `pnpm android` or `pnpm ios`, and sign in with
+`demo@example.com` / `password123`.
+
+## It runs with no accounts
+
+You don't need a backend, a Firebase project or an Apple Developer team to build the app, run it or put it on a
+phone. Development builds serve sample data from a mock backend inside the app, and every service falls back
+when its account is missing:
+
+- **No backend:** the mock backend answers sign-in, the feed and every other request.
+- **No Firebase:** crash reports and analytics go to the console, feature flags use their defaults, and
+  notifications stay local.
+- **No Apple or Google account:** debug builds run on simulators and emulators, and a demo APK installs on any
+  Android phone.
+
+When you're ready, [Going live](/production/going-live/) lists what to add and what each step switches on.
+
+## What's inside
+
+<CardGrid>
+  <Card title="Offline writes that wait" icon="cloud-download">
+    A write made offline is saved, survives a restart, and is sent in order when the connection
+    returns, each with its own idempotency key. [How it works](/build/architecture/#writing-data)
+  </Card>
+  <Card title="Tokens in the Keychain" icon="padlock">
+    Access and refresh tokens live in the iOS Keychain and Android Keystore, never in plain storage.
+    One refresh serves every request waiting on it. [Session](/build/architecture/#session)
+  </Card>
+  <Card title="An architecture the linter enforces" icon="list-format">
+    Layers import downward only and features never import each other. ESLint and dependency-cruiser
+    fail the build otherwise. [Architecture](/build/architecture/)
+  </Card>
+  <Card title="Firebase when you want it" icon="analytics">
+    Crashlytics, Analytics, Remote Config and push switch on when you add a Firebase file, and fall
+    back without one. [Set up Firebase](/production/going-live/#set-up-firebase)
+  </Card>
+  <Card title="Three environments" icon="setting">
+    Dev, staging and prod install side by side, each with its own app id, name, icon badge, URL
+    scheme and `.env` file. [Environments](/start-here/environments/)
+  </Card>
+  <Card title="English and Arabic, right to left" icon="translate">
+    Typed translation keys, a lint rule against hard-coded text, plural rules on Hermes, and layouts
+    that mirror for right-to-left languages. [Forms and
+    i18n](/reference/decisions/0009-forms-and-i18n/)
+  </Card>
+  <Card title="Generators" icon="add-document">
+    `pnpm gen feature orders` writes a working screen, its API call, mock data, strings, a deep link
+    and tests that pass. [Generators](/build/generators/)
+  </Card>
+  <Card title="Releases with fastlane" icon="rocket">
+    Version bumps on both platforms, release builds, match signing, and uploads to TestFlight and
+    Play internal testing. [Releasing](/production/releasing/)
+  </Card>
+  <Card title="A demo you can remove" icon="random">
+    A feed, likes and a component showroom show every pattern. `pnpm strip-examples` removes them
+    and leaves a blank Home tab. [Demo code](/build/project-rules/#demo-code)
+  </Card>
+  <Card title="A supply-chain policy" icon="approve-check">
+    pnpm refuses packages younger than 3 days and install scripts you haven't allowed, and Renovate
+    groups updates. [Decision 0003](/reference/decisions/0003-package-manager-and-supply-chain/)
+  </Card>
+</CardGrid>
+
+## Writes that work offline
+
+Every write in the app picks one of four behaviours, so users always know what happened to what they did.
+
+| Pattern | What the user sees                                                   | Use it for                 |
+| ------- | -------------------------------------------------------------------- | -------------------------- |
+| A       | The change appears at once and syncs in the background               | Low-stakes toggles         |
+| B       | The change appears at once, marked "Waiting to sync" until it's sent | Likes, comments, edits     |
+| C       | The form is disabled while offline, with the reason                  | Sign-in, payments          |
+| D       | The screen is replaced by an offline message                         | Account deletion, checkout |
+
+Writes queued with A or B survive closing the app and are sent in order when the connection returns. An offline
+banner sits under the header while the phone is offline. [Offline rules](/build/project-rules/#offline)
+
+## Built for AI agents
+
+The rules your team follows are written down where coding agents read them, and the linter checks the result.
+
+- **[AGENTS.md](/build/project-rules/)** holds the commands, architecture rules and conventions. Claude Code,
+  Cursor and Copilot are pointed at it.
+- **Skills** for adding a feature, a screen or an endpoint run the generators, then walk the agent through
+  fields, offline behaviour, strings and tests. Callstack's React Native skills are included and pinned.
+- **Accessible by default:** screens use ARIA roles and labels, so agents that drive the app on a simulator
+  read the screen as text instead of guessing from screenshots.
+
+## Is this for you?
+
+<CardGrid>
+  <Card title="A good fit if you" icon="approve-check-circle">
+    - want to own `ios/` and `android/` and see every native change - build an app that has to work
+    offline and keep users' writes - work in a team, or with AI agents, and want the rules checked -
+    want to start from working code and remove what you don't need
+  </Card>
+  <Card title="Not a fit if you" icon="warning">
+    - want Expo's managed workflow or Expo Go: start from an Expo template instead - need a backend:
+    this is the app side only, with a mock backend to build against - want a UI kit: it has about 15
+    primitives, not a full component library
+  </Card>
+</CardGrid>
+
+## Get started
+
+<Steps>
+
+1. Create an app with **Use this template** on GitHub, or with the React Native CLI (see
+   [Create an app](#create-an-app)).
+
+2. Install the JavaScript and Ruby dependencies:
+
+   ```bash
+   pnpm install && bundle install
+   ```
+
+3. Give the app its name and bundle id:
+
+   ```bash
+   pnpm bootstrap --name Acme --bundle-id com.acme.app --display-name "Acme"
+   ```
+
+4. Start an emulator or simulator, then run the app and sign in with `demo@example.com` / `password123`:
+
+   ```bash
+   pnpm android
+   ```
+
+5. When you start on your own screens, remove the demo and add your first feature:
+
+   ```bash
+   pnpm strip-examples
+   pnpm gen feature orders
+   ```
+
+</Steps>
+
+<LinkButton href="/start-here/introduction/" icon="right-arrow">
+  Read the introduction
+</LinkButton>
+
+## Questions
+
+<details>
+<summary>Do I need a backend to start?</summary>
+
+No. Development builds use a mock backend inside the app. When your API is ready, set `API_URL` and
+`API_MOCKS=false` in the environment's `.env` file. [Use your API](/production/going-live/#use-your-api)
+
+</details>
+
+<details>
+<summary>Do I need Firebase?</summary>
+
+No. Without a Firebase file the app logs crashes and analytics to the console, uses default feature flags and
+shows notifications locally. Add the file when you want the real services.
+
+</details>
+
+<details>
+<summary>Which platforms and versions does it support?</summary>
+
+iOS 15.1 and later, and Android 7.0 (API 24) and later, on React Native 0.87 with the New Architecture.
+[Version matrix](/reference/version-matrix/)
+
+</details>
+
+<details>
+<summary>Can I move to Expo later?</summary>
+
+Every change to `ios/` and `android/` is listed with its Expo equivalent in
+[Native changes](/production/native-changes/), and native libraries sit behind small interfaces, so the app code
+doesn't depend on how the native side is built.
+
+</details>
+
+<details>
+<summary>How do I get template updates into my app?</summary>
+
+Your app owns its copy of the code, so nothing updates on its own. The [changelog](/reference/changelog/) lists
+each change; copy the ones you want.
+
+</details>
+
+<details>
+<summary>What does it cost?</summary>
+
+Nothing. It's open source under the MIT license.
+
+</details>
