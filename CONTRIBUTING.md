@@ -30,6 +30,35 @@ pnpm check            # types, lint, format, boundaries, tests
 
 Fill in the pull request template: what changed, and how you tested it (which platforms, which devices).
 
+## Editing the website
+
+The website (`website/`, Astro Starlight) is built from the repo's own docs, so most pages are edited where
+they already live:
+
+| Page | Edit |
+| --- | --- |
+| Environments, Architecture, Generators, Going live, Releasing, Demo build, Native changes, Version matrix, Best-practices audit | The file in `docs/` |
+| Decisions | `docs/decisions/` |
+| Styling, Testing, Project rules | The matching section of `AGENTS.md` |
+| Contributing, Changelog | `CONTRIBUTING.md`, `CHANGELOG.md` |
+| Home, Introduction, Quick start, FAQ, Offline, Built for AI agents | `website/content/` |
+
+Every page's **Edit page** link opens the right file. `website/src/content/docs/` is generated: changes there
+are overwritten.
+
+```bash
+pnpm site:dev       # http://localhost:4321, updates as you edit docs/, AGENTS.md or website/content/
+pnpm site:build     # the site in website/dist/, then the link check
+```
+
+- **Add a page from `docs/`:** add it to `PAGES` in `website/scripts/sync-docs.mjs` and to the sidebar in
+  `website/astro.config.mjs`. A page written only for the site goes in `website/content/` and the sidebar.
+- **Links:** link between docs with relative paths (`going-live.md#use-your-api`) as usual; the site rewrites
+  them. `pnpm site:build` fails and names the link when one points to a missing page or heading, so run it
+  after renaming a file or rewording a heading.
+- **Frontmatter:** quote a `description` that contains a colon, or the build fails.
+- If `pnpm site:dev` keeps showing an error you've fixed, restart it with `pnpm site:dev --force`.
+
 ## License
 
 By contributing you agree that your contribution is licensed under the [MIT License](LICENSE).
