@@ -7,6 +7,13 @@ export default defineConfig({
   integrations: [
     starlight({
       title: 'rn-template',
+      logo: {
+        light: './src/assets/logo-light.svg',
+        dark: './src/assets/logo-dark.svg',
+        alt: 'rn-template logo',
+      },
+      favicon: '/favicon.svg',
+      customCss: ['./src/styles/theme.css'],
       description:
         'A production-ready bare React Native template: offline-first, secure, and built for AI agents.',
       social: [

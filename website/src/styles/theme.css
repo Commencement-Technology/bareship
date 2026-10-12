@@ -1,0 +1,23 @@
+/*
+ * The template's brand on Starlight: the app's primary blue (#0A6C96, src/shared/ui/theme/brands.ts) in light
+ * mode and its dark-mode variant (#55B6E0) in dark mode.
+ */
+
+/* Dark mode (Starlight's default). */
+:root {
+  --sl-color-accent-low: #0b2c3c;
+  --sl-color-accent: #1f86b4;
+  --sl-color-accent-high: #a9dcf2;
+}
+
+/* Light mode. */
+:root[data-theme='light'] {
+  --sl-color-accent-low: #d3ebf6;
+  --sl-color-accent: #0a6c96;
+  --sl-color-accent-high: #064a68;
+}
+
+/* Home page: keep the hero text to a readable width. */
+.hero .tagline {
+  max-width: 40rem;
+}

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
+  <!-- Header logo for dark mode: the brand mark in the dark-theme primary. -->
+  <g fill="none" stroke="#55B6E0" stroke-width="34" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M300 70 L530 185 L300 300 L70 185 Z" fill="#55B6E0"/>
+    <path d="M70 300 L300 415 L530 300"/>
+    <path d="M70 400 L300 515 L530 400"/>
+  </g>
+</svg>
