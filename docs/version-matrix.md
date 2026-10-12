@@ -16,7 +16,7 @@ Checked on 2026-10-10. Update this file whenever a native dependency is added or
 | Android SDK | compile 37, target 36, min 24; build-tools 37.0.0 | template |
 | Android NDK | 27.1.12297006 | template (see note on Unistyles below) |
 | Java | 21 | Gradle 9 requirement |
-| Xcode | 27.0 | local; CI `macos-26`. **The iOS 27 SDK requires the UIScene life cycle**, which the RN 0.87 template lacks; see docs/native-changes.md#uiscene |
+| Xcode | 27.0 | local. CI's `macos-26` image has Xcode 26.x (26.6 default, September 2026); whether the project builds with it is unchecked until CI runs. **The iOS 27 SDK requires the UIScene life cycle**, which the RN 0.87 template lacks; see docs/native-changes.md#uiscene |
 | iOS deployment target | 15.1 (RN 0.87 `min_ios_version_supported`) | template |
 | CocoaPods | 1.15.2 via Bundler | `Gemfile` |
 | Ruby | 3.2.2 (`.ruby-version`) | `Gemfile.lock`; fastlane warns it will need 3.3 |

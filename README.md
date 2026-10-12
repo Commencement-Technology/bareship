@@ -201,9 +201,10 @@ independent; the rest of the app keeps working without it.
 
 - **No end-to-end or performance tests yet.** Maestro flows, Reassure render baselines, startup metrics
   and a bundle report are postponed until after Phase 4.
-- **CI is paused while the template is being built.** The checks job passes; the iOS job needs a
-  `.ruby-version`, and the Android jobs ran out of memory on hosted runners. Both are fixed before CI is
-  turned back on (Phase 4). Run `pnpm check` locally.
+- **CI is paused while the template is being built.** The checks job passes. The fixes for the native jobs
+  (a `.ruby-version` for iOS; swap, two Gradle workers and time limits for the Android builds, which ran
+  out of memory on 8 GB runners) are in the workflow but haven't run yet. GitHub's macOS image has Xcode
+  26.x, not 27, so the iOS job is unproven too. Run `pnpm check` locally.
 - **Over-the-air updates have a port but no adapter.** Pick a provider (for example hot-updater) and add
   one.
 - **The demo build is Android-only.** iOS needs a signed build, so use the simulator.

@@ -17,6 +17,7 @@ jobs:
   checks:
     name: Types, lint, tests, boundaries
     runs-on: ubuntu-24.04
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v7
       - uses: pnpm/action-setup@v6
@@ -39,6 +40,8 @@ jobs:
     # Native builds are slow: run on main, or on PRs labelled "native".
     if: github.ref == 'refs/heads/main' || contains(github.event.pull_request.labels.*.name, 'native')
     runs-on: ubuntu-24.04
+    # A cold build takes 30-50 minutes. Without a limit, a stuck build holds the runner for 6 hours.
+    timeout-minutes: 90
     strategy:
       fail-fast: false
       matrix:
@@ -57,9 +60,25 @@ jobs:
           java-version: '21'
       - uses: gradle/actions/setup-gradle@v6
       - run: pnpm install --frozen-lockfile
+      # The native C++ (Skia, Reanimated, Worklets, the app) needs more memory than a standard runner has
+      # (8 GB on private repositories). Without swap the runner is killed mid-build, after up to an hour of
+      # silence. /mnt is the runner's spare disk.
+      - name: Add swap
+        run: |
+          sudo swapoff -a
+          sudo fallocate -l 12G /mnt/swapfile
+          sudo chmod 600 /mnt/swapfile
+          sudo mkswap /mnt/swapfile
+          sudo swapon /mnt/swapfile
+          free -h
       - name: Build
         working-directory: android
-        run: ./gradlew ${{ matrix.variant }} -PreactNativeArchitectures=arm64-v8a --no-daemon
+        # One ABI; at most two Gradle tasks (so two native builds) at once; Kotlin compiles inside Gradle
+        # instead of a second JVM.
+        run: >
+          ./gradlew ${{ matrix.variant }} --no-daemon --max-workers=2
+          -PreactNativeArchitectures=arm64-v8a
+          -Pkotlin.compiler.execution.strategy=in-process
       - name: Check the build carries its own environment
         run: |
           case "${{ matrix.variant }}" in
@@ -75,6 +94,7 @@ jobs:
     needs: checks
     if: github.ref == 'refs/heads/main' || contains(github.event.pull_request.labels.*.name, 'native')
     runs-on: macos-26
+    timeout-minutes: 75
     env:
       LANG: en_US.UTF-8
       USE_CCACHE: '1'
@@ -94,6 +114,9 @@ jobs:
           path: ios/Pods
           key: pods-${{ runner.os }}-${{ hashFiles('ios/Podfile.lock') }}
       - run: pnpm pods
+      # The image's default Xcode. Local development uses Xcode 27; macos-26 has Xcode 26.x
+      # (docs/version-matrix.md). Printed so a failure shows which one built.
+      - run: xcodebuild -version
       - name: Build
         working-directory: ios
         run: |
