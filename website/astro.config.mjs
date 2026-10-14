@@ -6,9 +6,10 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   // Canonical URLs and the sitemap (ADR 0016).
   site: 'https://bareship.praveensingh.co.in',
-  // Astro resolves tsconfig paths, which would read the repo's root tsconfig.json. That one extends a
-  // React Native package the website doesn't install (on Vercel the build fails). The site has no aliases.
-  vite: { resolve: { tsconfigPaths: false } },
+  // The repo's root tsconfig.json extends a React Native package the website doesn't install, so on Vercel
+  // any build step that reads it fails. Vite is pointed at the website's own tsconfig for compiling .ts files
+  // and .astro frontmatter, and tsconfig paths stay off (the site has no aliases).
+  vite: { tsconfig: './tsconfig.json', resolve: { tsconfigPaths: false } },
   integrations: [
     starlight({
       title: 'Bareship',
