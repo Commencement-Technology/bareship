@@ -5,6 +5,14 @@ is published; until then everything is under Unreleased.
 
 ## Unreleased
 
+### App README and code of conduct
+
+- Apps made with `init` get their own README (`scripts/app-readme.md`): how to run, customise and release
+  the app, with no links to the template's own files. `scripts/ci/check-template-init.sh` checks it and the
+  links in the app's docs.
+- README: a new header with the logo, a tagline and quick links, and a direct **Use this template** link.
+- `CODE_OF_CONDUCT.md` (Contributor Covenant 2.1).
+
 ### Public, with a website
 
 - The repository is public and a GitHub template repository.

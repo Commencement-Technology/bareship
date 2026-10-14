@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Creates an app from the npm template the way a user would, and checks it (ADR 0001):
-# pack → `cli init` → no "BareshipApp" left → pnpm install → bundle install → bootstrap → strip-examples
+# pack → `cli init` → no "BareshipApp" left → app README with working links → pnpm install → bundle install → bootstrap → strip-examples
 # → pnpm check. Takes a few minutes; no native build.
 set -euo pipefail
 cd "$(dirname "$0")/../.."
@@ -22,6 +22,20 @@ if grep -rIl -e BareshipApp -e bareshipapp -e bareship-app . ; then
 fi
 grep -q 'PRODUCT_BUNDLE_IDENTIFIER = "com.acmeshop$(BUNDLE_ID_SUFFIX)"' ios/AcmeShop.xcodeproj/project.pbxproj \
   || { echo "✖ iOS bundle id lost its environment suffix"; exit 1; }
+head -1 README.md | grep -qx '# AcmeShop' || { echo "✖ README.md isn't the app's README"; exit 1; }
+node -e '
+const fs = require("fs"), path = require("path");
+const md = ["README.md", "AGENTS.md", ...fs.readdirSync("docs", { recursive: true }).map(f => path.join("docs", f))]
+  .filter(f => f.endsWith(".md"));
+let broken = 0;
+for (const f of md)
+  for (const [, link] of fs.readFileSync(f, "utf8").matchAll(/\]\(([^)\s]+)\)/g)) {
+    const target = link.split("#")[0];
+    if (!target || /^[a-z]+:/.test(target)) continue;
+    if (!fs.existsSync(path.join(path.dirname(f), target))) { console.log(`✖ ${f} links to missing ${link}`); broken++; }
+  }
+process.exit(broken ? 1 : 0);
+'
 test -f .gitignore || { echo "✖ .gitignore missing (npm drops it; the package ships _gitignore)"; exit 1; }
 
 git init -q && git add -A && git -c user.name=ci -c user.email=ci@example.com commit -qm init --no-verify

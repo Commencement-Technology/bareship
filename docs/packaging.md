@@ -14,7 +14,8 @@ It writes `dist/npm/` and a tarball, `dist/npm/bareship-<version>.tgz`, which co
 | Path | What |
 | --- | --- |
 | `template.config.js` | Tells the CLI the placeholder (`BareshipApp`) and where the app is |
-| `template/` | The app: every file git tracks, except the template's own files (this page, `LICENSE`, `CHANGELOG.md`, `CONTRIBUTING.md`, `SECURITY.md`, issue templates, the packing scripts) |
+| `template/` | The app: every file git tracks, except the template's own files (this page, `LICENSE`, `CHANGELOG.md`, `CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`, issue templates, the website, the packing scripts) |
+| `template/README.md` | The app's README, from `scripts/app-readme.md`: how to run, customise and release the app. The template's README stays in this repository |
 | `package.json`, `README.md`, `LICENSE` | The npm package itself |
 
 When someone runs `init`, the CLI copies `template/`, replaces every `BareshipApp` and `bareshipapp` (Xcode
@@ -30,7 +31,7 @@ in copies of the code.
 scripts/ci/check-template-init.sh
 ```
 
-Packs, runs `init`, checks that no placeholder is left and the iOS bundle id kept its environment suffix,
+Packs, runs `init`, checks that no placeholder is left, the iOS bundle id kept its environment suffix and the app's README and docs have no broken links,
 then installs, runs `pnpm bootstrap` and `pnpm strip-examples`, and runs `pnpm check` in the new app. It
 takes a few minutes and builds nothing native.
 

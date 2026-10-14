@@ -1,7 +1,8 @@
 # Contributing
 
 Thanks for helping. This file covers contributing to the template itself; [AGENTS.md](AGENTS.md) holds the
-rules for code written in it, and applies here too.
+rules for code written in it, and applies here too. Everyone taking part follows the
+[code of conduct](CODE_OF_CONDUCT.md).
 
 ## Before you start
 

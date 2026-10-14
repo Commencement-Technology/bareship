@@ -1,14 +1,33 @@
-# Bareship
+<p align="center">
+  <img src="https://raw.githubusercontent.com/psingh2907/bareship/main/assets/brand/logo.svg" alt="" width="96" height="96">
+</p>
 
-![React Native 0.87](https://img.shields.io/badge/React_Native-0.87-61dafb)
-![New Architecture](https://img.shields.io/badge/New_Architecture-only-2ea44f)
-![TypeScript 6](https://img.shields.io/badge/TypeScript-6_strict-3178c6)
-![iOS and Android](https://img.shields.io/badge/platforms-iOS_%7C_Android-lightgrey)
+<h1 align="center">Bareship</h1>
 
-**Website and docs: [bareship.praveensingh.co.in](https://bareship.praveensingh.co.in)**
+<p align="center">
+  <strong>An offline-first, bare React Native template for teams and AI agents.</strong><br>
+  No Expo, no accounts needed to run it, and the architecture rules are checked on every build.
+</p>
 
-**Bareship is a production-ready, offline-first bare React Native template for teams and AI agents.** It
-uses the React Native CLI (no Expo) and takes the best ideas from Ignite, Obytes,
+<p align="center">
+  <img src="https://img.shields.io/badge/React_Native-0.87-61dafb" alt="React Native 0.87">
+  <img src="https://img.shields.io/badge/New_Architecture-only-2ea44f" alt="New Architecture only">
+  <img src="https://img.shields.io/badge/TypeScript-6_strict-3178c6" alt="TypeScript 6 strict">
+  <img src="https://img.shields.io/badge/platforms-iOS_%7C_Android-lightgrey" alt="iOS and Android">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license"></a>
+</p>
+
+<p align="center">
+  <a href="https://bareship.praveensingh.co.in"><strong>Website and docs</strong></a> ·
+  <a href="#quick-start">Quick start</a> ·
+  <a href="#whats-inside">What's inside</a> ·
+  <a href="docs/architecture.md">Architecture</a> ·
+  <a href="#roadmap">Roadmap</a>
+</p>
+
+---
+
+Bareship uses the React Native CLI and takes the best ideas from Ignite, Obytes,
 TheCodingMachine and large open-source apps (Bluesky, Expensify), and adds what they leave out: an offline
 write queue, Keychain token storage, enforced architecture, optional Firebase and a supply-chain policy.
 
@@ -45,7 +64,8 @@ Requirements:
 - iOS: macOS with Xcode 27
 - Android: Android Studio with SDK 37 and NDK 27.1
 
-Start from your own copy of this repository (GitHub's **Use this template**, or a clone), then:
+Start from your own copy of this repository: click
+[**Use this template**](https://github.com/psingh2907/bareship/generate) on GitHub, or clone it. Then:
 
 ```bash
 pnpm install
@@ -247,8 +267,8 @@ independent; the rest of the app keeps working without it.
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md). In short: read [AGENTS.md](AGENTS.md), run `pnpm check`, use
-Conventional Commits, and propose a new ADR rather than changing a recorded decision. Report security issues
-privately ([SECURITY.md](SECURITY.md)).
+Conventional Commits, and propose a new ADR rather than changing a recorded decision. Everyone follows the
+[code of conduct](CODE_OF_CONDUCT.md). Report security issues privately ([SECURITY.md](SECURITY.md)).
 
 ## License
 

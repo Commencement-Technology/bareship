@@ -22,11 +22,13 @@ const PLACEHOLDER = 'BareshipApp';
 const NOT_IN_APP = [
   /^scripts\/pack-template\.ts$/,
   /^scripts\/ci\/check-template-init\.sh$/,
+  /^scripts\/app-readme\.md$/, // becomes the app's README.md
   /^docs\/packaging\.md$/,
   /^LICENSE$/,
   /^CHANGELOG\.md$/,
   /^CONTRIBUTING\.md$/,
   /^SECURITY\.md$/,
+  /^CODE_OF_CONDUCT\.md$/,
   /^\.github\/ISSUE_TEMPLATE\//,
   /^website\//, // the template's website, not part of an app
 ];
@@ -77,6 +79,9 @@ function main() {
     scripts,
   };
   writeFileSync(join(OUT, 'template', 'package.json'), JSON.stringify(app, null, 2) + '\n');
+  // The template's README describes the template (roadmap, contributing, its own license); the app gets
+  // its own, which the CLI renames like every other file.
+  copyFileSync(join(ROOT, 'scripts', 'app-readme.md'), join(OUT, 'template', 'README.md'));
 
   writeFileSync(
     join(OUT, 'template.config.js'),
