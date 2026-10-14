@@ -1,0 +1,29 @@
+---
+// Starlight's <head> plus structured data: the project and site on every page, a TechArticle for each docs
+// page, and FAQPage on the FAQ (src/seo.ts).
+import Default from '@astrojs/starlight/components/Head.astro';
+import { faqPage, graph, ids, site, software, website } from '../seo';
+
+const { entry } = Astro.locals.starlightRoute;
+const url = new URL(Astro.url.pathname, site).toString();
+const isHome = entry.id === 'index' || entry.id === '';
+
+const nodes: object[] = [website, software];
+if (!isHome) {
+  nodes.push({
+    '@type': 'TechArticle',
+    '@id': `${url}#article`,
+    headline: entry.data.title,
+    description: entry.data.description,
+    url,
+    isPartOf: { '@id': ids.website },
+    about: { '@id': ids.software },
+    author: { '@id': ids.person },
+    ...(entry.data.lastUpdated instanceof Date && { dateModified: entry.data.lastUpdated.toISOString() }),
+  });
+}
+if (entry.id === 'start-here/faq' && entry.body) nodes.push(faqPage(entry.body));
+---
+
+<Default />
+<script is:inline type="application/ld+json" set:html={graph(...nodes)} />

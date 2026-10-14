@@ -1,0 +1,24 @@
+---
+// Starlight's footer (edit link, pagination) plus a line naming the maintainer, linked to his site.
+import Default from '@astrojs/starlight/components/Footer.astro';
+---
+
+<Default><slot /></Default>
+<p class="maker">
+  Made by <a href="https://www.praveensingh.co.in" rel="author">Praveen Singh</a>, Senior React Native engineer
+</p>
+
+<style>
+  .maker {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-3);
+  }
+  .maker a {
+    color: var(--sl-color-gray-2);
+  }
+  .maker a:hover {
+    color: var(--sl-color-white);
+  }
+</style>

@@ -274,4 +274,4 @@ Conventional Commits, and propose a new ADR rather than changing a recorded deci
 
 ## License
 
-[MIT](LICENSE) © 2026 Praveen Singh.
+[MIT](LICENSE) © 2026 [Praveen Singh](https://www.praveensingh.co.in).
