@@ -38,9 +38,8 @@ run it, or install it on a phone: the dev build serves sample data from a mock b
 add each service when you need it ([going live](docs/going-live.md)).
 
 > **Status: 0.1.0, on npm and as a GitHub template.** An app made from the npm package builds and runs on iOS
-> and Android, and the fastlane release builds pass on both. Still to come: the Android CI fix. Postponed:
-> Maestro end-to-end tests and performance tooling. See the [roadmap](#roadmap) and
-> [known limitations](#known-limitations).
+> and Android, and the fastlane release builds pass on both. Next: turning CI back on in this repository. See
+> the [roadmap](#roadmap) and [known limitations](#known-limitations).
 
 ## Why this template
 
@@ -233,10 +232,10 @@ independent; the rest of the app keeps working without it.
 
 - **No end-to-end or performance tests yet.** Maestro flows, Reassure render baselines, startup metrics
   and a bundle report are postponed.
-- **CI is switched off in this repository for now.** The checks job passed when it last ran. The fixes for the native jobs
-  (a `.ruby-version` for iOS; swap, two Gradle workers and time limits for the Android builds, which ran
-  out of memory on 8 GB runners) are in the workflow but haven't run yet. GitHub's macOS image has Xcode
-  26.x, not 27, so the iOS job is unproven too. Run `pnpm check` locally.
+- **CI is switched off in this repository for now.** The checks job passed when it last ran. The fixes for
+  the native jobs (a `.ruby-version` for iOS; swap, two Gradle workers and time limits for the Android
+  builds, which ran out of memory on 8 GB runners) are in the workflow but haven't run yet. GitHub's macOS
+  image has Xcode 26.x, not 27, so the iOS job is unproven too. Run `pnpm check` locally.
 - **Over-the-air updates have a port but no adapter.** Pick a provider (for example hot-updater) and add
   one.
 - **The demo build is Android-only.** iOS needs a signed build, so use the simulator.
@@ -248,17 +247,24 @@ independent; the rest of the app keeps working without it.
 
 ## Roadmap
 
-| Phase | Scope | Status |
-| --- | --- | --- |
-| 0 | Decisions (ADRs), version matrix, library build check | Done |
-| 1 | Foundation: tooling, environments, splash, icons, rename, CI | Done |
-| 2 | App layer: API client, TanStack Query + MMKV, navigation, design system, i18n, forms, auth, feed, mocks | Done |
-| 3 | Production: offline queue and UI, Firebase, push, force update, deep links, OTA port | Done |
-| 4 | Quality: lint sweep, generators with agent skills, fastlane, `.ruby-version` for CI. Postponed: Maestro, performance tooling (Reassure, startup metrics, bundle report), Android CI memory fix | Done |
-| 5 | Packaging: example stripping, npm `--template` package, MIT license and community files, the name Bareship. Checked: an app made from the package runs on iOS and Android; fastlane release builds pass on both | Done |
-| Site | Website and docs (Astro Starlight in `website/`), live at [bareship.praveensingh.co.in](https://bareship.praveensingh.co.in) with a sitemap ([ADR 0016](docs/decisions/0016-website-on-a-subdomain.md)) | Done |
-| Launch | Public repository, GitHub template and npm package `bareship` 0.1.0. Still to come: Android CI fix | In progress |
-| Track B | Expo (CNG) version sharing the same `src/` | After Track A |
+**In 0.1.0**
+
+| Area | What's included |
+| --- | --- |
+| Foundation | Decision records, version matrix, tooling, three environments, splash and icons, `pnpm bootstrap` |
+| App | API client, TanStack Query with MMKV, navigation, design system, i18n, forms, sign-in, demo feed, mock backend |
+| Production | Offline queue and UI, Firebase, push, force update, deep links, an OTA port, fastlane |
+| Quality | Lint rules, generators with agent skills, tests with a coverage gate, a CI workflow |
+| Distribution | npm package `bareship`, GitHub template, `pnpm strip-examples`, MIT license, [website](https://bareship.praveensingh.co.in) |
+
+**Next**
+
+| Item | Status |
+| --- | --- |
+| Turn CI back on in this repository, after fixing the Android build's memory use | Next |
+| End-to-end tests with Maestro | Postponed |
+| Performance tooling: Reassure render baselines, startup metrics, a bundle report | Postponed |
+| An Expo (CNG) version that shares the same `src/` | Later |
 
 ## Contributing
 
