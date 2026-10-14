@@ -67,9 +67,17 @@ Start the emulator (or plug in a phone) before `pnpm android`: debug builds comp
 connected device's CPU. With no device connected they build all four Android CPU types, which takes about
 four times as long.
 
+On recent Android versions the first debug run asks to find and connect to nearby devices. Allow it: the debug
+build reaches Metro on your computer through the local network, and without the permission it shows
+"Unable to load script".
+
 `bootstrap` renames the Xcode project, schemes, Android package, bundle ids, display names and URL schemes
 in one step, then runs `pod install`. Run it once on a fresh copy. To try the template without renaming,
 run `pnpm pods` instead.
+
+Run `pnpm pods` again after any `pnpm install` that changes `node_modules`. Skia copies its iOS binaries into
+`node_modules` during `pod install`, so a reinstall removes them, and the iOS build then fails with
+`libskia.xcframework/ios-arm64_arm64e: No such file or directory`.
 
 Sign in with **`demo@example.com` / `password123`**. To try it on an Android phone without a computer
 attached, build the [demo APK](docs/demo-build.md).

@@ -11,6 +11,7 @@ is published; until then everything is under Unreleased.
   `psingh2907/bareship`, code markers `[bareship]` ([ADR 0015](docs/decisions/0015-name-bareship.md)).
 - The app inside the template is renamed with `pnpm bootstrap`: bundle id `com.bareshipapp`, URL scheme
   `bareshipapp://`. Apps made with `init` get their own names, as before.
+- Docs: run `pnpm pods` again after a `pnpm install` that changes `node_modules` (Skia's iOS binaries).
 
 ### Phase 5: packaging
 

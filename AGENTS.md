@@ -12,7 +12,7 @@ Never change a recorded decision silently: propose a new ADR.
 | Task | Command |
 | --- | --- |
 | Install | `pnpm install` (pnpm only; supply-chain policy in `pnpm-workspace.yaml`) |
-| iOS pods | `pnpm pods` |
+| iOS pods | `pnpm pods`, and again after every `pnpm install` that changes `node_modules` (Skia copies its iOS binaries in at `pod install`) |
 | Run | `pnpm android` / `pnpm ios` (dev); `:staging`, `:prod` variants |
 | All checks | `pnpm check` (typecheck, lint, format, depcruise, tests) |
 | Rename the app | `pnpm bootstrap --name Acme --bundle-id com.acme.app` |
