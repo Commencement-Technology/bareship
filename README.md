@@ -5,6 +5,8 @@
 ![TypeScript 6](https://img.shields.io/badge/TypeScript-6_strict-3178c6)
 ![iOS and Android](https://img.shields.io/badge/platforms-iOS_%7C_Android-lightgrey)
 
+**Website and docs: [bareship.praveensingh.co.in](https://bareship.praveensingh.co.in)**
+
 **Bareship is a production-ready, offline-first bare React Native template for teams and AI agents.** It
 uses the React Native CLI (no Expo) and takes the best ideas from Ignite, Obytes,
 TheCodingMachine and large open-source apps (Bluesky, Expensify), and adds what they leave out: an offline
@@ -14,11 +16,11 @@ write queue, Keychain token storage, enforced architecture, optional Firebase an
 run it, or install it on a phone: the dev build serves sample data from a mock backend inside the app. You
 add each service when you need it ([going live](docs/going-live.md)).
 
-> **Status: ready, not yet public.** Phases 0–5 are done and the template is named Bareship
+> **Status: public, not yet on npm.** Phases 0–5 are done and the template is named Bareship
 > ([ADR 0015](docs/decisions/0015-name-bareship.md)). An app made from the npm package builds and runs on iOS
-> and Android, and the fastlane release builds pass on both. Still to come: the Android CI fix, the website on
-> bareship.dev, then making the repository public and publishing to npm. Postponed: Maestro end-to-end tests
-> and performance tooling. See the [roadmap](#roadmap) and [known limitations](#known-limitations).
+> and Android, and the fastlane release builds pass on both. Create an app with GitHub's **Use this template**
+> today. Still to come: the Android CI fix and publishing to npm. Postponed: Maestro end-to-end tests and
+> performance tooling. See the [roadmap](#roadmap) and [known limitations](#known-limitations).
 
 ## Why this template
 
@@ -196,6 +198,7 @@ independent; the rest of the app keeps working without it.
 
 | Doc | What it covers |
 | --- | --- |
+| [Website](https://bareship.praveensingh.co.in) | All of these docs as a searchable site |
 | [AGENTS.md](AGENTS.md) | Rules and conventions for contributors and AI agents |
 | [Architecture](docs/architecture.md) | Layers, data flow, session, ports and adapters, boot |
 | [Environments](docs/environments.md) | dev, staging and prod: ids, `.env` files, flavors and schemes |
@@ -237,8 +240,8 @@ independent; the rest of the app keeps working without it.
 | 3 | Production: offline queue and UI, Firebase, push, force update, deep links, OTA port | Done |
 | 4 | Quality: lint sweep, generators with agent skills, fastlane, `.ruby-version` for CI. Postponed: Maestro, performance tooling (Reassure, startup metrics, bundle report), Android CI memory fix | Done |
 | 5 | Packaging: example stripping, npm `--template` package, MIT license and community files, the name Bareship. Checked: an app made from the package runs on iOS and Android; fastlane release builds pass on both | Done |
-| Site | Website and docs (Astro Starlight in `website/`): v1 done; hosting on bareship.dev next | In progress |
-| Launch | Android CI fix, GitHub template setting, public repository, `npm publish` | Next |
+| Site | Website and docs (Astro Starlight in `website/`), live at [bareship.praveensingh.co.in](https://bareship.praveensingh.co.in) with a sitemap ([ADR 0016](docs/decisions/0016-website-on-a-subdomain.md)) | Done |
+| Launch | Public repository and GitHub template (done). Still to come: Android CI fix, `npm publish` | In progress |
 | Track B | Expo (CNG) version sharing the same `src/` | After Track A |
 
 ## Contributing

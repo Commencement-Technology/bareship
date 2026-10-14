@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bareship.praveensingh.co.in/sitemap-index.xml

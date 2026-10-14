@@ -108,7 +108,7 @@ function main() {
       'production-ready',
       'ai-agents',
     ],
-    homepage: 'https://bareship.dev',
+    homepage: 'https://bareship.praveensingh.co.in',
     files: ['template', 'template.config.js'],
   };
   writeFileSync(join(OUT, 'package.json'), JSON.stringify(manifest, null, 2) + '\n');

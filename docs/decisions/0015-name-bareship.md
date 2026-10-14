@@ -26,7 +26,8 @@ website, the npm name, the code markers) in each new app.
   boilerplate, starter kit, offline-first, bare) go in the description, npm keywords and GitHub topics,
   not in the name.
 - **npm package `bareship`** (`--template bareship`), **repository `psingh2907/bareship`**, website on
-  `bareship.dev`, code markers `[bareship]`.
+  `bareship.dev`, code markers `[bareship]`. *The website moved to a subdomain for now:
+  [0016](0016-website-on-a-subdomain.md).*
 - **The app inside the template is the brand plus "App"** (written here in parts, because `init` rewrites
   the whole word): `Bareship` + `App` names the Xcode project and schemes, the display name and the CLI
   placeholder; its lowercase form gives the bundle id (`com.` + `bareship` + `app`) and the URL scheme.

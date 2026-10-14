@@ -5,6 +5,14 @@ is published; until then everything is under Unreleased.
 
 ## Unreleased
 
+### Public, with a website
+
+- The repository is public and a GitHub template repository.
+- Website and docs live at https://bareship.praveensingh.co.in with a sitemap and `robots.txt`
+  ([ADR 0016](docs/decisions/0016-website-on-a-subdomain.md)). Vercel deploys it on every push to `main`.
+- The website builds without the app's packages installed (Vercel), and the Offline and AI agents pages
+  are now committed (the root `.gitignore` hid them).
+
 ### Renamed to Bareship
 
 - The template is now **Bareship** (was `rn-template`): npm package `bareship`, repository
