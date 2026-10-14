@@ -25,10 +25,8 @@ You don't need a backend, a Firebase project or an Apple Developer account.
 
 Pick one.
 
-**From GitHub:** click **Use this template** on the
-[repository](https://github.com/psingh2907/bareship), then clone your new repository.
-
-**With the React Native CLI:**
+**With the React Native CLI (recommended):** it downloads the template from
+[npm](https://www.npmjs.com/package/bareship) and names the app.
 
 ```bash
 npx @react-native-community/cli@20.2.0 init Acme --template bareship --skip-install --install-pods false
@@ -36,7 +34,13 @@ cd Acme
 ```
 
 Use `--skip-install`: the CLI can't install with pnpm, and the project's lockfile and package policy need
-pnpm. Don't pass `--package-name`; you set the bundle id in step 3.
+pnpm. Don't pass `--package-name`; you set the bundle id in step 3. To use a particular version of the
+template, add it to the name: `--template bareship@0.1.0`. The [changelog](/reference/changelog/) lists the
+versions.
+
+**From GitHub:** click **Use this template** on the
+[repository](https://github.com/psingh2907/bareship), then clone your new repository. Your copy also holds the
+template's own files (the website, the changelog, the contributing guide); delete the ones you don't want.
 
 ## 2. Install dependencies
 
@@ -113,6 +117,7 @@ pnpm check
 
 | What you see | What to do |
 | --- | --- |
+| `npm error 404 … bareship` from `init` | Check the spelling: `--template bareship`. Behind a company registry or proxy, the package may not be mirrored yet; ask for `bareship` to be added |
 | `Seems like the package manager you want to use is not installed` from `init` | Don't pass `--pm pnpm`; the CLI only installs with npm, yarn or bun. Use `--skip-install`, then `pnpm install` |
 | `Run bundle install first` from `bootstrap` | Run `bundle install`, then `bootstrap` again. Nothing was renamed |
 | `SDK location not found` from Gradle | Set `ANDROID_HOME` to your Android SDK, for example `export ANDROID_HOME=~/Library/Android/sdk` |

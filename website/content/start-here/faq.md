@@ -25,7 +25,8 @@ There's no web target. [Version matrix](/reference/version-matrix/) lists every 
 
 ### Can I use npm or yarn instead of pnpm?
 
-No. The supply-chain policy (packages younger than 3 days are refused, install scripts need approval) and the
+Only to create the app: the React Native CLI downloads the template from npm. After that, install and run
+everything with pnpm. The supply-chain policy (packages younger than 3 days are refused, install scripts need approval) and the
 lockfile are pnpm's. Run `corepack enable` and the pinned pnpm version is used.
 [Decision 0003](/reference/decisions/0003-package-manager-and-supply-chain/) explains why.
 
@@ -86,8 +87,15 @@ TestFlight and Google Play internal testing. Building needs no accounts. See [Re
 
 ### How do I get template updates into my app?
 
-Your app owns its copy of the code, so nothing updates on its own. The [changelog](/reference/changelog/) lists
-each change; copy the ones you want.
+Your app owns its copy of the code, so nothing updates on its own. Each new version of the template is
+published to [npm](https://www.npmjs.com/package/bareship) and listed in the
+[changelog](/reference/changelog/) and the [GitHub releases](https://github.com/psingh2907/bareship/releases).
+Copy the changes you want.
+
+### Which version of the template should I use?
+
+The latest, which `--template bareship` picks for you. To start from an earlier one, name it:
+`--template bareship@0.1.0`.
 
 ### What does it cost, and what's the license?
 

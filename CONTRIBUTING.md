@@ -28,6 +28,7 @@ pnpm check            # types, lint, format, boundaries, tests
 - New dependency: check it against [docs/version-matrix.md](docs/version-matrix.md) and record it there.
 - Touched packaging (`template.config`, dotfiles, the name placeholder)? Run
   `scripts/ci/check-template-init.sh` ([docs/packaging.md](docs/packaging.md)).
+- Releasing a new version to npm: maintainers follow [docs/packaging.md › Publish](docs/packaging.md#publish).
 
 Fill in the pull request template: what changed, and how you tested it (which platforms, which devices).
 

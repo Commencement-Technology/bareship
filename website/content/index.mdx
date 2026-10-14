@@ -20,6 +20,21 @@ import { Card, CardGrid, LinkButton, Steps, TabItem, Tabs } from '@astrojs/starl
 ## Create an app
 
 <Tabs>
+<TabItem label="React Native CLI (npm)">
+
+```bash
+npx @react-native-community/cli@20.2.0 init Acme --template bareship --skip-install --install-pods false
+cd Acme
+pnpm install
+bundle install
+pnpm bootstrap --name Acme --bundle-id com.acme.app --display-name "Acme"
+```
+
+The CLI downloads the template from [npm](https://www.npmjs.com/package/bareship). It can't install with pnpm,
+so it skips the install. Leave out `--package-name`: `bootstrap` sets the bundle id and keeps dev, staging and
+prod apart.
+
+</TabItem>
 <TabItem label="GitHub template">
 
 Click **Use this template** on the [GitHub repository](https://github.com/psingh2907/bareship), clone your
@@ -31,19 +46,8 @@ bundle install
 pnpm bootstrap --name Acme --bundle-id com.acme.app --display-name "Acme"
 ```
 
-</TabItem>
-<TabItem label="React Native CLI">
-
-```bash
-npx @react-native-community/cli@20.2.0 init Acme --template bareship --skip-install --install-pods false
-cd Acme
-pnpm install
-bundle install
-pnpm bootstrap --name Acme --bundle-id com.acme.app --display-name "Acme"
-```
-
-The CLI can't install with pnpm, so it skips the install. Leave out `--package-name`: `bootstrap` sets the
-bundle id and keeps dev, staging and prod apart.
+Your copy also holds the template's own files (this website, the changelog, the contributing guide). Delete
+the ones you don't want.
 
 </TabItem>
 </Tabs>
@@ -158,8 +162,8 @@ The rules your team follows are written down where coding agents read them, and 
 
 <Steps>
 
-1. Create an app with **Use this template** on GitHub, or with the React Native CLI (see
-   [Create an app](#create-an-app)).
+1. Create an app with the React Native CLI (`--template bareship`), or with **Use this template** on GitHub
+   (see [Create an app](#create-an-app)).
 
 2. Install the JavaScript and Ruby dependencies:
 
@@ -230,8 +234,9 @@ doesn't depend on how the native side is built.
 <details>
 <summary>How do I get template updates into my app?</summary>
 
-Your app owns its copy of the code, so nothing updates on its own. The [changelog](/reference/changelog/) lists
-each change; copy the ones you want.
+Your app owns its copy of the code, so nothing updates on its own. Each version is published to
+[npm](https://www.npmjs.com/package/bareship) and listed in the [changelog](/reference/changelog/); copy the
+changes you want.
 
 </details>
 

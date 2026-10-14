@@ -9,7 +9,9 @@ onboarding, a feed, settings) built on the parts most apps need and most templat
 being offline, tokens kept in the Keychain, three environments, crash reporting and feature flags, deep links,
 and release automation. You keep what you need, remove the demo, and build your own features on top.
 
-It's a bare React Native CLI project: `ios/` and `android/` are in the repository and yours to change.
+It's a bare React Native CLI project: `ios/` and `android/` are in the repository and yours to change. You
+create an app from it with the React Native CLI, which downloads the [`bareship` package from
+npm](https://www.npmjs.com/package/bareship), or with GitHub's **Use this template**.
 
 ## What it believes
 

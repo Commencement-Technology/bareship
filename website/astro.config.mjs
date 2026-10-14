@@ -21,7 +21,10 @@ export default defineConfig({
       customCss: ['./src/styles/theme.css'],
       description:
         'Bareship is a production-ready, offline-first bare React Native template for teams and AI agents.',
-      social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/psingh2907/bareship' }],
+      social: [
+        { icon: 'github', label: 'GitHub', href: 'https://github.com/psingh2907/bareship' },
+        { icon: 'npm', label: 'npm', href: 'https://www.npmjs.com/package/bareship' },
+      ],
       sidebar: [
         {
           label: 'Start here',

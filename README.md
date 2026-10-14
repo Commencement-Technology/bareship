@@ -21,6 +21,7 @@
 <p align="center">
   <a href="https://bareship.praveensingh.co.in"><strong>Website and docs</strong></a> ·
   <a href="#quick-start">Quick start</a> ·
+  <a href="https://www.npmjs.com/package/bareship">npm</a> ·
   <a href="#whats-inside">What's inside</a> ·
   <a href="docs/architecture.md">Architecture</a> ·
   <a href="#roadmap">Roadmap</a>

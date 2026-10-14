@@ -6,7 +6,8 @@ changes.
 
 ## Unreleased
 
-Nothing yet.
+- Docs and website: the React Native CLI (npm package `bareship`) is the first way to create an app; an
+  npm link in the site header; FAQ answers on versions and updates.
 
 ## 0.1.0 (2026-10-14)
 
