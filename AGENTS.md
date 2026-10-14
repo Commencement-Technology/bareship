@@ -150,7 +150,7 @@ code: `// @example` deletes a line, `// @example:<id>` replaces it, and `// @exa
 
 ## Native changes
 
-Any edit under `android/` or `ios/`: mark it with a `[rn-template]` comment and add a row to
+Any edit under `android/` or `ios/`: mark it with a `[bareship]` comment and add a row to
 `docs/native-changes.md` with its Expo equivalent.
 
 ## Adding a dependency

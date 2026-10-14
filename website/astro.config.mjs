@@ -1,4 +1,4 @@
-// Website and docs for rn-template. Astro Starlight. Pages come from the repo's docs/ and from content/
+// Website and docs for Bareship. Astro Starlight. Pages come from the repo's docs/ and from content/
 // (scripts/sync-docs.mjs writes them into src/content/docs/), so the docs are written once.
 import starlight from '@astrojs/starlight';
 import { defineConfig } from 'astro/config';
@@ -6,19 +6,17 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   integrations: [
     starlight({
-      title: 'rn-template',
+      title: 'Bareship',
       logo: {
         light: './src/assets/logo-light.svg',
         dark: './src/assets/logo-dark.svg',
-        alt: 'rn-template logo',
+        alt: 'Bareship logo',
       },
       favicon: '/favicon.svg',
       customCss: ['./src/styles/theme.css'],
       description:
-        'A production-ready bare React Native template: offline-first, secure, and built for AI agents.',
-      social: [
-        { icon: 'github', label: 'GitHub', href: 'https://github.com/psingh2907/rn-template-bare' },
-      ],
+        'Bareship is a production-ready, offline-first bare React Native template for teams and AI agents.',
+      social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/psingh2907/bareship' }],
       sidebar: [
         {
           label: 'Start here',

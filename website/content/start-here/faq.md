@@ -1,6 +1,6 @@
 ---
 title: FAQ
-description: "Answers to common questions about rn-template: accounts, platforms, Expo, updates, state, styling and package managers."
+description: "Answers to common questions about Bareship: accounts, platforms, Expo, updates, state, styling and package managers."
 ---
 
 ## Getting started

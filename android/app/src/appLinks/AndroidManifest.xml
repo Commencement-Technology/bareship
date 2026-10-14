@@ -1,5 +1,5 @@
 <!--
-  [rn-template] Merged into a flavor only when its .env sets APP_LINK_DOMAIN (see app/build.gradle).
+  [bareship] Merged into a flavor only when its .env sets APP_LINK_DOMAIN (see app/build.gradle).
   Android verifies the domain by fetching https://<APP_LINK_DOMAIN>/.well-known/assetlinks.json,
   which `pnpm links:files` generates. See docs/going-live.md.
 -->

@@ -1,8 +1,8 @@
 {
-  "name": "rn-template",
+  "name": "bareship",
   "version": "0.1.0",
   "private": true,
-  "description": "Production-ready bare React Native template (Track A).",
+  "description": "Bareship is a production-ready, offline-first bare React Native template for teams and AI agents (Track A).",
   "license": "MIT",
   "packageManager": "pnpm@12.3.4",
   "engines": {
@@ -14,9 +14,9 @@
     "android": "react-native run-android --mode devDebug --appIdSuffix dev --active-arch-only",
     "android:staging": "react-native run-android --mode stagingDebug --appIdSuffix staging --active-arch-only",
     "android:prod": "react-native run-android --mode prodDebug --active-arch-only",
-    "ios": "react-native run-ios --scheme RnTemplate-Dev --mode Debug-Dev",
-    "ios:staging": "react-native run-ios --scheme RnTemplate-Staging --mode Debug-Staging",
-    "ios:prod": "react-native run-ios --scheme RnTemplate-Prod --mode Debug-Prod",
+    "ios": "react-native run-ios --scheme BareshipApp-Dev --mode Debug-Dev",
+    "ios:staging": "react-native run-ios --scheme BareshipApp-Staging --mode Debug-Staging",
+    "ios:prod": "react-native run-ios --scheme BareshipApp-Prod --mode Debug-Prod",
     "pods": "bundle exec pod install --project-directory=ios",
     "build:android:dev": "cd android && ./gradlew assembleDevRelease",
     "build:android:staging": "cd android && ./gradlew assembleStagingRelease",

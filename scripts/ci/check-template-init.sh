@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Creates an app from the npm template the way a user would, and checks it (ADR 0001):
-# pack → `cli init` → no "RnTemplate" left → pnpm install → bundle install → bootstrap → strip-examples
+# pack → `cli init` → no "BareshipApp" left → pnpm install → bundle install → bootstrap → strip-examples
 # → pnpm check. Takes a few minutes; no native build.
 set -euo pipefail
 cd "$(dirname "$0")/../.."
@@ -17,7 +17,7 @@ node "$root/node_modules/@react-native-community/cli/build/bin.js" init AcmeShop
   || { cat init.log; exit 1; }
 cd AcmeShop
 
-if grep -rIl -e RnTemplate -e rntemplate . ; then
+if grep -rIl -e BareshipApp -e bareshipapp -e bareship-app . ; then
   echo "✖ The template placeholder survived init in the files above"; exit 1
 fi
 grep -q 'PRODUCT_BUNDLE_IDENTIFIER = "com.acmeshop$(BUNDLE_ID_SUFFIX)"' ios/AcmeShop.xcodeproj/project.pbxproj \

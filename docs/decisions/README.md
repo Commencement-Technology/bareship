@@ -22,5 +22,6 @@ this bare template and "Track B" a later Expo version sharing its `src/` ([0001]
 | [0012](0012-testing-and-delivery.md) | Testing, CI and delivery | Accepted |
 | [0013](0013-agent-device-tools.md) | Agent device tools: agent-device by default, Argent for profiling | Accepted |
 | [0014](0014-opt-in-native-ci.md) | Native CI builds are opt-in | Accepted |
+| [0015](0015-name-bareship.md) | The template is named Bareship | Accepted |
 
 New ADRs copy [template.md](template.md). Never edit an accepted ADR's decision; supersede it with a new one.

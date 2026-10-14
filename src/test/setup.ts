@@ -18,7 +18,7 @@ jest.mock('react-native-config', () => ({
     API_URL: 'https://api.test',
     LOG_LEVEL: 'error',
     API_MOCKS: 'false',
-    APP_SCHEME: 'rntemplate-dev',
+    APP_SCHEME: 'bareshipapp-dev',
     APP_LINK_DOMAIN: '',
   },
 }));

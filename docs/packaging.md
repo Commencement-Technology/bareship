@@ -9,15 +9,15 @@ an npm template for the React Native CLI. This page is for maintainers; it isn't
 pnpm pack-template
 ```
 
-It writes `dist/npm/` and a tarball, `dist/npm/rn-template-<version>.tgz`, which contains:
+It writes `dist/npm/` and a tarball, `dist/npm/bareship-<version>.tgz`, which contains:
 
 | Path | What |
 | --- | --- |
-| `template.config.js` | Tells the CLI the placeholder (`RnTemplate`) and where the app is |
+| `template.config.js` | Tells the CLI the placeholder (`BareshipApp`) and where the app is |
 | `template/` | The app: every file git tracks, except the template's own files (this page, `LICENSE`, `CHANGELOG.md`, `CONTRIBUTING.md`, `SECURITY.md`, issue templates, the packing scripts) |
 | `package.json`, `README.md`, `LICENSE` | The npm package itself |
 
-When someone runs `init`, the CLI copies `template/`, replaces every `RnTemplate` and `rntemplate` (Xcode
+When someone runs `init`, the CLI copies `template/`, replaces every `BareshipApp` and `bareshipapp` (Xcode
 project and schemes, bundle ids, the Android package, URL schemes, `package.json`'s name) with the new
 app's name, and renames `_gitignore` to `.gitignore`. npm drops `.gitignore` files from packages, so the
 packer ships it as `_gitignore`. The app's `package.json` gets version `0.0.1` and no license: the app
@@ -61,7 +61,7 @@ so the link in `SECURITY.md` works.
 ## The GitHub template repository
 
 In the repository's Settings → General, tick **Template repository** (or
-`gh repo edit psingh2907/rn-template-bare --template`). People then click **Use this template**, clone their
+`gh repo edit psingh2907/bareship --template`). People then click **Use this template**, clone their
 copy and run the quick start in the README (`pnpm install`, `bundle install`, `pnpm bootstrap`). The
 repository has to be public for anyone outside it to use the template.
 

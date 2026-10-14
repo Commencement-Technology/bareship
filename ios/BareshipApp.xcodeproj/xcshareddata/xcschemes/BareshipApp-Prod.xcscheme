@@ -15,15 +15,15 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "RnTemplate.app"
-               BlueprintName = "RnTemplate"
-               ReferencedContainer = "container:RnTemplate.xcodeproj">
+               BuildableName = "BareshipApp.app"
+               BlueprintName = "BareshipApp"
+               ReferencedContainer = "container:BareshipApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "Debug-Dev"
+      buildConfiguration = "Debug-Prod"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
@@ -31,16 +31,16 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "RnTemplate.app"
-            BlueprintName = "RnTemplate"
-            ReferencedContainer = "container:RnTemplate.xcodeproj">
+            BuildableName = "BareshipApp.app"
+            BlueprintName = "BareshipApp"
+            ReferencedContainer = "container:BareshipApp.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
       </Testables>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug-Dev"
+      buildConfiguration = "Debug-Prod"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -54,14 +54,14 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "RnTemplate.app"
-            BlueprintName = "RnTemplate"
-            ReferencedContainer = "container:RnTemplate.xcodeproj">
+            BuildableName = "BareshipApp.app"
+            BlueprintName = "BareshipApp"
+            ReferencedContainer = "container:BareshipApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "Release-Dev"
+      buildConfiguration = "Release-Prod"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
@@ -71,17 +71,17 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "RnTemplate.app"
-            BlueprintName = "RnTemplate"
-            ReferencedContainer = "container:RnTemplate.xcodeproj">
+            BuildableName = "BareshipApp.app"
+            BlueprintName = "BareshipApp"
+            ReferencedContainer = "container:BareshipApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "Debug-Dev">
+      buildConfiguration = "Debug-Prod">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Release-Dev"
+      buildConfiguration = "Release-Prod"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

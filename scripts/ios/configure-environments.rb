@@ -175,7 +175,7 @@ def ensure_script_phase(project, target, name, script, inputs: [], outputs: [], 
   phase
 end
 
-ensure_script_phase(project, target, '[rn-template] Copy Firebase config', <<~SH, after: target.resources_build_phase)
+ensure_script_phase(project, target, '[bareship] Copy Firebase config', <<~SH, after: target.resources_build_phase)
   # Firebase is optional (ADR 0010). Put this environment's file at ios/Config/Firebase/<env>/.
   SRC="${PROJECT_DIR}/Config/Firebase/${APP_ENV}/GoogleService-Info.plist"
   DEST="${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleService-Info.plist"
@@ -188,7 +188,7 @@ ensure_script_phase(project, target, '[rn-template] Copy Firebase config', <<~SH
   fi
 SH
 
-ensure_script_phase(project, target, '[rn-template] Crashlytics symbols', <<~SH,
+ensure_script_phase(project, target, '[bareship] Crashlytics symbols', <<~SH,
   # Uploads dSYMs so Crashlytics can symbolicate native crashes. Release builds with Firebase only.
   case "${CONFIGURATION}" in Release-*) ;; *) exit 0 ;; esac
   if [ ! -f "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleService-Info.plist" ]; then

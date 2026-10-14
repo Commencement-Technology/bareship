@@ -9,5 +9,5 @@
 
 # Add any project specific keep options here:
 
-# [rn-template] react-native-config reads BuildConfig fields by reflection.
--keep class com.rntemplate.BuildConfig { *; }
+# [bareship] react-native-config reads BuildConfig fields by reflection.
+-keep class com.bareshipapp.BuildConfig { *; }

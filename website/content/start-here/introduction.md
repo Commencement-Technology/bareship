@@ -1,9 +1,10 @@
 ---
 title: Introduction
-description: "What rn-template is, what it believes, who it's for, and what it leaves out."
+description: "What Bareship is, what it believes, who it's for, and what it leaves out."
 ---
 
-rn-template is a starting point for a production React Native app. You get a working app (sign-in,
+Bareship is a production-ready, offline-first bare React Native template: a starting point for a
+production React Native app. You get a working app (sign-in,
 onboarding, a feed, settings) built on the parts most apps need and most templates skip: writes that survive
 being offline, tokens kept in the Keychain, three environments, crash reporting and feature flags, deep links,
 and release automation. You keep what you need, remove the demo, and build your own features on top.
@@ -12,7 +13,7 @@ It's a bare React Native CLI project: `ios/` and `android/` are in the repositor
 
 ## What it believes
 
-**You own the native side.** Every change to `ios/` and `android/` is marked `[rn-template]` in the code and
+**You own the native side.** Every change to `ios/` and `android/` is marked `[bareship]` in the code and
 listed in [Native changes](/production/native-changes/) with its Expo equivalent, so nothing native is hidden
 from you.
 

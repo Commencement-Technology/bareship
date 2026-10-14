@@ -70,8 +70,7 @@ function seedPosts(): PostRecord[] {
     id: `p_${index + 1}`,
     author_id: AUTHORS[index % AUTHORS.length]!.id,
     body: BODIES[index % BODIES.length]!,
-    image_url:
-      index % 3 === 0 ? `https://picsum.photos/seed/rn-template-${index + 1}/800/500` : null,
+    image_url: index % 3 === 0 ? `https://picsum.photos/seed/bareship-${index + 1}/800/500` : null,
     like_count: (index * 7) % 23,
     created_at: new Date(START - index * 47 * 60_000).toISOString(),
   }));

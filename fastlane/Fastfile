@@ -9,7 +9,7 @@
 #
 # Nothing here needs an account until you upload. Credentials come from environment variables (or
 # fastlane/.env, which is git-ignored); a lane that needs one stops with what to set.
-# [rn-template] App name and ids are read from the project, so `pnpm bootstrap` needs no edits here.
+# [bareship] App name and ids are read from the project, so `pnpm bootstrap` needs no edits here.
 
 # Project files contain UTF-8 (display names); don't depend on the shell's locale.
 Encoding.default_external = Encoding::UTF_8

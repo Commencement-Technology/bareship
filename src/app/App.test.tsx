@@ -35,7 +35,7 @@ describe('App', () => {
   });
 
   it('opens a deep link that arrived while signed out right after sign-in', async () => {
-    jest.spyOn(Linking, 'getInitialURL').mockResolvedValue('rntemplate-dev://settings');
+    jest.spyOn(Linking, 'getInitialURL').mockResolvedValue('bareshipapp-dev://settings');
     useOnboarding.getState().complete();
     const user = userEvent.setup();
     await render(<App />);

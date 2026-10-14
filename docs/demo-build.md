@@ -8,7 +8,7 @@ Before you start:
 - The build is for 64-bit ARM phones (almost every Android phone from the last few years).
 - It's signed with the debug key unless you set up [release signing](going-live.md#sign-release-builds), so
   it can't go to Play.
-- It installs as the dev app ("RnTemplate Dev"), next to any staging or prod build.
+- It installs as the dev app ("BareshipApp Dev"), next to any staging or prod build.
 
 1. Build it. The first build takes a while because the native code compiles in release mode:
 

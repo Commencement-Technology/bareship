@@ -11,39 +11,39 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		5F5BCB10279E4E29BEBBC3AD /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AFF966AE535A4B9D8C50B335 /* Colors.xcassets */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
+		CDED6A1EF318F625EAFA3C46 /* Pods_BareshipApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E565E53F239D7C26E789A6E /* Pods_BareshipApp.framework */; };
 		D8E579FE0B084CB4853A05B3 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0C7FCB444DF4A3DA16E1874 /* BootSplash.storyboard */; };
-		DDEECE3FCFBB373CF245F17B /* Pods_RnTemplate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCF5DEF5E5EBAADD93EA199B /* Pods_RnTemplate.framework */; };
 		E15A93F31792E503F25D8D20 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		13B07F961A680F5B00A75B9A /* RnTemplate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RnTemplate.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = RnTemplate/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = RnTemplate/Info.plist; sourceTree = "<group>"; };
-		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = RnTemplate/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* BareshipApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BareshipApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = BareshipApp/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = BareshipApp/Info.plist; sourceTree = "<group>"; };
+		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = BareshipApp/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		1CF1C8B8006321D592A64996 /* Staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Staging.xcconfig; sourceTree = "<group>"; };
-		22DCE4F3B13444A353AB8A43 /* Pods-RnTemplate.release-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RnTemplate.release-dev.xcconfig"; path = "Target Support Files/Pods-RnTemplate/Pods-RnTemplate.release-dev.xcconfig"; sourceTree = "<group>"; };
-		2DEB010F8CEF0E6B04BB830B /* SceneDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RnTemplate/SceneDelegate.swift; sourceTree = "<group>"; };
-		3B4392A12AC88292D35C810B /* Pods-RnTemplate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RnTemplate.debug.xcconfig"; path = "Target Support Files/Pods-RnTemplate/Pods-RnTemplate.debug.xcconfig"; sourceTree = "<group>"; };
-		4FABCB76ECFE1DB69494D36B /* Pods-RnTemplate.release-staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RnTemplate.release-staging.xcconfig"; path = "Target Support Files/Pods-RnTemplate/Pods-RnTemplate.release-staging.xcconfig"; sourceTree = "<group>"; };
-		5709B34CF0A7D63546082F79 /* Pods-RnTemplate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RnTemplate.release.xcconfig"; path = "Target Support Files/Pods-RnTemplate/Pods-RnTemplate.release.xcconfig"; sourceTree = "<group>"; };
-		5AD8AFA943E96B53EBDD87D0 /* Pods-RnTemplate.debug-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RnTemplate.debug-prod.xcconfig"; path = "Target Support Files/Pods-RnTemplate/Pods-RnTemplate.debug-prod.xcconfig"; sourceTree = "<group>"; };
+		22DCE4F3B13444A353AB8A43 /* Pods-BareshipApp.release-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BareshipApp.release-dev.xcconfig"; path = "Target Support Files/Pods-BareshipApp/Pods-BareshipApp.release-dev.xcconfig"; sourceTree = "<group>"; };
+		2DEB010F8CEF0E6B04BB830B /* SceneDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BareshipApp/SceneDelegate.swift; sourceTree = "<group>"; };
+		3B4392A12AC88292D35C810B /* Pods-BareshipApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BareshipApp.debug.xcconfig"; path = "Target Support Files/Pods-BareshipApp/Pods-BareshipApp.debug.xcconfig"; sourceTree = "<group>"; };
+		4FABCB76ECFE1DB69494D36B /* Pods-BareshipApp.release-staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BareshipApp.release-staging.xcconfig"; path = "Target Support Files/Pods-BareshipApp/Pods-BareshipApp.release-staging.xcconfig"; sourceTree = "<group>"; };
+		5709B34CF0A7D63546082F79 /* Pods-BareshipApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BareshipApp.release.xcconfig"; path = "Target Support Files/Pods-BareshipApp/Pods-BareshipApp.release.xcconfig"; sourceTree = "<group>"; };
+		5AD8AFA943E96B53EBDD87D0 /* Pods-BareshipApp.debug-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BareshipApp.debug-prod.xcconfig"; path = "Target Support Files/Pods-BareshipApp/Pods-BareshipApp.debug-prod.xcconfig"; sourceTree = "<group>"; };
 		62E22AF6393CCE838807D84E /* Release-Dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Release-Dev.xcconfig"; sourceTree = "<group>"; };
-		6AE051DCFF4C43EE3A5083DF /* Pods-RnTemplate.release-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RnTemplate.release-prod.xcconfig"; path = "Target Support Files/Pods-RnTemplate/Pods-RnTemplate.release-prod.xcconfig"; sourceTree = "<group>"; };
-		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = RnTemplate/AppDelegate.swift; sourceTree = "<group>"; };
+		6AE051DCFF4C43EE3A5083DF /* Pods-BareshipApp.release-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BareshipApp.release-prod.xcconfig"; path = "Target Support Files/Pods-BareshipApp/Pods-BareshipApp.release-prod.xcconfig"; sourceTree = "<group>"; };
+		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = BareshipApp/AppDelegate.swift; sourceTree = "<group>"; };
 		8471547553668B1A399B20A5 /* Debug-Prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Debug-Prod.xcconfig"; sourceTree = "<group>"; };
-		8490931C499AD86EEA6AC72D /* Pods-RnTemplate.debug-staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RnTemplate.debug-staging.xcconfig"; path = "Target Support Files/Pods-RnTemplate/Pods-RnTemplate.debug-staging.xcconfig"; sourceTree = "<group>"; };
+		8490931C499AD86EEA6AC72D /* Pods-BareshipApp.debug-staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BareshipApp.debug-staging.xcconfig"; path = "Target Support Files/Pods-BareshipApp/Pods-BareshipApp.debug-staging.xcconfig"; sourceTree = "<group>"; };
 		9AAFCB52B4E829241ABA3554 /* Release-Staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Release-Staging.xcconfig"; sourceTree = "<group>"; };
 		9CB1DCB7F5DCBB7DF3A31EF6 /* Release-Prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Release-Prod.xcconfig"; sourceTree = "<group>"; };
-		AFF966AE535A4B9D8C50B335 /* Colors.xcassets */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = folder.assetcatalog; name = Colors.xcassets; path = RnTemplate/Colors.xcassets; sourceTree = "<group>"; };
+		9E565E53F239D7C26E789A6E /* Pods_BareshipApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BareshipApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AFF966AE535A4B9D8C50B335 /* Colors.xcassets */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = folder.assetcatalog; name = Colors.xcassets; path = BareshipApp/Colors.xcassets; sourceTree = "<group>"; };
 		BE738CB176CB397E879E3ACA /* Debug-Dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Debug-Dev.xcconfig"; sourceTree = "<group>"; };
 		D9FE025F73A005E587589BCA /* Prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Prod.xcconfig; sourceTree = "<group>"; };
-		E0C7FCB444DF4A3DA16E1874 /* BootSplash.storyboard */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = BootSplash.storyboard; path = RnTemplate/BootSplash.storyboard; sourceTree = "<group>"; };
+		E0C7FCB444DF4A3DA16E1874 /* BootSplash.storyboard */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = BootSplash.storyboard; path = BareshipApp/BootSplash.storyboard; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F21292C4A784E6AE40DD9FB5 /* Dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Dev.xcconfig; sourceTree = "<group>"; };
 		F312A1D804533DACA6981A6B /* Debug-Staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Debug-Staging.xcconfig"; sourceTree = "<group>"; };
-		FCF5DEF5E5EBAADD93EA199B /* Pods_RnTemplate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RnTemplate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FFF7AD0630C91A1492638EC4 /* Pods-RnTemplate.debug-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RnTemplate.debug-dev.xcconfig"; path = "Target Support Files/Pods-RnTemplate/Pods-RnTemplate.debug-dev.xcconfig"; sourceTree = "<group>"; };
+		FFF7AD0630C91A1492638EC4 /* Pods-BareshipApp.debug-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BareshipApp.debug-dev.xcconfig"; path = "Target Support Files/Pods-BareshipApp/Pods-BareshipApp.debug-dev.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,14 +51,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DDEECE3FCFBB373CF245F17B /* Pods_RnTemplate.framework in Frameworks */,
+				CDED6A1EF318F625EAFA3C46 /* Pods_BareshipApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		13B07FAE1A68108700A75B9A /* RnTemplate */ = {
+		13B07FAE1A68108700A75B9A /* BareshipApp */ = {
 			isa = PBXGroup;
 			children = (
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -69,7 +69,7 @@
 				AFF966AE535A4B9D8C50B335 /* Colors.xcassets */,
 				2DEB010F8CEF0E6B04BB830B /* SceneDelegate.swift */,
 			);
-			name = RnTemplate;
+			name = BareshipApp;
 			sourceTree = "<group>";
 		};
 		2CB335A47A55DD5EB2588F3B /* Config */ = {
@@ -93,7 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				FCF5DEF5E5EBAADD93EA199B /* Pods_RnTemplate.framework */,
+				9E565E53F239D7C26E789A6E /* Pods_BareshipApp.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -108,7 +108,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* RnTemplate */,
+				13B07FAE1A68108700A75B9A /* BareshipApp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
@@ -123,7 +123,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* RnTemplate.app */,
+				13B07F961A680F5B00A75B9A /* BareshipApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -131,14 +131,14 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3B4392A12AC88292D35C810B /* Pods-RnTemplate.debug.xcconfig */,
-				5709B34CF0A7D63546082F79 /* Pods-RnTemplate.release.xcconfig */,
-				FFF7AD0630C91A1492638EC4 /* Pods-RnTemplate.debug-dev.xcconfig */,
-				22DCE4F3B13444A353AB8A43 /* Pods-RnTemplate.release-dev.xcconfig */,
-				8490931C499AD86EEA6AC72D /* Pods-RnTemplate.debug-staging.xcconfig */,
-				4FABCB76ECFE1DB69494D36B /* Pods-RnTemplate.release-staging.xcconfig */,
-				5AD8AFA943E96B53EBDD87D0 /* Pods-RnTemplate.debug-prod.xcconfig */,
-				6AE051DCFF4C43EE3A5083DF /* Pods-RnTemplate.release-prod.xcconfig */,
+				3B4392A12AC88292D35C810B /* Pods-BareshipApp.debug.xcconfig */,
+				5709B34CF0A7D63546082F79 /* Pods-BareshipApp.release.xcconfig */,
+				FFF7AD0630C91A1492638EC4 /* Pods-BareshipApp.debug-dev.xcconfig */,
+				22DCE4F3B13444A353AB8A43 /* Pods-BareshipApp.release-dev.xcconfig */,
+				8490931C499AD86EEA6AC72D /* Pods-BareshipApp.debug-staging.xcconfig */,
+				4FABCB76ECFE1DB69494D36B /* Pods-BareshipApp.release-staging.xcconfig */,
+				5AD8AFA943E96B53EBDD87D0 /* Pods-BareshipApp.debug-prod.xcconfig */,
+				6AE051DCFF4C43EE3A5083DF /* Pods-BareshipApp.release-prod.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -146,28 +146,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		13B07F861A680F5B00A75B9A /* RnTemplate */ = {
+		13B07F861A680F5B00A75B9A /* BareshipApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "RnTemplate" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "BareshipApp" */;
 			buildPhases = (
 				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
-				5738F70F5C6AF848B1E4A5EA /* [rn-template] Copy Firebase config */,
+				5738F70F5C6AF848B1E4A5EA /* [bareship] Copy Firebase config */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
 				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
-				3D9BF8EB4D3C6AE43F1DA2E8 /* [rn-template] Crashlytics symbols */,
+				3D9BF8EB4D3C6AE43F1DA2E8 /* [bareship] Crashlytics symbols */,
 				FCA9939F733A1C8572F81E91 /* [CP-User] [RNFB] Core Configuration */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = RnTemplate;
-			productName = RnTemplate;
-			productReference = 13B07F961A680F5B00A75B9A /* RnTemplate.app */;
+			name = BareshipApp;
+			productName = BareshipApp;
+			productReference = 13B07F961A680F5B00A75B9A /* BareshipApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -183,7 +183,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "RnTemplate" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "BareshipApp" */;
 			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -196,7 +196,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* RnTemplate */,
+				13B07F861A680F5B00A75B9A /* BareshipApp */,
 			);
 		};
 /* End PBXProject section */
@@ -238,18 +238,18 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RnTemplate/Pods-RnTemplate-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-BareshipApp/Pods-BareshipApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RnTemplate/Pods-RnTemplate-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-BareshipApp/Pods-BareshipApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RnTemplate/Pods-RnTemplate-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BareshipApp/Pods-BareshipApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		3D9BF8EB4D3C6AE43F1DA2E8 /* [rn-template] Crashlytics symbols */ = {
+		3D9BF8EB4D3C6AE43F1DA2E8 /* [bareship] Crashlytics symbols */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -264,7 +264,7 @@
 				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/GoogleService-Info.plist",
 				"$(TARGET_BUILD_DIR)/$(EXECUTABLE_PATH)",
 			);
-			name = "[rn-template] Crashlytics symbols";
+			name = "[bareship] Crashlytics symbols";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -274,7 +274,7 @@
 			shellScript = "# Uploads dSYMs so Crashlytics can symbolicate native crashes. Release builds with Firebase only.\ncase \"${CONFIGURATION}\" in Release-*) ;; *) exit 0 ;; esac\nif [ ! -f \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleService-Info.plist\" ]; then\n  echo \"Crashlytics: Firebase not set up for ${APP_ENV}, skipping dSYM upload\"\n  exit 0\nfi\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5738F70F5C6AF848B1E4A5EA /* [rn-template] Copy Firebase config */ = {
+		5738F70F5C6AF848B1E4A5EA /* [bareship] Copy Firebase config */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -284,7 +284,7 @@
 			);
 			inputPaths = (
 			);
-			name = "[rn-template] Copy Firebase config";
+			name = "[bareship] Copy Firebase config";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -309,7 +309,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-RnTemplate-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-BareshipApp-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -322,15 +322,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RnTemplate/Pods-RnTemplate-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-BareshipApp/Pods-BareshipApp-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RnTemplate/Pods-RnTemplate-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-BareshipApp/Pods-BareshipApp-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RnTemplate/Pods-RnTemplate-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BareshipApp/Pods-BareshipApp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FCA9939F733A1C8572F81E91 /* [CP-User] [RNFB] Core Configuration */ = {
@@ -368,7 +368,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = RnTemplate/Info.plist;
+				INFOPLIST_FILE = BareshipApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -380,8 +380,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.rntemplate$(BUNDLE_ID_SUFFIX)";
-				PRODUCT_NAME = RnTemplate;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.bareshipapp$(BUNDLE_ID_SUFFIX)";
+				PRODUCT_NAME = BareshipApp;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -576,7 +576,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				INFOPLIST_FILE = RnTemplate/Info.plist;
+				INFOPLIST_FILE = BareshipApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -588,8 +588,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.rntemplate$(BUNDLE_ID_SUFFIX)";
-				PRODUCT_NAME = RnTemplate;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.bareshipapp$(BUNDLE_ID_SUFFIX)";
+				PRODUCT_NAME = BareshipApp;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -603,7 +603,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				INFOPLIST_FILE = RnTemplate/Info.plist;
+				INFOPLIST_FILE = BareshipApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -615,8 +615,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.rntemplate$(BUNDLE_ID_SUFFIX)";
-				PRODUCT_NAME = RnTemplate;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.bareshipapp$(BUNDLE_ID_SUFFIX)";
+				PRODUCT_NAME = BareshipApp;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -631,7 +631,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = RnTemplate/Info.plist;
+				INFOPLIST_FILE = BareshipApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -643,8 +643,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.rntemplate$(BUNDLE_ID_SUFFIX)";
-				PRODUCT_NAME = RnTemplate;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.bareshipapp$(BUNDLE_ID_SUFFIX)";
+				PRODUCT_NAME = BareshipApp;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -757,7 +757,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				INFOPLIST_FILE = RnTemplate/Info.plist;
+				INFOPLIST_FILE = BareshipApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -769,8 +769,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.rntemplate$(BUNDLE_ID_SUFFIX)";
-				PRODUCT_NAME = RnTemplate;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.bareshipapp$(BUNDLE_ID_SUFFIX)";
+				PRODUCT_NAME = BareshipApp;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1071,7 +1071,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = RnTemplate/Info.plist;
+				INFOPLIST_FILE = BareshipApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1083,8 +1083,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.rntemplate$(BUNDLE_ID_SUFFIX)";
-				PRODUCT_NAME = RnTemplate;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.bareshipapp$(BUNDLE_ID_SUFFIX)";
+				PRODUCT_NAME = BareshipApp;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -1096,7 +1096,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "RnTemplate" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "BareshipApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3010AB0160E9EA3688352F22 /* Debug-Dev */,
@@ -1109,7 +1109,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release-Prod";
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "RnTemplate" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "BareshipApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8B944FEA4DF7E4434451CCE3 /* Debug-Dev */,

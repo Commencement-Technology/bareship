@@ -6,7 +6,7 @@ import { evaluateAppStatus, useAppStatus } from './app-status-store';
 const installed = (version: string) => ({
   version: () => version,
   buildNumber: () => '1',
-  bundleId: () => 'com.rntemplate.dev',
+  bundleId: () => 'com.bareshipapp.dev',
 });
 
 describe('app status', () => {

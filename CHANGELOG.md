@@ -5,6 +5,13 @@ is published; until then everything is under Unreleased.
 
 ## Unreleased
 
+### Renamed to Bareship
+
+- The template is now **Bareship** (was `rn-template`): npm package `bareship`, repository
+  `psingh2907/bareship`, code markers `[bareship]` ([ADR 0015](docs/decisions/0015-name-bareship.md)).
+- The app inside the template is renamed with `pnpm bootstrap`: bundle id `com.bareshipapp`, URL scheme
+  `bareshipapp://`. Apps made with `init` get their own names, as before.
+
 ### Phase 5: packaging
 
 - `pnpm strip-examples` removes the demo (feed, posts mocks, showroom) and leaves a blank Home tab;

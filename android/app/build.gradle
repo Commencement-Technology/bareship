@@ -3,7 +3,7 @@ apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
 
 /**
- * [rn-template] Firebase is optional (ADR 0010). Put a flavor's google-services.json in
+ * [bareship] Firebase is optional (ADR 0010). Put a flavor's google-services.json in
  * android/app/src/<flavor>/. The Google Services and Crashlytics plugins apply only when at least one
  * flavor has one; flavors without it build without Firebase, and the app's Firebase adapters fall back
  * to logging. See docs/going-live.md.
@@ -44,10 +44,10 @@ react {
     //   skip the bundling of the JS bundle and the assets. Default is "debug", "debugOptimized".
     //   If you add flavors like lite, prod, etc. you'll have to list your debuggableVariants.
     // debuggableVariants = ["liteDebug", "liteDebugOptimized", "prodDebug", "prodDebugOptimized"]
-    // [rn-template] One debuggable variant per environment flavor (see docs/native-changes.md#android-flavors).
+    // [bareship] One debuggable variant per environment flavor (see docs/native-changes.md#android-flavors).
     debuggableVariants = ["devDebug", "devDebugOptimized", "stagingDebug", "stagingDebugOptimized", "prodDebug", "prodDebugOptimized"]
 
-    // [rn-template] Demo release build (pnpm build:android:demo): bundle index.demo.js, which adds the
+    // [bareship] Demo release build (pnpm build:android:demo): bundle index.demo.js, which adds the
     // in-app mock backend. Guarded below so it can only build the dev flavor.
     if (project.hasProperty("demoBuild")) {
         entryFile = file("../../index.demo.js")
@@ -85,7 +85,7 @@ react {
 }
 
 /**
- * [rn-template] Per-flavor values for react-native-config (docs/native-changes.md#android-env).
+ * [bareship] Per-flavor values for react-native-config (docs/native-changes.md#android-env).
  * The library's own dotenv.gradle picks ONE .env file per Gradle run, from the first task name, so a
  * single `./gradlew assembleRelease` (all flavors) would ship the same environment in every app.
  * Each flavor below reads its own file instead, so any build produces the right values.
@@ -94,7 +94,7 @@ react {
 def readEnvFile = { String fileName ->
     def file = rootProject.file("../${fileName}")
     if (!file.exists()) {
-        throw new GradleException("[rn-template] Missing ${fileName} at the project root. Copy .env.example.")
+        throw new GradleException("[bareship] Missing ${fileName} at the project root. Copy .env.example.")
     }
     def values = [:]
     file.eachLine { line ->
@@ -110,19 +110,19 @@ def applyEnvFile = { flavor, String fileName ->
         flavor.resValue "string", key, "\"${value.replace('%', '\\u0025')}\""
     }
     // Deep links (ADR 0010): the URL scheme, and the web domain for App Links when one is set.
-    if (!values.APP_SCHEME) throw new GradleException("[rn-template] ${fileName} needs APP_SCHEME (e.g. myapp-dev).")
+    if (!values.APP_SCHEME) throw new GradleException("[bareship] ${fileName} needs APP_SCHEME (e.g. myapp-dev).")
     flavor.manifestPlaceholders.appScheme = values.APP_SCHEME
     flavor.manifestPlaceholders.appLinkDomain = values.APP_LINK_DOMAIN ?: ""
 }
 
 /**
  * Set this to true to Run Proguard on Release builds to minify the Java bytecode.
- * [rn-template] On by default; keep rules in proguard-rules.pro.
+ * [bareship] On by default; keep rules in proguard-rules.pro.
  */
 def enableProguardInReleaseBuilds = true
 
 /**
- * [rn-template] Release signing comes from Gradle properties or environment variables, never from git.
+ * [bareship] Release signing comes from Gradle properties or environment variables, never from git.
  * Set RN_UPLOAD_STORE_FILE, RN_UPLOAD_STORE_PASSWORD, RN_UPLOAD_KEY_ALIAS, RN_UPLOAD_KEY_PASSWORD in
  * ~/.gradle/gradle.properties (local) or as CI secrets. Without them, release builds fall back to the
  * debug key so they still run locally, and the build prints a warning.
@@ -148,45 +148,45 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.rntemplate"
+    namespace "com.bareshipapp"
     buildFeatures {
-        // [rn-template] react-native-config reads environment values from BuildConfig.
+        // [bareship] react-native-config reads environment values from BuildConfig.
         buildConfig = true
     }
     defaultConfig {
-        applicationId "com.rntemplate"
+        applicationId "com.bareshipapp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
-        // [rn-template] react-native-config reads BuildConfig from the namespace, not the suffixed applicationId.
-        resValue "string", "build_config_package", "com.rntemplate"
+        // [bareship] react-native-config reads BuildConfig from the namespace, not the suffixed applicationId.
+        resValue "string", "build_config_package", "com.bareshipapp"
     }
 
-    // [rn-template] One flavor per environment. dev and staging install next to prod.
+    // [bareship] One flavor per environment. dev and staging install next to prod.
     flavorDimensions = ["environment"]
     productFlavors {
         dev {
             dimension "environment"
             applicationIdSuffix ".dev"
             versionNameSuffix "-dev"
-            resValue "string", "app_name", "RnTemplate Dev"
+            resValue "string", "app_name", "BareshipApp Dev"
             applyEnvFile(delegate, ".env.dev")
         }
         staging {
             dimension "environment"
             applicationIdSuffix ".staging"
             versionNameSuffix "-staging"
-            resValue "string", "app_name", "RnTemplate Staging"
+            resValue "string", "app_name", "BareshipApp Staging"
             applyEnvFile(delegate, ".env.staging")
         }
         prod {
             dimension "environment"
-            resValue "string", "app_name", "RnTemplate"
+            resValue "string", "app_name", "BareshipApp"
             applyEnvFile(delegate, ".env.prod")
         }
     }
-    // [rn-template] App Links (https://<APP_LINK_DOMAIN>/…) only for flavors whose .env sets a domain:
+    // [bareship] App Links (https://<APP_LINK_DOMAIN>/…) only for flavors whose .env sets a domain:
     // a verified-link intent filter for a domain you don't control would fail verification.
     sourceSets {
         ENV_FLAVORS.each { name ->
@@ -219,7 +219,7 @@ android {
             if (hasUploadKey) {
                 signingConfig signingConfigs.release
             } else {
-                logger.warn("[rn-template] RN_UPLOAD_STORE_FILE not set: release builds are signed with the DEBUG key. Do not upload them.")
+                logger.warn("[bareship] RN_UPLOAD_STORE_FILE not set: release builds are signed with the DEBUG key. Do not upload them.")
                 signingConfig signingConfigs.debug
             }
             minifyEnabled enableProguardInReleaseBuilds
@@ -240,12 +240,12 @@ dependencies {
     }
 }
 
-// [rn-template] -PdemoBuild bundles mock code: never let it touch the staging or prod flavors.
+// [bareship] -PdemoBuild bundles mock code: never let it touch the staging or prod flavors.
 if (project.hasProperty("demoBuild")) {
     gradle.taskGraph.whenReady { graph ->
         def blocked = graph.allTasks.findAll { it.name ==~ /createBundle(Staging|Prod).*JsAndAssets/ }
         if (!blocked.isEmpty()) {
-            throw new GradleException("[rn-template] -PdemoBuild only builds the dev flavor (it bundles the mock backend). Remove it for: ${blocked*.name}")
+            throw new GradleException("[bareship] -PdemoBuild only builds the dev flavor (it bundles the mock backend). Remove it for: ${blocked*.name}")
         }
     }
 }

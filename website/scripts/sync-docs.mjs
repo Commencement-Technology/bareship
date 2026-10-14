@@ -29,7 +29,7 @@ const WEBSITE = join(dirname(fileURLToPath(import.meta.url)), '..');
 const REPO = join(WEBSITE, '..');
 const OUT = join(WEBSITE, 'src/content/docs');
 const AUTHORED = join(WEBSITE, 'content');
-const GITHUB = 'https://github.com/psingh2907/rn-template-bare';
+const GITHUB = 'https://github.com/psingh2907/bareship';
 
 /**
  * Repo docs that become pages. `sections` takes only those `##` sections of the file (one section: its

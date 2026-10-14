@@ -25,7 +25,7 @@ class SceneDelegate: RCTDefaultReactNativeFactoryDelegate, UIWindowSceneDelegate
     (UIApplication.shared.delegate as? AppDelegate)?.window = window
 
     reactNativeFactory?.startReactNative(
-      withModuleName: "RnTemplate",
+      withModuleName: "BareshipApp",
       in: window,
       launchOptions: Self.launchOptions(from: connectionOptions)
     )

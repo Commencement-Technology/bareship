@@ -4,7 +4,7 @@
  *   pnpm pack-template            dist/npm/ and dist/npm/<name>-<version>.tgz
  *
  * The package holds `template.config.js` and the app in `template/`. The CLI copies `template/`, replaces
- * every "RnTemplate" / "rntemplate" (the Xcode project, schemes, bundle ids, Android package, URL schemes)
+ * every "BareshipApp" / "bareshipapp" (the Xcode project, schemes, bundle ids, Android package, URL schemes)
  * with the new app's name, and renames `_gitignore` to `.gitignore` (npm drops `.gitignore` files).
  * The files are the ones git tracks or would track (`git ls-files`), so ignored output never ships.
  *
@@ -16,7 +16,7 @@ import { dirname, join } from 'node:path';
 
 const ROOT = join(__dirname, '..');
 const OUT = join(ROOT, 'dist', 'npm');
-const PLACEHOLDER = 'RnTemplate';
+const PLACEHOLDER = 'BareshipApp';
 
 /** About the template itself, not part of an app made from it. */
 const NOT_IN_APP = [
@@ -95,8 +95,20 @@ function main() {
     description,
     license: 'MIT',
     author: 'Praveen Singh',
-    repository: { type: 'git', url: 'git+https://github.com/psingh2907/rn-template-bare.git' },
-    keywords: ['react-native', 'template', 'react-native-template', 'boilerplate', 'offline-first'],
+    repository: { type: 'git', url: 'git+https://github.com/psingh2907/bareship.git' },
+    keywords: [
+      'react-native',
+      'react-native-template',
+      'template',
+      'boilerplate',
+      'starter-kit',
+      'offline-first',
+      'bare-workflow',
+      'typescript',
+      'production-ready',
+      'ai-agents',
+    ],
+    homepage: 'https://bareship.dev',
     files: ['template', 'template.config.js'],
   };
   writeFileSync(join(OUT, 'package.json'), JSON.stringify(manifest, null, 2) + '\n');

@@ -1,8 +1,8 @@
 {
-  "name": "rn-template-website",
+  "name": "bareship-website",
   "version": "0.0.0",
   "private": true,
-  "description": "Website and docs for rn-template (Astro Starlight).",
+  "description": "Website and docs for Bareship (Astro Starlight).",
   "type": "module",
   "packageManager": "pnpm@12.3.4",
   "scripts": {

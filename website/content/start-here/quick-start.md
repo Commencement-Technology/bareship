@@ -26,12 +26,12 @@ You don't need a backend, a Firebase project or an Apple Developer account.
 Pick one.
 
 **From GitHub:** click **Use this template** on the
-[repository](https://github.com/psingh2907/rn-template-bare), then clone your new repository.
+[repository](https://github.com/psingh2907/bareship), then clone your new repository.
 
 **With the React Native CLI:**
 
 ```bash
-npx @react-native-community/cli@20.2.0 init Acme --template rn-template --skip-install --install-pods false
+npx @react-native-community/cli@20.2.0 init Acme --template bareship --skip-install --install-pods false
 cd Acme
 ```
 

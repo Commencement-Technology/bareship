@@ -23,7 +23,7 @@ pnpm check            # types, lint, format, boundaries, tests
   `scripts/ci/check-strip-examples.sh`, so `pnpm strip-examples` keeps working.
 - Changed something the generators produce (a convention, a primitive, the folder layout)? Update
   `scripts/generate.ts` and the `add-*` skills in `.claude/skills/` to match.
-- Native change: mark it `[rn-template]` and add a row to [docs/native-changes.md](docs/native-changes.md).
+- Native change: mark it `[bareship]` and add a row to [docs/native-changes.md](docs/native-changes.md).
 - New dependency: check it against [docs/version-matrix.md](docs/version-matrix.md) and record it there.
 - Touched packaging (`template.config`, dotfiles, the name placeholder)? Run
   `scripts/ci/check-template-init.sh` ([docs/packaging.md](docs/packaging.md)).

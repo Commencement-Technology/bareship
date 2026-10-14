@@ -1,11 +1,12 @@
-# rn-template (bare)
+# Bareship
 
 ![React Native 0.87](https://img.shields.io/badge/React_Native-0.87-61dafb)
 ![New Architecture](https://img.shields.io/badge/New_Architecture-only-2ea44f)
 ![TypeScript 6](https://img.shields.io/badge/TypeScript-6_strict-3178c6)
 ![iOS and Android](https://img.shields.io/badge/platforms-iOS_%7C_Android-lightgrey)
 
-A production-ready **bare React Native CLI** template. It takes the best ideas from Ignite, Obytes,
+**Bareship is a production-ready, offline-first bare React Native template for teams and AI agents.** It
+uses the React Native CLI (no Expo) and takes the best ideas from Ignite, Obytes,
 TheCodingMachine and large open-source apps (Bluesky, Expensify), and adds what they leave out: an offline
 write queue, Keychain token storage, enforced architecture, optional Firebase and a supply-chain policy.
 
@@ -55,7 +56,7 @@ so skip its install, and leave out `--package-name` (it breaks the per-environme
 with `bootstrap`):
 
 ```bash
-npx @react-native-community/cli@20.2.0 init Acme --template rn-template --skip-install --install-pods false
+npx @react-native-community/cli@20.2.0 init Acme --template bareship --skip-install --install-pods false
 cd Acme
 pnpm install
 bundle install

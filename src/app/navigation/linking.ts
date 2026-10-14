@@ -4,7 +4,7 @@ import { env } from '@/shared/config/env';
 import { services } from '@/shared/services/services';
 
 /**
- * Deep links (ADR 0010): the environment's URL scheme (APP_SCHEME, e.g. rntemplate-dev://post/p_1)
+ * Deep links (ADR 0010): the environment's URL scheme (APP_SCHEME, e.g. bareshipapp-dev://post/p_1)
  * and, when APP_LINK_DOMAIN is set, https://<domain>/… (universal links / App Links). Screens declare
  * their paths in RootNavigator.tsx. Native registration: AndroidManifest.xml and the iOS xcconfig.
  *

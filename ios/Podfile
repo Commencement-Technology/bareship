@@ -8,20 +8,20 @@ require Pod::Executable.execute_command('node', ['-p',
 platform :ios, min_ios_version_supported
 prepare_react_native_project!
 
-# [rn-template] Environment build configurations (scripts/ios/configure-environments.rb).
-project 'RnTemplate',
+# [bareship] Environment build configurations (scripts/ios/configure-environments.rb).
+project 'BareshipApp',
         'Debug-Dev' => :debug, 'Release-Dev' => :release,
         'Debug-Staging' => :debug, 'Release-Staging' => :release,
         'Debug-Prod' => :debug, 'Release-Prod' => :release
 
-# [rn-template] Which .env file react-native-config reads for each configuration.
+# [bareship] Which .env file react-native-config reads for each configuration.
 ENVFILES = {
   'Debug-Dev' => '.env.dev', 'Release-Dev' => '.env.dev',
   'Debug-Staging' => '.env.staging', 'Release-Staging' => '.env.staging',
   'Debug-Prod' => '.env.prod', 'Release-Prod' => '.env.prod',
 }.freeze
 
-# [rn-template] React Native Firebase needs static frameworks, and refuses Swift Package Manager with them,
+# [bareship] React Native Firebase needs static frameworks, and refuses Swift Package Manager with them,
 # so the Firebase iOS SDK comes from CocoaPods. Verified with every native library in Phase 0
 # (docs/native-changes.md#firebase). USE_FRAMEWORKS can still override the linkage.
 $RNFirebaseAsStaticFramework = true
@@ -30,7 +30,7 @@ linkage = ENV['USE_FRAMEWORKS'] || 'static'
 Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
 use_frameworks! :linkage => linkage.to_sym
 
-target 'RnTemplate' do
+target 'BareshipApp' do
   config = use_native_modules!
 
   use_react_native!(
@@ -47,7 +47,7 @@ target 'RnTemplate' do
       # :ccache_enabled => true
     )
 
-    # [rn-template] Xcode 27 rejects deployment targets below iOS 15. Several pods (SDWebImage, Lottie,
+    # [bareship] Xcode 27 rejects deployment targets below iOS 15. Several pods (SDWebImage, Lottie,
     # react-native-svg, Firebase helpers) still declare 9.0–13.0 for their resource bundles; raise them
     # to the app minimum. See docs/native-changes.md#ios-deployment-target.
     installer.pods_project.targets.each do |pod_target|
@@ -59,13 +59,13 @@ target 'RnTemplate' do
       end
     end
 
-    # [rn-template] RN sets the Swift DEBUG condition only on a configuration named "Debug".
+    # [bareship] RN sets the Swift DEBUG condition only on a configuration named "Debug".
     ENVFILES.keys.select { |name| name.start_with?('Debug') }.each do |name|
       ReactNativePodsUtils.set_build_setting(installer, build_setting: 'SWIFT_ACTIVE_COMPILATION_CONDITIONS',
                                              value: ['$(inherited)', 'DEBUG'], config_name: name)
     end
 
-    # [rn-template] Point react-native-config at the environment's .env file.
+    # [bareship] Point react-native-config at the environment's .env file.
     installer.pods_project.targets.each do |pod_target|
       next unless pod_target.name == 'react-native-config'
       pod_target.build_configurations.each do |build_config|

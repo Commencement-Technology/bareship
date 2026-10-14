@@ -1,4 +1,4 @@
-# rn-template website
+# Bareship website
 
 The template's website and docs (Astro Starlight). Pages come from the repo's `docs/`, `AGENTS.md` and
 `website/content/`; see [CONTRIBUTING.md › Editing the website](../CONTRIBUTING.md#editing-the-website).

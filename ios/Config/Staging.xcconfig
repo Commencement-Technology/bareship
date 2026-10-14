@@ -2,7 +2,7 @@
 // .env.staging: change values there and run the script again.
 APP_ENV = staging
 BUNDLE_ID_SUFFIX = .staging
-APP_DISPLAY_NAME = RnTemplate Staging
+APP_DISPLAY_NAME = BareshipApp Staging
 ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon-Staging
-APP_URL_SCHEME = rntemplate-staging
+APP_URL_SCHEME = bareshipapp-staging
 

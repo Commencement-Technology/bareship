@@ -1,4 +1,4 @@
 // Release-Staging: CocoaPods settings first, then the environment.
-#include? "../Pods/Target Support Files/Pods-RnTemplate/Pods-RnTemplate.release-staging.xcconfig"
+#include? "../Pods/Target Support Files/Pods-BareshipApp/Pods-BareshipApp.release-staging.xcconfig"
 #include "Staging.xcconfig"
 

@@ -1,4 +1,4 @@
-package com.rntemplate
+package com.bareshipapp
 
 import android.app.Application
 import com.facebook.react.PackageList

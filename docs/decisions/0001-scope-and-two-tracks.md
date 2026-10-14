@@ -17,7 +17,7 @@ Existing templates each solve part of the problem (see `docs/research.md`). We w
 - **Example code (A4): full demo** (auth, feed, settings, component showroom) that a script can remove.
 - **Backend (A5): REST + OpenAPI**, with an MSW mock server so the app runs with no backend.
 - **License (A7): MIT.**
-- **Name (A6):** working name `rn-template` until a final name is chosen. Renaming is one `pnpm bootstrap` run.
+- **Name (A6):** working name `rn-template` until a final name is chosen. Renaming is one `pnpm bootstrap` run. *Superseded by [0015](0015-name-bareship.md): Bareship.*
 
 ## Consequences
 
