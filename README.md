@@ -14,6 +14,7 @@
   <img src="https://img.shields.io/badge/New_Architecture-only-2ea44f" alt="New Architecture only">
   <img src="https://img.shields.io/badge/TypeScript-6_strict-3178c6" alt="TypeScript 6 strict">
   <img src="https://img.shields.io/badge/platforms-iOS_%7C_Android-lightgrey" alt="iOS and Android">
+  <a href="https://www.npmjs.com/package/bareship"><img src="https://img.shields.io/npm/v/bareship" alt="npm version"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license"></a>
 </p>
 
@@ -35,11 +36,10 @@ write queue, Keychain token storage, enforced architecture, optional Firebase an
 run it, or install it on a phone: the dev build serves sample data from a mock backend inside the app. You
 add each service when you need it ([going live](docs/going-live.md)).
 
-> **Status: public, not yet on npm.** Phases 0–5 are done and the template is named Bareship
-> ([ADR 0015](docs/decisions/0015-name-bareship.md)). An app made from the npm package builds and runs on iOS
-> and Android, and the fastlane release builds pass on both. Create an app with GitHub's **Use this template**
-> today. Still to come: the Android CI fix and publishing to npm. Postponed: Maestro end-to-end tests and
-> performance tooling. See the [roadmap](#roadmap) and [known limitations](#known-limitations).
+> **Status: 0.1.0, on npm and as a GitHub template.** An app made from the npm package builds and runs on iOS
+> and Android, and the fastlane release builds pass on both. Still to come: the Android CI fix. Postponed:
+> Maestro end-to-end tests and performance tooling. See the [roadmap](#roadmap) and
+> [known limitations](#known-limitations).
 
 ## Why this template
 
@@ -64,19 +64,8 @@ Requirements:
 - iOS: macOS with Xcode 27
 - Android: Android Studio with SDK 37 and NDK 27.1
 
-Start from your own copy of this repository: click
-[**Use this template**](https://github.com/psingh2907/bareship/generate) on GitHub, or clone it. Then:
-
-```bash
-pnpm install
-bundle install
-pnpm bootstrap --name Acme --bundle-id com.acme.app --display-name "Acme"
-pnpm android          # or: pnpm ios
-```
-
-Once the template is on npm, the React Native CLI can create the copy instead. Its `init` can't use pnpm,
-so skip its install, and leave out `--package-name` (it breaks the per-environment iOS bundle ids; set the id
-with `bootstrap`):
+Create the app with the React Native CLI. Its `init` can't install with pnpm, so skip its install. Leave out
+`--package-name`: it breaks the per-environment iOS bundle ids, and `bootstrap` sets the id instead.
 
 ```bash
 npx @react-native-community/cli@20.2.0 init Acme --template bareship --skip-install --install-pods false
@@ -84,7 +73,13 @@ cd Acme
 pnpm install
 bundle install
 pnpm bootstrap --name Acme --bundle-id com.acme.app --display-name "Acme"
+pnpm android          # or: pnpm ios
 ```
+
+Or start from a copy of this repository: click
+[**Use this template**](https://github.com/psingh2907/bareship/generate) on GitHub (or clone it), then run
+the same `pnpm install`, `bundle install` and `pnpm bootstrap` in your copy. The copy also holds the
+template's own files (website, changelog, contributing guide), which the npm package leaves out.
 
 Start the emulator (or plug in a phone) before `pnpm android`: debug builds compile native code only for the
 connected device's CPU. With no device connected they build all four Android CPU types, which takes about
@@ -261,7 +256,7 @@ independent; the rest of the app keeps working without it.
 | 4 | Quality: lint sweep, generators with agent skills, fastlane, `.ruby-version` for CI. Postponed: Maestro, performance tooling (Reassure, startup metrics, bundle report), Android CI memory fix | Done |
 | 5 | Packaging: example stripping, npm `--template` package, MIT license and community files, the name Bareship. Checked: an app made from the package runs on iOS and Android; fastlane release builds pass on both | Done |
 | Site | Website and docs (Astro Starlight in `website/`), live at [bareship.praveensingh.co.in](https://bareship.praveensingh.co.in) with a sitemap ([ADR 0016](docs/decisions/0016-website-on-a-subdomain.md)) | Done |
-| Launch | Public repository and GitHub template (done). Still to come: Android CI fix, `npm publish` | In progress |
+| Launch | Public repository, GitHub template and npm package `bareship` 0.1.0. Still to come: Android CI fix | In progress |
 | Track B | Expo (CNG) version sharing the same `src/` | After Track A |
 
 ## Contributing

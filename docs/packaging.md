@@ -49,12 +49,14 @@ the `$(BUNDLE_ID_SUFFIX)` that keeps dev, staging and prod apart on iOS, and it 
 
 ### Publish
 
-The repository is public; the npm package isn't published yet. When it's time:
+The package is [`bareship` on npm](https://www.npmjs.com/package/bareship)
+([ADR 0015](decisions/0015-name-bareship.md)). To publish a new version:
 
-1. The name is `bareship` ([ADR 0015](decisions/0015-name-bareship.md)), set in `package.json`.
-2. Set `version` in `package.json` and add a `CHANGELOG.md` entry.
+1. `npm login` with the maintainer account.
+2. Set `version` in `package.json` and move the `CHANGELOG.md` entries from Unreleased to that version.
 3. `pnpm pack-template`, then `scripts/ci/check-template-init.sh`.
-4. `npm publish dist/npm/<name>-<version>.tgz --access public` (needs an npm account with 2FA).
+4. `npm publish dist/npm/<name>-<version>.tgz --access public`. It asks for the account's 2FA code.
+5. Tag the commit `v<version>`, push the tag and create a GitHub release with the changelog entry.
 
 Private vulnerability reporting is on (Settings → Security), so the link in `SECURITY.md` works.
 

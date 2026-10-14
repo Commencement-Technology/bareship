@@ -1,9 +1,18 @@
 # Changelog
 
-Notable changes to the template. Versions follow [Semantic Versioning](https://semver.org) once the template
-is published; until then everything is under Unreleased.
+Notable changes to the template. Versions follow [Semantic Versioning](https://semver.org). Apps made from
+the template own their copy of the code, so a new version reaches an app only when its authors apply the
+changes.
 
 ## Unreleased
+
+Nothing yet.
+
+## 0.1.0 (2026-10-14)
+
+The first release, on npm as `bareship`
+(`npx @react-native-community/cli@20.2.0 init Acme --template bareship --skip-install --install-pods false`)
+and as a GitHub template repository. It collects everything below.
 
 ### App README and code of conduct
 
