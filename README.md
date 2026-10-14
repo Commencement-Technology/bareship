@@ -14,10 +14,11 @@ write queue, Keychain token storage, enforced architecture, optional Firebase an
 run it, or install it on a phone: the dev build serves sample data from a mock backend inside the app. You
 add each service when you need it ([going live](docs/going-live.md)).
 
-> **Status:** Phases 0–4 are done, and Phase 5 (packaging) is nearly done: demo stripping, the npm template
-> and the license are ready. Still to come: the final name, then making the repository public and publishing
-> to npm. Postponed: Maestro end-to-end tests, performance tooling, and the Android CI fix (CI stays paused).
-> See the [roadmap](#roadmap) and [known limitations](#known-limitations).
+> **Status: ready, not yet public.** Phases 0–5 are done and the template is named Bareship
+> ([ADR 0015](docs/decisions/0015-name-bareship.md)). An app made from the npm package builds and runs on iOS
+> and Android, and the fastlane release builds pass on both. Still to come: the Android CI fix, the website on
+> bareship.dev, then making the repository public and publishing to npm. Postponed: Maestro end-to-end tests
+> and performance tooling. See the [roadmap](#roadmap) and [known limitations](#known-limitations).
 
 ## Why this template
 
@@ -183,6 +184,7 @@ adapter. See [architecture](docs/architecture.md).
 | `pnpm gen feature\|screen\|endpoint` | Scaffold a feature, screen or endpoint that follows the rules ([AGENTS.md](AGENTS.md)) |
 | `pnpm links:files` | Files your website serves so its links open the app ([going live](docs/going-live.md)) |
 | `pnpm skills:sync` | Update the vendored agent skills to another upstream commit |
+| `pnpm site:dev`, `pnpm site:build` | Run or build the website and docs in `website/` ([editing the website](CONTRIBUTING.md#editing-the-website)) |
 
 ## Going to production
 
@@ -211,8 +213,8 @@ independent; the rest of the app keeps working without it.
 ## Known limitations
 
 - **No end-to-end or performance tests yet.** Maestro flows, Reassure render baselines, startup metrics
-  and a bundle report are postponed until after Phase 4.
-- **CI is paused while the template is being built.** The checks job passes. The fixes for the native jobs
+  and a bundle report are postponed.
+- **CI is switched off in this repository for now.** The checks job passed when it last ran. The fixes for the native jobs
   (a `.ruby-version` for iOS; swap, two Gradle workers and time limits for the Android builds, which ran
   out of memory on 8 GB runners) are in the workflow but haven't run yet. GitHub's macOS image has Xcode
   26.x, not 27, so the iOS job is unproven too. Run `pnpm check` locally.
@@ -234,7 +236,9 @@ independent; the rest of the app keeps working without it.
 | 2 | App layer: API client, TanStack Query + MMKV, navigation, design system, i18n, forms, auth, feed, mocks | Done |
 | 3 | Production: offline queue and UI, Firebase, push, force update, deep links, OTA port | Done |
 | 4 | Quality: lint sweep, generators with agent skills, fastlane, `.ruby-version` for CI. Postponed: Maestro, performance tooling (Reassure, startup metrics, bundle report), Android CI memory fix | Done |
-| 5 | Packaging: example stripping, npm `--template` package, MIT license and community files (done). Final name, GitHub template setting, going public and npm publish wait for the go-ahead | In progress |
+| 5 | Packaging: example stripping, npm `--template` package, MIT license and community files, the name Bareship. Checked: an app made from the package runs on iOS and Android; fastlane release builds pass on both | Done |
+| Site | Website and docs (Astro Starlight in `website/`): v1 done; hosting on bareship.dev next | In progress |
+| Launch | Android CI fix, GitHub template setting, public repository, `npm publish` | Next |
 | Track B | Expo (CNG) version sharing the same `src/` | After Track A |
 
 ## Contributing

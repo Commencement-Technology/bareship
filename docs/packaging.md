@@ -50,7 +50,7 @@ the `$(BUNDLE_ID_SUFFIX)` that keeps dev, staging and prod apart on iOS, and it 
 
 Not done yet: the template is prepared but private. When it's time:
 
-1. Pick the final name (ADR 0001, A6) and set `name` in `package.json`.
+1. The name is `bareship` ([ADR 0015](decisions/0015-name-bareship.md)), set in `package.json`.
 2. Set `version` in `package.json` and add a `CHANGELOG.md` entry.
 3. `pnpm pack-template`, then `scripts/ci/check-template-init.sh`.
 4. `npm publish dist/npm/<name>-<version>.tgz --access public` (needs an npm account with 2FA).
