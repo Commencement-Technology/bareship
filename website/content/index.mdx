@@ -27,7 +27,7 @@ npx @react-native-community/cli@20.2.0 init Acme --template bareship --skip-inst
 cd Acme
 pnpm install
 bundle install
-pnpm bootstrap --name Acme --bundle-id com.acme.app --display-name "Acme"
+pnpm bootstrap --bundle-id com.acme.app --display-name "Acme"
 ```
 
 The CLI downloads the template from [npm](https://www.npmjs.com/package/bareship). It can't install with pnpm,
@@ -52,8 +52,9 @@ the ones you don't want.
 </TabItem>
 </Tabs>
 
-`bootstrap` renames the Xcode project, schemes, Android package, bundle ids, display names and URL schemes, then
-runs `pod install`. Start an emulator or simulator, run `pnpm android` or `pnpm ios`, and sign in with
+`bootstrap` sets the bundle ids and display names of dev, staging and prod and moves the Android package to
+match, then runs `pod install`. In a copy of the repository, `--name` also renames the Xcode project, schemes
+and URL schemes; `init` does that for you. Start an emulator or simulator, run `pnpm android` or `pnpm ios`, and sign in with
 `demo@example.com` / `password123`.
 
 ## It runs with no accounts
@@ -171,10 +172,10 @@ The rules your team follows are written down where coding agents read them, and 
    pnpm install && bundle install
    ```
 
-3. Give the app its name and bundle id:
+3. Give the app its bundle id and display name (add `--name Acme` in a copy of the GitHub repository):
 
    ```bash
-   pnpm bootstrap --name Acme --bundle-id com.acme.app --display-name "Acme"
+   pnpm bootstrap --bundle-id com.acme.app --display-name "Acme"
    ```
 
 4. Start an emulator or simulator, then run the app and sign in with `demo@example.com` / `password123`:

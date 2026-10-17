@@ -72,13 +72,14 @@ npx @react-native-community/cli@20.2.0 init Acme --template bareship --skip-inst
 cd Acme
 pnpm install
 bundle install
-pnpm bootstrap --name Acme --bundle-id com.acme.app --display-name "Acme"
+pnpm bootstrap --bundle-id com.acme.app --display-name "Acme"
 pnpm android          # or: pnpm ios
 ```
 
 Or start from a copy of this repository: click
 [**Use this template**](https://github.com/psingh2907/bareship/generate) on GitHub (or clone it), then run
-the same `pnpm install`, `bundle install` and `pnpm bootstrap` in your copy. The copy also holds the
+the same `pnpm install` and `bundle install` in your copy, and give `bootstrap` the app's name too:
+`pnpm bootstrap --name Acme --bundle-id com.acme.app --display-name "Acme"`. The copy also holds the
 template's own files (website, changelog, contributing guide), which the npm package leaves out.
 
 Start the emulator (or plug in a phone) before `pnpm android`: debug builds compile native code only for the
@@ -89,9 +90,10 @@ On recent Android versions the first debug run asks to find and connect to nearb
 build reaches Metro on your computer through the local network, and without the permission it shows
 "Unable to load script".
 
-`bootstrap` renames the Xcode project, schemes, Android package, bundle ids, display names and URL schemes
-in one step, then runs `pod install`. Run it once on a fresh copy. To try the template without renaming,
-run `pnpm pods` instead.
+`bootstrap` sets the bundle ids and display names of all three environments and moves the Android package to
+match, then runs `pod install`. With `--name` it also renames the Xcode project, schemes and URL schemes;
+`init` already did that for you. Run it once on a fresh app. To try a copy of the repository without
+renaming it, run `pnpm pods` instead.
 
 Run `pnpm pods` again after any `pnpm install` that changes `node_modules`. Skia copies its iOS binaries into
 `node_modules` during `pod install`, so a reinstall removes them, and the iOS build then fails with
@@ -193,7 +195,7 @@ adapter. See [architecture](docs/architecture.md).
 | `bundle exec fastlane bump version:1.2.0` | Set the version on both platforms and raise the build number |
 | `bundle exec fastlane android build`, `… ios build` | Release builds; `beta` lanes upload ([releasing](docs/releasing.md)) |
 | `pnpm check` | Typecheck, lint, format check, boundaries, tests |
-| `pnpm bootstrap` | Rename the app (see [quick start](#quick-start)) |
+| `pnpm bootstrap` | Set the bundle id and display name, and rename a copy of the repository (see [quick start](#quick-start)) |
 | `pnpm pack-template` | Build the npm template package into `dist/npm/` ([packaging](docs/packaging.md)) |
 | `pnpm strip-examples` | Remove the demo (feed, posts, showroom) and leave a blank Home tab; sign-in, onboarding and settings stay |
 | `pnpm icons` | Regenerate app icons from `assets/brand/icon.svg` |

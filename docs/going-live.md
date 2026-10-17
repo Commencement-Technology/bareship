@@ -12,8 +12,9 @@ links and push local. This page lists what you add before release, and what each
 | [A link domain](#open-web-links-in-the-app) | `https://` links that open the app | A domain you control, plus the two above for iOS |
 | [Remote Config keys](#force-an-update-or-pause-the-app) | Forced updates and maintenance mode | Firebase |
 
-Rename the app first if you haven't: `pnpm bootstrap --name AcmeShop --bundle-id com.acme.shop` (see the
-README). Every bundle id below is the renamed one, with `.dev` and `.staging` for those environments.
+Set your bundle id first if you haven't: `pnpm bootstrap --bundle-id com.acme.shop` (see the README; a copy
+of the GitHub repository also needs `--name AcmeShop`). Every bundle id below is yours, with `.dev` and
+`.staging` for those environments.
 
 ## Use your API
 

@@ -41,7 +41,19 @@ test -f .gitignore || { echo "✖ .gitignore missing (npm drops it; the package 
 git init -q && git add -A && git -c user.name=ci -c user.email=ci@example.com commit -qm init --no-verify
 pnpm install --frozen-lockfile
 bundle install --quiet
-pnpm bootstrap --name AcmeShop --bundle-id com.acme.shop --display-name "Acme Shop" --skip-pods
+# The quick start's case: no --name (init set it), and a bundle id that extends the package init made
+# (com.acmeshop → com.acmeshop.app), so the Android package moves into a folder inside its old one.
+pnpm bootstrap --bundle-id com.acmeshop.app --display-name "Acme Shop" --skip-pods
+kotlin=android/app/src/main/java/com/acmeshop/app
+test -f "$kotlin/MainActivity.kt" && test -f "$kotlin/MainApplication.kt" \
+  || { echo "✖ bootstrap didn't move the Android package to $kotlin"; exit 1; }
+test -z "$(find android/app/src/main/java -name '*.kt' -not -path "$kotlin/*")" \
+  || { echo "✖ Kotlin files left outside $kotlin"; exit 1; }
+grep -q '"name": "AcmeShop"' app.json && grep -q '"displayName": "Acme Shop"' app.json \
+  || { echo "✖ app.json lost the name or display name"; exit 1; }
+# A second run has nothing to rename, but must still set up iOS rather than stop.
+pnpm bootstrap --bundle-id com.acmeshop.app --display-name "Acme Shop" --skip-pods | grep -q 'Setting up the iOS' \
+  || { echo "✖ a second bootstrap run skipped the iOS setup"; exit 1; }
 pnpm strip-examples
 pnpm check
 echo "✔ An app made from the template renames, strips and passes its checks"

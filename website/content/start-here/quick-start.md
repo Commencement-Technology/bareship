@@ -3,7 +3,7 @@ title: Quick start
 description: "Create an app from the template, run it on a simulator or emulator, and start building your own features."
 ---
 
-By the end of this page you have your own app, renamed, running on an emulator or simulator, signed in with
+By the end of this page you have your own app, with your name and bundle id, running on an emulator or simulator, signed in with
 sample data. It takes about 15 minutes plus the first native build, which compiles a lot of native code
 and can take 30 minutes or more.
 
@@ -49,15 +49,18 @@ pnpm install
 bundle install
 ```
 
-## 3. Name your app
+## 3. Set your bundle id
 
 ```bash
-pnpm bootstrap --name Acme --bundle-id com.acme.app --display-name "Acme"
+pnpm bootstrap --bundle-id com.acme.app --display-name "Acme"
 ```
 
-This renames the Xcode project and schemes, the Android package, the bundle ids, the display names and the URL
-schemes, then runs `pod install`. The dev and staging builds get `.dev` and `.staging` added to the id and to the
-name, so all three install side by side. Run it once, before you write code.
+This sets the bundle ids and display names and moves the Android package to match, then runs `pod install`.
+The dev and staging builds get `.dev` and `.staging` added to the id and to the name, so all three install side
+by side. Run it once, before you write code.
+
+`init` already named the app. If you started from GitHub, your copy is still called `BareshipApp`: add
+`--name Acme` to rename the Xcode project, schemes and URL schemes too.
 
 ## 4. Run it
 
@@ -120,6 +123,7 @@ pnpm check
 | `npm error 404 … bareship` from `init` | Check the spelling: `--template bareship`. Behind a company registry or proxy, the package may not be mirrored yet; ask for `bareship` to be added |
 | `Seems like the package manager you want to use is not installed` from `init` | Don't pass `--pm pnpm`; the CLI only installs with npm, yarn or bun. Use `--skip-install`, then `pnpm install` |
 | `Run bundle install first` from `bootstrap` | Run `bundle install`, then `bootstrap` again. Nothing was renamed |
+| `Unable to load contents of file list: '/Target Support Files/Pods-…'` from `pnpm ios` | The pods aren't installed. Run `pnpm pods`, then `pnpm ios` again |
 | `SDK location not found` from Gradle | Set `ANDROID_HOME` to your Android SDK, for example `export ANDROID_HOME=~/Library/Android/sdk` |
 | `Invalid Podfile file … on US-ASCII` from CocoaPods | Your terminal isn't using UTF-8. Run `export LANG=en_US.UTF-8`, then `pnpm pods` |
 | `NoSuchFileException … .gradle/caches/…/transforms/…` | Gradle's cache has a half-written entry. Run `cd android && ./gradlew --stop`, delete the folder named in the error, and build again |

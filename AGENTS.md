@@ -15,7 +15,7 @@ Never change a recorded decision silently: propose a new ADR.
 | iOS pods | `pnpm pods`, and again after every `pnpm install` that changes `node_modules` (Skia copies its iOS binaries in at `pod install`) |
 | Run | `pnpm android` / `pnpm ios` (dev); `:staging`, `:prod` variants |
 | All checks | `pnpm check` (typecheck, lint, format, depcruise, tests) |
-| Rename the app | `pnpm bootstrap --name Acme --bundle-id com.acme.app` |
+| Set the bundle id (and rename) | `pnpm bootstrap --bundle-id com.acme.app [--display-name "Acme"] [--name Acme]` |
 | Remove the demo (feed, showroom) | `pnpm strip-examples` (once, on a fresh copy) |
 | Icons / splash | `pnpm icons`, `pnpm splash` |
 | Release builds, version bump, uploads | `bundle exec fastlane lanes` ([docs/releasing.md](docs/releasing.md)) |

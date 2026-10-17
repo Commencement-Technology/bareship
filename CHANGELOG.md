@@ -8,6 +8,14 @@ changes.
 
 - Docs and website: the React Native CLI (npm package `bareship`) is the first way to create an app; an
   npm link in the site header; FAQ answers on versions and updates.
+- Fix `pnpm bootstrap` on an app made with `init`: a bundle id that extends the package `init` set
+  (`com.acme` → `com.acme.app`, as in the quick start) crashed while moving the Android package folder,
+  after the files were already rewritten. A second run then said "Nothing to rename" and skipped
+  `pod install`, so the iOS build failed. Bootstrap now moves the folder through a temporary one, and
+  still sets up the iOS configs and pods when there is nothing to rename.
+- `pnpm bootstrap --name` is optional and defaults to the app's current name, since `init` already sets it.
+  The quick start is now `pnpm bootstrap --bundle-id com.acme.app --display-name "Acme"`; a copy of the
+  GitHub repository still passes `--name`. `scripts/ci/check-template-init.sh` runs that exact case.
 
 ## 0.1.0 (2026-10-14)
 

@@ -1,12 +1,16 @@
 /**
- * Renames a fresh copy of the template: app name, display name and bundle id, on both platforms.
+ * Sets a fresh app's bundle id and display name on both platforms, renames it if asked, then runs
+ * `pod install`.
  *
- *   pnpm bootstrap --name Acme --bundle-id com.acme.app [--display-name "Acme Shop"] [--skip-pods]
+ *   pnpm bootstrap --bundle-id com.acme.app [--display-name "Acme Shop"] [--name Acme] [--skip-pods]
  *
- * --name          PascalCase identifier used for the Xcode project/target, schemes and the JS module.
  * --bundle-id     Reverse-DNS id. Android applicationId/namespace and iOS bundle id.
  *                 dev and staging builds append .dev / .staging.
- * --display-name  Name under the icon (default: --name). dev/staging get " Dev" / " Staging".
+ * --display-name  Name under the icon (default: --name if given, else the current one). dev/staging get
+ *                 " Dev" / " Staging".
+ * --name          PascalCase identifier used for the Xcode project/target, schemes and the JS module.
+ *                 Default: the current name. `init <Name>` already set it; a copy of the GitHub repository
+ *                 needs it.
  *
  * Run it once, on a clean checkout, before writing app code.
  */
@@ -40,16 +44,6 @@ function fail(message: string): never {
   process.exit(1);
 }
 
-const newName = values.name ?? fail('Missing --name (for example --name Acme)');
-const newBundleId =
-  values['bundle-id'] ?? fail('Missing --bundle-id (for example --bundle-id com.acme.app)');
-const newDisplay = values['display-name'] ?? newName;
-
-if (!/^[A-Z][A-Za-z0-9]*$/.test(newName))
-  fail('--name must be PascalCase letters and digits, like "AcmeShop".');
-if (!/^[a-z][a-z0-9_]*(\.[a-z][a-z0-9_]*)+$/.test(newBundleId))
-  fail('--bundle-id must be lowercase reverse-DNS, like "com.acme.shop".');
-
 const read = (p: string) => readFileSync(join(root, p), 'utf8');
 const write = (p: string, s: string) => writeFileSync(join(root, p), s);
 
@@ -59,10 +53,15 @@ const oldDisplay = appJson.displayName;
 const oldBundleId = read('android/app/build.gradle').match(/applicationId\s+"([^"]+)"/)?.[1];
 if (!oldBundleId) fail('Could not find applicationId in android/app/build.gradle.');
 
-if (oldName === newName && oldBundleId === newBundleId && oldDisplay === newDisplay) {
-  console.log('Nothing to rename.');
-  process.exit(0);
-}
+const newName = values.name ?? oldName;
+const newBundleId =
+  values['bundle-id'] ?? fail('Missing --bundle-id (for example --bundle-id com.acme.app)');
+const newDisplay = values['display-name'] ?? (values.name ? newName : oldDisplay);
+
+if (!/^[A-Z][A-Za-z0-9]*$/.test(newName))
+  fail('--name must be PascalCase letters and digits, like "AcmeShop".');
+if (!/^[a-z][a-z0-9_]*(\.[a-z][a-z0-9_]*)+$/.test(newBundleId))
+  fail('--bundle-id must be lowercase reverse-DNS, like "com.acme.shop".');
 
 // Step 4 needs the Ruby gems. Check before renaming anything, so a missing `bundle install` can't leave
 // the project half renamed.
@@ -70,6 +69,13 @@ try {
   execFileSync('bundle', ['check'], { cwd: root, stdio: 'ignore' });
 } catch {
   fail('Run `bundle install` first: bootstrap regenerates the iOS configs with the Gemfile tools.');
+}
+
+if (oldName === newName && oldBundleId === newBundleId && oldDisplay === newDisplay) {
+  // Still set up iOS: a fresh copy from `init` has no pods yet, and an earlier run may have stopped early.
+  console.log(`Already ${newName} (${newBundleId}). Setting up the iOS configs and pods.`);
+  setUpIos();
+  process.exit(0);
 }
 
 const kebab = newName.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
@@ -137,14 +143,18 @@ const javaRoot = 'android/app/src/main/java';
 const oldPkgDir = join(root, javaRoot, ...oldBundleId.split('.'));
 const newPkgDir = join(root, javaRoot, ...newBundleId.split('.'));
 if (oldPkgDir !== newPkgDir && existsSync(oldPkgDir)) {
-  mkdirSync(dirname(newPkgDir), { recursive: true });
-  renameSync(oldPkgDir, newPkgDir);
+  // Go through a temporary folder: one package can sit inside the other (com.acme → com.acme.app), and
+  // a folder can't be moved into itself.
+  const tempDir = join(root, javaRoot, '.bootstrap-move');
+  renameSync(oldPkgDir, tempDir);
   // Remove now-empty parent folders of the old package.
   let parent = dirname(oldPkgDir);
   while (parent !== join(root, javaRoot) && readdirSync(parent).length === 0) {
     rmSync(parent, { recursive: true });
     parent = dirname(parent);
   }
+  mkdirSync(dirname(newPkgDir), { recursive: true });
+  renameSync(tempDir, newPkgDir);
 }
 
 // 3. Rename iOS paths that carry the old name.
@@ -164,23 +174,28 @@ for (const stale of [`ios/${oldName}.xcworkspace`, 'ios/Pods', 'ios/Podfile.lock
 }
 
 // 4. Regenerate iOS environment configs for the new name and id, then pods.
-const env = { ...process.env, LANG: 'en_US.UTF-8', BASE_BUNDLE_ID: newBundleId };
-execFileSync('bundle', ['exec', 'ruby', 'scripts/ios/configure-environments.rb'], {
-  cwd: root,
-  stdio: 'inherit',
-  env,
-});
-if (!values['skip-pods']) {
-  execFileSync('bundle', ['exec', 'pod', 'install', '--project-directory=ios'], {
-    cwd: root,
-    stdio: 'inherit',
-    env,
-  });
-}
+setUpIos();
 
-console.log(`\n✓ Renamed ${oldName} → ${newName} (${newBundleId}), ${changed} files updated.`);
+const renamed = oldName === newName ? newName : `${oldName} → ${newName}`;
+console.log(`\n✓ ${renamed}: bundle id ${newBundleId}, ${changed} files updated.`);
 console.log(`  Display names: "${newDisplay}", "${newDisplay} Staging", "${newDisplay} Dev".`);
 console.log('  Next: regenerate icons with `pnpm icons` after replacing assets/brand/icon.svg.');
 console.log(
   `  Review the changes with git before committing: ${relative(process.cwd(), root) || '.'}`,
 );
+
+function setUpIos() {
+  const env = { ...process.env, LANG: 'en_US.UTF-8', BASE_BUNDLE_ID: newBundleId };
+  execFileSync('bundle', ['exec', 'ruby', 'scripts/ios/configure-environments.rb'], {
+    cwd: root,
+    stdio: 'inherit',
+    env,
+  });
+  if (!values['skip-pods']) {
+    execFileSync('bundle', ['exec', 'pod', 'install', '--project-directory=ios'], {
+      cwd: root,
+      stdio: 'inherit',
+      env,
+    });
+  }
+}
