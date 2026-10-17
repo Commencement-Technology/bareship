@@ -29,6 +29,41 @@
 
 ---
 
+<table align="center">
+  <tr><th colspan="5">iOS</th></tr>
+  <tr>
+    <td><img src="https://raw.githubusercontent.com/psingh2907/bareship/main/assets/screenshots/ios/03-feed.jpg" alt="iOS: feed with an optimistic like" width="150"></td>
+    <td><img src="https://raw.githubusercontent.com/psingh2907/bareship/main/assets/screenshots/ios/05-dark-feed.jpg" alt="iOS: dark theme" width="150"></td>
+    <td><img src="https://raw.githubusercontent.com/psingh2907/bareship/main/assets/screenshots/ios/06-arabic-feed.jpg" alt="iOS: Arabic, right to left" width="150"></td>
+    <td><img src="https://raw.githubusercontent.com/psingh2907/bareship/main/assets/screenshots/ios/04-settings.png" alt="iOS: settings" width="150"></td>
+    <td><img src="https://raw.githubusercontent.com/psingh2907/bareship/main/assets/screenshots/ios/02-sign-in.png" alt="iOS: sign-in with the demo account" width="150"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>Feed</sub></td>
+    <td align="center"><sub>Dark theme</sub></td>
+    <td align="center"><sub>Arabic (RTL)</sub></td>
+    <td align="center"><sub>Settings</sub></td>
+    <td align="center"><sub>Sign-in</sub></td>
+  </tr>
+  <tr><th colspan="5">Android</th></tr>
+  <tr>
+    <td><img src="https://raw.githubusercontent.com/psingh2907/bareship/main/assets/screenshots/android/03-feed.jpg" alt="Android: feed" width="150"></td>
+    <td><img src="https://raw.githubusercontent.com/psingh2907/bareship/main/assets/screenshots/android/07-offline.jpg" alt="Android: offline, with a like waiting to sync" width="150"></td>
+    <td><img src="https://raw.githubusercontent.com/psingh2907/bareship/main/assets/screenshots/android/05-dark-feed.jpg" alt="Android: dark theme" width="150"></td>
+    <td><img src="https://raw.githubusercontent.com/psingh2907/bareship/main/assets/screenshots/android/06-arabic-feed.jpg" alt="Android: Arabic, right to left" width="150"></td>
+    <td><img src="https://raw.githubusercontent.com/psingh2907/bareship/main/assets/screenshots/android/04-settings.png" alt="Android: settings" width="150"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>Feed</sub></td>
+    <td align="center"><sub>Offline, waiting to sync</sub></td>
+    <td align="center"><sub>Dark theme</sub></td>
+    <td align="center"><sub>Arabic (RTL)</sub></td>
+    <td align="center"><sub>Settings</sub></td>
+  </tr>
+</table>
+
+<p align="center"><sub>The demo app on the iOS simulator and an Android emulator. It serves sample data from a mock backend inside the app.</sub></p>
+
 Bareship uses the React Native CLI and takes the best ideas from Ignite, Obytes,
 TheCodingMachine and large open-source apps (Bluesky, Expensify), and adds what they leave out: an offline
 write queue, Keychain token storage, enforced architecture, optional Firebase and a supply-chain policy.

@@ -31,6 +31,7 @@ const NOT_IN_APP = [
   /^CODE_OF_CONDUCT\.md$/,
   /^\.github\/ISSUE_TEMPLATE\//,
   /^website\//, // the template's website, not part of an app
+  /^assets\/screenshots\//, // the README's screenshots
 ];
 
 type PackageJson = Record<string, unknown> & {
