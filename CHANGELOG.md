@@ -4,7 +4,9 @@ Notable changes to the template. Versions follow [Semantic Versioning](https://s
 the template own their copy of the code, so a new version reaches an app only when its authors apply the
 changes.
 
-## Unreleased
+## 0.1.1 (2026-10-17)
+
+Fixes `pnpm bootstrap` for apps made with `init`, following the quick start.
 
 - Docs and website: the React Native CLI (npm package `bareship`) is the first way to create an app; an
   npm link in the site header; FAQ answers on versions and updates.
