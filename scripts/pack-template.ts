@@ -30,6 +30,7 @@ const NOT_IN_APP = [
   /^SECURITY\.md$/,
   /^CODE_OF_CONDUCT\.md$/,
   /^\.github\/ISSUE_TEMPLATE\//,
+  /^\.github\/workflows\/portfolio\.yml$/, // redeploys the maintainer's portfolio
   /^website\//, // the template's website, not part of an app
   /^assets\/screenshots\//, // the README's screenshots
 ];

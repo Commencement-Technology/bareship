@@ -57,6 +57,8 @@ The package is [`bareship` on npm](https://www.npmjs.com/package/bareship)
 3. `pnpm pack-template`, then `scripts/ci/check-template-init.sh`.
 4. `npm publish dist/npm/<name>-<version>.tgz --access public`. It asks for the account's 2FA code.
 5. Tag the commit `v<version>`, push the tag and create a GitHub release with the changelog entry.
+   Publishing the release redeploys the maintainer's portfolio, so its Bareship page shows the new
+   version (`.github/workflows/portfolio.yml`, which needs the `PORTFOLIO_DEPLOY_HOOK` secret).
 
 Private vulnerability reporting is on (Settings → Security), so the link in `SECURITY.md` works.
 

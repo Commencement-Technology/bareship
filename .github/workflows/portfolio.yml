@@ -1,0 +1,41 @@
+# Redeploys the maintainer's portfolio (www.praveensingh.co.in) when a release is published, so its Bareship
+# case study shows the new version. The portfolio reads the version from npm at build time, so this waits
+# until npm has the release, then calls a Vercel Deploy Hook. Not part of an app made from the template
+# (scripts/pack-template.ts leaves it out), and it does nothing outside psingh2907/bareship.
+#
+# Needs the repository secret PORTFOLIO_DEPLOY_HOOK.
+name: Portfolio
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  deploy:
+    name: Redeploy the portfolio
+    if: github.repository == 'psingh2907/bareship'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Wait for npm, then start the deploy
+        env:
+          HOOK: ${{ secrets.PORTFOLIO_DEPLOY_HOOK }}
+          # The release tag (v1.2.0), or for a manual run whatever is latest on npm.
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          if [ -z "$HOOK" ]; then echo "::error::The PORTFOLIO_DEPLOY_HOOK secret isn't set"; exit 1; fi
+          want=${TAG#v}
+          if [ -n "$want" ]; then
+            for i in $(seq 1 30); do
+              latest=$(curl -fsS https://registry.npmjs.org/bareship/latest | jq -r .version) || latest=
+              [ "$latest" = "$want" ] && break
+              echo "npm has ${latest:-nothing}, waiting for $want"
+              sleep 30
+            done
+            if [ "$latest" != "$want" ]; then echo "::error::npm still doesn't have $want"; exit 1; fi
+          fi
+          curl -fsS -X POST "$HOOK"
+          echo "Started a portfolio deploy${want:+ for $want}"
