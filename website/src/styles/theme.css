@@ -28,6 +28,7 @@
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: center;
+  align-items: flex-start;
   margin-top: 1.5rem;
 }
 .screenshots figure {

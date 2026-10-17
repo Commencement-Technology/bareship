@@ -4,6 +4,14 @@ Notable changes to the template. Versions follow [Semantic Versioning](https://s
 the template own their copy of the code, so a new version reaches an app only when its authors apply the
 changes.
 
+## 0.1.2 (2026-10-17)
+
+Screenshots on the npm page. No changes to the app's code.
+
+- README and website: screenshots of the demo app on iOS and Android (feed, offline with a like waiting to
+  sync, dark theme, Arabic right to left, settings, sign-in). The website shows them in iOS and Android tabs.
+- The npm package leaves out the screenshots (`assets/screenshots/`), so apps made from it don't carry them.
+
 ## 0.1.1 (2026-10-17)
 
 Fixes `pnpm bootstrap` for apps made with `init`, following the quick start.

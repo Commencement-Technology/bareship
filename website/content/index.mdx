@@ -17,58 +17,116 @@ hero:
 
 import { Card, CardGrid, LinkButton, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 
-<div class="screenshots">
-  <figure>
-    <img
-      src="/screenshots/03-feed.jpg"
-      alt="The feed with an optimistic like"
-      width="603"
-      height="1311"
-      loading="lazy"
-    />
-    <figcaption>Feed</figcaption>
-  </figure>
-  <figure>
-    <img
-      src="/screenshots/android-offline.jpg"
-      alt="The feed offline on Android, with a like waiting to sync"
-      width="640"
-      height="1428"
-      loading="lazy"
-    />
-    <figcaption>Offline, waiting to sync</figcaption>
-  </figure>
-  <figure>
-    <img
-      src="/screenshots/05-dark-feed.jpg"
-      alt="The feed in the dark theme"
-      width="603"
-      height="1311"
-      loading="lazy"
-    />
-    <figcaption>Dark theme</figcaption>
-  </figure>
-  <figure>
-    <img
-      src="/screenshots/06-arabic-feed.jpg"
-      alt="The feed in Arabic, laid out right to left"
-      width="603"
-      height="1311"
-      loading="lazy"
-    />
-    <figcaption>Arabic, right to left</figcaption>
-  </figure>
-  <figure>
-    <img
-      src="/screenshots/04-settings.png"
-      alt="Settings: theme, language, notifications and account"
-      width="603"
-      height="1311"
-      loading="lazy"
-    />
-    <figcaption>Settings</figcaption>
-  </figure>
-</div>
+<Tabs syncKey="platform">
+  <TabItem label="iOS">
+    <div class="screenshots">
+      <figure>
+        <img
+          src="/screenshots/ios/03-feed.jpg"
+          alt="The feed on iOS, with a liked post"
+          width="603"
+          height="1311"
+          loading="lazy"
+        />
+        <figcaption>Feed</figcaption>
+      </figure>
+      <figure>
+        <img
+          src="/screenshots/ios/05-dark-feed.jpg"
+          alt="The feed on iOS in the dark theme"
+          width="603"
+          height="1311"
+          loading="lazy"
+        />
+        <figcaption>Dark theme</figcaption>
+      </figure>
+      <figure>
+        <img
+          src="/screenshots/ios/06-arabic-feed.jpg"
+          alt="The feed on iOS in Arabic, laid out right to left"
+          width="603"
+          height="1311"
+          loading="lazy"
+        />
+        <figcaption>Arabic, right to left</figcaption>
+      </figure>
+      <figure>
+        <img
+          src="/screenshots/ios/04-settings.png"
+          alt="Settings on iOS: theme, language, notifications and account"
+          width="603"
+          height="1311"
+          loading="lazy"
+        />
+        <figcaption>Settings</figcaption>
+      </figure>
+      <figure>
+        <img
+          src="/screenshots/ios/02-sign-in.png"
+          alt="Sign-in on iOS with the demo account"
+          width="603"
+          height="1311"
+          loading="lazy"
+        />
+        <figcaption>Sign-in</figcaption>
+      </figure>
+    </div>
+  </TabItem>
+  <TabItem label="Android">
+    <div class="screenshots">
+      <figure>
+        <img
+          src="/screenshots/android/03-feed.jpg"
+          alt="The feed on Android, with a liked post"
+          width="640"
+          height="1428"
+          loading="lazy"
+        />
+        <figcaption>Feed</figcaption>
+      </figure>
+      <figure>
+        <img
+          src="/screenshots/android/07-offline.jpg"
+          alt="The feed offline on Android, with a like waiting to sync"
+          width="640"
+          height="1428"
+          loading="lazy"
+        />
+        <figcaption>Offline, waiting to sync</figcaption>
+      </figure>
+      <figure>
+        <img
+          src="/screenshots/android/05-dark-feed.jpg"
+          alt="The feed on Android in the dark theme"
+          width="640"
+          height="1428"
+          loading="lazy"
+        />
+        <figcaption>Dark theme</figcaption>
+      </figure>
+      <figure>
+        <img
+          src="/screenshots/android/06-arabic-feed.jpg"
+          alt="The feed on Android in Arabic, laid out right to left"
+          width="640"
+          height="1428"
+          loading="lazy"
+        />
+        <figcaption>Arabic, right to left</figcaption>
+      </figure>
+      <figure>
+        <img
+          src="/screenshots/android/04-settings.png"
+          alt="Settings on Android"
+          width="640"
+          height="1428"
+          loading="lazy"
+        />
+        <figcaption>Settings</figcaption>
+      </figure>
+    </div>
+  </TabItem>
+</Tabs>
 
 ## Create an app
 
