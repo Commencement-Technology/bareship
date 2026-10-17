@@ -68,6 +68,7 @@ export default defineConfig({
           items: [
             'build/architecture',
             'build/offline',
+            'build/languages',
             'build/generators',
             'build/ai-agents',
             'build/styling',

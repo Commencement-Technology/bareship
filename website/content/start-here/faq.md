@@ -61,8 +61,8 @@ Add a locale file next to `en.json` and `hi.json` in `src/shared/i18n/locales`, 
 
 For a right-to-left language (Arabic, Hebrew, Persian, Urdu), set `rtl: true` on its entry. Layouts use
 `start` and `end` rather than `left` and `right` (lint enforces it), so they mirror, and Settings asks for a
-restart when the direction changes. Check the app on both platforms before you ship it
-([ADR 0017](/reference/decisions/0017-languages-hindi-and-opt-in-rtl/)).
+restart when the direction changes. Check the app on both platforms before you ship it. The full steps are
+in [Languages and right-to-left](/build/languages/).
 
 ## Production
 

@@ -70,6 +70,7 @@ Before your first release, connect your API, release signing and, if you want th
 | [AGENTS.md](AGENTS.md) | Rules and conventions for this codebase, for people and AI agents |
 | [Architecture](docs/architecture.md) | Folders, layers, data flow and how the app starts |
 | [Environments](docs/environments.md) | dev, staging and prod: app ids, `.env` files, schemes |
+| [Languages](docs/languages.md) | English and Hindi, adding a language, and right-to-left |
 | [Going live](docs/going-live.md) | API, signing, Firebase, push, links, force update |
 | [Releasing](docs/releasing.md) | Release builds, version bumps, TestFlight and Play uploads |
 | [Native changes](docs/native-changes.md) | Every edit made to `ios/` and `android/` |

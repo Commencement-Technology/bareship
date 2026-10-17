@@ -151,7 +151,7 @@ add your own features, screens and API calls with `pnpm gen` ([generators](docs/
 - Design system on Unistyles 3: tokens, light and dark themes, and about 15 accessible primitives (Button,
   Input, Sheet, Toast, ListItem…), with a component showroom in dev builds.
 - English and Hindi, typed keys, and a lint rule against hard-coded text. Right-to-left languages are one
-  `rtl: true` away: layouts use `start`/`end`, and lint rejects `left`/`right`.
+  `rtl: true` away: layouts use `start`/`end`, and lint rejects `left`/`right` ([languages](docs/languages.md)).
 - React Navigation 7 (static API, native stack, tabs) and FlashList.
 
 **Data and offline**
@@ -258,6 +258,7 @@ independent; the rest of the app keeps working without it.
 | [Going live](docs/going-live.md) | API, signing, Firebase, push, links, force update |
 | [Packaging](docs/packaging.md) | How the npm template and the GitHub template are built and checked (maintainers) |
 | [Generators](docs/generators.md) | Add features, screens and API calls with `pnpm gen` |
+| [Languages](docs/languages.md) | English and Hindi, adding a language, and right-to-left |
 | [Releasing](docs/releasing.md) | fastlane lanes: release builds, version bump, TestFlight and Play uploads |
 | [Demo build](docs/demo-build.md) | Installing the sample-data APK on an Android phone |
 | [Decisions (ADRs)](docs/decisions/README.md) | Why each library and pattern was chosen |

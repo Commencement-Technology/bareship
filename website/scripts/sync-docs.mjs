@@ -40,6 +40,12 @@ const pages = () => [
   { from: 'docs/environments.md', to: 'start-here/environments' },
   { from: 'docs/architecture.md', to: 'build/architecture' },
   { from: 'docs/generators.md', to: 'build/generators', label: 'Generators' },
+  {
+    from: 'docs/languages.md',
+    to: 'build/languages',
+    title: 'Languages and right-to-left',
+    label: 'Languages',
+  },
   { from: 'AGENTS.md', sections: ['Styling'], to: 'build/styling' },
   {
     from: 'AGENTS.md',
