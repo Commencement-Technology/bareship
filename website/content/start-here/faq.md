@@ -55,10 +55,14 @@ dark themes switch without re-rendering. See [Styling](/build/styling/).
 
 ### How do I add a language?
 
-Add a locale file next to `en.json` and `ar.json` in `src/shared/i18n/locales`, import it in
-`src/shared/i18n/index.ts`, and add it to `LANGUAGES` there with its text direction. Layouts use
-`start` and `end` rather than `left` and `right`, so right-to-left languages mirror correctly. If the language
-needs relative dates, add its locale to `src/shared/lib/format.ts`; a test fails if you forget.
+Add a locale file next to `en.json` and `hi.json` in `src/shared/i18n/locales`, import it in
+`src/shared/i18n/index.ts`, and add it to `LANGUAGES` there. Add its relative-time data to
+`src/shared/lib/format.ts`; a test fails if you forget, and another fails if a key is missing.
+
+For a right-to-left language (Arabic, Hebrew, Persian, Urdu), set `rtl: true` on its entry. Layouts use
+`start` and `end` rather than `left` and `right` (lint enforces it), so they mirror, and Settings asks for a
+restart when the direction changes. Check the app on both platforms before you ship it
+([ADR 0017](/reference/decisions/0017-languages-hindi-and-opt-in-rtl/)).
 
 ## Production
 

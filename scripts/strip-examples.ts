@@ -111,14 +111,14 @@ const STRINGS: Record<string, { remove: string[]; add: Record<string, Record<str
       },
     },
   },
-  ar: {
+  hi: {
     remove: ['feed', 'tabs.feed', 'settings.showroom'],
     add: {
-      tabs: { home: 'الرئيسية' },
+      tabs: { home: 'होम' },
       home: {
-        title: 'الرئيسية',
-        welcome: 'مرحبًا، {{name}}',
-        body: 'هذا تطبيقك. أضف ميزة باستخدام pnpm gen feature <name>.',
+        title: 'होम',
+        welcome: 'स्वागत है, {{name}}',
+        body: 'यह आपका ऐप है। pnpm gen feature <name> से एक फ़ीचर जोड़ें।',
       },
     },
   },
@@ -172,7 +172,12 @@ function sourceFiles(dir: string): string[] {
 
 function editStrings(dryRun: boolean): string[] {
   const changed: string[] = [];
-  for (const [locale, { remove, add }] of Object.entries(STRINGS)) {
+  const locales = readdirSync(join(ROOT, 'src/shared/i18n/locales'))
+    .filter(file => file.endsWith('.json'))
+    .map(file => file.replace(/\.json$/, ''));
+  for (const locale of locales) {
+    // A language added after the template shipped gets the English strings to translate.
+    const { remove, add } = STRINGS[locale] ?? STRINGS.en!;
     const file = `src/shared/i18n/locales/${locale}.json`;
     const json = JSON.parse(readFileSync(join(ROOT, file), 'utf8')) as Record<
       string,

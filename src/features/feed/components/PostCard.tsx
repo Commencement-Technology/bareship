@@ -2,7 +2,7 @@ import { Pressable, View } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
 import { useTranslation } from '@/shared/i18n';
-import { formatRelative } from '@/shared/lib/format';
+import { useFormat } from '@/shared/lib/format';
 import { Heart } from '@/shared/ui/icons';
 import { Icon } from '@/shared/ui/primitives/Icon';
 import { Image } from '@/shared/ui/primitives/Image';
@@ -22,6 +22,7 @@ export type PostCardProps = {
 
 export function PostCard({ post, onPress, onToggleLike, expanded, likePending }: PostCardProps) {
   const { t } = useTranslation();
+  const format = useFormat();
   const likes = t('feed.likes', { count: post.likeCount });
 
   return (
@@ -47,7 +48,7 @@ export function PostCard({ post, onPress, onToggleLike, expanded, likePending }:
           <View style={styles.meta}>
             <Text variant="label">{post.author.name}</Text>
             <Text variant="caption" tone="muted">
-              {formatRelative(post.createdAt)}
+              {format.relative(post.createdAt)}
             </Text>
           </View>
         </View>

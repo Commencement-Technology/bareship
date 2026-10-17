@@ -3,7 +3,7 @@
  *
  *   pnpm gen feature <name> [--item <name>]
  *       src/features/<name>/: schema, api, a list screen with its test, and index.ts. Adds a mock
- *       endpoint (src/mocks/<name>.ts), a stack screen with a deep link, and English and Arabic strings.
+ *       endpoint (src/mocks/<name>.ts), a stack screen with a deep link, and strings in every locale file.
  *       --item names one record (default: <name> without a trailing "s", e.g. orders → order).
  *
  *   pnpm gen screen <feature> <name> [--param <name>]
@@ -18,7 +18,7 @@
  * runs Prettier and ESLint --fix on what it touched; then run `pnpm check`.
  */
 import { execFileSync } from 'node:child_process';
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, relative } from 'node:path';
 import { parseArgs } from 'node:util';
 
@@ -26,7 +26,11 @@ const ROOT = join(__dirname, '..');
 const NAVIGATOR = 'src/app/navigation/RootNavigator.tsx';
 const HANDLERS = 'src/mocks/handlers.ts';
 const LINKS = 'scripts/links-files.ts';
-const LOCALES = ['src/shared/i18n/locales/en.json', 'src/shared/i18n/locales/ar.json'];
+const LOCALE_DIR = 'src/shared/i18n/locales';
+// Every language the app ships; new strings start as English copies in each one.
+const LOCALES = readdirSync(join(ROOT, LOCALE_DIR))
+  .filter(file => file.endsWith('.json'))
+  .map(file => `${LOCALE_DIR}/${file}`);
 const SCREENS_MARKER = '// gen:screens';
 const HANDLERS_MARKER = '// gen:handlers';
 const METHODS = ['get', 'post', 'put', 'patch', 'delete'] as const;
@@ -523,7 +527,7 @@ describe('${component}', () => {
 
   return [
     `Open it: navigation.navigate('${route}'${param ? `, { ${param}: '…' }` : ''}).`,
-    'Add its strings to ar.json in Arabic (the generator copied the English text).',
+    'Translate its strings in the non-English locale files (the generator copied the English text).',
   ];
 }
 

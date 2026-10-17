@@ -4,6 +4,19 @@ Notable changes to the template. Versions follow [Semantic Versioning](https://s
 the template own their copy of the code, so a new version reaches an app only when its authors apply the
 changes.
 
+## Unreleased
+
+- Hindi replaces Arabic as the second language ([ADR 0017](docs/decisions/0017-languages-hindi-and-opt-in-rtl.md)).
+  Right-to-left stays supported as `rtl: true` on a language in `LANGUAGES`; tests cover the direction
+  switch and mirrored icons without shipping an RTL language.
+- Lint rejects `left`/`right` style keys and `textAlign: 'left' | 'right'`; use `start`/`end`.
+- `pnpm gen` and `pnpm strip-examples` work on every locale file, so adding a language needs no script
+  changes.
+- Fix: dates and relative times ("2 days ago") stayed in the old language after a switch in Settings,
+  because the React Compiler cached the formatted text. Components now use `useFormat()` from
+  `@/shared/lib/format`, and lint rejects plain `formatRelative`/`formatDate`/`formatNumber` calls in JSX.
+- README and website: the screenshots show the feed in Hindi instead of Arabic.
+
 ## 0.1.2 (2026-10-17)
 
 Screenshots on the npm page. No changes to the app's code.

@@ -42,7 +42,7 @@ What it adds:
 | `src/features/orders/screens/OrdersScreen.tsx` | The list screen, and a test next to it |
 | `src/features/orders/index.ts` | What the rest of the app may import from the feature |
 | `src/mocks/orders.ts` | Five sample orders and a fake `GET /orders` |
-| `en.json`, `ar.json` | The screen title and the empty and error messages |
+| `en.json`, `hi.json` | The screen title and the empty and error messages |
 | `RootNavigator.tsx` | An `Orders` screen with the deep link `orders` |
 
 The item name comes from the feature name without its last "s" (`orders` → `Order`). When that's wrong,
@@ -57,7 +57,8 @@ pnpm gen feature people --item person
 1. **Fields.** The sample has `id`, `title` and `created_at`. Change them in `schema.ts` (both the server
    shape and the app type) and in `src/mocks/orders.ts`. Only `schema.ts` uses the server's field names;
    the rest of the app uses the app type.
-2. **Arabic.** The new keys in `ar.json` are in English. Translate them.
+2. **Hindi.** The new keys in `hi.json` (and any other non-English locale file) are in English. Translate
+   them.
 3. **A way in.** Nothing links to the screen yet. Add a button, a Settings row or a tab that calls
    `navigation.navigate('Orders')`. For a tab, move the `Orders` entry into `Tabs` in `RootNavigator.tsx`.
 4. Run `pnpm check`.
@@ -80,7 +81,7 @@ navigation.navigate('OrderDetail', { id: order.id });
 because a deep link can send anything, and shows an error state when it's missing.
 
 The screen starts as a title on a page. Build it with the components in `src/shared/ui/primitives/`, and put
-all text in `en.json` and `ar.json`.
+all text in `en.json` and `hi.json`.
 
 ## Call an API endpoint
 
@@ -146,6 +147,6 @@ The generator checks before writing, so when it stops, nothing has changed.
 - It never replaces or deletes a file; it creates new ones and adds to existing ones. To undo a run,
   discard the changes with git.
 - It doesn't add a tab, a button or a menu entry that leads to the new screen. You choose where it goes.
-- It doesn't translate. The Arabic strings start as English copies.
+- It doesn't translate. Strings in the other languages start as English copies.
 - It doesn't know your API. Fields, request bodies and error cases come from you; the generated mock is a
   starting point to change to match your server.

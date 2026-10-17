@@ -74,7 +74,7 @@ needs a real `GoogleService-Info.plist` (made conditional in Phase 3). See docs/
 - **intl-pluralrules 2.0.1, relative-time-format 1.1.12**: Hermes (RN 0.87) has no `Intl.PluralRules` or
   `Intl.RelativeTimeFormat`. Without them i18next plurals fail silently and `formatRelative` throws
   "undefined cannot be used as a constructor". Replaced the FormatJS polyfills, whose locale matcher also
-  needs `Intl.Locale` (~390 KB in total against ~50 KB). Checked in Hermes for English and Arabic.
+  needs `Intl.Locale` (~390 KB in total against ~50 KB). Checked in Hermes for English and Arabic; Hindi uses the same polyfills.
 - **zod 4**: its `locales` barrel re-exports ~60 languages Metro can't tree-shake. `metro.config.js`
   resolves it to `metro/zod-locales.js` (English only, −295 KB). The app's validation messages are its own
   translation keys, so nothing user-visible changes.

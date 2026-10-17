@@ -7,7 +7,7 @@
 ## Decision
 
 - **Forms (D7):** react-hook-form 7 with `@hookform/resolvers/zod`. The same Zod schema validates the form and the API payload. Field primitives in `shared/ui/form` handle labels, errors, hints, keyboard avoidance (keyboard-controller) and next-field focus. Forms that must not submit offline use offline pattern C (input kept, submit disabled).
-- **i18n (D8):** i18next + react-i18next with `react-native-localize` for the device locale and a manual override in Settings. Translation keys are typed from `en.json`. ICU-style plurals and `Intl` formatting. A lint rule flags hard-coded user-visible strings. RTL is supported (ADR 0008).
+- **i18n (D8):** i18next + react-i18next with `react-native-localize` for the device locale and a manual override in Settings. Translation keys are typed from `en.json`. ICU-style plurals and `Intl` formatting. A lint rule flags hard-coded user-visible strings. RTL is supported (ADR 0008). *Languages: English and Hindi, see [0017](0017-languages-hindi-and-opt-in-rtl.md).*
 
 ## Alternatives considered
 

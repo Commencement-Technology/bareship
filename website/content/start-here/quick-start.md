@@ -87,7 +87,7 @@ The demo shows the patterns you'll reuse:
 - **Feed:** loading placeholders, pages that load as you scroll, pull to refresh, likes that change at once.
 - **Offline:** turn on airplane mode. A banner appears, a like is kept as "waiting to sync", and it's sent when
   you reconnect, even after closing the app.
-- **Settings:** light, dark or system theme; English or Arabic (right to left); notifications; sign out and
+- **Settings:** light, dark or system theme; English or Hindi; notifications; sign out and
   delete account.
 - **Component showroom** (Settings, development builds only): every UI primitive in one place.
 

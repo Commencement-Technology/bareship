@@ -42,6 +42,24 @@ const SYNTAX_RULES = [
     message:
       'Use ARIA props: role, aria-label, aria-selected, aria-checked, aria-disabled, aria-busy, aria-live, aria-hidden, aria-valuetext (AGENTS.md › Agent skills). accessibilityHint stays.',
   },
+  // Physical sides don't flip in right-to-left languages; start/end do (ADR 0017).
+  {
+    selector:
+      'Property[key.name=/^(left|right|(margin|padding)(Left|Right)|border(Top|Bottom)?(Left|Right)(Width|Color|Radius)?)$/]',
+    message:
+      'Use start/end (marginStart, paddingEnd, start, borderStartWidth…) so the layout mirrors in right-to-left languages (ADR 0017).',
+  },
+  {
+    selector:
+      'JSXElement CallExpression[callee.name=/^format(Relative|Date|Number)$/], JSXExpressionContainer CallExpression[callee.name=/^format(Relative|Date|Number)$/]',
+    message:
+      'In components, use useFormat() from @/shared/lib/format: the React Compiler caches a plain formatRelative(date) call, so it stays in the old language after a switch.',
+  },
+  {
+    selector: "Property[key.name='textAlign'] Literal[value=/^(left|right)$/]",
+    message:
+      "Leave textAlign unset, or use 'auto' or 'center', so text follows the reading direction (ADR 0017).",
+  },
 ];
 
 // The React Compiler rules from eslint-plugin-react-hooks 7 ("recommended-latest"). The plugin is

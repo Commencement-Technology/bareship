@@ -34,14 +34,14 @@
   <tr>
     <td><img src="https://raw.githubusercontent.com/psingh2907/bareship/main/assets/screenshots/ios/03-feed.jpg" alt="iOS: feed with an optimistic like" width="150"></td>
     <td><img src="https://raw.githubusercontent.com/psingh2907/bareship/main/assets/screenshots/ios/05-dark-feed.jpg" alt="iOS: dark theme" width="150"></td>
-    <td><img src="https://raw.githubusercontent.com/psingh2907/bareship/main/assets/screenshots/ios/06-arabic-feed.jpg" alt="iOS: Arabic, right to left" width="150"></td>
+    <td><img src="https://raw.githubusercontent.com/psingh2907/bareship/main/assets/screenshots/ios/06-hindi-feed.jpg" alt="iOS: the feed in Hindi" width="150"></td>
     <td><img src="https://raw.githubusercontent.com/psingh2907/bareship/main/assets/screenshots/ios/04-settings.png" alt="iOS: settings" width="150"></td>
     <td><img src="https://raw.githubusercontent.com/psingh2907/bareship/main/assets/screenshots/ios/02-sign-in.png" alt="iOS: sign-in with the demo account" width="150"></td>
   </tr>
   <tr>
     <td align="center"><sub>Feed</sub></td>
     <td align="center"><sub>Dark theme</sub></td>
-    <td align="center"><sub>Arabic (RTL)</sub></td>
+    <td align="center"><sub>Hindi</sub></td>
     <td align="center"><sub>Settings</sub></td>
     <td align="center"><sub>Sign-in</sub></td>
   </tr>
@@ -50,14 +50,14 @@
     <td><img src="https://raw.githubusercontent.com/psingh2907/bareship/main/assets/screenshots/android/03-feed.jpg" alt="Android: feed" width="150"></td>
     <td><img src="https://raw.githubusercontent.com/psingh2907/bareship/main/assets/screenshots/android/07-offline.jpg" alt="Android: offline, with a like waiting to sync" width="150"></td>
     <td><img src="https://raw.githubusercontent.com/psingh2907/bareship/main/assets/screenshots/android/05-dark-feed.jpg" alt="Android: dark theme" width="150"></td>
-    <td><img src="https://raw.githubusercontent.com/psingh2907/bareship/main/assets/screenshots/android/06-arabic-feed.jpg" alt="Android: Arabic, right to left" width="150"></td>
+    <td><img src="https://raw.githubusercontent.com/psingh2907/bareship/main/assets/screenshots/android/06-hindi-feed.jpg" alt="Android: the feed in Hindi" width="150"></td>
     <td><img src="https://raw.githubusercontent.com/psingh2907/bareship/main/assets/screenshots/android/04-settings.png" alt="Android: settings" width="150"></td>
   </tr>
   <tr>
     <td align="center"><sub>Feed</sub></td>
     <td align="center"><sub>Offline, waiting to sync</sub></td>
     <td align="center"><sub>Dark theme</sub></td>
-    <td align="center"><sub>Arabic (RTL)</sub></td>
+    <td align="center"><sub>Hindi</sub></td>
     <td align="center"><sub>Settings</sub></td>
   </tr>
 </table>
@@ -150,7 +150,8 @@ add your own features, screens and API calls with `pnpm gen` ([generators](docs/
 - Settings: theme (light, dark, system), language, notifications, sign-out and account deletion.
 - Design system on Unistyles 3: tokens, light and dark themes, and about 15 accessible primitives (Button,
   Input, Sheet, Toast, ListItem…), with a component showroom in dev builds.
-- English and Arabic with right-to-left layout, typed keys, and a lint rule against hard-coded text.
+- English and Hindi, typed keys, and a lint rule against hard-coded text. Right-to-left languages are one
+  `rtl: true` away: layouts use `start`/`end`, and lint rejects `left`/`right`.
 - React Navigation 7 (static API, native stack, tabs) and FlashList.
 
 **Data and offline**

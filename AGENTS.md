@@ -81,8 +81,9 @@ and this file disagree, this file wins; the known cases:
 - Screens never call the HTTP client directly; they use feature hooks.
 - Native or vendor libraries are used only through ports in `src/shared/ports`, via `services()`.
 - Icons come from `@/shared/ui/icons` (add new ones there). Never import values from the `lucide-react-native` root.
-- UI text comes from `t('…')` with keys in `src/shared/i18n/locales/en.json` (and `ar.json`). Lint rejects
-  hard-coded JSX text. Use `start`/`end`, never `left`/`right`, so right-to-left layouts work.
+- UI text comes from `t('…')` with keys in `src/shared/i18n/locales/en.json` (and `hi.json`). Lint rejects
+  hard-coded JSX text, and styles with `left`/`right` (use `start`/`end`) so right-to-left languages can be
+  added with `rtl: true` in `LANGUAGES` ([ADR 0017](docs/decisions/0017-languages-hindi-and-opt-in-rtl.md)).
 - Style with Unistyles (`StyleSheet.create(theme => …)`) and theme roles (`theme.colors.text`), never hex values.
 
 See [docs/architecture.md](docs/architecture.md) for data flow and the reference mutation pattern.

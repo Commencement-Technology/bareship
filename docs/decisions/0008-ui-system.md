@@ -15,7 +15,7 @@ A template's UI layer should be fast, themeable and easy to rebrand, without for
 - **Theming (D4):** light, dark and system, **plus brand themes**. Tokens are split into a brand palette and semantic roles, so a white-label rebrand edits one file.
 - **Icons (D5):** `lucide-react-native` on `react-native-svg`.
 - **Lists (D6):** FlashList 2.
-- **RTL (D9): yes.** Layout uses `start`/`end`, never `left`/`right`.
+- **RTL (D9): yes.** Layout uses `start`/`end`, never `left`/`right`. *Refined by [0017](0017-languages-hindi-and-opt-in-rtl.md): no shipped language is right-to-left; it's a switch per language, and lint enforces `start`/`end`.*
 - **Animation (D10):** Reanimated 4 + Gesture Handler 3 always; **Skia and Lottie are in core** (differs from the recommendation, which was none).
 - **Bottom sheets (D11):** `@gorhom/bottom-sheet` 5.
 - **Images (D12):** `@d11/react-native-fast-image` behind the `Image` port in `shared/ui/image`.

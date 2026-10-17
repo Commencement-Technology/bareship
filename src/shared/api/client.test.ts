@@ -22,7 +22,7 @@ function setup(overrides: Partial<Parameters<typeof createHttpClient>[0]> = {}) 
     logger: silentLogger,
     refreshTokens,
     onSessionExpired,
-    getLanguage: () => 'ar',
+    getLanguage: () => 'hi',
     wait: async () => {},
     ...overrides,
   });
@@ -43,7 +43,7 @@ describe('createHttpClient', () => {
 
     await expect(client.get('/thing', Ok)).resolves.toEqual({ ok: true });
     expect(seen?.get('authorization')).toBe('Bearer abc');
-    expect(seen?.get('accept-language')).toBe('ar');
+    expect(seen?.get('accept-language')).toBe('hi');
   });
 
   it('adds an Idempotency-Key to writes only, and reuses a supplied key', async () => {

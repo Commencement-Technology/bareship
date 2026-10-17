@@ -16,11 +16,11 @@ describe('format', () => {
 
   // formatRelative never touches the runtime's Intl.RelativeTimeFormat (Hermes has none), so this
   // runs the same code as the device.
-  it('formats relative times in Arabic, including CLDR phrases like "the day before yesterday"', async () => {
+  it('formats relative times in Hindi, including CLDR phrases like "the day before yesterday"', async () => {
     const now = Date.parse('2026-10-10T12:00:00Z');
-    await i18n.changeLanguage('ar');
-    expect(formatRelative('2026-10-08T12:00:00Z', now)).toBe('أول أمس');
-    expect(formatRelative('2026-10-10T11:57:00Z', now)).toBe('قبل 3 دقائق');
+    await i18n.changeLanguage('hi');
+    expect(formatRelative('2026-10-08T12:00:00Z', now)).toBe('परसों');
+    expect(formatRelative('2026-10-10T11:57:00Z', now)).toBe('3 मिनट पहले');
     await i18n.changeLanguage('en');
   });
 

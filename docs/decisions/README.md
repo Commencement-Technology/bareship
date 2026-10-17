@@ -24,5 +24,6 @@ this bare template and "Track B" a later Expo version sharing its `src/` ([0001]
 | [0014](0014-opt-in-native-ci.md) | Native CI builds are opt-in | Accepted |
 | [0015](0015-name-bareship.md) | The template is named Bareship | Accepted |
 | [0016](0016-website-on-a-subdomain.md) | The website lives on a subdomain for now | Accepted |
+| [0017](0017-languages-hindi-and-opt-in-rtl.md) | Ship English and Hindi; right-to-left is a switch per language | Accepted |
 
 New ADRs copy [template.md](template.md). Never edit an accepted ADR's decision; supersede it with a new one.

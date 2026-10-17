@@ -7,17 +7,28 @@ import { findBestLanguageTag } from 'react-native-localize';
 
 import { services } from '@/shared/services/services';
 
-import ar from './locales/ar.json';
 import en from './locales/en.json';
+import hi from './locales/hi.json';
 
+type LanguageInfo = {
+  /** The language's own name, shown in Settings. */
+  label: string;
+  /** Right-to-left script (Arabic, Hebrew, Persian, Urdu). Switching to or from it needs a restart. */
+  rtl: boolean;
+};
+
+/**
+ * The app's languages. To add one: a locale file in ./locales, an entry here, and its relative-time
+ * data in src/shared/lib/format.ts. A right-to-left language only needs `rtl: true` (docs/decisions/0017).
+ */
 export const LANGUAGES = {
   en: { label: 'English', rtl: false },
-  ar: { label: 'العربية', rtl: true },
-} as const;
+  hi: { label: 'हिन्दी', rtl: false },
+} as const satisfies Record<string, LanguageInfo>;
 
 export type Language = keyof typeof LANGUAGES;
 
-export const resources = { en: { translation: en }, ar: { translation: ar } } as const;
+export const resources = { en: { translation: en }, hi: { translation: hi } } as const;
 
 const STORAGE_KEY = 'settings.language';
 
@@ -43,7 +54,7 @@ export function initI18n(language: Language = resolveInitialLanguage()) {
       returnNull: false,
     });
   }
-  applyDirection(language);
+  applyDirection(LANGUAGES[language].rtl);
   return i18n;
 }
 
@@ -54,18 +65,21 @@ export function initI18n(language: Language = resolveInitialLanguage()) {
 export async function changeLanguage(language: Language): Promise<boolean> {
   services().kv.set(STORAGE_KEY, language);
   await i18n.changeLanguage(language);
-  return applyDirection(language);
+  return applyDirection(LANGUAGES[language].rtl);
 }
 
 export function currentLanguage(): Language {
   return isLanguage(i18n.language) ? i18n.language : 'en';
 }
 
-function applyDirection(language: Language): boolean {
-  const rtl = LANGUAGES[language].rtl;
+/**
+ * Sets the layout direction for the next launch. Returns true when it differs from the current launch,
+ * so a restart is needed. Exported so tests cover right-to-left without the app shipping an RTL language.
+ */
+export function applyDirection(rtl: boolean): boolean {
   I18nManager.allowRTL(rtl);
   // Always persist the wanted direction. I18nManager.isRTL is fixed at launch, so comparing against it
-  // alone would skip forceRTL(false) on en → ar → en and the next launch would come up RTL.
+  // alone would skip forceRTL(false) on LTR → RTL → LTR and the next launch would come up RTL.
   I18nManager.forceRTL(rtl);
   return I18nManager.isRTL !== rtl;
 }
