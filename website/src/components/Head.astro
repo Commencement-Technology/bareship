@@ -1,6 +1,7 @@
 ---
 // Starlight's <head> plus structured data: the project and site on every page, a TechArticle for each docs
-// page, and FAQPage on the FAQ (src/seo.ts).
+// page, and FAQPage on the FAQ (src/seo.ts). Google Analytics (GA4) loads in production builds only, so local
+// dev and previews don't send page views.
 import Default from '@astrojs/starlight/components/Head.astro';
 import { faqPage, graph, ids, site, software, website } from '../seo';
 
@@ -23,7 +24,21 @@ if (!isHome) {
   });
 }
 if (entry.id === 'start-here/faq' && entry.body) nodes.push(faqPage(entry.body));
+
+const gaId = 'G-DQ0L8S6KB1';
+const analytics = import.meta.env.PROD;
 ---
 
 <Default />
 <script is:inline type="application/ld+json" set:html={graph(...nodes)} />
+{
+  analytics && (
+    <>
+      <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} />
+      <script
+        is:inline
+        set:html={`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${gaId}');`}
+      />
+    </>
+  )
+}
