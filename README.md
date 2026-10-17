@@ -72,7 +72,7 @@ write queue, Keychain token storage, enforced architecture, optional Firebase an
 run it, or install it on a phone: the dev build serves sample data from a mock backend inside the app. You
 add each service when you need it ([going live](docs/going-live.md)).
 
-> **Status: 0.1.2, on npm and as a GitHub template.** An app made from the npm package builds and runs on iOS
+> **Status: 0.2.0, on npm and as a GitHub template.** An app made from the npm package builds and runs on iOS
 > and Android, and the fastlane release builds pass on both. Next: turning CI back on in this repository. See
 > the [roadmap](#roadmap) and [known limitations](#known-limitations).
 
@@ -277,6 +277,8 @@ independent; the rest of the app keeps working without it.
   image has Xcode 26.x, not 27, so the iOS job is unproven too. Run `pnpm check` locally.
 - **Over-the-air updates have a port but no adapter.** Pick a provider (for example hot-updater) and add
   one.
+- **Right-to-left is opt-in and not yet right on iOS.** No shipped language is right-to-left. If you add
+  one, text inside rows on iOS doesn't follow the mirrored layout yet ([languages](docs/languages.md)).
 - **The demo build is Android-only.** iOS needs a signed build, so use the simulator.
 - **Firebase is tested without real projects.** The fallbacks are tested on devices; Crashlytics on iOS
   hasn't run against a real Firebase config yet.
@@ -286,7 +288,7 @@ independent; the rest of the app keeps working without it.
 
 ## Roadmap
 
-**In 0.1.0**
+**Released (0.1 and 0.2)**
 
 | Area | What's included |
 | --- | --- |
@@ -295,12 +297,15 @@ independent; the rest of the app keeps working without it.
 | Production | Offline queue and UI, Firebase, push, force update, deep links, an OTA port, fastlane |
 | Quality | Lint rules, generators with agent skills, tests with a coverage gate, a CI workflow |
 | Distribution | npm package `bareship`, GitHub template, `pnpm strip-examples`, MIT license, [website](https://bareship.praveensingh.co.in) |
+| Languages (0.2) | English and Hindi, right-to-left as a switch per language, a lint rule for `start`/`end`, a [languages guide](docs/languages.md) |
 
 **Next**
 
 | Item | Status |
 | --- | --- |
 | Turn CI back on in this repository, after fixing the Android build's memory use | Next |
+| Right-to-left text alignment on iOS | Next |
+| Screen titles that follow a language switch without a restart, and the iOS back-button label | Next |
 | End-to-end tests with Maestro | Postponed |
 | Performance tooling: Reassure render baselines, startup metrics, a bundle report | Postponed |
 | An Expo (CNG) version that shares the same `src/` | Later |

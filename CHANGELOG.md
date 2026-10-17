@@ -4,7 +4,11 @@ Notable changes to the template. Versions follow [Semantic Versioning](https://s
 the template own their copy of the code, so a new version reaches an app only when its authors apply the
 changes.
 
-## Unreleased
+## 0.2.0 (2026-10-17)
+
+Hindi replaces Arabic as the second language, and right-to-left becomes a switch per language. Apps made
+from 0.1.x keep Arabic until their authors apply these changes.
+
 
 - Hindi replaces Arabic as the second language ([ADR 0017](docs/decisions/0017-languages-hindi-and-opt-in-rtl.md)).
   Right-to-left stays supported as `rtl: true` on a language in `LANGUAGES`; tests cover the direction
@@ -15,7 +19,9 @@ changes.
 - Fix: dates and relative times ("2 days ago") stayed in the old language after a switch in Settings,
   because the React Compiler cached the formatted text. Components now use `useFormat()` from
   `@/shared/lib/format`, and lint rejects plain `formatRelative`/`formatDate`/`formatNumber` calls in JSX.
-- README and website: the screenshots show the feed in Hindi instead of Arabic.
+- README and website: the screenshots show the feed and Settings in Hindi instead of Arabic.
+- Docs: a [languages guide](docs/languages.md) (how it works, adding a language or a right-to-left one), on
+  the website under Build your app.
 
 ## 0.1.2 (2026-10-17)
 
