@@ -46,6 +46,11 @@ const pages = () => [
     title: 'Languages and right-to-left',
     label: 'Languages',
   },
+  {
+    from: 'docs/app-icon-and-splash.md',
+    to: 'build/app-icon-and-splash',
+    label: 'App icon and splash',
+  },
   { from: 'AGENTS.md', sections: ['Styling'], to: 'build/styling' },
   {
     from: 'AGENTS.md',

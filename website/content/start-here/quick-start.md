@@ -113,6 +113,7 @@ pnpm check
 ## Next
 
 - [Environments](/start-here/environments/): dev, staging and prod, and where configuration lives.
+- [App icon and splash screen](/build/app-icon-and-splash/): put your own icon and logo in the app.
 - [Offline](/build/offline/): choose what each write does without a connection.
 - [Going live](/production/going-live/): your API, signing, Firebase and push.
 

@@ -69,6 +69,7 @@ export default defineConfig({
             'build/architecture',
             'build/offline',
             'build/languages',
+            'build/app-icon-and-splash',
             'build/generators',
             'build/ai-agents',
             'build/styling',
