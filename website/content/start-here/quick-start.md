@@ -23,46 +23,69 @@ You don't need a backend, a Firebase project or an Apple Developer account.
 
 ## 1. Create your app
 
-Pick one.
+```bash
+npx create-bareship Acme
+cd Acme
+```
 
-**With the React Native CLI (recommended):** it downloads the template from
-[npm](https://www.npmjs.com/package/bareship) and names the app.
+It checks the tools above and tells you how to fix anything missing, then asks for:
+
+- **Bundle id**, like `com.acme.app`. The dev and staging builds get `.dev` and `.staging` added, so all three
+  install side by side.
+- **Display name**, the name under the app icon.
+
+Then it creates the app from the [npm template](https://www.npmjs.com/package/bareship), installs its
+dependencies with pnpm and Bundler, sets the bundle id and display name, runs `pod install` on a Mac, and
+makes the first git commit. `npx bareship Acme` does the same.
+
+To ask nothing, for CI or an AI agent, pass everything as flags:
+
+```bash
+npx create-bareship Acme --bundle-id com.acme.app --display-name "Acme" --yes
+```
+
+| Option | What it does |
+| --- | --- |
+| `--bundle-id <id>` | Reverse-domain bundle id. Default: `com.<appname>.app` |
+| `--display-name <name>` | Name under the app icon. Default: the app name |
+| `--yes` | Ask nothing; use the defaults for anything not given |
+| `--skip-pods` | Don't run `pod install`, for an Android-only setup. Always on outside macOS |
+| `--dry-run` | Check the tools and print the commands without running them |
+
+Each version of `create-bareship` creates the app from the same version of the template; the
+[changelog](/reference/changelog/) lists the versions.
+
+### Or step by step
+
+These are the steps `create-bareship` runs, if you'd rather run them yourself:
 
 ```bash
 npx @react-native-community/cli@20.2.0 init Acme --template bareship --skip-install --install-pods false
 cd Acme
+pnpm install
+bundle install
+pnpm bootstrap --bundle-id com.acme.app --display-name "Acme"
 ```
 
 Use `--skip-install`: the CLI can't install with pnpm, and the project's lockfile and package policy need
-pnpm. Don't pass `--package-name`; you set the bundle id in step 3. To use a particular version of the
-template, add it to the name: `--template bareship@0.1.0`. The [changelog](/reference/changelog/) lists the
-versions.
+pnpm. Don't pass `--package-name`; `bootstrap` sets the bundle id. It also moves the Android package to
+match and runs `pod install`.
 
-**From GitHub:** click **Use this template** on the
-[repository](https://github.com/psingh2907/bareship), then clone your new repository. Your copy also holds the
-template's own files (the website, the changelog, the contributing guide); delete the ones you don't want.
+### Or from GitHub
 
-## 2. Install dependencies
+Click **Use this template** on the [repository](https://github.com/psingh2907/bareship), then clone your new
+repository. Your copy also holds the template's own files (the website, the changelog, the contributing
+guide); delete the ones you don't want. Install and name it:
 
 ```bash
 pnpm install
 bundle install
+pnpm bootstrap --name Acme --bundle-id com.acme.app --display-name "Acme"
 ```
 
-## 3. Set your bundle id
+`--name` renames the Xcode project, schemes and URL schemes, which are still called `BareshipApp` in a copy.
 
-```bash
-pnpm bootstrap --bundle-id com.acme.app --display-name "Acme"
-```
-
-This sets the bundle ids and display names and moves the Android package to match, then runs `pod install`.
-The dev and staging builds get `.dev` and `.staging` added to the id and to the name, so all three install side
-by side. Run it once, before you write code.
-
-`init` already named the app. If you started from GitHub, your copy is still called `BareshipApp`: add
-`--name Acme` to rename the Xcode project, schemes and URL schemes too.
-
-## 4. Run it
+## 2. Run it
 
 Start an Android emulator or plug in a phone first. The first debug build compiles native code only for the
 connected device; with nothing connected it compiles for every Android CPU type, which takes about four times
@@ -80,7 +103,7 @@ pnpm ios
 
 The app opens to onboarding, then sign-in. Sign in with `demo@example.com` / `password123`.
 
-## 5. Look around
+## 3. Look around
 
 The demo shows the patterns you'll reuse:
 
@@ -91,7 +114,7 @@ The demo shows the patterns you'll reuse:
   delete account.
 - **Component showroom** (Settings, development builds only): every UI primitive in one place.
 
-## 6. Start your own app
+## 4. Start your own app
 
 When you're ready to build your own screens, remove the demo and add a feature:
 
@@ -121,6 +144,7 @@ pnpm check
 
 | What you see | What to do |
 | --- | --- |
+| `Some tools are missing or too old` from `create-bareship` | Each missing tool is listed with how to install it. Fix them and run the command again; nothing was created |
 | `npm error 404 … bareship` from `init` | Check the spelling: `--template bareship`. Behind a company registry or proxy, the package may not be mirrored yet; ask for `bareship` to be added |
 | `Seems like the package manager you want to use is not installed` from `init` | Don't pass `--pm pnpm`; the CLI only installs with npm, yarn or bun. Use `--skip-install`, then `pnpm install` |
 | `Run bundle install first` from `bootstrap` | Run `bundle install`, then `bootstrap` again. Nothing was renamed |

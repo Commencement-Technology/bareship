@@ -131,7 +131,18 @@ import { Card, CardGrid, LinkButton, Steps, TabItem, Tabs } from '@astrojs/starl
 ## Create an app
 
 <Tabs>
-<TabItem label="React Native CLI (npm)">
+<TabItem label="One command">
+
+```bash
+npx create-bareship Acme
+```
+
+It checks your tools, asks for the bundle id and display name, then creates the app from the
+[npm template](https://www.npmjs.com/package/bareship), installs everything and sets the bundle id. Add
+`--yes` to ask nothing, for CI and AI agents. Then `cd Acme` and `pnpm ios` or `pnpm android`.
+
+</TabItem>
+<TabItem label="React Native CLI">
 
 ```bash
 npx @react-native-community/cli@20.2.0 init Acme --template bareship --skip-install --install-pods false
@@ -141,9 +152,8 @@ bundle install
 pnpm bootstrap --bundle-id com.acme.app --display-name "Acme"
 ```
 
-The CLI downloads the template from [npm](https://www.npmjs.com/package/bareship). It can't install with pnpm,
-so it skips the install. Leave out `--package-name`: `bootstrap` sets the bundle id and keeps dev, staging and
-prod apart.
+The steps `create-bareship` runs. The CLI can't install with pnpm, so it skips the install. Leave out
+`--package-name`: `bootstrap` sets the bundle id and keeps dev, staging and prod apart.
 
 </TabItem>
 <TabItem label="GitHub template">

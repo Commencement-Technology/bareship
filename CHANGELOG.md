@@ -4,6 +4,19 @@ Notable changes to the template. Versions follow [Semantic Versioning](https://s
 the template own their copy of the code, so a new version reaches an app only when its authors apply the
 changes.
 
+## Unreleased
+
+- `npx create-bareship Acme` creates an app in one command ([ADR 0018](docs/decisions/0018-create-bareship.md)).
+  It checks the tools first (Node, pnpm, Ruby and Bundler, Java 21, Xcode on a Mac) and says how to fix
+  anything missing, asks for the bundle id and display name (or takes `--bundle-id`, `--display-name` and
+  `--yes`), then runs `init`, `pnpm install`, `bundle install` and `pnpm bootstrap`, and makes the first git
+  commit. `create-bareship@X` creates apps from `bareship@X`. It has no dependencies.
+- The `bareship` package runs the same installer as its bin, so `npx bareship Acme` works too, and its npm
+  page says at the top that it's a template, not a library to install.
+- README and website: the quick start leads with `npx create-bareship`; the manual steps stay as a fallback.
+- `pnpm pack-template` packs both packages, and `scripts/ci/check-create.sh` creates an app through each and
+  runs its checks. The installer isn't copied into apps.
+
 ## 0.2.0 (2026-10-17)
 
 Hindi replaces Arabic as the second language, and right-to-left becomes a switch per language. Apps made

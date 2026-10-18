@@ -99,8 +99,25 @@ Requirements:
 - iOS: macOS with Xcode 27
 - Android: Android Studio with SDK 37 and NDK 27.1
 
-Create the app with the React Native CLI. Its `init` can't install with pnpm, so skip its install. Leave out
-`--package-name`: it breaks the per-environment iOS bundle ids, and `bootstrap` sets the id instead.
+Create the app:
+
+```bash
+npx create-bareship Acme
+cd Acme
+pnpm ios              # or: pnpm android
+```
+
+`create-bareship` checks these tools first and says how to fix anything missing. It asks for the bundle id
+and display name (or pass `--bundle-id com.acme.app --display-name "Acme"`, and `--yes` to ask nothing, for
+CI and AI agents), then creates the app from the template, installs its dependencies, sets the bundle id and
+runs `pod install`. `npx bareship Acme` does the same. Run `npx create-bareship --help` for the options.
+
+<details>
+<summary>Or create it step by step</summary>
+
+These are the steps `create-bareship` runs. The React Native CLI's `init` can't install with pnpm, so skip
+its install. Leave out `--package-name`: it breaks the per-environment iOS bundle ids, and `bootstrap` sets
+the id instead.
 
 ```bash
 npx @react-native-community/cli@20.2.0 init Acme --template bareship --skip-install --install-pods false
@@ -111,9 +128,11 @@ pnpm bootstrap --bundle-id com.acme.app --display-name "Acme"
 pnpm android          # or: pnpm ios
 ```
 
+</details>
+
 Or start from a copy of this repository: click
 [**Use this template**](https://github.com/psingh2907/bareship/generate) on GitHub (or clone it), then run
-the same `pnpm install` and `bundle install` in your copy, and give `bootstrap` the app's name too:
+`pnpm install` and `bundle install` in your copy, and give `bootstrap` the app's name too:
 `pnpm bootstrap --name Acme --bundle-id com.acme.app --display-name "Acme"`. The copy also holds the
 template's own files (website, changelog, contributing guide), which the npm package leaves out.
 
@@ -232,7 +251,7 @@ adapter. See [architecture](docs/architecture.md).
 | `bundle exec fastlane android build`, `… ios build` | Release builds; `beta` lanes upload ([releasing](docs/releasing.md)) |
 | `pnpm check` | Typecheck, lint, format check, boundaries, tests |
 | `pnpm bootstrap` | Set the bundle id and display name, and rename a copy of the repository (see [quick start](#quick-start)) |
-| `pnpm pack-template` | Build the npm template package into `dist/npm/` ([packaging](docs/packaging.md)) |
+| `pnpm pack-template` | Build the npm packages, `bareship` and its installer `create-bareship`, into `dist/npm/` ([packaging](docs/packaging.md)) |
 | `pnpm strip-examples` | Remove the demo (feed, posts, showroom) and leave a blank Home tab; sign-in, onboarding and settings stay |
 | `pnpm icons` | Regenerate app icons from `assets/brand/icon.svg` |
 | `pnpm splash` | Regenerate the splash screen from `assets/brand/logo.svg` |
@@ -303,6 +322,7 @@ independent; the rest of the app keeps working without it.
 
 | Item | Status |
 | --- | --- |
+| `npx create-bareship`: create an app in one command ([ADR 0018](docs/decisions/0018-create-bareship.md)) | In the next release |
 | Turn CI back on in this repository, after fixing the Android build's memory use | Next |
 | Right-to-left text alignment on iOS | Next |
 | Screen titles that follow a language switch without a restart, and the iOS back-button label | Next |
