@@ -10,7 +10,7 @@ trap 'rm -rf "$work"' EXIT
 export LANG="${LANG:-en_US.UTF-8}"
 
 pnpm pack-template
-tarball="$(ls "$root"/dist/npm/*.tgz)"
+tarball="$(ls "$root"/dist/npm/bareship-*.tgz)"
 cd "$work"
 node "$root/node_modules/@react-native-community/cli/build/bin.js" init AcmeShop \
   --template "file:$tarball" --pm npm --skip-install --install-pods false --skip-git-init > init.log 2>&1 \
