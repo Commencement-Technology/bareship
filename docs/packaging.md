@@ -91,7 +91,23 @@ version. To publish a new version:
    `npm publish dist/npm/create-bareship-<version>.tgz --access public`. Each asks for the account's 2FA code.
 6. Tag the commit `v<version>`, push the tag and create a GitHub release with the changelog entry.
    Publishing the release redeploys the maintainer's portfolio, so its Bareship page shows the new
-   version (`.github/workflows/portfolio.yml`, which needs the `PORTFOLIO_DEPLOY_HOOK` secret).
+   version (`.github/workflows/portfolio.yml`). Check that the Portfolio run passed under Actions.
+
+### The portfolio redeploy
+
+The Portfolio workflow needs:
+
+- **GitHub Actions turned on for the repository** (Settings → Actions → General). While CI is paused, keep
+  the CI workflow itself disabled (`gh workflow disable CI`) rather than turning Actions off: with Actions
+  off, the Portfolio workflow never runs and nothing reports it.
+- **The `PORTFOLIO_DEPLOY_HOOK` secret set to a Deploy Hook of the portfolio's Vercel project**
+  (`praveensingh`: Settings → Git → Deploy Hooks, branch `main`), not of the `bareship` website project.
+  A hook from the wrong project still makes the run pass, but it redeploys the website instead. To change
+  it, run `gh secret set PORTFOLIO_DEPLOY_HOOK --repo psingh2907/bareship` and paste the hook's URL.
+
+To redeploy by hand, for example after fixing the hook: `gh workflow run Portfolio --repo psingh2907/bareship`.
+It deploys whatever version is latest on npm. Then check that the portfolio's Bareship page shows that
+version.
 
 Private vulnerability reporting is on (Settings → Security), so the link in `SECURITY.md` works.
 
