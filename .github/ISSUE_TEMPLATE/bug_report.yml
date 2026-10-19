@@ -14,8 +14,8 @@ body:
     attributes:
       label: Steps to reproduce
       placeholder: |
-        1. pnpm install && bundle install
-        2. pnpm ios
+        1. npx create-bareship Acme --yes
+        2. cd Acme && pnpm ios
         3. …
     validations:
       required: true
@@ -31,7 +31,7 @@ body:
     id: info
     attributes:
       label: Environment
-      description: Output of `npx react-native info`, and the template version or commit.
+      description: Output of `npx react-native info`, the template version or commit, and how you created the app (`npx create-bareship`, the React Native CLI, or a copy of the repository).
       render: text
   - type: checkboxes
     id: checks

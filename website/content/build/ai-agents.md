@@ -7,6 +7,19 @@ Coding agents such as Claude Code, Cursor and Copilot read the same rules your t
 generators, and are checked by the same linter. You ask for an outcome; the agent follows the project's
 conventions to get there, and `pnpm check` tells you whether it did.
 
+## Creating the app
+
+An agent can create the app itself. With every answer passed as a flag and `--yes`, `create-bareship` asks
+nothing, so it runs in an agent's shell or in CI:
+
+```bash
+npx create-bareship Acme --bundle-id com.acme.app --display-name "Acme" --yes
+```
+
+It checks the tools first and stops with a fix for each missing one, before creating anything. Add
+`--dry-run` to see the commands it would run. It exits with a non-zero code on any failure, so the agent
+knows to stop.
+
 ## Where agents find the rules
 
 | File | Read by | What it holds |

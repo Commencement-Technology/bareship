@@ -284,28 +284,21 @@ The rules your team follows are written down where coding agents read them, and 
 
 <Steps>
 
-1. Create an app with the React Native CLI (`--template bareship`), or with **Use this template** on GitHub
-   (see [Create an app](#create-an-app)).
-
-2. Install the JavaScript and Ruby dependencies:
+1. Create the app. It checks your tools first, then installs everything and sets the bundle id
+   (other ways: [Create an app](#create-an-app)):
 
    ```bash
-   pnpm install && bundle install
+   npx create-bareship Acme
    ```
 
-3. Give the app its bundle id and display name (add `--name Acme` in a copy of the GitHub repository):
+2. Start an emulator or simulator, then run the app and sign in with `demo@example.com` / `password123`:
 
    ```bash
-   pnpm bootstrap --bundle-id com.acme.app --display-name "Acme"
+   cd Acme
+   pnpm android          # or: pnpm ios
    ```
 
-4. Start an emulator or simulator, then run the app and sign in with `demo@example.com` / `password123`:
-
-   ```bash
-   pnpm android
-   ```
-
-5. When you start on your own screens, remove the demo and add your first feature:
+3. When you start on your own screens, remove the demo and add your first feature:
 
    ```bash
    pnpm strip-examples

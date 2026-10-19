@@ -9,15 +9,24 @@ You need Node ≥ 22.11, pnpm (`corepack enable`), Ruby with Bundler (`.ruby-ver
 macOS with Xcode. For Android: Android Studio with the SDK and NDK listed in
 [docs/version-matrix.md](docs/version-matrix.md).
 
+If you created this app with `npx create-bareship`, it's installed and has its bundle id: start a
+simulator or emulator and run it.
+
+```bash
+pnpm ios              # or: pnpm android
+```
+
+On a fresh clone (a teammate, a new machine, CI), install first:
+
 ```bash
 pnpm install
 bundle install
-pnpm bootstrap --bundle-id com.example.app --display-name "BareshipApp"
-pnpm android          # or: pnpm ios
+pnpm pods             # iOS only
 ```
 
-Run `pnpm bootstrap` once, with your own bundle id and display name. It sets the bundle ids and display
-names of all three environments and runs `pod install`.
+If the bundle id was never set (the app was made with the React Native CLI's `init`), run
+`pnpm bootstrap --bundle-id com.example.app --display-name "BareshipApp"` once, with your own bundle id and
+display name. It sets the bundle ids and display names of all three environments and runs `pod install`.
 
 Start the Android emulator (or connect a phone) before `pnpm android`. With no device connected, the debug
 build compiles native code for all four Android CPU types and takes about four times as long. On recent

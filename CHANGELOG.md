@@ -4,6 +4,12 @@ Notable changes to the template. Versions follow [Semantic Versioning](https://s
 the template own their copy of the code, so a new version reaches an app only when its authors apply the
 changes.
 
+## Unreleased
+
+- The app's README says that an app made with `npx create-bareship` is already installed, and gives a
+  teammate's clone steps (`pnpm install`, `bundle install`, `pnpm pods`) instead of asking for `bootstrap`.
+- Website: the home page, FAQ, introduction and AI agents page create the app with `npx create-bareship`.
+
 ## 0.3.0 (2026-10-19)
 
 - `npx create-bareship Acme` creates an app in one command ([ADR 0018](docs/decisions/0018-create-bareship.md)).

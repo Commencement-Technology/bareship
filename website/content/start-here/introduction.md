@@ -10,8 +10,9 @@ being offline, tokens kept in the Keychain, three environments, crash reporting 
 and release automation. You keep what you need, remove the demo, and build your own features on top.
 
 It's a bare React Native CLI project: `ios/` and `android/` are in the repository and yours to change. You
-create an app from it with the React Native CLI, which downloads the [`bareship` package from
-npm](https://www.npmjs.com/package/bareship), or with GitHub's **Use this template**.
+create an app from it with one command, `npx create-bareship Acme`, which downloads the [`bareship` package
+from npm](https://www.npmjs.com/package/bareship) and sets it up. You can also run the React Native CLI
+yourself, or use GitHub's **Use this template**.
 
 ## What it believes
 

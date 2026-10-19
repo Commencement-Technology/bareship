@@ -8,7 +8,7 @@ Checked on 2026-10-10. Update this file whenever a native dependency is added or
 | --- | --- | --- |
 | React Native | 0.87.1 | `react-native-community/template` 0.87-stable |
 | React | 19.2.3 (exact, must match RN's renderer) | template |
-| @react-native-community/cli | 20.2.0 | template |
+| @react-native-community/cli | 20.2.0 | template; also pinned as `RN_CLI` in `packages/create-bareship`, which runs its `init`: upgrade both together |
 | Node | ≥ 22.11 (`.nvmrc`: 24) | template `engines` |
 | pnpm | 12.3.4 (`packageManager`), policy needs ≥ 11 | ADR 0003 |
 | TypeScript | 6.0 | template |

@@ -25,8 +25,8 @@ There's no web target. [Version matrix](/reference/version-matrix/) lists every 
 
 ### Can I use npm or yarn instead of pnpm?
 
-Only to create the app: the React Native CLI downloads the template from npm. After that, install and run
-everything with pnpm. The supply-chain policy (packages younger than 3 days are refused, install scripts need approval) and the
+Only to create the app: `npx create-bareship` (or the React Native CLI) downloads the template from npm,
+then installs the app's dependencies with pnpm. After that, install and run everything with pnpm. The supply-chain policy (packages younger than 3 days are refused, install scripts need approval) and the
 lockfile are pnpm's. Run `corepack enable` and the pinned pnpm version is used.
 [Decision 0003](/reference/decisions/0003-package-manager-and-supply-chain/) explains why.
 
@@ -98,8 +98,10 @@ Copy the changes you want.
 
 ### Which version of the template should I use?
 
-The latest, which `--template bareship` picks for you. To start from an earlier one, name it:
-`--template bareship@0.1.0`.
+The latest, which `npx create-bareship` picks for you. Each version of `create-bareship` creates apps from
+the same version of the template, so to start from an earlier one, name it: `npx create-bareship@0.3.0 Acme`
+(or `--template bareship@0.2.0` with the React Native CLI). The [changelog](/reference/changelog/) lists
+the versions.
 
 ### What does it cost, and what's the license?
 
