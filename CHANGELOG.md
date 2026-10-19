@@ -4,6 +4,12 @@ Notable changes to the template. Versions follow [Semantic Versioning](https://s
 the template own their copy of the code, so a new version reaches an app only when its authors apply the
 changes.
 
+## Unreleased
+
+- `concurrent-ruby` (used by CocoaPods and fastlane) goes from 1.3.3 to 1.3.8, which fixes three security
+  advisories. The Gemfile's `< 1.3.4` pin came from the React Native template and was only needed with
+  activesupport older than 7.1; the lockfile has 7.2.4, so the Gemfile now asks for `>= 1.3.7`.
+
 ## 0.3.2 (2026-10-19)
 
 A new logo, and `pnpm splash` keeps the markers that point to each native change.

@@ -7,7 +7,8 @@ ruby ">= 2.6.10"
 gem 'cocoapods', '>= 1.13', '!= 1.15.0', '!= 1.15.1'
 gem 'activesupport', '>= 6.1.7.5', '!= 7.1.0'
 gem 'xcodeproj', '< 1.26.0'
-gem 'concurrent-ruby', '< 1.3.4'
+# 1.3.7 fixes three security advisories. React Native's '< 1.3.4' pin was only needed with activesupport < 7.1.
+gem 'concurrent-ruby', '>= 1.3.7'
 
 # Ruby 3.4.0 has removed some libraries from the standard library.
 gem 'bigdecimal'
