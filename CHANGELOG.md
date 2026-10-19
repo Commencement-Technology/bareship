@@ -4,11 +4,17 @@ Notable changes to the template. Versions follow [Semantic Versioning](https://s
 the template own their copy of the code, so a new version reaches an app only when its authors apply the
 changes.
 
-## Unreleased
+## 0.3.2 (2026-10-19)
+
+A new logo, and `pnpm splash` keeps the markers that point to each native change.
 
 - New logo: a boat whose mainsail is a B ([ADR 0019](docs/decisions/0019-logo-sail-b.md)). It replaces the
   stacked layers in the app icon (every environment), the splash screen, the README, the website header,
   favicon and share image. Apps made from the template start with it as their placeholder icon and splash.
+- `pnpm splash` keeps the `[bareship]` marker comments in `AndroidManifest.xml`. react-native-bootsplash's
+  generator drops every comment from the manifest, so `scripts/splash.ts` now runs it and puts the manifest
+  back; if `.MainActivity` doesn't use `BootTheme`, it keeps the generated manifest and lists the comments to
+  restore by hand.
 
 ## 0.3.1 (2026-10-19)
 
