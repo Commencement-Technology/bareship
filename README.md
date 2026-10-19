@@ -72,9 +72,10 @@ write queue, Keychain token storage, enforced architecture, optional Firebase an
 run it, or install it on a phone: the dev build serves sample data from a mock backend inside the app. You
 add each service when you need it ([going live](docs/going-live.md)).
 
-> **Status: 0.2.0, on npm and as a GitHub template.** An app made from the npm package builds and runs on iOS
-> and Android, and the fastlane release builds pass on both. Next: turning CI back on in this repository. See
-> the [roadmap](#roadmap) and [known limitations](#known-limitations).
+> **Status: 0.3.0, on npm and as a GitHub template.** `npx create-bareship` creates an app in one command. An
+> app made from the npm package builds and runs on iOS and Android, and the fastlane release builds pass on
+> both. Next: turning CI back on in this repository. See the [roadmap](#roadmap) and
+> [known limitations](#known-limitations).
 
 ## Why this template
 
@@ -307,7 +308,7 @@ independent; the rest of the app keeps working without it.
 
 ## Roadmap
 
-**Released (0.1 and 0.2)**
+**Released (0.1 to 0.3)**
 
 | Area | What's included |
 | --- | --- |
@@ -317,12 +318,12 @@ independent; the rest of the app keeps working without it.
 | Quality | Lint rules, generators with agent skills, tests with a coverage gate, a CI workflow |
 | Distribution | npm package `bareship`, GitHub template, `pnpm strip-examples`, MIT license, [website](https://bareship.praveensingh.co.in) |
 | Languages (0.2) | English and Hindi, right-to-left as a switch per language, a lint rule for `start`/`end`, a [languages guide](docs/languages.md) |
+| Installer (0.3) | `npx create-bareship Acme` (or `npx bareship Acme`) checks the tools and creates the app in one command ([ADR 0018](docs/decisions/0018-create-bareship.md)) |
 
 **Next**
 
 | Item | Status |
 | --- | --- |
-| `npx create-bareship`: create an app in one command ([ADR 0018](docs/decisions/0018-create-bareship.md)) | In the next release |
 | Turn CI back on in this repository, after fixing the Android build's memory use | Next |
 | Right-to-left text alignment on iOS | Next |
 | Screen titles that follow a language switch without a restart, and the iOS back-button label | Next |

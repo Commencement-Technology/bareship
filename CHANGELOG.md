@@ -4,7 +4,7 @@ Notable changes to the template. Versions follow [Semantic Versioning](https://s
 the template own their copy of the code, so a new version reaches an app only when its authors apply the
 changes.
 
-## Unreleased
+## 0.3.0 (2026-10-19)
 
 - `npx create-bareship Acme` creates an app in one command ([ADR 0018](docs/decisions/0018-create-bareship.md)).
   It checks the tools first (Node, pnpm, Ruby and Bundler, Java 21, Xcode on a Mac) and says how to fix
