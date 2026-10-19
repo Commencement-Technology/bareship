@@ -56,6 +56,11 @@ To change the background color or the logo's size, edit the `splash` script in `
 `--background=FFFFFF` is the color as hex without `#`, and `--logo-width=120` is the logo's width in points.
 Then run `pnpm splash` again.
 
+`pnpm splash` runs react-native-bootsplash's generator through `scripts/splash.ts`. The generator rewrites
+`AndroidManifest.xml` and drops its comments, including the `[bareship]` markers, so the script puts the
+manifest back afterwards. If `.MainActivity` doesn't set `android:theme="@style/BootTheme"`, the script keeps
+the generated manifest and lists the comments to restore by hand.
+
 The splash screen is the same in every environment and in light and dark mode.
 
 ## Commit the generated files
