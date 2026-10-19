@@ -9,7 +9,7 @@
 Creating an app takes five steps: the React Native CLI's `init` with `--skip-install` (it can't install
 with pnpm), `pnpm install`, `bundle install`, `pnpm bootstrap --bundle-id …`, and only then a run. Each
 step has a flag that is easy to get wrong (`--package-name` breaks the iOS bundle id suffixes,
-[packaging](../packaging.md)), and nothing checks the tools first, so a missing Ruby or Java shows up
+[packaging](https://github.com/psingh2907/bareship/blob/main/docs/packaging.md)), and nothing checks the tools first, so a missing Ruby or Java shows up
 half-way through as someone else's error.
 
 People who find the package on npm also try `npm install bareship`, which installs a template folder and
