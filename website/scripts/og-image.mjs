@@ -12,10 +12,10 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" v
     </linearGradient>
   </defs>
   <rect width="1200" height="630" fill="url(#bg)"/>
-  <g transform="translate(96 150) scale(0.42)" fill="none" stroke="${accent}" stroke-width="34" stroke-linejoin="round" stroke-linecap="round">
-    <path d="M300 70 L530 185 L300 300 L70 185 Z" fill="${accent}"/>
-    <path d="M70 300 L300 415 L530 300"/>
-    <path d="M70 400 L300 515 L530 400"/>
+  <g transform="translate(96 165) scale(4.2)" fill="${accent}">
+    <path d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+    <path d="M27.5 12V42H11.5Z"/>
+    <path d="M4 47H60L51 59H13Z"/>
   </g>
   <g font-family="Helvetica Neue, Helvetica, Arial, sans-serif" fill="#0b2c3c">
     <text x="380" y="270" font-size="96" font-weight="700" letter-spacing="-2">Bareship</text>

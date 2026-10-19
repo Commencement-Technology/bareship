@@ -4,6 +4,8 @@ vendor/
 coverage/
 pnpm-lock.yaml
 assets/bootsplash/
+# Generated logo comparison page (ADR 0019)
+assets/brand/concepts/index.html
 *.md
 
 # Vendored agent skills: keep identical to upstream (pnpm skills:sync)
