@@ -4,6 +4,13 @@ Notable changes to the template. Versions follow [Semantic Versioning](https://s
 the template own their copy of the code, so a new version reaches an app only when its authors apply the
 changes.
 
+## Unreleased
+
+- Every dependency in `package.json` is pinned to an exact version (it already was in the lockfile), and
+  `pnpm add` now saves exact versions (`savePrefix: ''` in `pnpm-workspace.yaml`), as AGENTS.md asks.
+- ESLint, Prettier and Jest skip `.claude/`, so `pnpm check` no longer lints and tests the copies of the
+  repo that Claude Code keeps in `.claude/worktrees/`.
+
 ## 0.3.2 (2026-10-19)
 
 A new logo, and `pnpm splash` keeps the markers that point to each native change.
