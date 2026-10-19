@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<style>.m{fill:#0A6C96;stroke:#0A6C96}@media (prefers-color-scheme:dark){.m{fill:#55B6E0;stroke:#55B6E0}}</style>
+<g transform="translate(0 -4)">
+<path class="m" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path class="m" d="M27.5 12V42H11.5Z"/>
+<path class="m" d="M4 47H60L51 58H13Z"/>
+</g>
+<path class="m" style="fill:none" stroke-width="4" stroke-linecap="round" d="M7 60Q13 55.5 19 60T31 60T43 60T55 60"/>
+</svg>

@@ -4,6 +4,12 @@ Notable changes to the template. Versions follow [Semantic Versioning](https://s
 the template own their copy of the code, so a new version reaches an app only when its authors apply the
 changes.
 
+## Unreleased
+
+- New logo: a boat whose mainsail is a B ([ADR 0019](docs/decisions/0019-logo-sail-b.md)). It replaces the
+  stacked layers in the app icon (every environment), the splash screen, the README, the website header,
+  favicon and share image. Apps made from the template start with it as their placeholder icon and splash.
+
 ## 0.3.1 (2026-10-19)
 
 The npm pages: `create-bareship` becomes the page to start from. No changes to the app's code.

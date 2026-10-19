@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
-  <!-- Splash logo: the brand mark on a transparent background. -->
-  <g fill="none" stroke="#0A6C96" stroke-width="34" stroke-linejoin="round" stroke-linecap="round">
-    <path d="M300 70 L530 185 L300 300 L70 185 Z" fill="#0A6C96"/>
-    <path d="M70 300 L300 415 L530 300"/>
-    <path d="M70 400 L300 515 L530 400"/>
+  <!-- Splash logo: the brand mark (a boat whose mainsail is a B) on a transparent background. -->
+  <g fill="#0A6C96" transform="translate(60 60) scale(7.5)">
+    <path d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+    <path d="M27.5 12V42H11.5Z"/>
+    <path d="M4 47H60L51 59H13Z"/>
   </g>
 </svg>

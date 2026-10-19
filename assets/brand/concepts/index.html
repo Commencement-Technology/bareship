@@ -1,0 +1,1166 @@
+<title>Bareship Logo Concepts</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a spec sheet. Research up top in two columns, then one specimen card per concept, baseline last. */
+:root {
+  --bg: #f3f6f8;
+  --surface: #ffffff;
+  --ink: #102430;
+  --muted: #4f6573;
+  --line: #d5e0e7;
+  --accent: #0a6c96;
+  /* Specimen tiles show the mark as it will really appear, so they keep fixed colours in both themes. */
+  --spec-light-bg: #ffffff;
+  --spec-light-fg: #0a6c96;
+  --spec-dark-bg: #0d1b24;
+  --spec-dark-fg: #55b6e0;
+  --font-display: 'Schibsted Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0a141a; --surface: #111f28; --ink: #e2edf3; --muted: #93a9b6; --line: #22343f; --accent: #55b6e0;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0a141a; --surface: #111f28; --ink: #e2edf3; --muted: #93a9b6; --line: #22343f; --accent: #55b6e0;
+  color-scheme: dark;
+}
+body {
+  background: var(--bg); color: var(--ink);
+  font: 400 1rem/1.55 var(--font-body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 2.5rem 4rem;
+}
+.wrap { max-width: 72rem; margin: 0 auto; display: grid; gap: 3rem; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; line-height: 1.05; }
+h2 { font-size: 1.45rem; font-weight: 700; }
+h3 { font-size: 1.05rem; font-weight: 700; }
+p { margin: 0; }
+code { font-family: var(--font-mono); font-size: 0.86em; }
+a { color: var(--accent); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.eyebrow { font: 600 0.75rem/1 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+
+.intro { display: grid; gap: 1rem; max-width: 46rem; }
+.intro p { color: var(--muted); font-size: 1.1rem; }
+.jump { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+.jump a {
+  display: inline-flex; align-items: center; gap: 0.45rem; text-decoration: none; color: var(--ink);
+  border: 1px solid var(--line); border-radius: 999px; padding: 0.3rem 0.8rem 0.3rem 0.5rem; background: var(--surface);
+  font: 600 0.85rem/1 var(--font-display);
+}
+.jump a svg { color: var(--accent); }
+
+.research { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 30rem), 1fr)); gap: 2rem; }
+.research section { display: grid; gap: 0.9rem; align-content: start; min-width: 0; }
+.research ol, .research ul { margin: 0; padding-left: 1.2rem; display: grid; gap: 0.55rem; }
+.research li { max-width: 65ch; }
+.research li b { font-weight: 600; }
+.peers { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+.peers th, .peers td { text-align: left; padding: 0.4rem 0.6rem 0.4rem 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+.peers th { font: 600 0.72rem/1.2 var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.table-scroll { overflow-x: auto; }
+
+.concepts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 32rem), 1fr)); gap: 1.5rem; }
+.concept {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+  padding: 1.25rem; display: grid; gap: 1rem; align-content: start; min-width: 0;
+}
+.concept-head { display: grid; grid-template-columns: auto 1fr; column-gap: 0.75rem; align-items: baseline; }
+.concept-head .says { grid-column: 2; color: var(--muted); font-size: 0.92rem; }
+.tag {
+  grid-row: span 2; align-self: start;
+  font: 700 0.95rem/1 var(--font-mono); color: var(--accent);
+  border: 1.5px solid var(--accent); border-radius: 6px; padding: 0.3rem 0.45rem;
+}
+.stage { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.hero-mark { display: grid; place-items: center; aspect-ratio: 3 / 2; max-width: 100%; border-radius: 10px; }
+.hero-mark svg { width: auto; height: 70%; max-width: 70%; }
+.light { background: var(--spec-light-bg); color: var(--spec-light-fg); border: 1px solid var(--line); }
+.dark { background: var(--spec-dark-bg); color: var(--spec-dark-fg); border: 1px solid var(--spec-dark-bg); }
+
+.sizes { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.5rem; }
+.sizes figure { margin: 0; display: grid; gap: 0.35rem; }
+.chip { display: flex; align-items: center; justify-content: center; gap: 0.75rem; height: 92px; border-radius: 10px; }
+.chip.icons { background: transparent; gap: 0.6rem; }
+.app-icon { border-radius: 22.5%; box-shadow: 0 1px 3px rgb(0 0 0 / 0.25); }
+.px canvas { width: 48px; height: 48px; image-rendering: pixelated; border: 1px dashed var(--line); }
+figcaption { font: 400 0.7rem/1.3 var(--font-mono); color: var(--muted); text-align: center; }
+
+.lockups { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.lockup { display: flex; align-items: center; justify-content: center; gap: 0.6rem; height: 72px; border-radius: 10px; }
+.lockup span { font: 800 clamp(1.1rem, 2.6vw, 1.6rem)/1 var(--font-display); letter-spacing: -0.02em; }
+.lockup.light span { color: #102430; }
+.lockup.dark span { color: #e2edf3; }
+.npm {
+  grid-column: 1 / -1; display: flex; align-items: center; gap: 0.6rem; padding: 0.55rem 0.7rem;
+  border: 1px solid var(--line); border-radius: 10px; font-size: 0.95rem;
+}
+.npm-av { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 6px; background: var(--spec-light-bg); color: var(--spec-light-fg); border: 1px solid var(--line); }
+.npm code { font-weight: 600; font-size: 1rem; }
+.npm .ver { margin-left: auto; font: 400 0.8rem/1 var(--font-mono); color: var(--muted); }
+
+.why { max-width: 65ch; }
+.files { font-size: 0.82rem; color: var(--muted); overflow-wrap: anywhere; }
+.round { display: grid; gap: 0.4rem; margin-bottom: -1.5rem; }
+.baseline .concept { border-style: dashed; }
+.sources ol { margin: 0; padding-left: 1.2rem; display: grid; gap: 0.3rem; font-size: 0.92rem; overflow-wrap: anywhere; }
+.next { display: grid; gap: 0.6rem; max-width: 46rem; border-top: 1px solid var(--line); padding-top: 1.5rem; }
+
+@media (max-width: 560px) {
+  .sizes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lockup span { font-size: 1.25rem; }
+}
+</style>
+
+<main class="wrap">
+  <header class="intro">
+    <span class="eyebrow">Bareship · brand · draft for review</span>
+    <h1>Logo concepts for Bareship</h1>
+    <p>Round 3 refines your pick, G (Sail B), into six variants, G1 to G6. Round 2 combined the three you liked, A (Hull B), B (Prompt sail) and E (Twin sails), into concepts G to J. The first six follow below them. Each concept is shown large, at the sizes it really lives at (32 and 16 px for the favicon, npm and GitHub), on light and dark, and as an app icon. The current logo is at the end for comparison. Nothing in the app or website has changed yet.</p>
+    <nav class="jump" aria-label="Concepts"><a href="#g1-counters"><svg class="" width="18" height="18" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z M36.5 11.5H40.5A3 3 0 0 1 40.5 17.5H36.5Z M36.5 28H42A4.5 4.5 0 0 1 42 37H36.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg>G1 · Sail B, open counters</a><a href="#g2-curved-hull"><svg class="" width="18" height="18" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60Q56 59 44 59H20Q8 59 4 47Z"/></svg>G2 · Sail B, curved hull</a><a href="#g3-one-piece"><svg class="" width="18" height="18" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<rect fill="currentColor" x="31.5" y="40" width="5" height="9"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg>G3 · Sail B, one piece</a><a href="#g4-porthole"><svg class="" width="18" height="18" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" fill-rule="evenodd" d="M4 47H60L51 59H13Z M37 53A3 3 0 1 0 31 53A3 3 0 1 0 37 53Z"/></svg>G4 · Sail B, porthole</a><a href="#g5-wave"><svg class="" width="18" height="18" viewBox="0 0 64 64" aria-hidden="true"><g transform="translate(0 -4)">
+<path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60L51 58H13Z"/>
+</g>
+<path fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" d="M7 60Q13 55.5 19 60T31 60T43 60T55 60"/></svg>G5 · Sail B on a wave</a><a href="#g6-combined"><svg class="" width="18" height="18" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z M36.5 11.5H40.5A3 3 0 0 1 40.5 17.5H36.5Z M36.5 28H42A4.5 4.5 0 0 1 42 37H36.5Z"/>
+<rect fill="currentColor" x="31.5" y="40" width="5" height="9"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60Q56 59 44 59H20Q8 59 4 47Z"/></svg>G6 · Sail B, refined</a><a href="#07-sail-b"><svg class="" width="18" height="18" viewBox="0 0 64 64" aria-hidden="true"><g transform="translate(3.5 0)">
+<path fill="currentColor" d="M28 6H37A8.5 8.5 0 0 1 37 23H38.5A9.5 9.5 0 0 1 38.5 42H28Z"/>
+<path fill="currentColor" d="M24 12V42H8Z"/>
+</g>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg>G · Sail B</a><a href="#08-prompt-b"><svg class="" width="18" height="18" viewBox="0 0 64 64" aria-hidden="true"><g transform="translate(2 0)">
+<path fill="currentColor" d="M28 6H37A8.5 8.5 0 0 1 37 23H38.5A9.5 9.5 0 0 1 38.5 42H28Z"/>
+<path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" d="M10 16L20 26L10 36"/>
+</g>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg>H · Prompt B</a><a href="#09-prompt-boat"><svg class="" width="18" height="18" viewBox="0 0 64 64" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" d="M14 9L32 24L14 39"/>
+<path fill="currentColor" d="M36 9V39H52Z"/>
+<path fill="currentColor" d="M6 46H58L50 57H14Z"/></svg>I · Prompt boat</a><a href="#10-keel-b"><svg class="" width="18" height="18" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M16 6H34A10 10 0 0 1 34 26H22V28H38A10 10 0 0 1 38 48H16Z"/>
+<path fill="currentColor" d="M6 52H58L52 60H12Z"/></svg>J · Keel B</a><a href="#01-hull-b"><svg class="" width="18" height="18" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M12 8H32A12 12 0 0 1 32 32H12Z M20 15H32A5 5 0 0 1 32 25H20Z"/>
+<rect fill="currentColor" x="12" y="30" width="8" height="8"/>
+<path fill="currentColor" fill-rule="evenodd" d="M12 36H56L46 56H12Z M34.5 46A4.5 4.5 0 1 0 25.5 46A4.5 4.5 0 1 0 34.5 46Z"/></svg>A · Hull B</a><a href="#02-prompt-sail"><svg class="" width="18" height="18" viewBox="0 0 64 64" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" d="M22 8L42 24L22 40"/>
+<path fill="currentColor" d="M8 49H56L50 58H14Z"/></svg>B · Prompt sail</a><a href="#03-cargo"><svg class="" width="18" height="18" viewBox="0 0 64 64" aria-hidden="true"><rect fill="currentColor" x="10" y="20" width="12" height="12" rx="2"/>
+<rect fill="currentColor" x="26" y="20" width="12" height="12" rx="2"/>
+<rect fill="currentColor" x="42" y="20" width="12" height="12" rx="2"/>
+<path fill="currentColor" d="M6 36H58L50 54H14Z"/></svg>C · Cargo</a><a href="#04-bottle"><svg class="" width="18" height="18" viewBox="0 0 64 64" aria-hidden="true"><g transform="rotate(-30 32 27)">
+<path fill="currentColor" fill-rule="evenodd" d="M14 20H32A8 8 0 0 1 40 28V32A8 8 0 0 1 32 40H14A8 8 0 0 1 6 32V28A8 8 0 0 1 14 20Z M16 27H28A3 3 0 0 1 28 33H16A3 3 0 0 1 16 27Z"/>
+<rect fill="currentColor" x="38" y="25" width="12" height="10" rx="2"/>
+<rect fill="currentColor" x="51" y="26.5" width="6" height="7" rx="1.5"/>
+</g>
+<path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" d="M8 57Q14 52 20 57T32 57T44 57T56 57"/></svg>D · Message in a bottle</a><a href="#05-twin-sails"><svg class="" width="18" height="18" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M29 10V34H13Z"/>
+<path fill="currentColor" d="M35 5V34H52Z"/>
+<path fill="currentColor" d="M4 38H60L50 54H14Z"/></svg>E · Twin sails</a><a href="#06-hull-folder"><svg class="" width="18" height="18" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M8 14H25L30 19H56V31H8Z"/>
+<path fill="currentColor" d="M8 35H56L48 52H16Z"/></svg>F · Hull folder</a></nav>
+  </header>
+
+  <div class="round"><span class="eyebrow">Round 3 · refinements of G</span><h2>G1 to G6</h2></div>
+  <section class="concepts" aria-label="Round 3">
+
+<article class="concept" id="g1-counters">
+  <header class="concept-head">
+    <span class="tag">G1</span>
+    <h2>Sail B, open counters</h2>
+    <p class="says">Says: G with the B's holes cut out</p>
+  </header>
+  <div class="stage">
+    <div class="hero-mark light"><svg class="" width="168" height="168" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z M36.5 11.5H40.5A3 3 0 0 1 40.5 17.5H36.5Z M36.5 28H42A4.5 4.5 0 0 1 42 37H36.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg></div>
+    <div class="hero-mark dark"><svg class="" width="168" height="168" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z M36.5 11.5H40.5A3 3 0 0 1 40.5 17.5H36.5Z M36.5 28H42A4.5 4.5 0 0 1 42 37H36.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg></div>
+  </div>
+  <div class="sizes">
+    <figure><div class="chip light"><svg class="" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z M36.5 11.5H40.5A3 3 0 0 1 40.5 17.5H36.5Z M36.5 28H42A4.5 4.5 0 0 1 42 37H36.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg><svg class="" width="16" height="16" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z M36.5 11.5H40.5A3 3 0 0 1 40.5 17.5H36.5Z M36.5 28H42A4.5 4.5 0 0 1 42 37H36.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg></div><figcaption>32 / 16 px, light</figcaption></figure>
+    <figure><div class="chip dark"><svg class="" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z M36.5 11.5H40.5A3 3 0 0 1 40.5 17.5H36.5Z M36.5 28H42A4.5 4.5 0 0 1 42 37H36.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg><svg class="" width="16" height="16" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z M36.5 11.5H40.5A3 3 0 0 1 40.5 17.5H36.5Z M36.5 28H42A4.5 4.5 0 0 1 42 37H36.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg></div><figcaption>32 / 16 px, dark</figcaption></figure>
+    <figure><div class="chip light px"><canvas width="16" height="16" data-src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20fill-rule%3D%22evenodd%22%20d%3D%22M31.5%206H40.5A8.5%208.5%200%200%201%2040.5%2023H42A9.5%209.5%200%200%201%2042%2042H31.5Z%20M36.5%2011.5H40.5A3%203%200%200%201%2040.5%2017.5H36.5Z%20M36.5%2028H42A4.5%204.5%200%200%201%2042%2037H36.5Z%22%2F%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20d%3D%22M27.5%2012V42H11.5Z%22%2F%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20d%3D%22M4%2047H60L51%2059H13Z%22%2F%3E%0A%3C%2Fsvg%3E%0A"></canvas><canvas width="16" height="16" data-src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Cpath%20fill%3D%22%23000000%22%20fill-rule%3D%22evenodd%22%20d%3D%22M31.5%206H40.5A8.5%208.5%200%200%201%2040.5%2023H42A9.5%209.5%200%200%201%2042%2042H31.5Z%20M36.5%2011.5H40.5A3%203%200%200%201%2040.5%2017.5H36.5Z%20M36.5%2028H42A4.5%204.5%200%200%201%2042%2037H36.5Z%22%2F%3E%0A%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M27.5%2012V42H11.5Z%22%2F%3E%0A%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M4%2047H60L51%2059H13Z%22%2F%3E%0A%3C%2Fsvg%3E%0A"></canvas></div><figcaption>16 px at 1×, zoomed</figcaption></figure>
+    <figure><div class="chip icons"><svg class="app-icon" width="76" height="76" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0A6C96"/><g transform="translate(192 192) scale(10)"><path fill="#FFFFFF" fill-rule="evenodd" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z M36.5 11.5H40.5A3 3 0 0 1 40.5 17.5H36.5Z M36.5 28H42A4.5 4.5 0 0 1 42 37H36.5Z"/>
+<path fill="#FFFFFF" d="M27.5 12V42H11.5Z"/>
+<path fill="#FFFFFF" d="M4 47H60L51 59H13Z"/></g></svg><svg class="app-icon" width="40" height="40" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0A6C96"/><g transform="translate(192 192) scale(10)"><path fill="#FFFFFF" fill-rule="evenodd" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z M36.5 11.5H40.5A3 3 0 0 1 40.5 17.5H36.5Z M36.5 28H42A4.5 4.5 0 0 1 42 37H36.5Z"/>
+<path fill="#FFFFFF" d="M27.5 12V42H11.5Z"/>
+<path fill="#FFFFFF" d="M4 47H60L51 59H13Z"/></g></svg></div><figcaption>App icon</figcaption></figure>
+  </div>
+  <div class="lockups">
+    <div class="lockup light"><svg class="" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z M36.5 11.5H40.5A3 3 0 0 1 40.5 17.5H36.5Z M36.5 28H42A4.5 4.5 0 0 1 42 37H36.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg><span>Bareship</span></div>
+    <div class="lockup dark"><svg class="" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z M36.5 11.5H40.5A3 3 0 0 1 40.5 17.5H36.5Z M36.5 28H42A4.5 4.5 0 0 1 42 37H36.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg><span>Bareship</span></div>
+    <div class="npm"><span class="npm-av"><svg class="" width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z M36.5 11.5H40.5A3 3 0 0 1 40.5 17.5H36.5Z M36.5 28H42A4.5 4.5 0 0 1 42 37H36.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg></span><code>create-bareship</code><span class="ver">0.3.1</span></div>
+  </div>
+  <p class="why">Cuts the two counters into the mainsail so it reads as a B at once, not only as a curved sail. At 16 px the holes close up and it falls back to the plain G silhouette, which still works.</p>
+  <p class="files">Files: <code>assets/brand/concepts/g1-counters.svg</code>, <code>-mono</code>, <code>-icon</code>, <code>-favicon</code></p>
+</article>
+
+<article class="concept" id="g2-curved-hull">
+  <header class="concept-head">
+    <span class="tag">G2</span>
+    <h2>Sail B, curved hull</h2>
+    <p class="says">Says: G with a rounded hull</p>
+  </header>
+  <div class="stage">
+    <div class="hero-mark light"><svg class="" width="168" height="168" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60Q56 59 44 59H20Q8 59 4 47Z"/></svg></div>
+    <div class="hero-mark dark"><svg class="" width="168" height="168" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60Q56 59 44 59H20Q8 59 4 47Z"/></svg></div>
+  </div>
+  <div class="sizes">
+    <figure><div class="chip light"><svg class="" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60Q56 59 44 59H20Q8 59 4 47Z"/></svg><svg class="" width="16" height="16" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60Q56 59 44 59H20Q8 59 4 47Z"/></svg></div><figcaption>32 / 16 px, light</figcaption></figure>
+    <figure><div class="chip dark"><svg class="" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60Q56 59 44 59H20Q8 59 4 47Z"/></svg><svg class="" width="16" height="16" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60Q56 59 44 59H20Q8 59 4 47Z"/></svg></div><figcaption>32 / 16 px, dark</figcaption></figure>
+    <figure><div class="chip light px"><canvas width="16" height="16" data-src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20d%3D%22M31.5%206H40.5A8.5%208.5%200%200%201%2040.5%2023H42A9.5%209.5%200%200%201%2042%2042H31.5Z%22%2F%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20d%3D%22M27.5%2012V42H11.5Z%22%2F%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20d%3D%22M4%2047H60Q56%2059%2044%2059H20Q8%2059%204%2047Z%22%2F%3E%0A%3C%2Fsvg%3E%0A"></canvas><canvas width="16" height="16" data-src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M31.5%206H40.5A8.5%208.5%200%200%201%2040.5%2023H42A9.5%209.5%200%200%201%2042%2042H31.5Z%22%2F%3E%0A%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M27.5%2012V42H11.5Z%22%2F%3E%0A%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M4%2047H60Q56%2059%2044%2059H20Q8%2059%204%2047Z%22%2F%3E%0A%3C%2Fsvg%3E%0A"></canvas></div><figcaption>16 px at 1×, zoomed</figcaption></figure>
+    <figure><div class="chip icons"><svg class="app-icon" width="76" height="76" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0A6C96"/><g transform="translate(192 192) scale(10)"><path fill="#FFFFFF" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="#FFFFFF" d="M27.5 12V42H11.5Z"/>
+<path fill="#FFFFFF" d="M4 47H60Q56 59 44 59H20Q8 59 4 47Z"/></g></svg><svg class="app-icon" width="40" height="40" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0A6C96"/><g transform="translate(192 192) scale(10)"><path fill="#FFFFFF" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="#FFFFFF" d="M27.5 12V42H11.5Z"/>
+<path fill="#FFFFFF" d="M4 47H60Q56 59 44 59H20Q8 59 4 47Z"/></g></svg></div><figcaption>App icon</figcaption></figure>
+  </div>
+  <div class="lockups">
+    <div class="lockup light"><svg class="" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60Q56 59 44 59H20Q8 59 4 47Z"/></svg><span>Bareship</span></div>
+    <div class="lockup dark"><svg class="" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60Q56 59 44 59H20Q8 59 4 47Z"/></svg><span>Bareship</span></div>
+    <div class="npm"><span class="npm-av"><svg class="" width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60Q56 59 44 59H20Q8 59 4 47Z"/></svg></span><code>create-bareship</code><span class="ver">0.3.1</span></div>
+  </div>
+  <p class="why">Swaps the flat trapezoid for a hull with a curved bottom. The B already has round bowls, so the curve ties the two together and the mark feels friendlier, closer to an app icon than a road sign.</p>
+  <p class="files">Files: <code>assets/brand/concepts/g2-curved-hull.svg</code>, <code>-mono</code>, <code>-icon</code>, <code>-favicon</code></p>
+</article>
+
+<article class="concept" id="g3-one-piece">
+  <header class="concept-head">
+    <span class="tag">G3</span>
+    <h2>Sail B, one piece</h2>
+    <p class="says">Says: G with the mast joined to the hull</p>
+  </header>
+  <div class="stage">
+    <div class="hero-mark light"><svg class="" width="168" height="168" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<rect fill="currentColor" x="31.5" y="40" width="5" height="9"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg></div>
+    <div class="hero-mark dark"><svg class="" width="168" height="168" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<rect fill="currentColor" x="31.5" y="40" width="5" height="9"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg></div>
+  </div>
+  <div class="sizes">
+    <figure><div class="chip light"><svg class="" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<rect fill="currentColor" x="31.5" y="40" width="5" height="9"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg><svg class="" width="16" height="16" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<rect fill="currentColor" x="31.5" y="40" width="5" height="9"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg></div><figcaption>32 / 16 px, light</figcaption></figure>
+    <figure><div class="chip dark"><svg class="" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<rect fill="currentColor" x="31.5" y="40" width="5" height="9"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg><svg class="" width="16" height="16" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<rect fill="currentColor" x="31.5" y="40" width="5" height="9"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg></div><figcaption>32 / 16 px, dark</figcaption></figure>
+    <figure><div class="chip light px"><canvas width="16" height="16" data-src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20d%3D%22M31.5%206H40.5A8.5%208.5%200%200%201%2040.5%2023H42A9.5%209.5%200%200%201%2042%2042H31.5Z%22%2F%3E%0A%3Crect%20fill%3D%22%230A6C96%22%20x%3D%2231.5%22%20y%3D%2240%22%20width%3D%225%22%20height%3D%229%22%2F%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20d%3D%22M27.5%2012V42H11.5Z%22%2F%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20d%3D%22M4%2047H60L51%2059H13Z%22%2F%3E%0A%3C%2Fsvg%3E%0A"></canvas><canvas width="16" height="16" data-src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M31.5%206H40.5A8.5%208.5%200%200%201%2040.5%2023H42A9.5%209.5%200%200%201%2042%2042H31.5Z%22%2F%3E%0A%3Crect%20fill%3D%22%23000000%22%20x%3D%2231.5%22%20y%3D%2240%22%20width%3D%225%22%20height%3D%229%22%2F%3E%0A%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M27.5%2012V42H11.5Z%22%2F%3E%0A%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M4%2047H60L51%2059H13Z%22%2F%3E%0A%3C%2Fsvg%3E%0A"></canvas></div><figcaption>16 px at 1×, zoomed</figcaption></figure>
+    <figure><div class="chip icons"><svg class="app-icon" width="76" height="76" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0A6C96"/><g transform="translate(192 192) scale(10)"><path fill="#FFFFFF" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<rect fill="#FFFFFF" x="31.5" y="40" width="5" height="9"/>
+<path fill="#FFFFFF" d="M27.5 12V42H11.5Z"/>
+<path fill="#FFFFFF" d="M4 47H60L51 59H13Z"/></g></svg><svg class="app-icon" width="40" height="40" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0A6C96"/><g transform="translate(192 192) scale(10)"><path fill="#FFFFFF" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<rect fill="#FFFFFF" x="31.5" y="40" width="5" height="9"/>
+<path fill="#FFFFFF" d="M27.5 12V42H11.5Z"/>
+<path fill="#FFFFFF" d="M4 47H60L51 59H13Z"/></g></svg></div><figcaption>App icon</figcaption></figure>
+  </div>
+  <div class="lockups">
+    <div class="lockup light"><svg class="" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<rect fill="currentColor" x="31.5" y="40" width="5" height="9"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg><span>Bareship</span></div>
+    <div class="lockup dark"><svg class="" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<rect fill="currentColor" x="31.5" y="40" width="5" height="9"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg><span>Bareship</span></div>
+    <div class="npm"><span class="npm-av"><svg class="" width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<rect fill="currentColor" x="31.5" y="40" width="5" height="9"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg></span><code>create-bareship</code><span class="ver">0.3.1</span></div>
+  </div>
+  <p class="why">Runs the B's stem down into the hull as a mast, so sail and boat are one connected shape. One silhouette holds together better at small sizes and as a cut-out (stickers, embroidery, a laser-etched laptop lid).</p>
+  <p class="files">Files: <code>assets/brand/concepts/g3-one-piece.svg</code>, <code>-mono</code>, <code>-icon</code>, <code>-favicon</code></p>
+</article>
+
+<article class="concept" id="g4-porthole">
+  <header class="concept-head">
+    <span class="tag">G4</span>
+    <h2>Sail B, porthole</h2>
+    <p class="says">Says: G with A's porthole in the hull</p>
+  </header>
+  <div class="stage">
+    <div class="hero-mark light"><svg class="" width="168" height="168" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" fill-rule="evenodd" d="M4 47H60L51 59H13Z M37 53A3 3 0 1 0 31 53A3 3 0 1 0 37 53Z"/></svg></div>
+    <div class="hero-mark dark"><svg class="" width="168" height="168" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" fill-rule="evenodd" d="M4 47H60L51 59H13Z M37 53A3 3 0 1 0 31 53A3 3 0 1 0 37 53Z"/></svg></div>
+  </div>
+  <div class="sizes">
+    <figure><div class="chip light"><svg class="" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" fill-rule="evenodd" d="M4 47H60L51 59H13Z M37 53A3 3 0 1 0 31 53A3 3 0 1 0 37 53Z"/></svg><svg class="" width="16" height="16" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" fill-rule="evenodd" d="M4 47H60L51 59H13Z M37 53A3 3 0 1 0 31 53A3 3 0 1 0 37 53Z"/></svg></div><figcaption>32 / 16 px, light</figcaption></figure>
+    <figure><div class="chip dark"><svg class="" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" fill-rule="evenodd" d="M4 47H60L51 59H13Z M37 53A3 3 0 1 0 31 53A3 3 0 1 0 37 53Z"/></svg><svg class="" width="16" height="16" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" fill-rule="evenodd" d="M4 47H60L51 59H13Z M37 53A3 3 0 1 0 31 53A3 3 0 1 0 37 53Z"/></svg></div><figcaption>32 / 16 px, dark</figcaption></figure>
+    <figure><div class="chip light px"><canvas width="16" height="16" data-src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20d%3D%22M31.5%206H40.5A8.5%208.5%200%200%201%2040.5%2023H42A9.5%209.5%200%200%201%2042%2042H31.5Z%22%2F%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20d%3D%22M27.5%2012V42H11.5Z%22%2F%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20fill-rule%3D%22evenodd%22%20d%3D%22M4%2047H60L51%2059H13Z%20M37%2053A3%203%200%201%200%2031%2053A3%203%200%201%200%2037%2053Z%22%2F%3E%0A%3C%2Fsvg%3E%0A"></canvas><canvas width="16" height="16" data-src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M31.5%206H40.5A8.5%208.5%200%200%201%2040.5%2023H42A9.5%209.5%200%200%201%2042%2042H31.5Z%22%2F%3E%0A%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M27.5%2012V42H11.5Z%22%2F%3E%0A%3Cpath%20fill%3D%22%23000000%22%20fill-rule%3D%22evenodd%22%20d%3D%22M4%2047H60L51%2059H13Z%20M37%2053A3%203%200%201%200%2031%2053A3%203%200%201%200%2037%2053Z%22%2F%3E%0A%3C%2Fsvg%3E%0A"></canvas></div><figcaption>16 px at 1×, zoomed</figcaption></figure>
+    <figure><div class="chip icons"><svg class="app-icon" width="76" height="76" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0A6C96"/><g transform="translate(192 192) scale(10)"><path fill="#FFFFFF" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="#FFFFFF" d="M27.5 12V42H11.5Z"/>
+<path fill="#FFFFFF" fill-rule="evenodd" d="M4 47H60L51 59H13Z M37 53A3 3 0 1 0 31 53A3 3 0 1 0 37 53Z"/></g></svg><svg class="app-icon" width="40" height="40" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0A6C96"/><g transform="translate(192 192) scale(10)"><path fill="#FFFFFF" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="#FFFFFF" d="M27.5 12V42H11.5Z"/>
+<path fill="#FFFFFF" fill-rule="evenodd" d="M4 47H60L51 59H13Z M37 53A3 3 0 1 0 31 53A3 3 0 1 0 37 53Z"/></g></svg></div><figcaption>App icon</figcaption></figure>
+  </div>
+  <div class="lockups">
+    <div class="lockup light"><svg class="" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" fill-rule="evenodd" d="M4 47H60L51 59H13Z M37 53A3 3 0 1 0 31 53A3 3 0 1 0 37 53Z"/></svg><span>Bareship</span></div>
+    <div class="lockup dark"><svg class="" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" fill-rule="evenodd" d="M4 47H60L51 59H13Z M37 53A3 3 0 1 0 31 53A3 3 0 1 0 37 53Z"/></svg><span>Bareship</span></div>
+    <div class="npm"><span class="npm-av"><svg class="" width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" fill-rule="evenodd" d="M4 47H60L51 59H13Z M37 53A3 3 0 1 0 31 53A3 3 0 1 0 37 53Z"/></svg></span><code>create-bareship</code><span class="ver">0.3.1</span></div>
+  </div>
+  <p class="why">Keeps the porthole you liked in A, placed under the mast. It is a detail for large sizes (splash screen, README header); at 16 px it disappears without harm.</p>
+  <p class="files">Files: <code>assets/brand/concepts/g4-porthole.svg</code>, <code>-mono</code>, <code>-icon</code>, <code>-favicon</code></p>
+</article>
+
+<article class="concept" id="g5-wave">
+  <header class="concept-head">
+    <span class="tag">G5</span>
+    <h2>Sail B on a wave</h2>
+    <p class="says">Says: G afloat</p>
+  </header>
+  <div class="stage">
+    <div class="hero-mark light"><svg class="" width="168" height="168" viewBox="0 0 64 64" aria-hidden="true"><g transform="translate(0 -4)">
+<path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60L51 58H13Z"/>
+</g>
+<path fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" d="M7 60Q13 55.5 19 60T31 60T43 60T55 60"/></svg></div>
+    <div class="hero-mark dark"><svg class="" width="168" height="168" viewBox="0 0 64 64" aria-hidden="true"><g transform="translate(0 -4)">
+<path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60L51 58H13Z"/>
+</g>
+<path fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" d="M7 60Q13 55.5 19 60T31 60T43 60T55 60"/></svg></div>
+  </div>
+  <div class="sizes">
+    <figure><div class="chip light"><svg class="" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><g transform="translate(0 -4)">
+<path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60L51 58H13Z"/>
+</g>
+<path fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" d="M7 60Q13 55.5 19 60T31 60T43 60T55 60"/></svg><svg class="" width="16" height="16" viewBox="0 0 64 64" aria-hidden="true"><g transform="translate(0 -4)">
+<path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60L51 58H13Z"/>
+</g>
+<path fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" d="M7 60Q13 55.5 19 60T31 60T43 60T55 60"/></svg></div><figcaption>32 / 16 px, light</figcaption></figure>
+    <figure><div class="chip dark"><svg class="" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><g transform="translate(0 -4)">
+<path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60L51 58H13Z"/>
+</g>
+<path fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" d="M7 60Q13 55.5 19 60T31 60T43 60T55 60"/></svg><svg class="" width="16" height="16" viewBox="0 0 64 64" aria-hidden="true"><g transform="translate(0 -4)">
+<path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60L51 58H13Z"/>
+</g>
+<path fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" d="M7 60Q13 55.5 19 60T31 60T43 60T55 60"/></svg></div><figcaption>32 / 16 px, dark</figcaption></figure>
+    <figure><div class="chip light px"><canvas width="16" height="16" data-src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Cg%20transform%3D%22translate(0%20-4)%22%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20d%3D%22M31.5%206H40.5A8.5%208.5%200%200%201%2040.5%2023H42A9.5%209.5%200%200%201%2042%2042H31.5Z%22%2F%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20d%3D%22M27.5%2012V42H11.5Z%22%2F%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20d%3D%22M4%2047H60L51%2058H13Z%22%2F%3E%0A%3C%2Fg%3E%0A%3Cpath%20fill%3D%22none%22%20stroke%3D%22%230A6C96%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%20d%3D%22M7%2060Q13%2055.5%2019%2060T31%2060T43%2060T55%2060%22%2F%3E%0A%3C%2Fsvg%3E%0A"></canvas><canvas width="16" height="16" data-src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Cg%20transform%3D%22translate(0%20-4)%22%3E%0A%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M31.5%206H40.5A8.5%208.5%200%200%201%2040.5%2023H42A9.5%209.5%200%200%201%2042%2042H31.5Z%22%2F%3E%0A%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M27.5%2012V42H11.5Z%22%2F%3E%0A%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M4%2047H60L51%2058H13Z%22%2F%3E%0A%3C%2Fg%3E%0A%3Cpath%20fill%3D%22none%22%20stroke%3D%22%23000000%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%20d%3D%22M7%2060Q13%2055.5%2019%2060T31%2060T43%2060T55%2060%22%2F%3E%0A%3C%2Fsvg%3E%0A"></canvas></div><figcaption>16 px at 1×, zoomed</figcaption></figure>
+    <figure><div class="chip icons"><svg class="app-icon" width="76" height="76" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0A6C96"/><g transform="translate(192 192) scale(10)"><g transform="translate(0 -4)">
+<path fill="#FFFFFF" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="#FFFFFF" d="M27.5 12V42H11.5Z"/>
+<path fill="#FFFFFF" d="M4 47H60L51 58H13Z"/>
+</g>
+<path fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" d="M7 60Q13 55.5 19 60T31 60T43 60T55 60"/></g></svg><svg class="app-icon" width="40" height="40" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0A6C96"/><g transform="translate(192 192) scale(10)"><g transform="translate(0 -4)">
+<path fill="#FFFFFF" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="#FFFFFF" d="M27.5 12V42H11.5Z"/>
+<path fill="#FFFFFF" d="M4 47H60L51 58H13Z"/>
+</g>
+<path fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" d="M7 60Q13 55.5 19 60T31 60T43 60T55 60"/></g></svg></div><figcaption>App icon</figcaption></figure>
+  </div>
+  <div class="lockups">
+    <div class="lockup light"><svg class="" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><g transform="translate(0 -4)">
+<path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60L51 58H13Z"/>
+</g>
+<path fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" d="M7 60Q13 55.5 19 60T31 60T43 60T55 60"/></svg><span>Bareship</span></div>
+    <div class="lockup dark"><svg class="" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><g transform="translate(0 -4)">
+<path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60L51 58H13Z"/>
+</g>
+<path fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" d="M7 60Q13 55.5 19 60T31 60T43 60T55 60"/></svg><span>Bareship</span></div>
+    <div class="npm"><span class="npm-av"><svg class="" width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><g transform="translate(0 -4)">
+<path fill="currentColor" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60L51 58H13Z"/>
+</g>
+<path fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" d="M7 60Q13 55.5 19 60T31 60T43 60T55 60"/></svg></span><code>create-bareship</code><span class="ver">0.3.1</span></div>
+  </div>
+  <p class="why">Adds a wave under the hull, so the boat is under way. More story and movement, at the cost of one more part; the wave turns into a thin line at 16 px, so the favicon might drop it.</p>
+  <p class="files">Files: <code>assets/brand/concepts/g5-wave.svg</code>, <code>-mono</code>, <code>-icon</code>, <code>-favicon</code></p>
+</article>
+
+<article class="concept" id="g6-combined">
+  <header class="concept-head">
+    <span class="tag">G6</span>
+    <h2>Sail B, refined</h2>
+    <p class="says">Says: G1 + G2 + G3: counters, curved hull, one piece</p>
+  </header>
+  <div class="stage">
+    <div class="hero-mark light"><svg class="" width="168" height="168" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z M36.5 11.5H40.5A3 3 0 0 1 40.5 17.5H36.5Z M36.5 28H42A4.5 4.5 0 0 1 42 37H36.5Z"/>
+<rect fill="currentColor" x="31.5" y="40" width="5" height="9"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60Q56 59 44 59H20Q8 59 4 47Z"/></svg></div>
+    <div class="hero-mark dark"><svg class="" width="168" height="168" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z M36.5 11.5H40.5A3 3 0 0 1 40.5 17.5H36.5Z M36.5 28H42A4.5 4.5 0 0 1 42 37H36.5Z"/>
+<rect fill="currentColor" x="31.5" y="40" width="5" height="9"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60Q56 59 44 59H20Q8 59 4 47Z"/></svg></div>
+  </div>
+  <div class="sizes">
+    <figure><div class="chip light"><svg class="" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z M36.5 11.5H40.5A3 3 0 0 1 40.5 17.5H36.5Z M36.5 28H42A4.5 4.5 0 0 1 42 37H36.5Z"/>
+<rect fill="currentColor" x="31.5" y="40" width="5" height="9"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60Q56 59 44 59H20Q8 59 4 47Z"/></svg><svg class="" width="16" height="16" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z M36.5 11.5H40.5A3 3 0 0 1 40.5 17.5H36.5Z M36.5 28H42A4.5 4.5 0 0 1 42 37H36.5Z"/>
+<rect fill="currentColor" x="31.5" y="40" width="5" height="9"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60Q56 59 44 59H20Q8 59 4 47Z"/></svg></div><figcaption>32 / 16 px, light</figcaption></figure>
+    <figure><div class="chip dark"><svg class="" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z M36.5 11.5H40.5A3 3 0 0 1 40.5 17.5H36.5Z M36.5 28H42A4.5 4.5 0 0 1 42 37H36.5Z"/>
+<rect fill="currentColor" x="31.5" y="40" width="5" height="9"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60Q56 59 44 59H20Q8 59 4 47Z"/></svg><svg class="" width="16" height="16" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z M36.5 11.5H40.5A3 3 0 0 1 40.5 17.5H36.5Z M36.5 28H42A4.5 4.5 0 0 1 42 37H36.5Z"/>
+<rect fill="currentColor" x="31.5" y="40" width="5" height="9"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60Q56 59 44 59H20Q8 59 4 47Z"/></svg></div><figcaption>32 / 16 px, dark</figcaption></figure>
+    <figure><div class="chip light px"><canvas width="16" height="16" data-src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20fill-rule%3D%22evenodd%22%20d%3D%22M31.5%206H40.5A8.5%208.5%200%200%201%2040.5%2023H42A9.5%209.5%200%200%201%2042%2042H31.5Z%20M36.5%2011.5H40.5A3%203%200%200%201%2040.5%2017.5H36.5Z%20M36.5%2028H42A4.5%204.5%200%200%201%2042%2037H36.5Z%22%2F%3E%0A%3Crect%20fill%3D%22%230A6C96%22%20x%3D%2231.5%22%20y%3D%2240%22%20width%3D%225%22%20height%3D%229%22%2F%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20d%3D%22M27.5%2012V42H11.5Z%22%2F%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20d%3D%22M4%2047H60Q56%2059%2044%2059H20Q8%2059%204%2047Z%22%2F%3E%0A%3C%2Fsvg%3E%0A"></canvas><canvas width="16" height="16" data-src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Cpath%20fill%3D%22%23000000%22%20fill-rule%3D%22evenodd%22%20d%3D%22M31.5%206H40.5A8.5%208.5%200%200%201%2040.5%2023H42A9.5%209.5%200%200%201%2042%2042H31.5Z%20M36.5%2011.5H40.5A3%203%200%200%201%2040.5%2017.5H36.5Z%20M36.5%2028H42A4.5%204.5%200%200%201%2042%2037H36.5Z%22%2F%3E%0A%3Crect%20fill%3D%22%23000000%22%20x%3D%2231.5%22%20y%3D%2240%22%20width%3D%225%22%20height%3D%229%22%2F%3E%0A%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M27.5%2012V42H11.5Z%22%2F%3E%0A%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M4%2047H60Q56%2059%2044%2059H20Q8%2059%204%2047Z%22%2F%3E%0A%3C%2Fsvg%3E%0A"></canvas></div><figcaption>16 px at 1×, zoomed</figcaption></figure>
+    <figure><div class="chip icons"><svg class="app-icon" width="76" height="76" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0A6C96"/><g transform="translate(192 192) scale(10)"><path fill="#FFFFFF" fill-rule="evenodd" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z M36.5 11.5H40.5A3 3 0 0 1 40.5 17.5H36.5Z M36.5 28H42A4.5 4.5 0 0 1 42 37H36.5Z"/>
+<rect fill="#FFFFFF" x="31.5" y="40" width="5" height="9"/>
+<path fill="#FFFFFF" d="M27.5 12V42H11.5Z"/>
+<path fill="#FFFFFF" d="M4 47H60Q56 59 44 59H20Q8 59 4 47Z"/></g></svg><svg class="app-icon" width="40" height="40" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0A6C96"/><g transform="translate(192 192) scale(10)"><path fill="#FFFFFF" fill-rule="evenodd" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z M36.5 11.5H40.5A3 3 0 0 1 40.5 17.5H36.5Z M36.5 28H42A4.5 4.5 0 0 1 42 37H36.5Z"/>
+<rect fill="#FFFFFF" x="31.5" y="40" width="5" height="9"/>
+<path fill="#FFFFFF" d="M27.5 12V42H11.5Z"/>
+<path fill="#FFFFFF" d="M4 47H60Q56 59 44 59H20Q8 59 4 47Z"/></g></svg></div><figcaption>App icon</figcaption></figure>
+  </div>
+  <div class="lockups">
+    <div class="lockup light"><svg class="" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z M36.5 11.5H40.5A3 3 0 0 1 40.5 17.5H36.5Z M36.5 28H42A4.5 4.5 0 0 1 42 37H36.5Z"/>
+<rect fill="currentColor" x="31.5" y="40" width="5" height="9"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60Q56 59 44 59H20Q8 59 4 47Z"/></svg><span>Bareship</span></div>
+    <div class="lockup dark"><svg class="" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z M36.5 11.5H40.5A3 3 0 0 1 40.5 17.5H36.5Z M36.5 28H42A4.5 4.5 0 0 1 42 37H36.5Z"/>
+<rect fill="currentColor" x="31.5" y="40" width="5" height="9"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60Q56 59 44 59H20Q8 59 4 47Z"/></svg><span>Bareship</span></div>
+    <div class="npm"><span class="npm-av"><svg class="" width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z M36.5 11.5H40.5A3 3 0 0 1 40.5 17.5H36.5Z M36.5 28H42A4.5 4.5 0 0 1 42 37H36.5Z"/>
+<rect fill="currentColor" x="31.5" y="40" width="5" height="9"/>
+<path fill="currentColor" d="M27.5 12V42H11.5Z"/>
+<path fill="currentColor" d="M4 47H60Q56 59 44 59H20Q8 59 4 47Z"/></svg></span><code>create-bareship</code><span class="ver">0.3.1</span></div>
+  </div>
+  <p class="why">The three changes that help most, together: a B that reads as a B, a hull that matches its curves, and one connected silhouette. This is the version I would pick, with G4's porthole kept for the splash screen if you like it.</p>
+  <p class="files">Files: <code>assets/brand/concepts/g6-combined.svg</code>, <code>-mono</code>, <code>-icon</code>, <code>-favicon</code></p>
+</article>
+  </section>
+
+  <div class="round"><span class="eyebrow">Round 2 · combinations of A, B and E</span><h2>G to J</h2></div>
+  <section class="concepts" aria-label="Round 2">
+
+<article class="concept" id="07-sail-b">
+  <header class="concept-head">
+    <span class="tag">G</span>
+    <h2>Sail B</h2>
+    <p class="says">Says: A + E: Bareship · two sails · ship</p>
+  </header>
+  <div class="stage">
+    <div class="hero-mark light"><svg class="" width="168" height="168" viewBox="0 0 64 64" aria-hidden="true"><g transform="translate(3.5 0)">
+<path fill="currentColor" d="M28 6H37A8.5 8.5 0 0 1 37 23H38.5A9.5 9.5 0 0 1 38.5 42H28Z"/>
+<path fill="currentColor" d="M24 12V42H8Z"/>
+</g>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg></div>
+    <div class="hero-mark dark"><svg class="" width="168" height="168" viewBox="0 0 64 64" aria-hidden="true"><g transform="translate(3.5 0)">
+<path fill="currentColor" d="M28 6H37A8.5 8.5 0 0 1 37 23H38.5A9.5 9.5 0 0 1 38.5 42H28Z"/>
+<path fill="currentColor" d="M24 12V42H8Z"/>
+</g>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg></div>
+  </div>
+  <div class="sizes">
+    <figure><div class="chip light"><svg class="" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><g transform="translate(3.5 0)">
+<path fill="currentColor" d="M28 6H37A8.5 8.5 0 0 1 37 23H38.5A9.5 9.5 0 0 1 38.5 42H28Z"/>
+<path fill="currentColor" d="M24 12V42H8Z"/>
+</g>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg><svg class="" width="16" height="16" viewBox="0 0 64 64" aria-hidden="true"><g transform="translate(3.5 0)">
+<path fill="currentColor" d="M28 6H37A8.5 8.5 0 0 1 37 23H38.5A9.5 9.5 0 0 1 38.5 42H28Z"/>
+<path fill="currentColor" d="M24 12V42H8Z"/>
+</g>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg></div><figcaption>32 / 16 px, light</figcaption></figure>
+    <figure><div class="chip dark"><svg class="" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><g transform="translate(3.5 0)">
+<path fill="currentColor" d="M28 6H37A8.5 8.5 0 0 1 37 23H38.5A9.5 9.5 0 0 1 38.5 42H28Z"/>
+<path fill="currentColor" d="M24 12V42H8Z"/>
+</g>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg><svg class="" width="16" height="16" viewBox="0 0 64 64" aria-hidden="true"><g transform="translate(3.5 0)">
+<path fill="currentColor" d="M28 6H37A8.5 8.5 0 0 1 37 23H38.5A9.5 9.5 0 0 1 38.5 42H28Z"/>
+<path fill="currentColor" d="M24 12V42H8Z"/>
+</g>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg></div><figcaption>32 / 16 px, dark</figcaption></figure>
+    <figure><div class="chip light px"><canvas width="16" height="16" data-src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Cg%20transform%3D%22translate(3.5%200)%22%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20d%3D%22M28%206H37A8.5%208.5%200%200%201%2037%2023H38.5A9.5%209.5%200%200%201%2038.5%2042H28Z%22%2F%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20d%3D%22M24%2012V42H8Z%22%2F%3E%0A%3C%2Fg%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20d%3D%22M4%2047H60L51%2059H13Z%22%2F%3E%0A%3C%2Fsvg%3E%0A"></canvas><canvas width="16" height="16" data-src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Cg%20transform%3D%22translate(3.5%200)%22%3E%0A%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M28%206H37A8.5%208.5%200%200%201%2037%2023H38.5A9.5%209.5%200%200%201%2038.5%2042H28Z%22%2F%3E%0A%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M24%2012V42H8Z%22%2F%3E%0A%3C%2Fg%3E%0A%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M4%2047H60L51%2059H13Z%22%2F%3E%0A%3C%2Fsvg%3E%0A"></canvas></div><figcaption>16 px at 1×, zoomed</figcaption></figure>
+    <figure><div class="chip icons"><svg class="app-icon" width="76" height="76" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0A6C96"/><g transform="translate(192 192) scale(10)"><g transform="translate(3.5 0)">
+<path fill="#FFFFFF" d="M28 6H37A8.5 8.5 0 0 1 37 23H38.5A9.5 9.5 0 0 1 38.5 42H28Z"/>
+<path fill="#FFFFFF" d="M24 12V42H8Z"/>
+</g>
+<path fill="#FFFFFF" d="M4 47H60L51 59H13Z"/></g></svg><svg class="app-icon" width="40" height="40" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0A6C96"/><g transform="translate(192 192) scale(10)"><g transform="translate(3.5 0)">
+<path fill="#FFFFFF" d="M28 6H37A8.5 8.5 0 0 1 37 23H38.5A9.5 9.5 0 0 1 38.5 42H28Z"/>
+<path fill="#FFFFFF" d="M24 12V42H8Z"/>
+</g>
+<path fill="#FFFFFF" d="M4 47H60L51 59H13Z"/></g></svg></div><figcaption>App icon</figcaption></figure>
+  </div>
+  <div class="lockups">
+    <div class="lockup light"><svg class="" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><g transform="translate(3.5 0)">
+<path fill="currentColor" d="M28 6H37A8.5 8.5 0 0 1 37 23H38.5A9.5 9.5 0 0 1 38.5 42H28Z"/>
+<path fill="currentColor" d="M24 12V42H8Z"/>
+</g>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg><span>Bareship</span></div>
+    <div class="lockup dark"><svg class="" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><g transform="translate(3.5 0)">
+<path fill="currentColor" d="M28 6H37A8.5 8.5 0 0 1 37 23H38.5A9.5 9.5 0 0 1 38.5 42H28Z"/>
+<path fill="currentColor" d="M24 12V42H8Z"/>
+</g>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg><span>Bareship</span></div>
+    <div class="npm"><span class="npm-av"><svg class="" width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><g transform="translate(3.5 0)">
+<path fill="currentColor" d="M28 6H37A8.5 8.5 0 0 1 37 23H38.5A9.5 9.5 0 0 1 38.5 42H28Z"/>
+<path fill="currentColor" d="M24 12V42H8Z"/>
+</g>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg></span><code>create-bareship</code><span class="ver">0.3.1</span></div>
+  </div>
+  <p class="why">E's two-sail boat where the mainsail is a B. From far away it is a sailboat; up close it spells the name. The jib and the B are the two platforms on one hull. It reads at 16 px because every part is a solid shape.</p>
+  <p class="files">Files: <code>assets/brand/concepts/07-sail-b.svg</code>, <code>-mono</code>, <code>-icon</code>, <code>-favicon</code></p>
+</article>
+
+<article class="concept" id="08-prompt-b">
+  <header class="concept-head">
+    <span class="tag">H</span>
+    <h2>Prompt B</h2>
+    <p class="says">Says: A + B + E: npx create-bareship · Bareship · ship</p>
+  </header>
+  <div class="stage">
+    <div class="hero-mark light"><svg class="" width="168" height="168" viewBox="0 0 64 64" aria-hidden="true"><g transform="translate(2 0)">
+<path fill="currentColor" d="M28 6H37A8.5 8.5 0 0 1 37 23H38.5A9.5 9.5 0 0 1 38.5 42H28Z"/>
+<path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" d="M10 16L20 26L10 36"/>
+</g>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg></div>
+    <div class="hero-mark dark"><svg class="" width="168" height="168" viewBox="0 0 64 64" aria-hidden="true"><g transform="translate(2 0)">
+<path fill="currentColor" d="M28 6H37A8.5 8.5 0 0 1 37 23H38.5A9.5 9.5 0 0 1 38.5 42H28Z"/>
+<path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" d="M10 16L20 26L10 36"/>
+</g>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg></div>
+  </div>
+  <div class="sizes">
+    <figure><div class="chip light"><svg class="" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><g transform="translate(2 0)">
+<path fill="currentColor" d="M28 6H37A8.5 8.5 0 0 1 37 23H38.5A9.5 9.5 0 0 1 38.5 42H28Z"/>
+<path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" d="M10 16L20 26L10 36"/>
+</g>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg><svg class="" width="16" height="16" viewBox="0 0 64 64" aria-hidden="true"><g transform="translate(2 0)">
+<path fill="currentColor" d="M28 6H37A8.5 8.5 0 0 1 37 23H38.5A9.5 9.5 0 0 1 38.5 42H28Z"/>
+<path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" d="M10 16L20 26L10 36"/>
+</g>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg></div><figcaption>32 / 16 px, light</figcaption></figure>
+    <figure><div class="chip dark"><svg class="" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><g transform="translate(2 0)">
+<path fill="currentColor" d="M28 6H37A8.5 8.5 0 0 1 37 23H38.5A9.5 9.5 0 0 1 38.5 42H28Z"/>
+<path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" d="M10 16L20 26L10 36"/>
+</g>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg><svg class="" width="16" height="16" viewBox="0 0 64 64" aria-hidden="true"><g transform="translate(2 0)">
+<path fill="currentColor" d="M28 6H37A8.5 8.5 0 0 1 37 23H38.5A9.5 9.5 0 0 1 38.5 42H28Z"/>
+<path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" d="M10 16L20 26L10 36"/>
+</g>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg></div><figcaption>32 / 16 px, dark</figcaption></figure>
+    <figure><div class="chip light px"><canvas width="16" height="16" data-src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Cg%20transform%3D%22translate(2%200)%22%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20d%3D%22M28%206H37A8.5%208.5%200%200%201%2037%2023H38.5A9.5%209.5%200%200%201%2038.5%2042H28Z%22%2F%3E%0A%3Cpath%20fill%3D%22none%22%20stroke%3D%22%230A6C96%22%20stroke-width%3D%227%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20d%3D%22M10%2016L20%2026L10%2036%22%2F%3E%0A%3C%2Fg%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20d%3D%22M4%2047H60L51%2059H13Z%22%2F%3E%0A%3C%2Fsvg%3E%0A"></canvas><canvas width="16" height="16" data-src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Cg%20transform%3D%22translate(2%200)%22%3E%0A%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M28%206H37A8.5%208.5%200%200%201%2037%2023H38.5A9.5%209.5%200%200%201%2038.5%2042H28Z%22%2F%3E%0A%3Cpath%20fill%3D%22none%22%20stroke%3D%22%23000000%22%20stroke-width%3D%227%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20d%3D%22M10%2016L20%2026L10%2036%22%2F%3E%0A%3C%2Fg%3E%0A%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M4%2047H60L51%2059H13Z%22%2F%3E%0A%3C%2Fsvg%3E%0A"></canvas></div><figcaption>16 px at 1×, zoomed</figcaption></figure>
+    <figure><div class="chip icons"><svg class="app-icon" width="76" height="76" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0A6C96"/><g transform="translate(192 192) scale(10)"><g transform="translate(2 0)">
+<path fill="#FFFFFF" d="M28 6H37A8.5 8.5 0 0 1 37 23H38.5A9.5 9.5 0 0 1 38.5 42H28Z"/>
+<path fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" d="M10 16L20 26L10 36"/>
+</g>
+<path fill="#FFFFFF" d="M4 47H60L51 59H13Z"/></g></svg><svg class="app-icon" width="40" height="40" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0A6C96"/><g transform="translate(192 192) scale(10)"><g transform="translate(2 0)">
+<path fill="#FFFFFF" d="M28 6H37A8.5 8.5 0 0 1 37 23H38.5A9.5 9.5 0 0 1 38.5 42H28Z"/>
+<path fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" d="M10 16L20 26L10 36"/>
+</g>
+<path fill="#FFFFFF" d="M4 47H60L51 59H13Z"/></g></svg></div><figcaption>App icon</figcaption></figure>
+  </div>
+  <div class="lockups">
+    <div class="lockup light"><svg class="" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><g transform="translate(2 0)">
+<path fill="currentColor" d="M28 6H37A8.5 8.5 0 0 1 37 23H38.5A9.5 9.5 0 0 1 38.5 42H28Z"/>
+<path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" d="M10 16L20 26L10 36"/>
+</g>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg><span>Bareship</span></div>
+    <div class="lockup dark"><svg class="" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><g transform="translate(2 0)">
+<path fill="currentColor" d="M28 6H37A8.5 8.5 0 0 1 37 23H38.5A9.5 9.5 0 0 1 38.5 42H28Z"/>
+<path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" d="M10 16L20 26L10 36"/>
+</g>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg><span>Bareship</span></div>
+    <div class="npm"><span class="npm-av"><svg class="" width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><g transform="translate(2 0)">
+<path fill="currentColor" d="M28 6H37A8.5 8.5 0 0 1 37 23H38.5A9.5 9.5 0 0 1 38.5 42H28Z"/>
+<path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" d="M10 16L20 26L10 36"/>
+</g>
+<path fill="currentColor" d="M4 47H60L51 59H13Z"/></svg></span><code>create-bareship</code><span class="ver">0.3.1</span></div>
+  </div>
+  <p class="why">All three in one: a > prompt, a B sail and a hull underneath, so it reads as ">B_" in a terminal and as a boat under sail. It is the most "developer tool" of the set and the most specific to Bareship. Risk: the most parts, so the chevron gets thin at 16 px.</p>
+  <p class="files">Files: <code>assets/brand/concepts/08-prompt-b.svg</code>, <code>-mono</code>, <code>-icon</code>, <code>-favicon</code></p>
+</article>
+
+<article class="concept" id="09-prompt-boat">
+  <header class="concept-head">
+    <span class="tag">I</span>
+    <h2>Prompt boat</h2>
+    <p class="says">Says: B + E: one command · two sails · ship</p>
+  </header>
+  <div class="stage">
+    <div class="hero-mark light"><svg class="" width="168" height="168" viewBox="0 0 64 64" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" d="M14 9L32 24L14 39"/>
+<path fill="currentColor" d="M36 9V39H52Z"/>
+<path fill="currentColor" d="M6 46H58L50 57H14Z"/></svg></div>
+    <div class="hero-mark dark"><svg class="" width="168" height="168" viewBox="0 0 64 64" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" d="M14 9L32 24L14 39"/>
+<path fill="currentColor" d="M36 9V39H52Z"/>
+<path fill="currentColor" d="M6 46H58L50 57H14Z"/></svg></div>
+  </div>
+  <div class="sizes">
+    <figure><div class="chip light"><svg class="" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" d="M14 9L32 24L14 39"/>
+<path fill="currentColor" d="M36 9V39H52Z"/>
+<path fill="currentColor" d="M6 46H58L50 57H14Z"/></svg><svg class="" width="16" height="16" viewBox="0 0 64 64" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" d="M14 9L32 24L14 39"/>
+<path fill="currentColor" d="M36 9V39H52Z"/>
+<path fill="currentColor" d="M6 46H58L50 57H14Z"/></svg></div><figcaption>32 / 16 px, light</figcaption></figure>
+    <figure><div class="chip dark"><svg class="" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" d="M14 9L32 24L14 39"/>
+<path fill="currentColor" d="M36 9V39H52Z"/>
+<path fill="currentColor" d="M6 46H58L50 57H14Z"/></svg><svg class="" width="16" height="16" viewBox="0 0 64 64" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" d="M14 9L32 24L14 39"/>
+<path fill="currentColor" d="M36 9V39H52Z"/>
+<path fill="currentColor" d="M6 46H58L50 57H14Z"/></svg></div><figcaption>32 / 16 px, dark</figcaption></figure>
+    <figure><div class="chip light px"><canvas width="16" height="16" data-src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Cpath%20fill%3D%22none%22%20stroke%3D%22%230A6C96%22%20stroke-width%3D%227%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20d%3D%22M14%209L32%2024L14%2039%22%2F%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20d%3D%22M36%209V39H52Z%22%2F%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20d%3D%22M6%2046H58L50%2057H14Z%22%2F%3E%0A%3C%2Fsvg%3E%0A"></canvas><canvas width="16" height="16" data-src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Cpath%20fill%3D%22none%22%20stroke%3D%22%23000000%22%20stroke-width%3D%227%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20d%3D%22M14%209L32%2024L14%2039%22%2F%3E%0A%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M36%209V39H52Z%22%2F%3E%0A%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M6%2046H58L50%2057H14Z%22%2F%3E%0A%3C%2Fsvg%3E%0A"></canvas></div><figcaption>16 px at 1×, zoomed</figcaption></figure>
+    <figure><div class="chip icons"><svg class="app-icon" width="76" height="76" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0A6C96"/><g transform="translate(192 192) scale(10)"><path fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" d="M14 9L32 24L14 39"/>
+<path fill="#FFFFFF" d="M36 9V39H52Z"/>
+<path fill="#FFFFFF" d="M6 46H58L50 57H14Z"/></g></svg><svg class="app-icon" width="40" height="40" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0A6C96"/><g transform="translate(192 192) scale(10)"><path fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" d="M14 9L32 24L14 39"/>
+<path fill="#FFFFFF" d="M36 9V39H52Z"/>
+<path fill="#FFFFFF" d="M6 46H58L50 57H14Z"/></g></svg></div><figcaption>App icon</figcaption></figure>
+  </div>
+  <div class="lockups">
+    <div class="lockup light"><svg class="" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" d="M14 9L32 24L14 39"/>
+<path fill="currentColor" d="M36 9V39H52Z"/>
+<path fill="currentColor" d="M6 46H58L50 57H14Z"/></svg><span>Bareship</span></div>
+    <div class="lockup dark"><svg class="" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" d="M14 9L32 24L14 39"/>
+<path fill="currentColor" d="M36 9V39H52Z"/>
+<path fill="currentColor" d="M6 46H58L50 57H14Z"/></svg><span>Bareship</span></div>
+    <div class="npm"><span class="npm-av"><svg class="" width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" d="M14 9L32 24L14 39"/>
+<path fill="currentColor" d="M36 9V39H52Z"/>
+<path fill="currentColor" d="M6 46H58L50 57H14Z"/></svg></span><code>create-bareship</code><span class="ver">0.3.1</span></div>
+  </div>
+  <p class="why">E's boat where the front sail is B's > prompt. Reads as a sailboat first and a terminal second, and feels lighter and faster than the solid marks. Risk: no letter in it, so it relies on the wordmark next to it.</p>
+  <p class="files">Files: <code>assets/brand/concepts/09-prompt-boat.svg</code>, <code>-mono</code>, <code>-icon</code>, <code>-favicon</code></p>
+</article>
+
+<article class="concept" id="10-keel-b">
+  <header class="concept-head">
+    <span class="tag">J</span>
+    <h2>Keel B</h2>
+    <p class="says">Says: A, simplified: Bareship · ship</p>
+  </header>
+  <div class="stage">
+    <div class="hero-mark light"><svg class="" width="168" height="168" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M16 6H34A10 10 0 0 1 34 26H22V28H38A10 10 0 0 1 38 48H16Z"/>
+<path fill="currentColor" d="M6 52H58L52 60H12Z"/></svg></div>
+    <div class="hero-mark dark"><svg class="" width="168" height="168" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M16 6H34A10 10 0 0 1 34 26H22V28H38A10 10 0 0 1 38 48H16Z"/>
+<path fill="currentColor" d="M6 52H58L52 60H12Z"/></svg></div>
+  </div>
+  <div class="sizes">
+    <figure><div class="chip light"><svg class="" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M16 6H34A10 10 0 0 1 34 26H22V28H38A10 10 0 0 1 38 48H16Z"/>
+<path fill="currentColor" d="M6 52H58L52 60H12Z"/></svg><svg class="" width="16" height="16" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M16 6H34A10 10 0 0 1 34 26H22V28H38A10 10 0 0 1 38 48H16Z"/>
+<path fill="currentColor" d="M6 52H58L52 60H12Z"/></svg></div><figcaption>32 / 16 px, light</figcaption></figure>
+    <figure><div class="chip dark"><svg class="" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M16 6H34A10 10 0 0 1 34 26H22V28H38A10 10 0 0 1 38 48H16Z"/>
+<path fill="currentColor" d="M6 52H58L52 60H12Z"/></svg><svg class="" width="16" height="16" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M16 6H34A10 10 0 0 1 34 26H22V28H38A10 10 0 0 1 38 48H16Z"/>
+<path fill="currentColor" d="M6 52H58L52 60H12Z"/></svg></div><figcaption>32 / 16 px, dark</figcaption></figure>
+    <figure><div class="chip light px"><canvas width="16" height="16" data-src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20d%3D%22M16%206H34A10%2010%200%200%201%2034%2026H22V28H38A10%2010%200%200%201%2038%2048H16Z%22%2F%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20d%3D%22M6%2052H58L52%2060H12Z%22%2F%3E%0A%3C%2Fsvg%3E%0A"></canvas><canvas width="16" height="16" data-src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M16%206H34A10%2010%200%200%201%2034%2026H22V28H38A10%2010%200%200%201%2038%2048H16Z%22%2F%3E%0A%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M6%2052H58L52%2060H12Z%22%2F%3E%0A%3C%2Fsvg%3E%0A"></canvas></div><figcaption>16 px at 1×, zoomed</figcaption></figure>
+    <figure><div class="chip icons"><svg class="app-icon" width="76" height="76" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0A6C96"/><g transform="translate(192 192) scale(10)"><path fill="#FFFFFF" d="M16 6H34A10 10 0 0 1 34 26H22V28H38A10 10 0 0 1 38 48H16Z"/>
+<path fill="#FFFFFF" d="M6 52H58L52 60H12Z"/></g></svg><svg class="app-icon" width="40" height="40" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0A6C96"/><g transform="translate(192 192) scale(10)"><path fill="#FFFFFF" d="M16 6H34A10 10 0 0 1 34 26H22V28H38A10 10 0 0 1 38 48H16Z"/>
+<path fill="#FFFFFF" d="M6 52H58L52 60H12Z"/></g></svg></div><figcaption>App icon</figcaption></figure>
+  </div>
+  <div class="lockups">
+    <div class="lockup light"><svg class="" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M16 6H34A10 10 0 0 1 34 26H22V28H38A10 10 0 0 1 38 48H16Z"/>
+<path fill="currentColor" d="M6 52H58L52 60H12Z"/></svg><span>Bareship</span></div>
+    <div class="lockup dark"><svg class="" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M16 6H34A10 10 0 0 1 34 26H22V28H38A10 10 0 0 1 38 48H16Z"/>
+<path fill="currentColor" d="M6 52H58L52 60H12Z"/></svg><span>Bareship</span></div>
+    <div class="npm"><span class="npm-av"><svg class="" width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M16 6H34A10 10 0 0 1 34 26H22V28H38A10 10 0 0 1 38 48H16Z"/>
+<path fill="currentColor" d="M6 52H58L52 60H12Z"/></svg></span><code>create-bareship</code><span class="ver">0.3.1</span></div>
+  </div>
+  <p class="why">A bold B standing on a hull. The simplest way to keep A's monogram and E's calm geometry: two shapes, both solid, so it is the sharpest at 16 px and the easiest to draw from memory. Risk: the boat is only the hull, so "ship" is quieter.</p>
+  <p class="files">Files: <code>assets/brand/concepts/10-keel-b.svg</code>, <code>-mono</code>, <code>-icon</code>, <code>-favicon</code></p>
+</article>
+  </section>
+
+  <div class="research">
+    <section>
+      <span class="eyebrow">Step 1 · What makes a good product logo</span>
+      <h2>Principles</h2>
+      <ol>
+        <li><b>Simple, distinctive and appropriate, all three at once.</b> Sagi Haviv (Chermayeff &amp; Geismar &amp; Haviv) names these as the three tests and says the work is balancing simple shapes against distinctive ones [1][2]. Simple alone gives you a generic mark; that is the problem with the current stacked layers.</li>
+        <li><b>The doodle test.</b> If someone can sketch it from memory after seeing it once, it is memorable [1]. A design-blog variant: show it for three seconds, hide it, ask what people saw [3].</li>
+        <li><b>Design for 16 px first.</b> A favicon, an npm avatar and a GitHub org avatar are tiny. Thin lines and small gaps vanish first; bold silhouettes survive. Scale it down to 16 × 16 and, if it blurs, draw a dedicated small version [4][3].</li>
+        <li><b>Works in one colour.</b> If it fails in solid black, colour won't save it [3]. Every concept below has a <code>-mono</code> file for this check.</li>
+        <li><b>Light and dark.</b> One SVG favicon can switch colour with a <code>prefers-color-scheme</code> media query inside it [4]; GitHub READMEs can swap images with <code>&lt;picture&gt;</code> [5]. Each concept has a <code>-favicon</code> file that does this.</li>
+        <li><b>App icon: one focal shape, no text.</b> Apple asks for a simple, bold image with a single focus that reads at every size, and now light, dark and tinted variants [6]. Square corners in the source; the OS rounds them.</li>
+        <li><b>Meaning helps, but legibility comes first.</b> A mark that tells the product's story is easier to remember and explain, but only once the silhouette works small.</li>
+      </ol>
+      <h3>How developer tools do it</h3>
+      <div class="table-scroll">
+        <table class="peers">
+          <thead><tr><th>Tool</th><th>Mark</th><th>Why it works</th></tr></thead>
+          <tbody>
+            <tr><td>Vite</td><td>Lightning bolt</td><td>Says "fast" in one shape; the bold bolt survives 16 px.</td></tr>
+            <tr><td>Bun</td><td>A bun with a face</td><td>A pun on the name; a friendly round silhouette, unlike any other runtime.</td></tr>
+            <tr><td>Deno</td><td>Dinosaur in the rain [7]</td><td>A mascot gives the community something to draw; simplified to a head for small sizes.</td></tr>
+            <tr><td>Turborepo</td><td>Gradient ring</td><td>A separate symbol is kept for small spaces, the full logo for large ones [8].</td></tr>
+            <tr><td>pnpm</td><td>Grid of squares, some missing</td><td>Abstract blocks hint at packages and shared storage; works in one colour, has a light variant [9].</td></tr>
+            <tr><td>Expo</td><td>A chevron-like letterform</td><td>Monochrome first, so it sits on any background or partner page.</td></tr>
+            <tr><td>Ignite</td><td>Name-led mark in Infinite Red's red</td><td>Ties to the name (ignite = start) and to its maker's brand.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="color:var(--muted);font-size:.88rem">Marks without a source number are described from memory; check each project's own brand page before quoting. The pattern: one idea from the name or the product's promise, drawn as one bold shape, one colour first.</p>
+    </section>
+
+    <section>
+      <span class="eyebrow">Step 2 · What Bareship's logo should say</span>
+      <h2>The brief</h2>
+      <ul>
+        <li><b>Bare.</b> React Native CLI, no Expo. You own <code>ios/</code> and <code>android/</code>; every native edit is marked. Nothing hidden.</li>
+        <li><b>Ship.</b> "Bare React Native, ready to ship" is the reason for the name (ADR 0015). A ship, a hull or a sail is the obvious hook, and nautical marks are rare among JS tools.</li>
+        <li><b>Offline-first.</b> Writes survive being offline and replay in order. This is Bareship's most distinctive feature and no peer logo shows it.</li>
+        <li><b>Rules for teams and AI agents.</b> Architecture checked on every build: layers import downward only. The current mark's three layers come from this.</li>
+        <li><b>One command.</b> <code>npx create-bareship</code> is the front door, and npm is where most people will first see the logo.</li>
+      </ul>
+      <h3>Constraints</h3>
+      <ul>
+        <li><b>Colour:</b> keep the app's primary blue <code>#0A6C96</code> (light) and <code>#55B6E0</code> (dark) from <code>src/shared/ui/theme/brands.ts</code> and the website theme. All concepts use them, so a new logo needs no theme change.</li>
+        <li><b>Files:</b> <code>assets/brand/logo.svg</code> (splash), <code>icon.svg</code> (app icon, square, no transparency), the website's light and dark logos and <code>favicon.svg</code>. <code>pnpm icons</code> and <code>pnpm splash</code> regenerate the native assets.</li>
+        <li><b>Where it appears first:</b> the npm page and the README header at 96 px, the GitHub avatar, the browser tab at 16 px.</li>
+        <li><b>Avoid:</b> stacks and layers (databases, cloud tools), React's atom (it belongs to React), anchors (they mean "stuck", the opposite of shipping).</li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="round"><span class="eyebrow">Round 1</span><h2>A to F</h2></div>
+  <section class="concepts" aria-label="Round 1">
+
+<article class="concept" id="01-hull-b">
+  <header class="concept-head">
+    <span class="tag">A</span>
+    <h2>Hull B</h2>
+    <p class="says">Says: Bareship · ship</p>
+  </header>
+  <div class="stage">
+    <div class="hero-mark light"><svg class="" width="168" height="168" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M12 8H32A12 12 0 0 1 32 32H12Z M20 15H32A5 5 0 0 1 32 25H20Z"/>
+<rect fill="currentColor" x="12" y="30" width="8" height="8"/>
+<path fill="currentColor" fill-rule="evenodd" d="M12 36H56L46 56H12Z M34.5 46A4.5 4.5 0 1 0 25.5 46A4.5 4.5 0 1 0 34.5 46Z"/></svg></div>
+    <div class="hero-mark dark"><svg class="" width="168" height="168" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M12 8H32A12 12 0 0 1 32 32H12Z M20 15H32A5 5 0 0 1 32 25H20Z"/>
+<rect fill="currentColor" x="12" y="30" width="8" height="8"/>
+<path fill="currentColor" fill-rule="evenodd" d="M12 36H56L46 56H12Z M34.5 46A4.5 4.5 0 1 0 25.5 46A4.5 4.5 0 1 0 34.5 46Z"/></svg></div>
+  </div>
+  <div class="sizes">
+    <figure><div class="chip light"><svg class="" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M12 8H32A12 12 0 0 1 32 32H12Z M20 15H32A5 5 0 0 1 32 25H20Z"/>
+<rect fill="currentColor" x="12" y="30" width="8" height="8"/>
+<path fill="currentColor" fill-rule="evenodd" d="M12 36H56L46 56H12Z M34.5 46A4.5 4.5 0 1 0 25.5 46A4.5 4.5 0 1 0 34.5 46Z"/></svg><svg class="" width="16" height="16" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M12 8H32A12 12 0 0 1 32 32H12Z M20 15H32A5 5 0 0 1 32 25H20Z"/>
+<rect fill="currentColor" x="12" y="30" width="8" height="8"/>
+<path fill="currentColor" fill-rule="evenodd" d="M12 36H56L46 56H12Z M34.5 46A4.5 4.5 0 1 0 25.5 46A4.5 4.5 0 1 0 34.5 46Z"/></svg></div><figcaption>32 / 16 px, light</figcaption></figure>
+    <figure><div class="chip dark"><svg class="" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M12 8H32A12 12 0 0 1 32 32H12Z M20 15H32A5 5 0 0 1 32 25H20Z"/>
+<rect fill="currentColor" x="12" y="30" width="8" height="8"/>
+<path fill="currentColor" fill-rule="evenodd" d="M12 36H56L46 56H12Z M34.5 46A4.5 4.5 0 1 0 25.5 46A4.5 4.5 0 1 0 34.5 46Z"/></svg><svg class="" width="16" height="16" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M12 8H32A12 12 0 0 1 32 32H12Z M20 15H32A5 5 0 0 1 32 25H20Z"/>
+<rect fill="currentColor" x="12" y="30" width="8" height="8"/>
+<path fill="currentColor" fill-rule="evenodd" d="M12 36H56L46 56H12Z M34.5 46A4.5 4.5 0 1 0 25.5 46A4.5 4.5 0 1 0 34.5 46Z"/></svg></div><figcaption>32 / 16 px, dark</figcaption></figure>
+    <figure><div class="chip light px"><canvas width="16" height="16" data-src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20fill-rule%3D%22evenodd%22%20d%3D%22M12%208H32A12%2012%200%200%201%2032%2032H12Z%20M20%2015H32A5%205%200%200%201%2032%2025H20Z%22%2F%3E%0A%3Crect%20fill%3D%22%230A6C96%22%20x%3D%2212%22%20y%3D%2230%22%20width%3D%228%22%20height%3D%228%22%2F%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20fill-rule%3D%22evenodd%22%20d%3D%22M12%2036H56L46%2056H12Z%20M34.5%2046A4.5%204.5%200%201%200%2025.5%2046A4.5%204.5%200%201%200%2034.5%2046Z%22%2F%3E%0A%3C%2Fsvg%3E%0A"></canvas><canvas width="16" height="16" data-src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Cpath%20fill%3D%22%23000000%22%20fill-rule%3D%22evenodd%22%20d%3D%22M12%208H32A12%2012%200%200%201%2032%2032H12Z%20M20%2015H32A5%205%200%200%201%2032%2025H20Z%22%2F%3E%0A%3Crect%20fill%3D%22%23000000%22%20x%3D%2212%22%20y%3D%2230%22%20width%3D%228%22%20height%3D%228%22%2F%3E%0A%3Cpath%20fill%3D%22%23000000%22%20fill-rule%3D%22evenodd%22%20d%3D%22M12%2036H56L46%2056H12Z%20M34.5%2046A4.5%204.5%200%201%200%2025.5%2046A4.5%204.5%200%201%200%2034.5%2046Z%22%2F%3E%0A%3C%2Fsvg%3E%0A"></canvas></div><figcaption>16 px at 1×, zoomed</figcaption></figure>
+    <figure><div class="chip icons"><svg class="app-icon" width="76" height="76" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0A6C96"/><g transform="translate(192 192) scale(10)"><path fill="#FFFFFF" fill-rule="evenodd" d="M12 8H32A12 12 0 0 1 32 32H12Z M20 15H32A5 5 0 0 1 32 25H20Z"/>
+<rect fill="#FFFFFF" x="12" y="30" width="8" height="8"/>
+<path fill="#FFFFFF" fill-rule="evenodd" d="M12 36H56L46 56H12Z M34.5 46A4.5 4.5 0 1 0 25.5 46A4.5 4.5 0 1 0 34.5 46Z"/></g></svg><svg class="app-icon" width="40" height="40" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0A6C96"/><g transform="translate(192 192) scale(10)"><path fill="#FFFFFF" fill-rule="evenodd" d="M12 8H32A12 12 0 0 1 32 32H12Z M20 15H32A5 5 0 0 1 32 25H20Z"/>
+<rect fill="#FFFFFF" x="12" y="30" width="8" height="8"/>
+<path fill="#FFFFFF" fill-rule="evenodd" d="M12 36H56L46 56H12Z M34.5 46A4.5 4.5 0 1 0 25.5 46A4.5 4.5 0 1 0 34.5 46Z"/></g></svg></div><figcaption>App icon</figcaption></figure>
+  </div>
+  <div class="lockups">
+    <div class="lockup light"><svg class="" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M12 8H32A12 12 0 0 1 32 32H12Z M20 15H32A5 5 0 0 1 32 25H20Z"/>
+<rect fill="currentColor" x="12" y="30" width="8" height="8"/>
+<path fill="currentColor" fill-rule="evenodd" d="M12 36H56L46 56H12Z M34.5 46A4.5 4.5 0 1 0 25.5 46A4.5 4.5 0 1 0 34.5 46Z"/></svg><span>Bareship</span></div>
+    <div class="lockup dark"><svg class="" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M12 8H32A12 12 0 0 1 32 32H12Z M20 15H32A5 5 0 0 1 32 25H20Z"/>
+<rect fill="currentColor" x="12" y="30" width="8" height="8"/>
+<path fill="currentColor" fill-rule="evenodd" d="M12 36H56L46 56H12Z M34.5 46A4.5 4.5 0 1 0 25.5 46A4.5 4.5 0 1 0 34.5 46Z"/></svg><span>Bareship</span></div>
+    <div class="npm"><span class="npm-av"><svg class="" width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M12 8H32A12 12 0 0 1 32 32H12Z M20 15H32A5 5 0 0 1 32 25H20Z"/>
+<rect fill="currentColor" x="12" y="30" width="8" height="8"/>
+<path fill="currentColor" fill-rule="evenodd" d="M12 36H56L46 56H12Z M34.5 46A4.5 4.5 0 1 0 25.5 46A4.5 4.5 0 1 0 34.5 46Z"/></svg></span><code>create-bareship</code><span class="ver">0.3.1</span></div>
+  </div>
+  <p class="why">A B whose lower bowl is a hull, with a porthole as its counter and a waterline cut through it. A monogram is the most ownable shape: it says the name and the ship at once, and a letter holds up at 16 px. Risk: monogram Bs are common, so the hull cut has to stay obvious.</p>
+  <p class="files">Files: <code>assets/brand/concepts/01-hull-b.svg</code>, <code>-mono</code>, <code>-icon</code>, <code>-favicon</code></p>
+</article>
+
+<article class="concept" id="02-prompt-sail">
+  <header class="concept-head">
+    <span class="tag">B</span>
+    <h2>Prompt sail</h2>
+    <p class="says">Says: npx create-bareship · ship</p>
+  </header>
+  <div class="stage">
+    <div class="hero-mark light"><svg class="" width="168" height="168" viewBox="0 0 64 64" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" d="M22 8L42 24L22 40"/>
+<path fill="currentColor" d="M8 49H56L50 58H14Z"/></svg></div>
+    <div class="hero-mark dark"><svg class="" width="168" height="168" viewBox="0 0 64 64" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" d="M22 8L42 24L22 40"/>
+<path fill="currentColor" d="M8 49H56L50 58H14Z"/></svg></div>
+  </div>
+  <div class="sizes">
+    <figure><div class="chip light"><svg class="" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" d="M22 8L42 24L22 40"/>
+<path fill="currentColor" d="M8 49H56L50 58H14Z"/></svg><svg class="" width="16" height="16" viewBox="0 0 64 64" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" d="M22 8L42 24L22 40"/>
+<path fill="currentColor" d="M8 49H56L50 58H14Z"/></svg></div><figcaption>32 / 16 px, light</figcaption></figure>
+    <figure><div class="chip dark"><svg class="" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" d="M22 8L42 24L22 40"/>
+<path fill="currentColor" d="M8 49H56L50 58H14Z"/></svg><svg class="" width="16" height="16" viewBox="0 0 64 64" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" d="M22 8L42 24L22 40"/>
+<path fill="currentColor" d="M8 49H56L50 58H14Z"/></svg></div><figcaption>32 / 16 px, dark</figcaption></figure>
+    <figure><div class="chip light px"><canvas width="16" height="16" data-src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Cpath%20fill%3D%22none%22%20stroke%3D%22%230A6C96%22%20stroke-width%3D%228%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20d%3D%22M22%208L42%2024L22%2040%22%2F%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20d%3D%22M8%2049H56L50%2058H14Z%22%2F%3E%0A%3C%2Fsvg%3E%0A"></canvas><canvas width="16" height="16" data-src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Cpath%20fill%3D%22none%22%20stroke%3D%22%23000000%22%20stroke-width%3D%228%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20d%3D%22M22%208L42%2024L22%2040%22%2F%3E%0A%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M8%2049H56L50%2058H14Z%22%2F%3E%0A%3C%2Fsvg%3E%0A"></canvas></div><figcaption>16 px at 1×, zoomed</figcaption></figure>
+    <figure><div class="chip icons"><svg class="app-icon" width="76" height="76" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0A6C96"/><g transform="translate(192 192) scale(10)"><path fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" d="M22 8L42 24L22 40"/>
+<path fill="#FFFFFF" d="M8 49H56L50 58H14Z"/></g></svg><svg class="app-icon" width="40" height="40" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0A6C96"/><g transform="translate(192 192) scale(10)"><path fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" d="M22 8L42 24L22 40"/>
+<path fill="#FFFFFF" d="M8 49H56L50 58H14Z"/></g></svg></div><figcaption>App icon</figcaption></figure>
+  </div>
+  <div class="lockups">
+    <div class="lockup light"><svg class="" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" d="M22 8L42 24L22 40"/>
+<path fill="currentColor" d="M8 49H56L50 58H14Z"/></svg><span>Bareship</span></div>
+    <div class="lockup dark"><svg class="" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" d="M22 8L42 24L22 40"/>
+<path fill="currentColor" d="M8 49H56L50 58H14Z"/></svg><span>Bareship</span></div>
+    <div class="npm"><span class="npm-av"><svg class="" width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" d="M22 8L42 24L22 40"/>
+<path fill="currentColor" d="M8 49H56L50 58H14Z"/></svg></span><code>create-bareship</code><span class="ver">0.3.1</span></div>
+  </div>
+  <p class="why">A terminal prompt (>_) where the chevron is a sail and the underscore is a hull. It says "one command" and "developer tool" before it says boat, which suits the npm page and the GitHub avatar. Risk: >_ marks are used by many CLI tools; the tapered hull is what makes it ours.</p>
+  <p class="files">Files: <code>assets/brand/concepts/02-prompt-sail.svg</code>, <code>-mono</code>, <code>-icon</code>, <code>-favicon</code></p>
+</article>
+
+<article class="concept" id="03-cargo">
+  <header class="concept-head">
+    <span class="tag">C</span>
+    <h2>Cargo</h2>
+    <p class="says">Says: ship · offline queue · layers</p>
+  </header>
+  <div class="stage">
+    <div class="hero-mark light"><svg class="" width="168" height="168" viewBox="0 0 64 64" aria-hidden="true"><rect fill="currentColor" x="10" y="20" width="12" height="12" rx="2"/>
+<rect fill="currentColor" x="26" y="20" width="12" height="12" rx="2"/>
+<rect fill="currentColor" x="42" y="20" width="12" height="12" rx="2"/>
+<path fill="currentColor" d="M6 36H58L50 54H14Z"/></svg></div>
+    <div class="hero-mark dark"><svg class="" width="168" height="168" viewBox="0 0 64 64" aria-hidden="true"><rect fill="currentColor" x="10" y="20" width="12" height="12" rx="2"/>
+<rect fill="currentColor" x="26" y="20" width="12" height="12" rx="2"/>
+<rect fill="currentColor" x="42" y="20" width="12" height="12" rx="2"/>
+<path fill="currentColor" d="M6 36H58L50 54H14Z"/></svg></div>
+  </div>
+  <div class="sizes">
+    <figure><div class="chip light"><svg class="" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><rect fill="currentColor" x="10" y="20" width="12" height="12" rx="2"/>
+<rect fill="currentColor" x="26" y="20" width="12" height="12" rx="2"/>
+<rect fill="currentColor" x="42" y="20" width="12" height="12" rx="2"/>
+<path fill="currentColor" d="M6 36H58L50 54H14Z"/></svg><svg class="" width="16" height="16" viewBox="0 0 64 64" aria-hidden="true"><rect fill="currentColor" x="10" y="20" width="12" height="12" rx="2"/>
+<rect fill="currentColor" x="26" y="20" width="12" height="12" rx="2"/>
+<rect fill="currentColor" x="42" y="20" width="12" height="12" rx="2"/>
+<path fill="currentColor" d="M6 36H58L50 54H14Z"/></svg></div><figcaption>32 / 16 px, light</figcaption></figure>
+    <figure><div class="chip dark"><svg class="" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><rect fill="currentColor" x="10" y="20" width="12" height="12" rx="2"/>
+<rect fill="currentColor" x="26" y="20" width="12" height="12" rx="2"/>
+<rect fill="currentColor" x="42" y="20" width="12" height="12" rx="2"/>
+<path fill="currentColor" d="M6 36H58L50 54H14Z"/></svg><svg class="" width="16" height="16" viewBox="0 0 64 64" aria-hidden="true"><rect fill="currentColor" x="10" y="20" width="12" height="12" rx="2"/>
+<rect fill="currentColor" x="26" y="20" width="12" height="12" rx="2"/>
+<rect fill="currentColor" x="42" y="20" width="12" height="12" rx="2"/>
+<path fill="currentColor" d="M6 36H58L50 54H14Z"/></svg></div><figcaption>32 / 16 px, dark</figcaption></figure>
+    <figure><div class="chip light px"><canvas width="16" height="16" data-src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Crect%20fill%3D%22%230A6C96%22%20x%3D%2210%22%20y%3D%2220%22%20width%3D%2212%22%20height%3D%2212%22%20rx%3D%222%22%2F%3E%0A%3Crect%20fill%3D%22%230A6C96%22%20x%3D%2226%22%20y%3D%2220%22%20width%3D%2212%22%20height%3D%2212%22%20rx%3D%222%22%2F%3E%0A%3Crect%20fill%3D%22%230A6C96%22%20x%3D%2242%22%20y%3D%2220%22%20width%3D%2212%22%20height%3D%2212%22%20rx%3D%222%22%2F%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20d%3D%22M6%2036H58L50%2054H14Z%22%2F%3E%0A%3C%2Fsvg%3E%0A"></canvas><canvas width="16" height="16" data-src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Crect%20fill%3D%22%23000000%22%20x%3D%2210%22%20y%3D%2220%22%20width%3D%2212%22%20height%3D%2212%22%20rx%3D%222%22%2F%3E%0A%3Crect%20fill%3D%22%23000000%22%20x%3D%2226%22%20y%3D%2220%22%20width%3D%2212%22%20height%3D%2212%22%20rx%3D%222%22%2F%3E%0A%3Crect%20fill%3D%22%23000000%22%20x%3D%2242%22%20y%3D%2220%22%20width%3D%2212%22%20height%3D%2212%22%20rx%3D%222%22%2F%3E%0A%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M6%2036H58L50%2054H14Z%22%2F%3E%0A%3C%2Fsvg%3E%0A"></canvas></div><figcaption>16 px at 1×, zoomed</figcaption></figure>
+    <figure><div class="chip icons"><svg class="app-icon" width="76" height="76" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0A6C96"/><g transform="translate(192 192) scale(10)"><rect fill="#FFFFFF" x="10" y="20" width="12" height="12" rx="2"/>
+<rect fill="#FFFFFF" x="26" y="20" width="12" height="12" rx="2"/>
+<rect fill="#FFFFFF" x="42" y="20" width="12" height="12" rx="2"/>
+<path fill="#FFFFFF" d="M6 36H58L50 54H14Z"/></g></svg><svg class="app-icon" width="40" height="40" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0A6C96"/><g transform="translate(192 192) scale(10)"><rect fill="#FFFFFF" x="10" y="20" width="12" height="12" rx="2"/>
+<rect fill="#FFFFFF" x="26" y="20" width="12" height="12" rx="2"/>
+<rect fill="#FFFFFF" x="42" y="20" width="12" height="12" rx="2"/>
+<path fill="#FFFFFF" d="M6 36H58L50 54H14Z"/></g></svg></div><figcaption>App icon</figcaption></figure>
+  </div>
+  <div class="lockups">
+    <div class="lockup light"><svg class="" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><rect fill="currentColor" x="10" y="20" width="12" height="12" rx="2"/>
+<rect fill="currentColor" x="26" y="20" width="12" height="12" rx="2"/>
+<rect fill="currentColor" x="42" y="20" width="12" height="12" rx="2"/>
+<path fill="currentColor" d="M6 36H58L50 54H14Z"/></svg><span>Bareship</span></div>
+    <div class="lockup dark"><svg class="" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><rect fill="currentColor" x="10" y="20" width="12" height="12" rx="2"/>
+<rect fill="currentColor" x="26" y="20" width="12" height="12" rx="2"/>
+<rect fill="currentColor" x="42" y="20" width="12" height="12" rx="2"/>
+<path fill="currentColor" d="M6 36H58L50 54H14Z"/></svg><span>Bareship</span></div>
+    <div class="npm"><span class="npm-av"><svg class="" width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><rect fill="currentColor" x="10" y="20" width="12" height="12" rx="2"/>
+<rect fill="currentColor" x="26" y="20" width="12" height="12" rx="2"/>
+<rect fill="currentColor" x="42" y="20" width="12" height="12" rx="2"/>
+<path fill="currentColor" d="M6 36H58L50 54H14Z"/></svg></span><code>create-bareship</code><span class="ver">0.3.1</span></div>
+  </div>
+  <p class="why">A hull carrying three containers in a row: queued writes waiting to ship, in order. It keeps the idea of the current mark (three layers: app, features, shared) and gives it a ship to ride on. Risk: the container gaps merge at 16 px into a bar, which still reads as a loaded ship.</p>
+  <p class="files">Files: <code>assets/brand/concepts/03-cargo.svg</code>, <code>-mono</code>, <code>-icon</code>, <code>-favicon</code></p>
+</article>
+
+<article class="concept" id="04-bottle">
+  <header class="concept-head">
+    <span class="tag">D</span>
+    <h2>Message in a bottle</h2>
+    <p class="says">Says: offline-first</p>
+  </header>
+  <div class="stage">
+    <div class="hero-mark light"><svg class="" width="168" height="168" viewBox="0 0 64 64" aria-hidden="true"><g transform="rotate(-30 32 27)">
+<path fill="currentColor" fill-rule="evenodd" d="M14 20H32A8 8 0 0 1 40 28V32A8 8 0 0 1 32 40H14A8 8 0 0 1 6 32V28A8 8 0 0 1 14 20Z M16 27H28A3 3 0 0 1 28 33H16A3 3 0 0 1 16 27Z"/>
+<rect fill="currentColor" x="38" y="25" width="12" height="10" rx="2"/>
+<rect fill="currentColor" x="51" y="26.5" width="6" height="7" rx="1.5"/>
+</g>
+<path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" d="M8 57Q14 52 20 57T32 57T44 57T56 57"/></svg></div>
+    <div class="hero-mark dark"><svg class="" width="168" height="168" viewBox="0 0 64 64" aria-hidden="true"><g transform="rotate(-30 32 27)">
+<path fill="currentColor" fill-rule="evenodd" d="M14 20H32A8 8 0 0 1 40 28V32A8 8 0 0 1 32 40H14A8 8 0 0 1 6 32V28A8 8 0 0 1 14 20Z M16 27H28A3 3 0 0 1 28 33H16A3 3 0 0 1 16 27Z"/>
+<rect fill="currentColor" x="38" y="25" width="12" height="10" rx="2"/>
+<rect fill="currentColor" x="51" y="26.5" width="6" height="7" rx="1.5"/>
+</g>
+<path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" d="M8 57Q14 52 20 57T32 57T44 57T56 57"/></svg></div>
+  </div>
+  <div class="sizes">
+    <figure><div class="chip light"><svg class="" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><g transform="rotate(-30 32 27)">
+<path fill="currentColor" fill-rule="evenodd" d="M14 20H32A8 8 0 0 1 40 28V32A8 8 0 0 1 32 40H14A8 8 0 0 1 6 32V28A8 8 0 0 1 14 20Z M16 27H28A3 3 0 0 1 28 33H16A3 3 0 0 1 16 27Z"/>
+<rect fill="currentColor" x="38" y="25" width="12" height="10" rx="2"/>
+<rect fill="currentColor" x="51" y="26.5" width="6" height="7" rx="1.5"/>
+</g>
+<path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" d="M8 57Q14 52 20 57T32 57T44 57T56 57"/></svg><svg class="" width="16" height="16" viewBox="0 0 64 64" aria-hidden="true"><g transform="rotate(-30 32 27)">
+<path fill="currentColor" fill-rule="evenodd" d="M14 20H32A8 8 0 0 1 40 28V32A8 8 0 0 1 32 40H14A8 8 0 0 1 6 32V28A8 8 0 0 1 14 20Z M16 27H28A3 3 0 0 1 28 33H16A3 3 0 0 1 16 27Z"/>
+<rect fill="currentColor" x="38" y="25" width="12" height="10" rx="2"/>
+<rect fill="currentColor" x="51" y="26.5" width="6" height="7" rx="1.5"/>
+</g>
+<path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" d="M8 57Q14 52 20 57T32 57T44 57T56 57"/></svg></div><figcaption>32 / 16 px, light</figcaption></figure>
+    <figure><div class="chip dark"><svg class="" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><g transform="rotate(-30 32 27)">
+<path fill="currentColor" fill-rule="evenodd" d="M14 20H32A8 8 0 0 1 40 28V32A8 8 0 0 1 32 40H14A8 8 0 0 1 6 32V28A8 8 0 0 1 14 20Z M16 27H28A3 3 0 0 1 28 33H16A3 3 0 0 1 16 27Z"/>
+<rect fill="currentColor" x="38" y="25" width="12" height="10" rx="2"/>
+<rect fill="currentColor" x="51" y="26.5" width="6" height="7" rx="1.5"/>
+</g>
+<path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" d="M8 57Q14 52 20 57T32 57T44 57T56 57"/></svg><svg class="" width="16" height="16" viewBox="0 0 64 64" aria-hidden="true"><g transform="rotate(-30 32 27)">
+<path fill="currentColor" fill-rule="evenodd" d="M14 20H32A8 8 0 0 1 40 28V32A8 8 0 0 1 32 40H14A8 8 0 0 1 6 32V28A8 8 0 0 1 14 20Z M16 27H28A3 3 0 0 1 28 33H16A3 3 0 0 1 16 27Z"/>
+<rect fill="currentColor" x="38" y="25" width="12" height="10" rx="2"/>
+<rect fill="currentColor" x="51" y="26.5" width="6" height="7" rx="1.5"/>
+</g>
+<path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" d="M8 57Q14 52 20 57T32 57T44 57T56 57"/></svg></div><figcaption>32 / 16 px, dark</figcaption></figure>
+    <figure><div class="chip light px"><canvas width="16" height="16" data-src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Cg%20transform%3D%22rotate(-30%2032%2027)%22%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20fill-rule%3D%22evenodd%22%20d%3D%22M14%2020H32A8%208%200%200%201%2040%2028V32A8%208%200%200%201%2032%2040H14A8%208%200%200%201%206%2032V28A8%208%200%200%201%2014%2020Z%20M16%2027H28A3%203%200%200%201%2028%2033H16A3%203%200%200%201%2016%2027Z%22%2F%3E%0A%3Crect%20fill%3D%22%230A6C96%22%20x%3D%2238%22%20y%3D%2225%22%20width%3D%2212%22%20height%3D%2210%22%20rx%3D%222%22%2F%3E%0A%3Crect%20fill%3D%22%230A6C96%22%20x%3D%2251%22%20y%3D%2226.5%22%20width%3D%226%22%20height%3D%227%22%20rx%3D%221.5%22%2F%3E%0A%3C%2Fg%3E%0A%3Cpath%20fill%3D%22none%22%20stroke%3D%22%230A6C96%22%20stroke-width%3D%225%22%20stroke-linecap%3D%22round%22%20d%3D%22M8%2057Q14%2052%2020%2057T32%2057T44%2057T56%2057%22%2F%3E%0A%3C%2Fsvg%3E%0A"></canvas><canvas width="16" height="16" data-src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Cg%20transform%3D%22rotate(-30%2032%2027)%22%3E%0A%3Cpath%20fill%3D%22%23000000%22%20fill-rule%3D%22evenodd%22%20d%3D%22M14%2020H32A8%208%200%200%201%2040%2028V32A8%208%200%200%201%2032%2040H14A8%208%200%200%201%206%2032V28A8%208%200%200%201%2014%2020Z%20M16%2027H28A3%203%200%200%201%2028%2033H16A3%203%200%200%201%2016%2027Z%22%2F%3E%0A%3Crect%20fill%3D%22%23000000%22%20x%3D%2238%22%20y%3D%2225%22%20width%3D%2212%22%20height%3D%2210%22%20rx%3D%222%22%2F%3E%0A%3Crect%20fill%3D%22%23000000%22%20x%3D%2251%22%20y%3D%2226.5%22%20width%3D%226%22%20height%3D%227%22%20rx%3D%221.5%22%2F%3E%0A%3C%2Fg%3E%0A%3Cpath%20fill%3D%22none%22%20stroke%3D%22%23000000%22%20stroke-width%3D%225%22%20stroke-linecap%3D%22round%22%20d%3D%22M8%2057Q14%2052%2020%2057T32%2057T44%2057T56%2057%22%2F%3E%0A%3C%2Fsvg%3E%0A"></canvas></div><figcaption>16 px at 1×, zoomed</figcaption></figure>
+    <figure><div class="chip icons"><svg class="app-icon" width="76" height="76" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0A6C96"/><g transform="translate(192 192) scale(10)"><g transform="rotate(-30 32 27)">
+<path fill="#FFFFFF" fill-rule="evenodd" d="M14 20H32A8 8 0 0 1 40 28V32A8 8 0 0 1 32 40H14A8 8 0 0 1 6 32V28A8 8 0 0 1 14 20Z M16 27H28A3 3 0 0 1 28 33H16A3 3 0 0 1 16 27Z"/>
+<rect fill="#FFFFFF" x="38" y="25" width="12" height="10" rx="2"/>
+<rect fill="#FFFFFF" x="51" y="26.5" width="6" height="7" rx="1.5"/>
+</g>
+<path fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" d="M8 57Q14 52 20 57T32 57T44 57T56 57"/></g></svg><svg class="app-icon" width="40" height="40" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0A6C96"/><g transform="translate(192 192) scale(10)"><g transform="rotate(-30 32 27)">
+<path fill="#FFFFFF" fill-rule="evenodd" d="M14 20H32A8 8 0 0 1 40 28V32A8 8 0 0 1 32 40H14A8 8 0 0 1 6 32V28A8 8 0 0 1 14 20Z M16 27H28A3 3 0 0 1 28 33H16A3 3 0 0 1 16 27Z"/>
+<rect fill="#FFFFFF" x="38" y="25" width="12" height="10" rx="2"/>
+<rect fill="#FFFFFF" x="51" y="26.5" width="6" height="7" rx="1.5"/>
+</g>
+<path fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" d="M8 57Q14 52 20 57T32 57T44 57T56 57"/></g></svg></div><figcaption>App icon</figcaption></figure>
+  </div>
+  <div class="lockups">
+    <div class="lockup light"><svg class="" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><g transform="rotate(-30 32 27)">
+<path fill="currentColor" fill-rule="evenodd" d="M14 20H32A8 8 0 0 1 40 28V32A8 8 0 0 1 32 40H14A8 8 0 0 1 6 32V28A8 8 0 0 1 14 20Z M16 27H28A3 3 0 0 1 28 33H16A3 3 0 0 1 16 27Z"/>
+<rect fill="currentColor" x="38" y="25" width="12" height="10" rx="2"/>
+<rect fill="currentColor" x="51" y="26.5" width="6" height="7" rx="1.5"/>
+</g>
+<path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" d="M8 57Q14 52 20 57T32 57T44 57T56 57"/></svg><span>Bareship</span></div>
+    <div class="lockup dark"><svg class="" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><g transform="rotate(-30 32 27)">
+<path fill="currentColor" fill-rule="evenodd" d="M14 20H32A8 8 0 0 1 40 28V32A8 8 0 0 1 32 40H14A8 8 0 0 1 6 32V28A8 8 0 0 1 14 20Z M16 27H28A3 3 0 0 1 28 33H16A3 3 0 0 1 16 27Z"/>
+<rect fill="currentColor" x="38" y="25" width="12" height="10" rx="2"/>
+<rect fill="currentColor" x="51" y="26.5" width="6" height="7" rx="1.5"/>
+</g>
+<path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" d="M8 57Q14 52 20 57T32 57T44 57T56 57"/></svg><span>Bareship</span></div>
+    <div class="npm"><span class="npm-av"><svg class="" width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><g transform="rotate(-30 32 27)">
+<path fill="currentColor" fill-rule="evenodd" d="M14 20H32A8 8 0 0 1 40 28V32A8 8 0 0 1 32 40H14A8 8 0 0 1 6 32V28A8 8 0 0 1 14 20Z M16 27H28A3 3 0 0 1 28 33H16A3 3 0 0 1 16 27Z"/>
+<rect fill="currentColor" x="38" y="25" width="12" height="10" rx="2"/>
+<rect fill="currentColor" x="51" y="26.5" width="6" height="7" rx="1.5"/>
+</g>
+<path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" d="M8 57Q14 52 20 57T32 57T44 57T56 57"/></svg></span><code>create-bareship</code><span class="ver">0.3.1</span></div>
+  </div>
+  <p class="why">The offline story in one picture: a message written with no connection that still arrives later. That is what the write queue does. It is the most distinctive idea here and the least like any other dev tool. Risk: it says "offline" more than "React Native", and the diagonal bottle is the busiest shape at 16 px.</p>
+  <p class="files">Files: <code>assets/brand/concepts/04-bottle.svg</code>, <code>-mono</code>, <code>-icon</code>, <code>-favicon</code></p>
+</article>
+
+<article class="concept" id="05-twin-sails">
+  <header class="concept-head">
+    <span class="tag">E</span>
+    <h2>Twin sails</h2>
+    <p class="says">Says: bare · iOS + Android · ship</p>
+  </header>
+  <div class="stage">
+    <div class="hero-mark light"><svg class="" width="168" height="168" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M29 10V34H13Z"/>
+<path fill="currentColor" d="M35 5V34H52Z"/>
+<path fill="currentColor" d="M4 38H60L50 54H14Z"/></svg></div>
+    <div class="hero-mark dark"><svg class="" width="168" height="168" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M29 10V34H13Z"/>
+<path fill="currentColor" d="M35 5V34H52Z"/>
+<path fill="currentColor" d="M4 38H60L50 54H14Z"/></svg></div>
+  </div>
+  <div class="sizes">
+    <figure><div class="chip light"><svg class="" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M29 10V34H13Z"/>
+<path fill="currentColor" d="M35 5V34H52Z"/>
+<path fill="currentColor" d="M4 38H60L50 54H14Z"/></svg><svg class="" width="16" height="16" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M29 10V34H13Z"/>
+<path fill="currentColor" d="M35 5V34H52Z"/>
+<path fill="currentColor" d="M4 38H60L50 54H14Z"/></svg></div><figcaption>32 / 16 px, light</figcaption></figure>
+    <figure><div class="chip dark"><svg class="" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M29 10V34H13Z"/>
+<path fill="currentColor" d="M35 5V34H52Z"/>
+<path fill="currentColor" d="M4 38H60L50 54H14Z"/></svg><svg class="" width="16" height="16" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M29 10V34H13Z"/>
+<path fill="currentColor" d="M35 5V34H52Z"/>
+<path fill="currentColor" d="M4 38H60L50 54H14Z"/></svg></div><figcaption>32 / 16 px, dark</figcaption></figure>
+    <figure><div class="chip light px"><canvas width="16" height="16" data-src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20d%3D%22M29%2010V34H13Z%22%2F%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20d%3D%22M35%205V34H52Z%22%2F%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20d%3D%22M4%2038H60L50%2054H14Z%22%2F%3E%0A%3C%2Fsvg%3E%0A"></canvas><canvas width="16" height="16" data-src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M29%2010V34H13Z%22%2F%3E%0A%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M35%205V34H52Z%22%2F%3E%0A%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M4%2038H60L50%2054H14Z%22%2F%3E%0A%3C%2Fsvg%3E%0A"></canvas></div><figcaption>16 px at 1×, zoomed</figcaption></figure>
+    <figure><div class="chip icons"><svg class="app-icon" width="76" height="76" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0A6C96"/><g transform="translate(192 192) scale(10)"><path fill="#FFFFFF" d="M29 10V34H13Z"/>
+<path fill="#FFFFFF" d="M35 5V34H52Z"/>
+<path fill="#FFFFFF" d="M4 38H60L50 54H14Z"/></g></svg><svg class="app-icon" width="40" height="40" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0A6C96"/><g transform="translate(192 192) scale(10)"><path fill="#FFFFFF" d="M29 10V34H13Z"/>
+<path fill="#FFFFFF" d="M35 5V34H52Z"/>
+<path fill="#FFFFFF" d="M4 38H60L50 54H14Z"/></g></svg></div><figcaption>App icon</figcaption></figure>
+  </div>
+  <div class="lockups">
+    <div class="lockup light"><svg class="" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M29 10V34H13Z"/>
+<path fill="currentColor" d="M35 5V34H52Z"/>
+<path fill="currentColor" d="M4 38H60L50 54H14Z"/></svg><span>Bareship</span></div>
+    <div class="lockup dark"><svg class="" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M29 10V34H13Z"/>
+<path fill="currentColor" d="M35 5V34H52Z"/>
+<path fill="currentColor" d="M4 38H60L50 54H14Z"/></svg><span>Bareship</span></div>
+    <div class="npm"><span class="npm-av"><svg class="" width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M29 10V34H13Z"/>
+<path fill="currentColor" d="M35 5V34H52Z"/>
+<path fill="currentColor" d="M4 38H60L50 54H14Z"/></svg></span><code>create-bareship</code><span class="ver">0.3.1</span></div>
+  </div>
+  <p class="why">A plain boat with two sails on one hull: iOS and Android on one codebase, and both native projects are yours to rig. Flat, geometric and calm, so it works at every size. Risk: sailboats are a familiar symbol, so it is the least surprising of the set.</p>
+  <p class="files">Files: <code>assets/brand/concepts/05-twin-sails.svg</code>, <code>-mono</code>, <code>-icon</code>, <code>-favicon</code></p>
+</article>
+
+<article class="concept" id="06-hull-folder">
+  <header class="concept-head">
+    <span class="tag">F</span>
+    <h2>Hull folder</h2>
+    <p class="says">Says: bare: you own ios/ and android/</p>
+  </header>
+  <div class="stage">
+    <div class="hero-mark light"><svg class="" width="168" height="168" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M8 14H25L30 19H56V31H8Z"/>
+<path fill="currentColor" d="M8 35H56L48 52H16Z"/></svg></div>
+    <div class="hero-mark dark"><svg class="" width="168" height="168" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M8 14H25L30 19H56V31H8Z"/>
+<path fill="currentColor" d="M8 35H56L48 52H16Z"/></svg></div>
+  </div>
+  <div class="sizes">
+    <figure><div class="chip light"><svg class="" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M8 14H25L30 19H56V31H8Z"/>
+<path fill="currentColor" d="M8 35H56L48 52H16Z"/></svg><svg class="" width="16" height="16" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M8 14H25L30 19H56V31H8Z"/>
+<path fill="currentColor" d="M8 35H56L48 52H16Z"/></svg></div><figcaption>32 / 16 px, light</figcaption></figure>
+    <figure><div class="chip dark"><svg class="" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M8 14H25L30 19H56V31H8Z"/>
+<path fill="currentColor" d="M8 35H56L48 52H16Z"/></svg><svg class="" width="16" height="16" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M8 14H25L30 19H56V31H8Z"/>
+<path fill="currentColor" d="M8 35H56L48 52H16Z"/></svg></div><figcaption>32 / 16 px, dark</figcaption></figure>
+    <figure><div class="chip light px"><canvas width="16" height="16" data-src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20d%3D%22M8%2014H25L30%2019H56V31H8Z%22%2F%3E%0A%3Cpath%20fill%3D%22%230A6C96%22%20d%3D%22M8%2035H56L48%2052H16Z%22%2F%3E%0A%3C%2Fsvg%3E%0A"></canvas><canvas width="16" height="16" data-src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M8%2014H25L30%2019H56V31H8Z%22%2F%3E%0A%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M8%2035H56L48%2052H16Z%22%2F%3E%0A%3C%2Fsvg%3E%0A"></canvas></div><figcaption>16 px at 1×, zoomed</figcaption></figure>
+    <figure><div class="chip icons"><svg class="app-icon" width="76" height="76" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0A6C96"/><g transform="translate(192 192) scale(10)"><path fill="#FFFFFF" d="M8 14H25L30 19H56V31H8Z"/>
+<path fill="#FFFFFF" d="M8 35H56L48 52H16Z"/></g></svg><svg class="app-icon" width="40" height="40" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0A6C96"/><g transform="translate(192 192) scale(10)"><path fill="#FFFFFF" d="M8 14H25L30 19H56V31H8Z"/>
+<path fill="#FFFFFF" d="M8 35H56L48 52H16Z"/></g></svg></div><figcaption>App icon</figcaption></figure>
+  </div>
+  <div class="lockups">
+    <div class="lockup light"><svg class="" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M8 14H25L30 19H56V31H8Z"/>
+<path fill="currentColor" d="M8 35H56L48 52H16Z"/></svg><span>Bareship</span></div>
+    <div class="lockup dark"><svg class="" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M8 14H25L30 19H56V31H8Z"/>
+<path fill="currentColor" d="M8 35H56L48 52H16Z"/></svg><span>Bareship</span></div>
+    <div class="npm"><span class="npm-av"><svg class="" width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M8 14H25L30 19H56V31H8Z"/>
+<path fill="currentColor" d="M8 35H56L48 52H16Z"/></svg></span><code>create-bareship</code><span class="ver">0.3.1</span></div>
+  </div>
+  <p class="why">A folder whose bottom half is a hull. "Bare" means the native folders are in your repo, not generated and hidden, and the folder is the icon every developer knows from their file tree. Risk: it can read as a plain folder icon if the hull taper is too subtle.</p>
+  <p class="files">Files: <code>assets/brand/concepts/06-hull-folder.svg</code>, <code>-mono</code>, <code>-icon</code>, <code>-favicon</code></p>
+</article>
+  </section>
+
+  <section class="concepts baseline" aria-label="Current logo">
+
+<article class="concept" id="current">
+  <header class="concept-head">
+    <span class="tag">Baseline</span>
+    <h2>Current logo</h2>
+    
+  </header>
+  <div class="stage">
+    <div class="hero-mark light"><svg class="" width="168" height="168" viewBox="0 0 64 64" aria-hidden="true"><g transform="scale(0.10667)"><g fill="none" stroke="currentColor" stroke-width="34" stroke-linejoin="round" stroke-linecap="round">
+<path d="M300 70 L530 185 L300 300 L70 185 Z" fill="currentColor"/><path d="M70 300 L300 415 L530 300"/><path d="M70 400 L300 515 L530 400"/></g></g></svg></div>
+    <div class="hero-mark dark"><svg class="" width="168" height="168" viewBox="0 0 64 64" aria-hidden="true"><g transform="scale(0.10667)"><g fill="none" stroke="currentColor" stroke-width="34" stroke-linejoin="round" stroke-linecap="round">
+<path d="M300 70 L530 185 L300 300 L70 185 Z" fill="currentColor"/><path d="M70 300 L300 415 L530 300"/><path d="M70 400 L300 515 L530 400"/></g></g></svg></div>
+  </div>
+  <div class="sizes">
+    <figure><div class="chip light"><svg class="" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><g transform="scale(0.10667)"><g fill="none" stroke="currentColor" stroke-width="34" stroke-linejoin="round" stroke-linecap="round">
+<path d="M300 70 L530 185 L300 300 L70 185 Z" fill="currentColor"/><path d="M70 300 L300 415 L530 300"/><path d="M70 400 L300 515 L530 400"/></g></g></svg><svg class="" width="16" height="16" viewBox="0 0 64 64" aria-hidden="true"><g transform="scale(0.10667)"><g fill="none" stroke="currentColor" stroke-width="34" stroke-linejoin="round" stroke-linecap="round">
+<path d="M300 70 L530 185 L300 300 L70 185 Z" fill="currentColor"/><path d="M70 300 L300 415 L530 300"/><path d="M70 400 L300 515 L530 400"/></g></g></svg></div><figcaption>32 / 16 px, light</figcaption></figure>
+    <figure><div class="chip dark"><svg class="" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><g transform="scale(0.10667)"><g fill="none" stroke="currentColor" stroke-width="34" stroke-linejoin="round" stroke-linecap="round">
+<path d="M300 70 L530 185 L300 300 L70 185 Z" fill="currentColor"/><path d="M70 300 L300 415 L530 300"/><path d="M70 400 L300 515 L530 400"/></g></g></svg><svg class="" width="16" height="16" viewBox="0 0 64 64" aria-hidden="true"><g transform="scale(0.10667)"><g fill="none" stroke="currentColor" stroke-width="34" stroke-linejoin="round" stroke-linecap="round">
+<path d="M300 70 L530 185 L300 300 L70 185 Z" fill="currentColor"/><path d="M70 300 L300 415 L530 300"/><path d="M70 400 L300 515 L530 400"/></g></g></svg></div><figcaption>32 / 16 px, dark</figcaption></figure>
+    <figure><div class="chip light px"><canvas width="16" height="16" data-src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Cg%20transform%3D%22scale(0.10667)%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%230A6C96%22%20stroke-width%3D%2234%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22%3E%0A%3Cpath%20d%3D%22M300%2070%20L530%20185%20L300%20300%20L70%20185%20Z%22%20fill%3D%22%230A6C96%22%2F%3E%3Cpath%20d%3D%22M70%20300%20L300%20415%20L530%20300%22%2F%3E%3Cpath%20d%3D%22M70%20400%20L300%20515%20L530%20400%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A"></canvas><canvas width="16" height="16" data-src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Cg%20transform%3D%22scale(0.10667)%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23000000%22%20stroke-width%3D%2234%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22%3E%0A%3Cpath%20d%3D%22M300%2070%20L530%20185%20L300%20300%20L70%20185%20Z%22%20fill%3D%22%23000000%22%2F%3E%3Cpath%20d%3D%22M70%20300%20L300%20415%20L530%20300%22%2F%3E%3Cpath%20d%3D%22M70%20400%20L300%20515%20L530%20400%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A"></canvas></div><figcaption>16 px at 1×, zoomed</figcaption></figure>
+    <figure><div class="chip icons"><svg class="app-icon" width="76" height="76" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0A6C96"/><g transform="translate(192 192) scale(10)"><g transform="scale(0.10667)"><g fill="none" stroke="#FFFFFF" stroke-width="34" stroke-linejoin="round" stroke-linecap="round">
+<path d="M300 70 L530 185 L300 300 L70 185 Z" fill="#FFFFFF"/><path d="M70 300 L300 415 L530 300"/><path d="M70 400 L300 515 L530 400"/></g></g></g></svg><svg class="app-icon" width="40" height="40" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0A6C96"/><g transform="translate(192 192) scale(10)"><g transform="scale(0.10667)"><g fill="none" stroke="#FFFFFF" stroke-width="34" stroke-linejoin="round" stroke-linecap="round">
+<path d="M300 70 L530 185 L300 300 L70 185 Z" fill="#FFFFFF"/><path d="M70 300 L300 415 L530 300"/><path d="M70 400 L300 515 L530 400"/></g></g></g></svg></div><figcaption>App icon</figcaption></figure>
+  </div>
+  <div class="lockups">
+    <div class="lockup light"><svg class="" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><g transform="scale(0.10667)"><g fill="none" stroke="currentColor" stroke-width="34" stroke-linejoin="round" stroke-linecap="round">
+<path d="M300 70 L530 185 L300 300 L70 185 Z" fill="currentColor"/><path d="M70 300 L300 415 L530 300"/><path d="M70 400 L300 515 L530 400"/></g></g></svg><span>Bareship</span></div>
+    <div class="lockup dark"><svg class="" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><g transform="scale(0.10667)"><g fill="none" stroke="currentColor" stroke-width="34" stroke-linejoin="round" stroke-linecap="round">
+<path d="M300 70 L530 185 L300 300 L70 185 Z" fill="currentColor"/><path d="M70 300 L300 415 L530 300"/><path d="M70 400 L300 515 L530 400"/></g></g></svg><span>Bareship</span></div>
+    <div class="npm"><span class="npm-av"><svg class="" width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><g transform="scale(0.10667)"><g fill="none" stroke="currentColor" stroke-width="34" stroke-linejoin="round" stroke-linecap="round">
+<path d="M300 70 L530 185 L300 300 L70 185 Z" fill="currentColor"/><path d="M70 300 L300 415 L530 300"/><path d="M70 400 L300 515 L530 400"/></g></g></svg></span><code>create-bareship</code><span class="ver">0.3.1</span></div>
+  </div>
+  <p class="why">The three stacked layers (app, features, shared). Clean, but the same shape as dozens of stack, layer and database logos, and nothing in it says ship, bare or offline.</p>
+</article>
+  </section>
+
+  <section class="next">
+    <span class="eyebrow">Next</span>
+    <h2>Pick one, or mix</h2>
+    <p>Reply with a variant (G1 to G6) or a letter (A to J). Mixing or tweaking still works, for example G with a porthole in the hull, or a different colour. After you choose, the chosen mark replaces <code>assets/brand/logo.svg</code>, <code>icon.svg</code>, the website logos and the favicon, and <code>pnpm icons</code> and <code>pnpm splash</code> regenerate the app's icons and splash screen.</p>
+  </section>
+
+  <section class="sources">
+    <span class="eyebrow">Sources</span>
+    <ol>
+      <li><a href="https://production-blue.amara.org/videos/Jd0UC4Jk5HxE/info/the-3-rules-of-good-logo-design">Sagi Haviv, The 3 rules of good logo design (video)</a></li>
+      <li><a href="https://www.printmag.com/branding-identity-design/marks-men-an-interview-with-ivan-chermayeff-tom-geismar-and-sagi-haviv-of-chermayeff-geisma/">Print: interview with Chermayeff, Geismar and Haviv</a></li>
+      <li><a href="https://piktochart.com/blog/elements-of-a-good-logo/">Piktochart: elements of a good logo</a> and <a href="https://designwiz.com/blog/what-makes-a-good-logo/">DesignWiz: what makes a good logo</a> (informal rules of thumb)</li>
+      <li><a href="https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs">Evil Martians: How to favicon</a></li>
+      <li><a href="https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax">GitHub Docs: basic writing and formatting syntax (images for light and dark)</a></li>
+      <li><a href="https://developer.apple.com/design/human-interface-guidelines/app-icons">Apple Human Interface Guidelines: App icons</a></li>
+      <li><a href="https://deno.land/artwork">Deno artwork</a></li>
+      <li><a href="https://vercel.com/geist/brands">Vercel brand guidelines (Turbo family)</a></li>
+      <li><a href="https://pnpm.io/logos">pnpm logos</a></li>
+    </ol>
+  </section>
+</main>
+
+<script>
+// Draw each 16 px canvas from its SVG so the zoomed tile shows real 1× pixels, as a browser tab would.
+document.querySelectorAll('canvas[data-src]').forEach(function (canvas) {
+  var img = new Image();
+  img.onload = function () { canvas.getContext('2d').drawImage(img, 0, 0, 16, 16); };
+  img.src = canvas.getAttribute('data-src');
+});
+</script>

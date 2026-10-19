@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
   <!-- The app icon (assets/brand/icon.svg) with rounded corners. -->
   <rect width="1024" height="1024" rx="224" fill="#0A6C96"/>
-  <g fill="none" stroke="#FFFFFF" stroke-width="56" stroke-linejoin="round" stroke-linecap="round">
-    <path d="M512 252 L792 392 L512 532 L232 392 Z" fill="#FFFFFF"/>
-    <path d="M232 512 L512 652 L792 512"/>
-    <path d="M232 632 L512 772 L792 632"/>
+  <g fill="#FFFFFF" transform="translate(192 192) scale(10)">
+    <path d="M31.5 6H40.5A8.5 8.5 0 0 1 40.5 23H42A9.5 9.5 0 0 1 42 42H31.5Z"/>
+    <path d="M27.5 12V42H11.5Z"/>
+    <path d="M4 47H60L51 59H13Z"/>
   </g>
 </svg>

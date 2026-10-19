@@ -42,6 +42,7 @@ const NOT_IN_APP = [
   /^\.github\/workflows\/portfolio\.yml$/, // redeploys the maintainer's portfolio
   /^website\//, // the template's website, not part of an app
   /^assets\/screenshots\//, // the README's screenshots
+  /^assets\/brand\/concepts\//, // the logo concepts behind ADR 0019
 ];
 
 type PackageJson = Record<string, unknown> & {
