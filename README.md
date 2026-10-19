@@ -72,7 +72,7 @@ write queue, Keychain token storage, enforced architecture, optional Firebase an
 run it, or install it on a phone: the dev build serves sample data from a mock backend inside the app. You
 add each service when you need it ([going live](docs/going-live.md)).
 
-> **Status: 0.3.1, on npm and as a GitHub template.** `npx create-bareship` creates an app in one command. An
+> **Status: 0.3.2, on npm and as a GitHub template.** `npx create-bareship` creates an app in one command. An
 > app made from the npm package builds and runs on iOS and Android, and the fastlane release builds pass on
 > both. Next: turning CI back on in this repository. See the [roadmap](#roadmap) and
 > [known limitations](#known-limitations).
