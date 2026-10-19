@@ -94,6 +94,7 @@ export default [
       'assets/bootsplash/**',
       'dist/**',
       'website/**', // its own project (Astro); see website/package.json
+      '.claude/**', // vendored skills and Claude Code worktrees (full copies of this repo)
     ],
   },
   ...reactNative,
