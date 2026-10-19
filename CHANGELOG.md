@@ -6,6 +6,10 @@ changes.
 
 ## Unreleased
 
+- Every dependency in `package.json` is pinned to an exact version (it already was in the lockfile), and
+  `pnpm add` now saves exact versions (`savePrefix: ''` in `pnpm-workspace.yaml`), as AGENTS.md asks.
+- ESLint, Prettier and Jest skip `.claude/`, so `pnpm check` no longer lints and tests the copies of the
+  repo that Claude Code keeps in `.claude/worktrees/`.
 - `concurrent-ruby` (used by CocoaPods and fastlane) goes from 1.3.3 to 1.3.8, which fixes three security
   advisories. The Gemfile's `< 1.3.4` pin came from the React Native template and was only needed with
   activesupport older than 7.1; the lockfile has 7.2.4, so the Gemfile now asks for `>= 1.3.7`.
