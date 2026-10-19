@@ -8,8 +8,8 @@ assets/bootsplash/
 assets/brand/concepts/index.html
 *.md
 
-# Vendored agent skills: keep identical to upstream (pnpm skills:sync)
-.claude/skills/
+# Vendored agent skills (keep identical to upstream, pnpm skills:sync) and Claude Code worktrees
+.claude/
 
 # Website build output, generated types and synced pages (website/.gitignore)
 website/.astro/

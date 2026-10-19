@@ -1,6 +1,9 @@
 # pnpm policy — see docs/decisions/0003-package-manager-and-supply-chain.md
 nodeLinker: hoisted
 
+# `pnpm add` writes exact versions (AGENTS.md › Agent skills). Renovate pins too.
+savePrefix: ''
+
 # Don't install a version until it has been public for 3 days (minutes).
 minimumReleaseAge: 4320
 minimumReleaseAgeExclude: []
@@ -31,7 +34,7 @@ allowBuilds:
 # @react-native/eslint-config 0.87 depends on eslint-plugin-ft-flow ^2 (ESLint 8
 # peer). 3.x is the same plugin with ESLint 9 support.
 overrides:
-  eslint-plugin-ft-flow: ^3.0.11
+  eslint-plugin-ft-flow: 3.0.11
 
 fetchTimeout: 300000
 fetchRetries: 5

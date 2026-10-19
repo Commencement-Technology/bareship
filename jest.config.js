@@ -30,9 +30,11 @@ module.exports = {
     '/ios/',
     '<rootDir>/dist/',
     '<rootDir>/website/',
+    '<rootDir>/.claude/',
   ],
-  // dist/npm/template is a packed copy of the app (pnpm pack-template).
-  modulePathIgnorePatterns: ['<rootDir>/dist/', '<rootDir>/website/'],
+  // dist/npm/template is a packed copy of the app (pnpm pack-template); .claude/worktrees holds
+  // Claude Code worktrees, full copies of the repo.
+  modulePathIgnorePatterns: ['<rootDir>/dist/', '<rootDir>/website/', '<rootDir>/.claude/'],
   collectCoverageFrom: [
     'src/shared/**/*.{ts,tsx}',
     'src/data/**/*.{ts,tsx}',
