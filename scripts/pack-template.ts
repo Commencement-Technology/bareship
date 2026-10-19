@@ -23,6 +23,7 @@ const CLI = join(ROOT, 'packages', 'create-bareship');
 const CLI_OUT = join(ROOT, 'dist', 'create-bareship');
 const CLI_BIN = join('bin', 'create-bareship.mjs');
 const PLACEHOLDER = 'BareshipApp';
+const GITHUB = 'https://github.com/psingh2907/bareship';
 
 /** About the template itself, not part of an app made from it. */
 const NOT_IN_APP = [
@@ -59,6 +60,21 @@ function files(): string[] {
     .filter(Boolean)
     .filter(file => existsSync(join(ROOT, file))) // deleted but not yet staged
     .filter(file => !NOT_IN_APP.some(pattern => pattern.test(file)));
+}
+
+/**
+ * The repository's README for an npm page (ADR 0018): both packages show it, screenshots and all. npm
+ * resolves relative links against the package's own folder, so they point at the files on GitHub instead.
+ */
+function npmReadme(): string {
+  const readme = readFileSync(join(ROOT, 'README.md'), 'utf8');
+  const absolute = (path: string) => `${GITHUB}/blob/main/${path}`;
+  return readme
+    .replace(/\]\((?!https?:|#|mailto:)([^)\s]+)\)/g, (_, path: string) => `](${absolute(path)})`)
+    .replace(
+      /(href|src)="(?!https?:|#|mailto:)([^"]+)"/g,
+      (_, attr: string, path: string) => `${attr}="${absolute(path)}"`,
+    );
 }
 
 function main() {
@@ -144,8 +160,8 @@ function main() {
   // People who find the package on npm try `npm install` it; the npm page says what to do instead.
   const notice =
     "> **This is a template, not a library.** Don't `npm install` it. Create an app with " +
-    '`npx create-bareship <name>`.\n\n';
-  writeFileSync(join(OUT, 'README.md'), notice + readFileSync(join(ROOT, 'README.md'), 'utf8'));
+    '[`npx create-bareship <name>`](https://www.npmjs.com/package/create-bareship).\n\n';
+  writeFileSync(join(OUT, 'README.md'), notice + npmReadme());
   if (existsSync(join(ROOT, 'LICENSE'))) {
     copyFileSync(join(ROOT, 'LICENSE'), join(OUT, 'LICENSE'));
     // The app is the user's to license; the template's MIT notice travels with it under its own name.
@@ -155,11 +171,13 @@ function main() {
   const tarball = execFileSync('npm', ['pack', '--silent'], { cwd: OUT, encoding: 'utf8' }).trim();
   console.log(`Packed ${appFiles.length} app files into dist/npm/${tarball}`);
 
-  // The installer: only the files its package.json lists, plus the license.
-  for (const file of ['package.json', 'README.md', CLI_BIN]) {
+  // The installer: only the files its package.json lists, the license, and the repository's README, so its
+  // npm page (the one people are sent to) shows the screenshots and what's inside.
+  for (const file of ['package.json', CLI_BIN]) {
     mkdirSync(dirname(join(CLI_OUT, file)), { recursive: true });
     copyFileSync(join(CLI, file), join(CLI_OUT, file));
   }
+  writeFileSync(join(CLI_OUT, 'README.md'), npmReadme());
   copyFileSync(join(ROOT, 'LICENSE'), join(CLI_OUT, 'LICENSE'));
   const cliTarball = execFileSync('npm', ['pack', '--silent', '--pack-destination', OUT], {
     cwd: CLI_OUT,

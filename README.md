@@ -14,14 +14,14 @@
   <img src="https://img.shields.io/badge/New_Architecture-only-2ea44f" alt="New Architecture only">
   <img src="https://img.shields.io/badge/TypeScript-6_strict-3178c6" alt="TypeScript 6 strict">
   <img src="https://img.shields.io/badge/platforms-iOS_%7C_Android-lightgrey" alt="iOS and Android">
-  <a href="https://www.npmjs.com/package/bareship"><img src="https://img.shields.io/npm/v/bareship" alt="npm version"></a>
+  <a href="https://www.npmjs.com/package/create-bareship"><img src="https://img.shields.io/npm/v/create-bareship" alt="npm version"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license"></a>
 </p>
 
 <p align="center">
   <a href="https://bareship.praveensingh.co.in"><strong>Website and docs</strong></a> ·
   <a href="#quick-start">Quick start</a> ·
-  <a href="https://www.npmjs.com/package/bareship">npm</a> ·
+  <a href="https://www.npmjs.com/package/create-bareship">npm</a> ·
   <a href="#whats-inside">What's inside</a> ·
   <a href="docs/architecture.md">Architecture</a> ·
   <a href="#roadmap">Roadmap</a>
@@ -72,7 +72,7 @@ write queue, Keychain token storage, enforced architecture, optional Firebase an
 run it, or install it on a phone: the dev build serves sample data from a mock backend inside the app. You
 add each service when you need it ([going live](docs/going-live.md)).
 
-> **Status: 0.3.0, on npm and as a GitHub template.** `npx create-bareship` creates an app in one command. An
+> **Status: 0.3.1, on npm and as a GitHub template.** `npx create-bareship` creates an app in one command. An
 > app made from the npm package builds and runs on iOS and Android, and the fastlane release builds pass on
 > both. Next: turning CI back on in this repository. See the [roadmap](#roadmap) and
 > [known limitations](#known-limitations).
@@ -109,9 +109,21 @@ pnpm ios              # or: pnpm android
 ```
 
 `create-bareship` checks these tools first and says how to fix anything missing. It asks for the bundle id
-and display name (or pass `--bundle-id com.acme.app --display-name "Acme"`, and `--yes` to ask nothing, for
-CI and AI agents), then creates the app from the template, installs its dependencies, sets the bundle id and
-runs `pod install`. `npx bareship Acme` does the same. Run `npx create-bareship --help` for the options.
+and display name, then creates the app from the template, installs its dependencies, sets the bundle id, runs
+`pod install` and makes the first git commit. `npx bareship Acme` does the same.
+
+| Option | What it does |
+| --- | --- |
+| `--bundle-id <id>` | Reverse-domain bundle id, like `com.acme.app`. Default: `com.<appname>.app` |
+| `--display-name <name>` | Name under the app icon. Default: the app name |
+| `-y`, `--yes` | Ask nothing and use the defaults, for CI and AI agents |
+| `--skip-pods` | Don't run `pod install`, for an Android-only setup. Always on outside macOS |
+| `--skip-checks` | Don't check the tools first |
+| `--dry-run` | Check the tools, then print the commands without running them |
+
+For example, with no questions:
+`npx create-bareship Acme --bundle-id com.acme.app --display-name "Acme" --yes`. Each version of
+`create-bareship` creates the app from the same version of the template.
 
 <details>
 <summary>Or create it step by step</summary>

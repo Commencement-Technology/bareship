@@ -23,6 +23,15 @@ tar xzf "$template" -O package/package.json | grep -q '"bareship": "bin/create-b
   || { echo "✖ The bareship package has no bin"; exit 1; }
 tar xzf "$template" -O package/README.md | head -1 | grep -q 'This is a template, not a library' \
   || { echo "✖ The npm README doesn't start with the template notice"; exit 1; }
+# Both npm pages show the repository's README, screenshots included, with no links relative to the package.
+for package in "$template" "$cli"; do
+  readme="$(tar xzf "$package" -O package/README.md)"
+  grep -q 'npx create-bareship Acme' <<<"$readme" && grep -q 'assets/screenshots/' <<<"$readme" \
+    || { echo "✖ $(basename "$package"): README lacks the quick start or the screenshots"; exit 1; }
+  if grep -n -E '\]\((docs|LICENSE|AGENTS|CONTRIBUTING)|(href|src)="(docs|LICENSE)' <<<"$readme"; then
+    echo "✖ $(basename "$package"): README has relative links, which break on npm"; exit 1
+  fi
+done
 
 cd "$work"
 mkdir Taken

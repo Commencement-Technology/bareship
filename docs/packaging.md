@@ -14,8 +14,8 @@ It writes two tarballs to `dist/npm/`, always with the same version (it stops if
 `packages/create-bareship/package.json` and `package.json` disagree):
 
 - `bareship-<version>.tgz`, the template.
-- `create-bareship-<version>.tgz`, the installer: `packages/create-bareship/` (its `bin/`, `package.json`,
-  `README.md`) and the license. It has no dependencies. `create-bareship@X` creates apps from
+- `create-bareship-<version>.tgz`, the installer: `packages/create-bareship/` (its `bin/` and
+  `package.json`), the license, and the repository's `README.md`. It has no dependencies. `create-bareship@X` creates apps from
   `bareship@X`, so the two are published together.
 
 The template tarball contains:
@@ -27,6 +27,10 @@ The template tarball contains:
 | `template/README.md` | The app's README, from `scripts/app-readme.md`: how to run, customise and release the app. The template's README stays in this repository |
 | `bin/create-bareship.mjs` | The installer, as the package's `bareship` bin, so `npx bareship Acme` creates an app |
 | `package.json`, `README.md`, `LICENSE` | The npm package itself. The README starts with a note that the package is a template, not a library |
+
+Both packages show the repository's README on npm, screenshots included, with its relative links pointed
+at GitHub. `create-bareship` is the page to link to: it's the command people run. Edit `README.md`, not
+`packages/create-bareship/README.md`, which only describes the folder on GitHub.
 
 When someone runs `init`, the CLI copies `template/`, replaces every `BareshipApp` and `bareshipapp` (Xcode
 project and schemes, bundle ids, the Android package, URL schemes, `package.json`'s name) with the new

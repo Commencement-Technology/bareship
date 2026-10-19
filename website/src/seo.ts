@@ -38,7 +38,11 @@ export const software = {
   description,
   url: `${site}/`,
   codeRepository: 'https://github.com/psingh2907/bareship',
-  sameAs: ['https://www.npmjs.com/package/bareship', 'https://github.com/psingh2907/bareship'],
+  sameAs: [
+    'https://www.npmjs.com/package/create-bareship',
+    'https://www.npmjs.com/package/bareship',
+    'https://github.com/psingh2907/bareship',
+  ],
   programmingLanguage: 'TypeScript',
   runtimePlatform: 'React Native',
   license: 'https://spdx.org/licenses/MIT.html',
