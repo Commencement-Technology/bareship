@@ -4,8 +4,17 @@ Notable changes to the template. Versions follow [Semantic Versioning](https://s
 the template own their copy of the code, so a new version reaches an app only when its authors apply the
 changes.
 
-## Unreleased
+## 0.3.1 (2026-10-19)
 
+The npm pages: `create-bareship` becomes the page to start from. No changes to the app's code.
+
+- `create-bareship`'s npm page shows the full README, with screenshots and what's inside, instead of a short
+  options list; it also has the template's search keywords. `bareship`'s page keeps the same README under
+  its "template, not a library" note, which now links to `create-bareship`. Links in both point at GitHub.
+- README: the installer's options table is in the quick start, and the npm badge and link go to
+  `create-bareship`. The website's npm icon, `llms.txt` and search data point there too.
+- `scripts/ci/check-create.sh` checks that both npm READMEs have the quick start and screenshots and no
+  relative links.
 - The app's README says that an app made with `npx create-bareship` is already installed, and gives a
   teammate's clone steps (`pnpm install`, `bundle install`, `pnpm pods`) instead of asking for `bootstrap`.
 - Website: the home page, FAQ, introduction and AI agents page create the app with `npx create-bareship`.

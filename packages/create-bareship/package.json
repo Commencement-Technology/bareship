@@ -1,7 +1,7 @@
 {
   "name": "create-bareship",
-  "version": "0.3.0",
-  "description": "Create a React Native app from the Bareship template in one command: npx create-bareship Acme.",
+  "version": "0.3.1",
+  "description": "Create a production-ready, offline-first bare React Native app in one command: npx create-bareship Acme.",
   "license": "MIT",
   "author": "Praveen Singh",
   "type": "module",
@@ -21,12 +21,19 @@
   },
   "homepage": "https://bareship.praveensingh.co.in",
   "keywords": [
-    "react-native",
-    "create-react-native-app",
-    "react-native-template",
+    "create-bareship",
     "bareship",
+    "react-native",
+    "react-native-template",
+    "create-react-native-app",
+    "template",
+    "boilerplate",
     "starter-kit",
     "offline-first",
+    "bare-workflow",
+    "typescript",
+    "production-ready",
+    "ai-agents",
     "cli"
   ]
 }
