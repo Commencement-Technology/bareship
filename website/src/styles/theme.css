@@ -47,3 +47,37 @@
   font-size: var(--sl-text-sm);
   color: var(--sl-color-gray-2);
 }
+
+/* Home page: the three things that set the template apart, right under the hero. */
+.differences {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 1rem;
+}
+.differences a {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.25rem;
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 0.75rem;
+  color: var(--sl-color-gray-2);
+  text-decoration: none;
+}
+.differences a:hover {
+  border-color: var(--sl-color-accent);
+}
+.differences strong {
+  color: var(--sl-color-white);
+  font-size: var(--sl-text-lg);
+}
+
+/* Home page: the closing ask for a GitHub star. */
+.star-box {
+  margin-top: 3rem;
+  padding: 1.5rem;
+  border: 1px solid var(--sl-color-accent);
+  border-radius: 0.75rem;
+  background: var(--sl-color-accent-low);
+  text-align: center;
+}

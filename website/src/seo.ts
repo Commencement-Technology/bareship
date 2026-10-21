@@ -55,12 +55,17 @@ export const software = {
 const plain = (md: string) =>
   md
     .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
-    .replace(/[`*_]/g, '')
+    // Backticks and asterisks only: underscores belong to names like API_URL.
+    .replace(/[`*]/g, '')
     .replace(/\s+/g, ' ')
     .trim();
 
-/** "### Question" headings and the paragraphs under them, as FAQPage questions. */
+/** "### Question" headings and the paragraphs under them, or `<details>` blocks whose `<summary>` is the
+ * question, as FAQPage questions. */
 export function faqPage(body: string) {
+  const details = [...body.matchAll(/<summary>([\s\S]*?)<\/summary>([\s\S]*?)<\/details>/g)];
+  if (details.length)
+    return faqNode(details.map(([, name, text]) => ({ name: plain(name), text: plain(text) })));
   const questions: { name: string; text: string }[] = [];
   let current: { name: string; lines: string[] } | undefined;
   const flush = () => {
@@ -74,15 +79,17 @@ export function faqPage(body: string) {
     } else current?.lines.push(line);
   }
   flush();
-  return {
-    '@type': 'FAQPage',
-    mainEntity: questions.map(q => ({
-      '@type': 'Question',
-      name: q.name,
-      acceptedAnswer: { '@type': 'Answer', text: q.text },
-    })),
-  };
+  return faqNode(questions);
 }
+
+const faqNode = (questions: { name: string; text: string }[]) => ({
+  '@type': 'FAQPage',
+  mainEntity: questions.map(q => ({
+    '@type': 'Question',
+    name: q.name,
+    acceptedAnswer: { '@type': 'Answer', text: q.text },
+  })),
+});
 
 /** One @graph document; escaping "<" keeps a stray "</script>" from closing the tag. */
 export const graph = (...nodes: object[]) =>
