@@ -21,25 +21,9 @@ export default defineConfig({
       favicon: '/favicon.svg',
       customCss: ['./src/styles/theme.css'],
       components: { Footer: './src/components/Footer.astro', Head: './src/components/Head.astro' },
-      // Share image for every page (scripts/og-image.mjs), and the AI-tools index (src/pages/llms.txt.ts).
+      // Share-preview tags per page (src/routeData.ts), and the AI-tools index (src/pages/llms.txt.ts).
+      routeMiddleware: './src/routeData.ts',
       head: [
-        {
-          tag: 'meta',
-          attrs: { property: 'og:image', content: 'https://bareship.praveensingh.co.in/og.png' },
-        },
-        { tag: 'meta', attrs: { property: 'og:image:width', content: '1200' } },
-        { tag: 'meta', attrs: { property: 'og:image:height', content: '630' } },
-        {
-          tag: 'meta',
-          attrs: {
-            property: 'og:image:alt',
-            content: 'Bareship: offline-first, bare React Native template',
-          },
-        },
-        {
-          tag: 'meta',
-          attrs: { name: 'twitter:image', content: 'https://bareship.praveensingh.co.in/og.png' },
-        },
         { tag: 'meta', attrs: { name: 'author', content: 'Praveen Singh' } },
         { tag: 'link', attrs: { rel: 'author', href: 'https://www.praveensingh.co.in/' } },
         {
