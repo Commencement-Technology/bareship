@@ -58,6 +58,7 @@ export default defineConfig({
           label: 'Start here',
           items: [
             'start-here/introduction',
+            'start-here/how-to-choose',
             'start-here/quick-start',
             'start-here/environments',
             'start-here/faq',

@@ -1,6 +1,6 @@
 ---
 // Starlight's <head> plus structured data: the project and site on every page, a TechArticle for each docs
-// page, and FAQPage on the FAQ (src/seo.ts). Google Analytics (GA4) loads only on the live domain, so local dev
+// page, and FAQPage on the FAQ and the how-to-choose page (src/seo.ts). Google Analytics (GA4) loads only on the live domain, so local dev
 // and Vercel preview URLs don't send page views. The check runs in the browser: import.meta.env in this file
 // makes Astro re-read the repo's root tsconfig, which breaks the Vercel build.
 import Default from '@astrojs/starlight/components/Head.astro';
@@ -24,7 +24,9 @@ if (!isHome) {
     ...(entry.data.lastUpdated instanceof Date && { dateModified: entry.data.lastUpdated.toISOString() }),
   });
 }
-if (entry.id === 'start-here/faq' && entry.body) nodes.push(faqPage(entry.body));
+// Pages whose "### Question" headings are marked up as FAQPage.
+const faqPages = ['start-here/faq', 'start-here/how-to-choose'];
+if (faqPages.includes(entry.id) && entry.body) nodes.push(faqPage(entry.body));
 
 const gaId = 'G-DQ0L8S6KB1';
 const gaScript = `if(location.hostname===${JSON.stringify(new URL(site).hostname)}){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=${gaId}';document.head.appendChild(s);window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','${gaId}')}`;
