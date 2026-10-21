@@ -1,0 +1,187 @@
+---
+// The home page hero: Starlight's title, tagline and buttons, plus the create command with a copy button, a
+// line with the version, licence, platforms and React Native version, and the app offline on a phone. The
+// versions come from the repo's package.json at build time, so they match the latest release.
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { LinkButton } from '@astrojs/starlight/components';
+
+const { data } = Astro.locals.starlightRoute.entry;
+const { title = data.title, tagline, actions = [] } = data.hero || {};
+
+// The site builds from website/, so the template's package.json is one level up.
+const pkg = JSON.parse(readFileSync(resolve(process.cwd(), '../package.json'), 'utf8'));
+const reactNative = pkg.dependencies['react-native'].split('.').slice(0, 2).join('.');
+const command = 'npx create-bareship MyApp';
+---
+
+<div class="hero">
+  <div class="phone">
+    <img
+      src="/screenshots/android/07-offline.jpg"
+      alt="The app offline on Android: a banner says one change will sync when you reconnect, and a liked post shows Waiting to sync"
+      width="640"
+      height="1428"
+      loading="eager"
+      decoding="async"
+    />
+  </div>
+  <div class="sl-flex stack">
+    <div class="sl-flex copy">
+      {/* Starlight's skip link points at the page title's id, _top. */}
+      <h1 id="_top" data-page-title set:html={title} />
+      {tagline && <div class="tagline" set:html={tagline} />}
+    </div>
+    <div class="command not-content">
+      <code>{command}</code>
+      <button type="button" data-copy={command} aria-label="Copy the command">Copy</button>
+    </div>
+    {
+      actions.length > 0 && (
+        <div class="sl-flex actions">
+          {actions.map(({ icon, link: href, text, variant }) => (
+            <LinkButton {href} {variant} icon={icon?.name}>
+              {text}
+            </LinkButton>
+          ))}
+        </div>
+      )
+    }
+    <p class="facts">v{pkg.version} · MIT · iOS and Android · React Native {reactNative}</p>
+  </div>
+</div>
+
+<script>
+  for (const button of document.querySelectorAll<HTMLButtonElement>('.hero [data-copy]')) {
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(button.dataset.copy ?? '');
+        button.textContent = 'Copied';
+      } catch {
+        // Where the clipboard API is blocked, select the command so the older copy command (or the
+        // keyboard) can copy it.
+        const code = button.previousElementSibling;
+        if (code) getSelection()?.selectAllChildren(code);
+        button.textContent = document.execCommand('copy') ? 'Copied' : 'Selected';
+      }
+      setTimeout(() => (button.textContent = 'Copy'), 2000);
+    });
+  }
+</script>
+
+<style>
+  .hero {
+    display: grid;
+    grid-template-columns: 100%;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 1rem;
+  }
+  .stack {
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+    align-items: center;
+  }
+  .copy {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+  .copy > * {
+    max-width: 50ch;
+  }
+  h1 {
+    font-size: clamp(var(--sl-text-3xl), calc(0.25rem + 5vw), var(--sl-text-6xl));
+    line-height: var(--sl-line-height-headings);
+    font-weight: 600;
+    color: var(--sl-color-white);
+  }
+  .tagline {
+    font-size: clamp(var(--sl-text-base), calc(0.0625rem + 2vw), var(--sl-text-xl));
+    color: var(--sl-color-gray-2);
+  }
+  .command {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    max-width: 100%;
+    padding: 0.75rem 0.75rem 0.75rem 1rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.75rem;
+    background: var(--sl-color-gray-6);
+  }
+  .command code {
+    /* Small enough on a 375 px phone that the whole command fits beside the button. */
+    font-size: clamp(0.8rem, 3.4vw, var(--sl-text-lg));
+    color: var(--sl-color-white);
+    background: none;
+    white-space: nowrap;
+    overflow-x: auto;
+  }
+  /* The prompt is drawn by CSS, so selecting or copying the command leaves it out. */
+  .command code::before {
+    content: '$ ';
+    color: var(--sl-color-accent-high);
+  }
+  .command button {
+    flex: none;
+    padding: 0.35rem 0.85rem;
+    border: 1px solid var(--sl-color-gray-4);
+    border-radius: 0.5rem;
+    background: var(--sl-color-black);
+    color: var(--sl-color-white);
+    font: inherit;
+    font-size: var(--sl-text-sm);
+    cursor: pointer;
+  }
+  .command button:hover {
+    border-color: var(--sl-color-accent);
+  }
+  .actions {
+    gap: 1rem 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .facts {
+    margin: 0;
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-3);
+  }
+  /* The screenshots follow right after the hero on a phone, so the hero shows the phone only on wide screens. */
+  .phone {
+    display: none;
+  }
+
+  @media (min-width: 50rem) {
+    .hero {
+      grid-template-columns: 7fr 4fr;
+      gap: 3%;
+      padding-block: clamp(2.5rem, calc(1rem + 8vmin), 6rem);
+    }
+    .stack,
+    .copy {
+      text-align: start;
+      align-items: flex-start;
+    }
+    .actions {
+      justify-content: flex-start;
+    }
+    .phone {
+      display: block;
+      order: 2;
+      justify-self: center;
+      width: min(100%, 17rem);
+      padding: 0.6rem;
+      border-radius: 2.4rem;
+      background: #0d1b22;
+      box-shadow: 0 1.5rem 3rem rgb(0 0 0 / 0.25);
+    }
+    .phone img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 1.9rem;
+    }
+  }
+</style>

@@ -20,7 +20,11 @@ export default defineConfig({
       },
       favicon: '/favicon.svg',
       customCss: ['./src/styles/theme.css'],
-      components: { Footer: './src/components/Footer.astro', Head: './src/components/Head.astro' },
+      components: {
+        Footer: './src/components/Footer.astro',
+        Head: './src/components/Head.astro',
+        Hero: './src/components/Hero.astro',
+      },
       // Share-preview tags per page (src/routeData.ts), and the AI-tools index (src/pages/llms.txt.ts).
       routeMiddleware: './src/routeData.ts',
       head: [

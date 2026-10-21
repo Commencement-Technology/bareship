@@ -9,13 +9,37 @@ hero:
     - text: Get started
       link: /start-here/quick-start/
       icon: right-arrow
-    - text: View on GitHub
+    - text: Star on GitHub
       link: https://github.com/psingh2907/bareship
       icon: github
       variant: minimal
 ---
 
 import { Card, CardGrid, LinkButton, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+
+<div class="differences">
+  <a href="/build/offline/">
+    <strong>Offline writes that wait</strong>
+    <span>
+      A like or an edit made offline is saved, survives a restart and is sent once when the phone
+      reconnects.
+    </span>
+  </a>
+  <a href="/build/project-rules/">
+    <strong>Rules the linter enforces</strong>
+    <span>
+      Layers, feature boundaries, translations and accessibility are checked by ESLint, not by code
+      review.
+    </span>
+  </a>
+  <a href="/build/ai-agents/">
+    <strong>Built for AI agents</strong>
+    <span>
+      AGENTS.md, skills and generators, so Claude Code, Cursor and Copilot write code that passes
+      the same checks.
+    </span>
+  </a>
+</div>
 
 <Tabs syncKey="platform">
   <TabItem label="iOS">
@@ -128,56 +152,6 @@ import { Card, CardGrid, LinkButton, Steps, TabItem, Tabs } from '@astrojs/starl
   </TabItem>
 </Tabs>
 
-## Create an app
-
-<Tabs>
-<TabItem label="One command">
-
-```bash
-npx create-bareship Acme
-```
-
-It checks your tools, asks for the bundle id and display name, then creates the app from the
-[npm template](https://www.npmjs.com/package/bareship), installs everything and sets the bundle id. Add
-`--yes` to ask nothing, for CI and AI agents. Then `cd Acme` and `pnpm ios` or `pnpm android`.
-
-</TabItem>
-<TabItem label="React Native CLI">
-
-```bash
-npx @react-native-community/cli@20.2.0 init Acme --template bareship --skip-install --install-pods false
-cd Acme
-pnpm install
-bundle install
-pnpm bootstrap --bundle-id com.acme.app --display-name "Acme"
-```
-
-The steps `create-bareship` runs. The CLI can't install with pnpm, so it skips the install. Leave out
-`--package-name`: `bootstrap` sets the bundle id and keeps dev, staging and prod apart.
-
-</TabItem>
-<TabItem label="GitHub template">
-
-Click **Use this template** on the [GitHub repository](https://github.com/psingh2907/bareship), clone your
-copy, then:
-
-```bash
-pnpm install
-bundle install
-pnpm bootstrap --name Acme --bundle-id com.acme.app --display-name "Acme"
-```
-
-Your copy also holds the template's own files (this website, the changelog, the contributing guide). Delete
-the ones you don't want.
-
-</TabItem>
-</Tabs>
-
-`bootstrap` sets the bundle ids and display names of dev, staging and prod and moves the Android package to
-match, then runs `pod install`. In a copy of the repository, `--name` also renames the Xcode project, schemes
-and URL schemes; `init` does that for you. Start an emulator or simulator, run `pnpm android` or `pnpm ios`, and sign in with
-`demo@example.com` / `password123`.
-
 ## It runs with no accounts
 
 You don't need a backend, a Firebase project or an Apple Developer team to build the app, run it or put it on a
@@ -191,52 +165,6 @@ when its account is missing:
   Android phone.
 
 When you're ready, [Going live](/production/going-live/) lists what to add and what each step switches on.
-
-## What's inside
-
-<CardGrid>
-  <Card title="Offline writes that wait" icon="cloud-download">
-    A write made offline is saved, survives a restart, and is sent in order when the connection
-    returns, each with its own idempotency key. [Offline](/build/offline/)
-  </Card>
-  <Card title="Tokens in the Keychain" icon="padlock">
-    Access and refresh tokens live in the iOS Keychain and Android Keystore, never in plain storage.
-    One refresh serves every request waiting on it. [Session](/build/architecture/#session)
-  </Card>
-  <Card title="An architecture the linter enforces" icon="list-format">
-    Layers import downward only and features never import each other. ESLint and dependency-cruiser
-    fail the build otherwise. [Architecture](/build/architecture/)
-  </Card>
-  <Card title="Firebase when you want it" icon="analytics">
-    Crashlytics, Analytics, Remote Config and push switch on when you add a Firebase file, and fall
-    back without one. [Set up Firebase](/production/going-live/#set-up-firebase)
-  </Card>
-  <Card title="Three environments" icon="setting">
-    Dev, staging and prod install side by side, each with its own app id, name, icon badge, URL
-    scheme and `.env` file. [Environments](/start-here/environments/)
-  </Card>
-  <Card title="English and Hindi, right-to-left ready" icon="translate">
-    Typed translation keys, a lint rule against hard-coded text, plural rules on Hermes, and layouts
-    that mirror when you add a right-to-left language. [Forms and
-    i18n](/reference/decisions/0009-forms-and-i18n/)
-  </Card>
-  <Card title="Generators" icon="add-document">
-    `pnpm gen feature orders` writes a working screen, its API call, mock data, strings, a deep link
-    and tests that pass. [Generators](/build/generators/)
-  </Card>
-  <Card title="Releases with fastlane" icon="rocket">
-    Version bumps on both platforms, release builds, match signing, and uploads to TestFlight and
-    Play internal testing. [Releasing](/production/releasing/)
-  </Card>
-  <Card title="A demo you can remove" icon="random">
-    A feed, likes and a component showroom show every pattern. `pnpm strip-examples` removes them
-    and leaves a blank Home tab. [Demo code](/build/project-rules/#demo-code)
-  </Card>
-  <Card title="A supply-chain policy" icon="approve-check">
-    pnpm refuses packages younger than 3 days and install scripts you haven't allowed, and Renovate
-    groups updates. [Decision 0003](/reference/decisions/0003-package-manager-and-supply-chain/)
-  </Card>
-</CardGrid>
 
 ## Writes that work offline
 
@@ -264,6 +192,38 @@ The rules your team follows are written down where coding agents read them, and 
   read the screen as text instead of guessing from screenshots.
 
 [How agents work with the template](/build/ai-agents/)
+
+## What's inside
+
+<CardGrid>
+  <Card title="Tokens in the Keychain" icon="padlock">
+    Access and refresh tokens live in the iOS Keychain and Android Keystore, never in plain storage.
+    One refresh serves every request waiting on it. [Session](/build/architecture/#session)
+  </Card>
+  <Card title="Firebase when you want it" icon="analytics">
+    Crashlytics, Analytics, Remote Config and push switch on when you add a Firebase file, and fall
+    back without one. [Set up Firebase](/production/going-live/#set-up-firebase)
+  </Card>
+  <Card title="Three environments" icon="setting">
+    Dev, staging and prod install side by side, each with its own app id, name, icon badge, URL
+    scheme and `.env` file. [Environments](/start-here/environments/)
+  </Card>
+  <Card title="Generators" icon="add-document">
+    `pnpm gen feature orders` writes a working screen, its API call, mock data, strings, a deep link
+    and tests that pass. [Generators](/build/generators/)
+  </Card>
+  <Card title="Releases with fastlane" icon="rocket">
+    Version bumps on both platforms, release builds, match signing, and uploads to TestFlight and
+    Play internal testing. [Releasing](/production/releasing/)
+  </Card>
+  <Card title="A demo you can remove" icon="random">
+    A feed, likes and a component showroom show every pattern. `pnpm strip-examples` removes them
+    and leaves a blank Home tab. [Demo code](/build/project-rules/#demo-code)
+  </Card>
+</CardGrid>
+
+Also included: English and Hindi with right-to-left support ([Languages](/build/languages/)), and a supply-chain
+policy that refuses packages younger than 3 days ([Decision 0003](/reference/decisions/0003-package-manager-and-supply-chain/)).
 
 ## Is this for you?
 
@@ -293,7 +253,7 @@ to ask of any of them.
 <Steps>
 
 1. Create the app. It checks your tools first, then installs everything and sets the bundle id
-   (other ways: [Create an app](#create-an-app)):
+   (other ways, with the React Native CLI or GitHub's template: [Quick start](/start-here/quick-start/#or-step-by-step)):
 
    ```bash
    npx create-bareship Acme
@@ -369,3 +329,13 @@ changes you want.
 Nothing. It's open source under the MIT license.
 
 </details>
+
+<div class="star-box">
+
+**If Bareship saves you a week, a star on GitHub helps other React Native developers find it.**
+
+<LinkButton href="https://github.com/psingh2907/bareship" icon="github" variant="secondary">
+  Star on GitHub
+</LinkButton>
+
+</div>
